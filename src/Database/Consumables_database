@@ -1,0 +1,21 @@
+consumable lime
+input unit kg
+input price 0.31
+
+solid_residue scrubber_cake
+input unit kg
+input price 0.0706
+
+consumable SE-pellets_arbacore_spruce_stem
+input unit kg
+input price 50
+
+consumable spruce_chips
+input unit kg
+input price 50
+
+consumable spruce_T&B
+input unit kg
+input price 30
+
+END

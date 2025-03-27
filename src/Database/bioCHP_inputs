@@ -1,0 +1,42 @@
+plant bioCHP_PLANT
+prop fuel_diameter_m 0.05 # unit=m, characteristic particle size of the feedstock
+prop T_stm 450.0 # unit=deg.C, boiler steam temperature
+prop P_stm 100.0 # unit=bar-g, boiler steam pressure
+prop electricity_unit kWh
+prop price_electricity 0.1 # unit=euro/kwh
+prop f_piping 0.065 # unit=none, equipment cost factor for piping
+prop f_el 0.05 # unit=none, equipment cost factor for electrical system
+prop f_I&C 0.05 # unit=none, equipment cost factor for instrumentation&control
+prop f_land 0.12 # unit=none, capital cost factor for land purchase
+prop f_site 0.05 # unit=none, capital cost factor for site preparation
+prop f_build 0.2 # unit=none, capital cost factor for Construction of buildings
+prop f_eng 0.1 # unit=none, capital cost factor for engineering
+prop f_dev 0.02 # unit=none, capital cost factor for Project development
+prop f_com 0.10 # unit=none, capital cost factor for commissioning
+prop f_cont 0.15 # unit=none, capital cost factor for contingency
+prop f_ins 0.01 # unit=none, capital cost factor for insurance
+prop f_adm 0.01 # unit=none, capital cost factor for administration
+
+
+system solid_fuel_boiler
+prop lambda 1.2 # unit = none, input to stoichiometric O2 molar ratio in the combustion process
+prop P_bar 1.01325 # unit = bar-a, pressure in the combustion process and flue gas 
+prop T_ox 25.0 # unit = deg.C, temperature of the oxidizing fluid (air)
+prop T_g 140.0 # unit = deg.C, oulet flue gas temperature from the boiler after heat recovery
+prop q_loss 0.05 # unit = none, ratio of the rate of heat losses to output boiler thermal power 
+
+process flue_gas_cleaning
+prop SO2 50 # unit = mg/Nm3, SO2 emission limit 
+prop HCl 10 # unit = mg/Nm3, HCl emission limit
+prop PM 50 # unit = mg/Nm3, Particle Matter emission limit
+prop T_op 140.0 # unit = deg.C, operatioal temperature
+prop P_op 1.01325 # unit = bar-a, operational pressure
+
+process Rankine_cycle
+prop Po 0.032 # unit = bar-a, outlet steam pressure from steam turbines
+prop mu_isent 0.65 # unit = none, isentropic efficiency of the steam turbines
+prop P_cond 1.032 # unit = deg.C, operatioal temperature condenser
+prop T_cond 25 # unit = deg.C, operational pressure condenser 
+
+END
+
