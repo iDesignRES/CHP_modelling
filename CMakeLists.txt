@@ -7,6 +7,8 @@ project(CHP_model)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+enable_testing()
+
 # Add the executable
 add_executable(test1 Tests/bioCHP_test_1.cpp)
 add_executable(test2 Tests/bioCHP_test_2.cpp)
