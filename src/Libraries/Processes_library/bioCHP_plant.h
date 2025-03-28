@@ -1,7 +1,7 @@
 
 void get_feedstock(vector<flow> &f, object &plant) {
   double LHV = 0.0;
-  for (int nf = 0; nf < plant.svct("fuel_def").size(); nf++) {
+  for (size_t nf = 0; nf < plant.svct("fuel_def").size(); nf++) {
     f.push_back(flow("feed", plant.svct("fuel_def")[nf]));
     f[nf].F.T = 25.0;
     f[nf].F.P = 1.01325;
@@ -36,7 +36,7 @@ void bioCHP_plant_model(object &bioCHP) {
     cout << "bioCHP PLANT calculation using W_el: " << endl;
 
     double Hf = bioCHP.fp("W_el") / 0.2;
-    for (int nk = 0; nk < bioCHP.vctp("Qk").size(); nk++) {
+    for (size_t nk = 0; nk < bioCHP.vctp("Qk").size(); nk++) {
       Hf += bioCHP.vctp("Qk")[nk];
     }
     Hf = Hf / 0.9;
@@ -48,7 +48,7 @@ void bioCHP_plant_model(object &bioCHP) {
     cout << "initial Hf: " << Hf << endl;
     cout << "initial Mf: " << Mf << endl;
 
-    for (int nf = 0; nf < feed.size(); nf++) {
+    for (size_t nf = 0; nf < feed.size(); nf++) {
       feed[nf].F.M = bioCHP.vctp("Yj")[nf] * Mf;
       feed[nf].F.Hf = feed[nf].F.M * feed[nf].P.LHV;
     }
@@ -70,7 +70,7 @@ void bioCHP_plant_model(object &bioCHP) {
 
   bioCHP.fval_p("M_fuel", bioCHP.fp("Hf") / bioCHP.fp("LHV_f"));
 
-  for (int nf = 0; nf < feed.size(); nf++) {
+  for (size_t nf = 0; nf < feed.size(); nf++) {
     feed[nf].F.M = bioCHP.vctp("Yj")[nf] * bioCHP.fp("M_fuel");
     feed[nf].F.Hf = feed[nf].F.M * feed[nf].P.LHV;
   }
@@ -91,7 +91,7 @@ void bioCHP_plant_model(object &bioCHP) {
   bioCHP.c.push_back(rankine);
   bioCHP.c.push_back(scrubber);
 
-  for (int nf = 0; nf < feed.size(); nf++) {
+  for (size_t nf = 0; nf < feed.size(); nf++) {
     bioCHP.fval_p("output-Mj", feed[nf].F.M);
     bioCHP.fval_p("output-Hfj", feed[nf].F.Hf);
     bioCHP.c.push_back(object("consumable", feed[nf].def));

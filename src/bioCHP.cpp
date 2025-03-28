@@ -3,6 +3,7 @@
 #include <vector>
 
 using namespace std;
+
 vector<string> divide_string(string str, char c) {
   // cout << "divide " << str << endl;
   vector<string> list;
@@ -26,8 +27,6 @@ vector<string> divide_string(string str, char c) {
     l = l + 1;
   }
   cstr.clear();
-  // cout << "list size " << list.size() << endl; if(list.size() > 0){ for(int n = 0; n <
-  // list.size(); n++){ cout << list[n] << endl; }}
   return list;
 }
 
@@ -36,7 +35,8 @@ using namespace MyPaths;
 std::string DIR = getActualDir(string(__FILE__));
 std::string project = project_name();
 
-#include "Parameters.h"
+//#include "Parameters.h"
+#include "Parameters.cpp"
 #include "Flows.h"
 #include "Cost.h"
 #include "Processes.h"
@@ -70,9 +70,9 @@ bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, double W_el,
   }
 
   // Check that all feedstock exist in the database
-  for (int nf = 0; nf < fuel_def.size(); nf++) {
+  for (size_t nf = 0; nf < fuel_def.size(); nf++) {
     if (!find_flow(fuel_def[nf])) {
-      for (int nff = 0; nff < fuel_def.size(); nff++) {
+      for (size_t nff = 0; nff < fuel_def.size(); nff++) {
         Mj.push_back(0.0);
       }
       C_inv = 0.0;
@@ -95,7 +95,7 @@ bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, double W_el,
     cout << "number of specifications for Tk_in and Tk_out are different" << endl;
     return false;
   }
-  for (int nk = 0; nk < Tk_in.size(); nk++) {
+  for (size_t nk = 0; nk < Tk_in.size(); nk++) {
     if (Tk_in[nk] > Tk_out[nk]) {
       cout << "return temperature of heat demand no. " << nk
            << " is higher than supply temperature" << endl;
@@ -105,7 +105,7 @@ bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, double W_el,
 
   // Check that there is sufficient heat available from Rankine cycle
   double sum_Qk = 0.0;
-  for (int nk = 0; nk < Qk.size(); nk++) {
+  for (size_t nk = 0; nk < Qk.size(); nk++) {
     sum_Qk = sum_Qk + Qk[nk];
   }
   if (sum_Qk > 0.5 * (W_el / 0.2)) {
@@ -113,7 +113,7 @@ bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, double W_el,
             "specifiy heat demand"
          << endl;
     cout << "Reducing proportionally the heat demands" << endl;
-    for (int nk = 0; nk < Qk.size(); nk++) {
+    for (size_t nk = 0; nk < Qk.size(); nk++) {
       Qk[nk] = Qk[nk] * (0.5 * (W_el / 0.2)) / sum_Qk;
     }
   }

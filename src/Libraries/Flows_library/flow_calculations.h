@@ -32,11 +32,11 @@ void flow::calculate_flow_composition() {
 
   if (j.size() > 1) {
     sum_Y = 0.0;
-    for (int n = 0; n < j.size(); n++) {
+    for (size_t n = 0; n < j.size(); n++) {
       sum_Y += j[n].Y;
     }
     sum_X = 0.0;
-    for (int n = 0; n < j.size(); n++) {
+    for (size_t n = 0; n < j.size(); n++) {
       sum_X += j[n].X;
     }
     if (molec_def != "Y" and sum_Y > 0.0) {
@@ -48,12 +48,12 @@ void flow::calculate_flow_composition() {
 
     if (molec_def == "Y") {
       sum_Y_MW = 0.0;
-      for (int n = 0; n < j.size(); n++) {
+      for (size_t n = 0; n < j.size(); n++) {
         if (j[n].Y > 0 and j[n].P.MW > 0) {
           sum_Y_MW += j[n].Y / j[n].P.MW;
         }
       }
-      for (int n = 0; n < j.size(); n++) {
+      for (size_t n = 0; n < j.size(); n++) {
         if (j[n].Y > 0 and j[n].P.MW > 0 and sum_Y_MW > 0) {
           j[n].X = (j[n].Y / j[n].P.MW) / sum_Y_MW;
         }
@@ -63,12 +63,12 @@ void flow::calculate_flow_composition() {
       }
     } else if (molec_def == "X") {
       sum_X_MW = 0.0;
-      for (int n = 0; n < j.size(); n++) {
+      for (size_t n = 0; n < j.size(); n++) {
         if (j[n].X > 0 and j[n].P.MW > 0) {
           sum_X_MW += j[n].X * j[n].P.MW;
         }
       }
-      for (int n = 0; n < j.size(); n++) {
+      for (size_t n = 0; n < j.size(); n++) {
         if (j[n].X > 0 and j[n].P.MW > 0 and sum_X_MW > 0) {
           j[n].Y = (j[n].X * j[n].P.MW) / sum_X_MW;
         }
@@ -78,7 +78,7 @@ void flow::calculate_flow_composition() {
       }
     }
 
-    for (int n = 0; n < j.size(); n++) {
+    for (size_t n = 0; n < j.size(); n++) {
       P.MW += j[n].X * j[n].P.MW;
     }
   }
@@ -111,7 +111,7 @@ void flow::calculate_flow_properties(string state_def) {
     P.h = 0.0;
     P.s = 0.0;
 
-    for (int n = 0; n < j.size(); n++) {
+    for (size_t n = 0; n < j.size(); n++) {
       P.cp += j[n].Y * j[n].P.cp;
       P.h += j[n].Y * j[n].P.h;
       P.s += j[n].Y * j[n].P.s;
@@ -140,7 +140,7 @@ void flow::calculate_flow_properties(string state_def) {
     }
 
     if (j.size() > 1) {
-      for (int n = 0; n < j.size(); n++) {
+      for (size_t n = 0; n < j.size(); n++) {
         // update flow properties (assume mass basis at first (MUST BE CHANGED LATER)):
         // P.cp += j[n].X * j[n].P.cp;
         P.cp += j[n].Y * j[n].P.cp;
@@ -168,7 +168,7 @@ void flow::calculate_flow_properties(string state_def) {
       }
 
       double sum_Y_rho = 0.0;
-      for (int n = 0; n < j.size(); n++) {
+      for (size_t n = 0; n < j.size(); n++) {
         sum_Y_rho += j[n].Y / j[n].P.rho;
       }
       P.rho = 1.0 / sum_Y_rho;
@@ -178,7 +178,7 @@ void flow::calculate_flow_properties(string state_def) {
 
 void flow::calculate_species_properties(string state_def) {
   // calculating individual species properties:
-  for (int n = 0; n < j.size(); n++) {
+  for (size_t n = 0; n < j.size(); n++) {
     j[n].F.T = F.T;
     j[n].F.P = F.P;
     if (!j[n].refprop and j[n].thermoPkg) {
@@ -294,7 +294,7 @@ void flow::define_flow_prop_data() {
     bool NASA = true;
     bool thermoPkg = true;
 
-    for (int n = 0; n < j.size(); n++) {
+    for (size_t n = 0; n < j.size(); n++) {
       if (!j[n].refprop) {
         refprop = false;
       }

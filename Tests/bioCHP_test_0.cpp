@@ -2,6 +2,7 @@
 #include <string.h>
 #include <iostream>
 #include <vector>
+
 using namespace std;
 
 int main() {
@@ -16,7 +17,7 @@ int main() {
   double C_inv;
   double C_op;
 
-  for (int nj = 0; nj < Yj.size(); nj++) {
+  for (size_t nj = 0; nj < Yj.size(); nj++) {
       cout << "Y_" + fuel_def[nj] + " = " << Yj[nj] << endl;
   }
 

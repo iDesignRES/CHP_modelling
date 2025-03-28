@@ -12,7 +12,7 @@ struct parameter {
  public:
   string sys_type, sys_def;
   string data_def, data_id, data_type, data_info;
-  int pos;
+  size_t pos;
   vector<string> str;
   vector<double> num;
   parameter(string line);
@@ -58,7 +58,7 @@ string get_parameter_value(vector<parameter> &par, string sys_type, string sys_d
   // cout << "getting value for " << data_id << " in " << sys_type << " " << sys_def <<
   // endl;
   bool found = false;
-  for (int np = 0; np < par.size(); np++) {
+  for (size_t np = 0; np < par.size(); np++) {
     if (par[np].sys_type == sys_type && par[np].sys_def == sys_def &&
         par[np].data_id == data_id) {
       string val = par[np].str[par[np].pos];
@@ -79,7 +79,7 @@ string get_parameter_value(vector<parameter> &par, string sys_type, string sys_d
 void print_parameter_value(vector<parameter> &p, string sys_type, string sys_def,
                            string data_id) {
   bool found = false;
-  for (int np = 0; np < p.size(); np++) {
+  for (size_t np = 0; np < p.size(); np++) {
     if (p[np].sys_type == sys_type && p[np].sys_def == sys_def &&
         p[np].data_id == data_id) {
       found = true;
@@ -96,7 +96,7 @@ void export_parameter(vector<parameter> &par, string data_def, string sys_type,
                       string sys_def, string data_id, string val) {
   // cout << "exporting parameter" << endl;
   bool found = false;
-  for (int np = 0; np < par.size(); np++) {
+  for (size_t np = 0; np < par.size(); np++) {
     if (par[np].sys_type == sys_type && par[np].sys_def == sys_def &&
         par[np].data_id == data_id) {
       par[np].str.push_back(val);
@@ -193,12 +193,12 @@ void get_parameters(vector<parameter> &par, string sys_type, string sys_def,
 void export_output_parameters(object &obj, string file) {
   ofstream output_parameters(file);
 
-  for (int np = 0; np < obj.p.size(); np++) {
+  for (size_t np = 0; np < obj.p.size(); np++) {
     if (obj.p[np].data_def == "output") {
       output_parameters << obj.p[np].sys_type << " " << obj.p[np].sys_def << " "
                         << obj.p[np].data_id;
 
-      for (int ns = 0; ns < obj.p[np].str.size(); ns++) {
+      for (size_t ns = 0; ns < obj.p[np].str.size(); ns++) {
         output_parameters << " " << obj.p[np].str[ns];
       }
       output_parameters << endl;
@@ -210,11 +210,11 @@ void export_output_parameters(object &obj, string file) {
 
 void print_parameters(vector<parameter> &p) {
   cout << "no. parameters: " << p.size() << endl;
-  for (int np = 0; np < p.size(); np++) {
+  for (size_t np = 0; np < p.size(); np++) {
     cout << p[np].sys_type << " " << p[np].sys_def << " " << p[np].data_def << " "
          << p[np].data_type;
 
-    for (int ns = 0; ns < p[np].str.size(); ns++) {
+    for (size_t ns = 0; ns < p[np].str.size(); ns++) {
       cout << " " << p[np].str[ns];
     }
     cout << endl;
@@ -236,10 +236,10 @@ vector<double> fp_vct(vector<parameter> &par, string sys_type, string sys_def,
                       string data_id) {
   bool found = false;
   vector<double> vct;
-  for (int np = 0; np < par.size(); np++) {
+  for (size_t np = 0; np < par.size(); np++) {
     if (par[np].sys_type == sys_type && par[np].sys_def == sys_def &&
         par[np].data_id == data_id) {
-      for (int n = 0; n < par[np].str.size(); n++) {
+      for (size_t n = 0; n < par[np].str.size(); n++) {
         vct.push_back(atof(par[np].str[n].c_str()));
       }
       found = true;
@@ -254,10 +254,10 @@ vector<string> sp_vct(vector<parameter> &par, string sys_type, string sys_def,
                       string data_id) {
   bool found = false;
   vector<string> vct;
-  for (int np = 0; np < par.size(); np++) {
+  for (size_t np = 0; np < par.size(); np++) {
     if (par[np].sys_type == sys_type && par[np].sys_def == sys_def &&
         par[np].data_id == data_id) {
-      for (int n = 0; n < par[np].str.size(); n++) {
+      for (size_t n = 0; n < par[np].str.size(); n++) {
         vct.push_back(par[np].str[n]);
       }
       found = true;
@@ -284,11 +284,11 @@ void fvct_p(vector<parameter> &par, string data_def, string sys_type, string sys
             string data_id, vector<double> val) {
   // cout << "exporting parameter" << endl;
   bool found = false;
-  for (int np = 0; np < par.size(); np++) {
+  for (size_t np = 0; np < par.size(); np++) {
     if (par[np].sys_type == sys_type && par[np].sys_def == sys_def &&
         par[np].data_id == data_id) {
       par[np].str.clear();
-      for (int n = 0; n < val.size(); n++) {
+      for (size_t n = 0; n < val.size(); n++) {
         par[np].str.push_back(to_string(val[n]));
       }
       par[np].pos = 0;
@@ -303,7 +303,7 @@ void fvct_p(vector<parameter> &par, string data_def, string sys_type, string sys
     p.sys_def = sys_def;
     p.data_id = data_id;
     p.pos = 0;
-    for (int n = 0; n < val.size(); n++) {
+    for (size_t n = 0; n < val.size(); n++) {
       p.str.push_back(to_string(val[n]));
     }
     par.push_back(p);
@@ -316,11 +316,11 @@ void svct_p(vector<parameter> &par, string data_def, string sys_type, string sys
             string data_id, vector<string> val) {
   // cout << "exporting parameter" << endl;
   bool found = false;
-  for (int np = 0; np < par.size(); np++) {
+  for (size_t np = 0; np < par.size(); np++) {
     if (par[np].sys_type == sys_type && par[np].sys_def == sys_def &&
         par[np].data_id == data_id) {
       par[np].str.clear();
-      for (int n = 0; n < val.size(); n++) {
+      for (size_t n = 0; n < val.size(); n++) {
         par[np].str.push_back(val[n]);
       }
       par[np].pos = 0;
@@ -335,7 +335,7 @@ void svct_p(vector<parameter> &par, string data_def, string sys_type, string sys
     p.sys_def = sys_def;
     p.data_id = data_id;
     p.pos = 0;
-    for (int n = 0; n < val.size(); n++) {
+    for (size_t n = 0; n < val.size(); n++) {
       p.str.push_back(val[n]);
     }
     par.push_back(p);
@@ -366,7 +366,7 @@ object::object(string type, string def) {
 }
 
 int object::ic(string type, string def) {
-  for (int n = 0; n < c.size(); n++) {
+  for (size_t n = 0; n < c.size(); n++) {
     if (c[n].sys_type == type && c[n].sys_def == def) {
       return n;
     }
@@ -376,7 +376,7 @@ int object::ic(string type, string def) {
 
 int object::ip(string symb) {
   bool found = false;
-  for (int np = 0; np < p.size(); np++) {
+  for (size_t np = 0; np < p.size(); np++) {
     if (p[np].data_id == symb) {
       return np;
     }
@@ -387,7 +387,7 @@ int object::ip(string symb) {
 
 bool object::bp(string symb) {
   bool found = false;
-  for (int np = 0; np < p.size(); np++) {
+  for (size_t np = 0; np < p.size(); np++) {
     if (p[np].data_id == symb) {
       return true;
     }
