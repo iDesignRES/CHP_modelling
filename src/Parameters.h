@@ -127,7 +127,7 @@ void get_parameters( vector<parameter> &par, string sys_type, string sys_def, st
 				getline(p_file, line_txt); //cout << "line_txt: " << line_txt << endl;
 				stringstream sst(line_txt); sst >> txt; 
 
-				if (txt == "input" or txt == "prop" or txt == "output" ){
+				if (txt == "input" || txt == "prop" || txt == "output" ){
 					p.sys_type = sys_type; p.sys_def = sys_def;
       					p.data_def = txt;
       					sst >> p.data_id;   
