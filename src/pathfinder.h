@@ -53,6 +53,14 @@ std::string mergePaths(std::string pathA, std::string pathB) {
   return mergedPath;
 }
 
+std::string getActualDir(std::string file_path) {
+    vector<string> dir = divide_string(file_path,'/');
+    	dir.pop_back();
+	string Dir = "";
+	for(int n = 0; n < dir.size(); n++){Dir = Dir + dir[n]+"/";}
+	return Dir;
+}
+
 #endif
 
 #ifdef __linux__
@@ -119,6 +127,15 @@ std::string project_name() {
         delete [] executablePathStr;
         return std::string(executableDir);
     }
+
+   std::string getActualDir(std::string file_path) {
+    	vector<string> dir = divide_string(file_path,'/');
+    	dir.pop_back();
+	string Dir = "";
+	for(int n = 0; n < dir.size(); n++){Dir = Dir + dir[n]+"/";}
+	return Dir;
+	}
+
 
     std::string mergePaths(std::string pathA, std::string pathB) {
         return pathA+"/"+pathB;
