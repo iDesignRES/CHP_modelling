@@ -2,7 +2,6 @@
     #include <windows.h>
     #include <Shlwapi.h>
     #include <io.h> 
-
     #define access _access_s
 #endif
 
