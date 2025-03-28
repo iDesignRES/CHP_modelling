@@ -11,7 +11,7 @@ void flow::calculate_flow(string state_def) {
     calculate_gas_fuel();
   }
 
-  if (prop_data != "solid_fuel" && prop_data != "gas_fuel" && prop_data != "bio_oil" and
+  if (prop_data != "solid_fuel" && prop_data != "gas_fuel" && prop_data != "bio_oil" &&
       prop_data != "ash") {
     calculate_flow_composition();
     if (molec_def == "Y" || molec_def == "X") {
@@ -93,7 +93,7 @@ void flow::calculate_flow_properties(string state_def) {
   P.cp = 0;
   P.rho = 0;
 
-  if (prop_data != "refprop" && prop_data != "NASA" && prop_data != "solid_fuel" and
+  if (prop_data != "refprop" && prop_data != "NASA" && prop_data != "solid_fuel" &&
       prop_data != "NIST") {
     define_flow_prop_data();
   }
