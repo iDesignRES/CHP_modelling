@@ -31,7 +31,7 @@ namespace MyPaths {
 
 std::string getExecutablePath() {
    char rawPathName[MAX_PATH];
-   GetModuleFileNameA(NULL, rawPathName, MAX_PATH);
+   GetModuleFileName(NULL, rawPathName, MAX_PATH);
    return std::string(rawPathName);
 }
 
@@ -57,9 +57,18 @@ std::string mergePaths(std::string pathA, std::string pathB) {
 #ifdef __linux__
 
 std::string getExecutablePath() {
-   char rawPathName[PATH_MAX];
+   /*char rawPathName[PATH_MAX];
    realpath(PROC_SELF_EXE, rawPathName);
-   return  std::string(rawPathName);
+   return  std::string(rawPathName);*/
+
+    char path[PATH_MAX];
+    ssize_t count = readlink("/proc/self/exe", path, PATH_MAX);
+    if (count != -1) {
+        path[count] = '\0'; // Null-terminate the string
+        return std::string(path);
+    } else {
+        throw std::runtime_error("Failed to get executable path.");
+    }
 }
 
 std::string getExecutableDir() {
