@@ -61,6 +61,13 @@ std::string getActualDir(std::string file_path) {
 	return Dir;
 }
 
+std::string project_name() {
+    std::string executablePath = getExecutablePath();
+    vector<string> dir = divide_string(getExecutablePath(),'/');
+    vector<string> name = divide_string(dir[dir.size()-1],'.');
+    return name[0];
+}
+
 #endif
 
 #ifdef __linux__
@@ -136,10 +143,17 @@ std::string project_name() {
 	return Dir;
 	}
 
+std::string project_name() {
+    std::string executablePath = getExecutablePath();
+    vector<string> dir = divide_string(getExecutablePath(),'/');
+    vector<string> name = divide_string(dir[dir.size()-1],'.');
+    return name[0];
+}
 
     std::string mergePaths(std::string pathA, std::string pathB) {
         return pathA+"/"+pathB;
     }
+
 #endif
 
 
