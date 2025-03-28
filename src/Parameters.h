@@ -69,22 +69,19 @@ string get_parameter_value(vector<parameter> &par, string sys_type, string sys_d
 
 
 
-void print_parameter_value(vector<parameter> &p, string sys_type, string sys_def, string data_id)
-{
- bool found = false;
- for( int np = 0; np < p.size(); np++)
- {
-  if(p[np].sys_type == sys_type and p[np].sys_def == sys_def and p[np].data_id == data_id )
-  {
-   found = true;
-   cout << p[np].sys_type << " " 
-        << p[np].sys_def  << " "
-        << p[np].data_def << " " 
-        << p[np].data_id  << " "
-        << p[np].str[p[np].pos] << endl;
-  } 
- }
- if( found == false ) { cout << "none found" << endl; }
+void print_parameter_value(vector<parameter> &p, string sys_type, string sys_def, string data_id){
+ 	bool found = false;
+ 	for( int np = 0; np < p.size(); np++){
+  		if(p[np].sys_type == sys_type && p[np].sys_def == sys_def && p[np].data_id == data_id ){
+   			found = true;
+   			cout << p[np].sys_type << " " 
+        		<< p[np].sys_def  << " "
+        		<< p[np].data_def << " " 
+        		<< p[np].data_id  << " "
+        		<< p[np].str[p[np].pos] << endl;
+  		}	 
+ 	}
+ 	if( found == false ) { cout << "none found" << endl; }
 } 
 
 void export_parameter(vector<parameter> &par, string data_def, string sys_type, string sys_def, string data_id, string val)
