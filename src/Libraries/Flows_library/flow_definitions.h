@@ -753,7 +753,7 @@ void flow::get_flow_properties() {
       getline(flow_file, line_txt);
       stringstream sst(line_txt);
       getline(sst, txt, ' ');
-      if (txt == "Flow_def" || txt == "Flow_def:" || txt == "flow_def" or
+      if (txt == "Flow_def" || txt == "Flow_def:" || txt == "flow_def" ||
           txt == "flow_def:") {
         while (getline(sst, txt, ' ')) {
           if (txt == def) {
@@ -1180,7 +1180,7 @@ bool find_flow(string input_def) {
       getline(db, line_txt);
       stringstream sst(line_txt);
       getline(sst, txt, ' ');
-      if (txt == "Flow_def" || txt == "Flow_def:" || txt == "flow_def" or
+      if (txt == "Flow_def" || txt == "Flow_def:" || txt == "flow_def" ||
           txt == "flow_def:") {
         while (getline(sst, txt, ' ')) {
           if (txt == input_def) {

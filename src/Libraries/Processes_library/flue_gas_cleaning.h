@@ -20,7 +20,7 @@ void NOx_reduction_model(flow &in, flow &out, vector<flow> &cons, vector<paramet
   in.calculate_flow("PT");
 
   cons.push_back(flow("ammonia", "NH3_pure"));
-  int ammonia = index_flow(cons, "ammonia");
+  size_t ammonia = index_flow(cons, "ammonia");
   cons[ammonia].F.T =
       atof(get_parameter_value(par, "process", "NOx_REDUCTION", "T_NH3").c_str());
   cons[ammonia].F.P =
@@ -30,9 +30,9 @@ void NOx_reduction_model(flow &in, flow &out, vector<flow> &cons, vector<paramet
 
   out = in;
   out.mix_flows(in, cons[ammonia]);
-  int NO2 = index_species(out.j, "NO2");
+  size_t NO2 = index_species(out.j, "NO2");
   out.j[NO2].X = X_NOx_clean;
-  int NH3 = index_species(out.j, "NH3");
+  size_t NH3 = index_species(out.j, "NH3");
   out.j[NH3].X -= in.j[NO2].X - X_NOx_clean;
   out.calculate_flow("PT");
   out.print_flow();
@@ -56,20 +56,20 @@ void dry_scrubber_model(flow &in, flow &out, object &par) {
   in.calculate_flow("PT");
 
   par.c.push_back(object("consumable", "lime"));
-  int lime = par.ic("consumable", "lime");
+  size_t lime = par.ic("consumable", "lime");
   par.c[lime].fval_p("Q_annual",
                      par.fp("M_fuel") * 14.44 * 3.6 * 8000);  // 14.44 kg / ton solid fuel
   material_cost(par.c[lime]);
 
   par.c.push_back(object("solid_residue", "scrubber_cake"));
-  int cake = par.ic("solid_residue", "scrubber_cake");
+  size_t cake = par.ic("solid_residue", "scrubber_cake");
   par.c[cake].fval_p("Q_annual", par.c[lime].fp("Q_annual"));
   material_cost(par.c[cake]);
 
   out = in;
 
   par.c.push_back(object("equipment", "dry_scrubber"));
-  int scrubber = par.ic("equipment", "dry_scrubber");
+  size_t scrubber = par.ic("equipment", "dry_scrubber");
   par.c[scrubber].fval_p("S", in.F.M * 3.6);
   par.c[scrubber].fval_p("W_el", par.fp("M_fuel") * 3.6 * par.c[scrubber].fp("w_el"));
 
