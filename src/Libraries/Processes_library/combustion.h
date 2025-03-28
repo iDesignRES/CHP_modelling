@@ -27,10 +27,10 @@ void calculate_fuel_combustion_properties(flow fuel, object &prop) {
   if (fuel.prop_data == "gas_fuel") {
     int CO2 = index_species(fuel.j, "CO2");
 
-    if (CO2 > 0 and fuel.j[CO2].Y > 0) {
+    if (CO2 > 0 && fuel.j[CO2].Y > 0) {
       // gas fuel contains CO2
       double Y_CO2 = fuel.j[CO2].Y;
-      for (int nj = 0; nj < fuel.j.size(); nj++) {
+      for (size_t nj = 0; nj < fuel.j.size(); nj++) {
         if (fuel.j[nj].id != "CO2") {
           fuel.j[nj].Y = fuel.j[nj].Y / (1.0 - fuel.j[CO2].Y);
         }
@@ -99,7 +99,7 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_ga
   vector<flow> fa;
 
   if (air.size() == 0) {
-    for (int n = 0; n < fuel.size(); n++) {
+    for (size_t n = 0; n < fuel.size(); n++) {
       air.push_back(flow("dry_air"));
       fg.push_back(flow("flue_gas", "flue_gas"));
       ba.push_back(flow("bottom_ash", "ash"));
@@ -107,7 +107,7 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_ga
     }
   }
 
-  for (int n = 0; n < fuel.size(); n++) {
+  for (size_t n = 0; n < fuel.size(); n++) {
     int C = index_species(fuel[n].i, "C");
     int H = index_species(fuel[n].i, "H");
     int O = index_species(fuel[n].i, "O");
@@ -140,10 +140,10 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_ga
     fg[n].j[CO2g].F.VN = fuel[n].F.M * comb_f.fp("vn_CO2_m");
     fg[n].j[H2Og].F.VN = fuel[n].F.M * comb_f.fp("vn_H2O_m");
     fg[n].F.VN = 0;
-    for (int nj = 0; nj < fg[n].j.size(); nj++) {
+    for (size_t nj = 0; nj < fg[n].j.size(); nj++) {
       fg[n].F.VN = fg[n].F.VN + fg[n].j[nj].F.VN;
     }
-    for (int nj = 0; nj < fg[n].j.size(); nj++) {
+    for (size_t nj = 0; nj < fg[n].j.size(); nj++) {
       fg[n].j[nj].X = fg[n].j[nj].F.VN / fg[n].F.VN;
     }
     fg[n].molec_def = "X";
@@ -164,7 +164,7 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_ga
   }
 
   double comb_Hf = 0;
-  for (int n = 0; n < fuel.size(); n++) {
+  for (size_t n = 0; n < fuel.size(); n++) {
     if (n == 0) {
       if (comb_air.size() == 0) {
         comb_air.push_back(air[n]);
@@ -205,7 +205,7 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_ga
   cout << "Mass balance" << endl;
   cout << "------------" << endl;
   cout << "fuel M (kg/s): " << comb.fp("M_fuel") << endl;
-  for (int nf = 0; nf < fuel.size(); nf++) {
+  for (size_t nf = 0; nf < fuel.size(); nf++) {
     cout << '\t' << fuel[nf].def << " (kg/s): " << fuel[nf].F.M << endl;
   }
   cout << "Combustion air M: " << comb_air[0].F.M << endl;
@@ -217,7 +217,7 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_ga
   cout << "energy balance" << endl;
   cout << "-------------" << endl;
   cout << "Fuel Hf (MW): " << comb.fp("Hf") << endl;
-  for (int nf = 0; nf < fuel.size(); nf++) {
+  for (size_t nf = 0; nf < fuel.size(); nf++) {
     cout << '\t' << fuel[nf].def << " (MW): " << fuel[nf].F.Hf << endl;
   }
 

@@ -137,7 +137,7 @@ void material_cost(object &par) {
 
 void equipment_list(vector<equipment> &list, object &par) {
   equipment eq;
-  for (int n = 0; n < par.c.size(); n++) {
+  for (size_t n = 0; n < par.c.size(); n++) {
     if (par.c[n].sys_type == "equipment") {
       eq.def = par.sys_def + "-" + par.c[n].sys_def;
       eq.Cpi = par.c[n].fp("Cpi");
@@ -154,7 +154,7 @@ void equipment_list(vector<equipment> &list, object &par) {
 
 void material_list(string type, vector<material> &list, object &par) {
   material m;
-  for (int n = 0; n < par.c.size(); n++) {
+  for (size_t n = 0; n < par.c.size(); n++) {
     if (par.c[n].sys_type == type) {
       m.def = par.sys_def + "-" + par.c[n].sys_def;
       m.Q_annual = par.c[n].fp("Q_annual");
@@ -173,7 +173,7 @@ void capex(object &par) {
   equipment_list(eq, par);
 
   double C_eq = 0.0, W_el = 0.0, C_eq_maint = 0.0;
-  for (int n = 0; n < eq.size(); n++) {
+  for (size_t n = 0; n < eq.size(); n++) {
     // cout << eq[n].def << " " << eq[n].Cpi << endl;
     C_eq = C_eq + eq[n].Cpi;
     W_el = W_el + eq[n].W_el;
@@ -237,7 +237,7 @@ void opex(object &par) {
   cout << "Material list" << endl;
   cout << "------------------" << endl;
   double C_op_mat = 0.0;
-  for (int n = 0; n < m.size(); n++) {
+  for (size_t n = 0; n < m.size(); n++) {
     cout << m[n].type << m[n].def << " Q_annual: " << m[n].Q_annual
          << " price: " << m[n].price << " " << m[n].C_annual << endl;
     C_op_mat = C_op_mat + m[n].C_annual;

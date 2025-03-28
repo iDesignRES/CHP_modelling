@@ -126,7 +126,7 @@ std::string getActualDir(string file_path) {
   vector<string> dir = divide_string(file_path, '/');
   dir.pop_back();
   string Dir = "";
-  for (int n = 0; n < dir.size(); n++) {
+  for (size_t n = 0; n < dir.size(); n++) {
     Dir = Dir + dir[n] + "/";
   }
   return Dir;

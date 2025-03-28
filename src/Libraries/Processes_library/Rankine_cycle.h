@@ -132,7 +132,7 @@ void steam_turbine_model(flow &in, flow &out, object &par) {
         out_n.F.M = out_n.F.M - par.vctp("M_bleed")[n];
       }
 
-      if (N_bleed > 1 and n > 0 and n < N_bleed) {
+      if (N_bleed > 1 && n > 0 && n < N_bleed) {
         ST_n.Ti = out_n.F.T;
         ST_n.Pi = out_n.F.P;
         ST_n.Po = par.vctp("P_bleed")[n];
@@ -195,7 +195,7 @@ void district_heating(flow &dh_in, flow &dh_out, object &par) {
   dh_out = flow("dh_out", "water");
 
   if (par.vctp("Qk").size() > 0) {
-    for (int nk = 0; nk < par.vctp("Qk").size(); nk++) {
+    for (size_t nk = 0; nk < par.vctp("Qk").size(); nk++) {
       dh_in.F.T = par.vctp("Tk_in")[nk];
       dh_in.F.P = 1.01325;
       dh_in.P.h = hTWater(dh_in.F.T);  // h_in.calculate_flow_properties("PT");
@@ -238,7 +238,7 @@ void district_heating(flow &dh_in, flow &dh_out, object &par) {
 
     vector<int> merged;
     if (P_bleed.size() > 1) {
-      for (int nb = 1; nb < P_bleed.size(); nb++) {
+      for (size_t nb = 1; nb < P_bleed.size(); nb++) {
         if ((P_bleed[nb] - P_bleed[nb - 1]) < 5.0) {
           merged.push_back(nb);
           M_bleed[nb - 1] += M_bleed[nb];
@@ -247,7 +247,7 @@ void district_heating(flow &dh_in, flow &dh_out, object &par) {
     }
 
     if (merged.size() > 0) {
-      for (int n = 0; n < merged.size(); n++) {
+      for (size_t n = 0; n < merged.size(); n++) {
         P_bleed.erase(P_bleed.begin() + merged[n]);
         M_bleed.erase(M_bleed.begin() + merged[n]);
       }
@@ -265,8 +265,8 @@ void district_heating(flow &dh_in, flow &dh_out, object &par) {
       }
     }
 
-    for (int nbo = 0; nbo < P_bleed_ord.size(); nbo++) {
-      for (int nb = 0; nb < P_bleed_ord.size(); nb++) {
+    for (size_t nbo = 0; nbo < P_bleed_ord.size(); nbo++) {
+      for (size_t nb = 0; nb < P_bleed_ord.size(); nb++) {
         if (P_bleed_ord[nbo] == P_bleed[nb]) {
           M_bleed_ord.push_back(M_bleed[nb]);
         }
@@ -289,7 +289,7 @@ void heat_extractions(object &par) {
 
   flow dh_in = flow("dh_in", "water"), dh_out = flow("dh_out", "water");
 
-  for (int nk = 0; nk < par.vctp("Qk").size(); nk++) {
+  for (size_t nk = 0; nk < par.vctp("Qk").size(); nk++) {
     dh_in.F.T = par.vctp("Tk_in")[nk];
     dh_in.F.P = 1.01325;
     dh_in.P.h = hTWater(dh_in.F.T);  // h_in.calculate_flow_properties("PT");

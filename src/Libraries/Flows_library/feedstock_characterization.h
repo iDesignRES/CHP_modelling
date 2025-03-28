@@ -206,7 +206,7 @@ void Heating_Value(flow &feed) {
   // kH2O = -2.45; kA = 0.0; // Ref. Christensen, T. (1998)
 
   // fetching the weight fractions:
-  for (int n = 0; n < feed.i.size(); n++) {
+  for (size_t n = 0; n < feed.i.size(); n++) {
     if (feed.i[n].id == "C") {
       yC = feed.i[n].Y;
     } else if (feed.i[n].id == "H") {
@@ -221,7 +221,7 @@ void Heating_Value(flow &feed) {
   }
 
   // fetching the proximates:
-  for (int n = 0; n < feed.k.size(); n++) {
+  for (size_t n = 0; n < feed.k.size(); n++) {
     if (feed.k[n].id == "ash") {
       yA = feed.k[n].Y;
     } else if (feed.k[n].id == "H2O") {
@@ -263,19 +263,19 @@ void flow::calculate_solid_fuel() {
   double yC = 0.0, yH = 0.0, yS = 0.0, yN = 0.0, yO = 0.0;  // atomic components
   double yA = 0.0, yH2O = 0.0, yDM = 0.0;                   // proximates
 
-  if (index_species(k, "H2O") == -1 and index_species(k, "DM") != -1) {
+  if (index_species(k, "H2O") == -1 && index_species(k, "DM") != -1) {
     yH2O = 1.0 - k[index_species(k, "DM")].Y;
     k.push_back(species("H2O", yH2O));
   }
 
-  if (index_species(k, "H2O") != -1 and index_species(k, "DM") == -1) {
+  if (index_species(k, "H2O") != -1 && index_species(k, "DM") == -1) {
     yDM = 1.0 - k[index_species(k, "H2O")].Y;
     k.push_back(species("DM", yDM));
   }
 
   if (index_species(i, "O") == -1) {
     double sum_Yi = 0.0;
-    for (int ni = 0; ni < i.size(); ni++) {
+    for (size_t ni = 0; ni < i.size(); ni++) {
       sum_Yi += i[ni].Y;
     }
     double YO = 1.0 - sum_Yi;
@@ -294,7 +294,7 @@ void flow::calculate_solid_fuel() {
   // kH2O = -2.45; kA = 0.0; // Ref. Christensen, T. (1998)
 
   // fetching the weight fractions:
-  for (int n = 0; n < i.size(); n++) {
+  for (size_t n = 0; n < i.size(); n++) {
     if (i[n].id == "C") {
       yC = i[n].Y;
     } else if (i[n].id == "H") {
@@ -309,7 +309,7 @@ void flow::calculate_solid_fuel() {
   }
 
   // fetching the proximates:
-  for (int n = 0; n < k.size(); n++) {
+  for (size_t n = 0; n < k.size(); n++) {
     if (k[n].id == "ash") {
       yA = k[n].Y;
     } else if (k[n].id == "H2O") {
@@ -349,21 +349,21 @@ void flow::calculate_solid_fuel() {
 
 void flow::calculate_gas_fuel() {
   if (P.LHV == 0) {
-    for (int nj = 0; nj < j.size(); nj++) {
+    for (size_t nj = 0; nj < j.size(); nj++) {
       P.LHV += j[nj].P.LHV;
     }
   }
 
   P.LHV = 0;
   P.MW = 0.0;
-  for (int nj = 0; nj < j.size(); nj++) {
+  for (size_t nj = 0; nj < j.size(); nj++) {
     P.LHV += j[nj].P.LHV * j[nj].Y;
     P.MW += j[nj].P.MW * j[nj].X;
     P.cp += j[nj].P.cp * j[nj].Y;
   }
 
   double sum_Y_rho = 0.0;
-  for (int n = 0; n < j.size(); n++) {
+  for (size_t n = 0; n < j.size(); n++) {
     sum_Y_rho += j[n].Y / j[n].P.rho;
   }
   P.rho = 1.0 / sum_Y_rho;
