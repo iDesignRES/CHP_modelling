@@ -28,6 +28,7 @@
 
 namespace MyPaths {
 
+/*
 #if defined(_WIN32)
 
 std::string getExecutablePath() {
@@ -96,21 +97,6 @@ std::string mergePaths(std::string pathA, std::string pathB) {
   return pathA+"/"+pathB;
 }
 
-std::string getActualDir(string file_path) {
-    vector<string> dir = divide_string(file_path,'/');
-    	dir.pop_back();
-	string Dir = "";
-	for(int n = 0; n < dir.size(); n++){Dir = Dir + dir[n]+"/";}
-	return Dir;
-}
-
-std::string project_name() {
-    std::string executablePath = getExecutablePath();
-    vector<string> dir = divide_string(getExecutablePath(),'/');
-    vector<string> name = divide_string(dir[dir.size()-1],'.');
-    return name[0];
-}
-
 
 #endif
 
@@ -156,9 +142,26 @@ std::string project_name() {
 
 #endif
 
+*/
 
 bool checkIfFileExists (const std::string& filePath) {
    return access( filePath.c_str(), 0 ) == 0;
 }
+
+std::string getActualDir(string file_path) {
+    vector<string> dir = divide_string(file_path,'/');
+    	dir.pop_back();
+	string Dir = "";
+	for(int n = 0; n < dir.size(); n++){Dir = Dir + dir[n]+"/";}
+	return Dir;
+}
+
+std::string project_name() {
+    std::string executablePath = getExecutablePath();
+    vector<string> dir = divide_string(getExecutablePath(),'/');
+    vector<string> name = divide_string(dir[dir.size()-1],'.');
+    return name[0];
+}
+
 
 }
