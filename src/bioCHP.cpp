@@ -36,9 +36,9 @@ using namespace MyPaths;
 std::string DIR = getActualDir(string(__FILE__));
 std::string project = project_name();
 
-#include "Cost.h"
-#include "Flows.h"
 #include "Parameters.h"
+#include "Flows.h"
+#include "Cost.h"
 #include "Processes.h"
 
 bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, double W_el,
