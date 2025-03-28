@@ -76,7 +76,7 @@ jobs:
  
 
     - name: Show LastTest.log
-      if: always()
+      if: always() && runner.os != 'Windows'
       run: |
         echo "=== Contents of LastTest.log ==="
         cat ${{ steps.strings.outputs.build-output-dir }}/Testing/Temporary/LastTest.log || echo "Log file not found"
