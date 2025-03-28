@@ -74,9 +74,11 @@ jobs:
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest --build-config ${{ matrix.build_type }}
  
-   - name: Show LastTest.log
+
+    - name: Show LastTest.log
       if: always()
       run: |
         echo "=== Contents of LastTest.log ==="
         cat ${{ steps.strings.outputs.build-output-dir }}/Testing/Temporary/LastTest.log || echo "Log file not found"
+ 
  
