@@ -34,7 +34,7 @@ struct physical_parameters_set
  double physical_parameters_set::f(string symb){
 	bool found = false;
  	for(int np = 0; np < p.size(); np++){if (p[np].symb == symb){ found = true; return p[np].val;}}
-	if( found == false ){return -1;}
+	return -1;
  }
 
 struct properties 
@@ -827,7 +827,7 @@ bool find_flow(string input_def){
 
  	db_file.open(DIR+"Database/Flows_database/Flow_list.txt");
 
- 	if(!db_file.good()){ cout << error << endl; db_file.close(); return false;}
+ 	if(!db_file.good()){ cout << error << endl; db_file.close();}
  	if(db_file.good()){
          	bool flow_found = false;
 	 	while (flow_found == false) {
@@ -842,7 +842,7 @@ bool find_flow(string input_def){
 			if(db_file.eof()){break;}
 	 	}
 
- 		if(flow_found == false){cout << error << endl; db_file.close(); return false;}
+ 		if(flow_found == false){cout << error << endl; db_file.close();}
 	}
 
 
@@ -860,9 +860,10 @@ bool find_flow(string input_def){
 			} 
 			if(db.eof()){break;}
 		 }
-		if(flow_found == false) {cout << error << endl; db.close(); return false;}
+		if(flow_found == false) {cout << error << endl; db.close();}
 	}
 
+	return false;
 
  }
 
