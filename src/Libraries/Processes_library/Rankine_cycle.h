@@ -132,7 +132,7 @@ void steam_turbine_model(flow &in, flow &out, object &par) {
         out_n.F.M = out_n.F.M - par.vctp("M_bleed")[n];
       }
 
-      if (N_bleed > 1 and n > 0 and n < N_bleed) {
+      if (N_bleed > 1 && n > 0 && n < N_bleed) {
         ST_n.Ti = out_n.F.T;
         ST_n.Pi = out_n.F.P;
         ST_n.Po = par.vctp("P_bleed")[n];

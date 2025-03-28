@@ -27,7 +27,7 @@ void calculate_fuel_combustion_properties(flow fuel, object &prop) {
   if (fuel.prop_data == "gas_fuel") {
     int CO2 = index_species(fuel.j, "CO2");
 
-    if (CO2 > 0 and fuel.j[CO2].Y > 0) {
+    if (CO2 > 0 && fuel.j[CO2].Y > 0) {
       // gas fuel contains CO2
       double Y_CO2 = fuel.j[CO2].Y;
       for (size_t nj = 0; nj < fuel.j.size(); nj++) {

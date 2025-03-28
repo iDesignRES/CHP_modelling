@@ -263,12 +263,12 @@ void flow::calculate_solid_fuel() {
   double yC = 0.0, yH = 0.0, yS = 0.0, yN = 0.0, yO = 0.0;  // atomic components
   double yA = 0.0, yH2O = 0.0, yDM = 0.0;                   // proximates
 
-  if (index_species(k, "H2O") == -1 and index_species(k, "DM") != -1) {
+  if (index_species(k, "H2O") == -1 && index_species(k, "DM") != -1) {
     yH2O = 1.0 - k[index_species(k, "DM")].Y;
     k.push_back(species("H2O", yH2O));
   }
 
-  if (index_species(k, "H2O") != -1 and index_species(k, "DM") == -1) {
+  if (index_species(k, "H2O") != -1 && index_species(k, "DM") == -1) {
     yDM = 1.0 - k[index_species(k, "H2O")].Y;
     k.push_back(species("DM", yDM));
   }

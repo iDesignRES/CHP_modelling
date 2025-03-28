@@ -70,7 +70,7 @@ struct flow_parameters {
 struct species {
  public:
   string id, def, formula;
-  string prop_data;  // properties data: refprop, NASA or thermoPkg
+  string prop_data;  // properties data: refprop, NASA || thermoPkg
   bool refprop, NASA, thermoPkg, input;
   string molec_db, refprop_file = "NONE", NASA_file, thermoPkg_file;
   double TC, Y, X;  // TC: transfer coeff, Y: wt%, X: mol%
@@ -200,7 +200,7 @@ flow::flow(string flw_def) {
   F.P = 1.01325;
   // flows_database(flw_def);
   get_flow_data(flw_def);
-  if (cls == "woody_biomass" or cls == "sludge") {
+  if (cls == "woody_biomass" || cls == "sludge") {
     calculate_solid_fuel();
   }
 }
@@ -214,7 +214,7 @@ flow::flow(string flw_id, string flw_def) {
   F.P = 1.01325;
   // flows_database(flw_def);
   get_flow_data(flw_def);
-  if (cls == "woody_biomass" or cls == "sludge") {
+  if (cls == "woody_biomass" || cls == "sludge") {
     calculate_solid_fuel();
   }
 }
@@ -260,31 +260,31 @@ void flow::calculate_properties() {
     for (size_t n = 0; n < j.size(); n++) {
       sum_X += j[n].X;
     }
-    if (sum_Y > 0 and sum_X == 0) {
+    if (sum_Y > 0 && sum_X == 0) {
       for (size_t n = 0; n < j.size(); n++) {
         j[n].Y = j[n].Y / sum_Y;
       }
       double sum_Y_MW = 0.0;
       for (size_t n = 0; n < j.size(); n++) {
-        if (j[n].Y > 0 and j[n].P.MW > 0) {
+        if (j[n].Y > 0 && j[n].P.MW > 0) {
           sum_Y_MW += j[n].Y / j[n].P.MW;
         }
       }
       for (size_t n = 0; n < j.size(); n++) {
-        if (j[n].Y > 0 and j[n].P.MW > 0 and sum_Y_MW > 0) {
+        if (j[n].Y > 0 && j[n].P.MW > 0 && sum_Y_MW > 0) {
           j[n].X = (j[n].Y / j[n].P.MW) / sum_Y_MW;
         }
         if (j[n].Y == 0) {
           j[n].X = 0;
         }
       }
-    } else if (sum_Y == 0 and sum_X > 0) {
+    } else if (sum_Y == 0 && sum_X > 0) {
       for (size_t n = 0; n < j.size(); n++) {
         j[n].X = j[n].X / sum_X;
       }
       double sum_X_MW = 0.0;
       for (size_t n = 0; n < j.size(); n++) {
-        if (j[n].Y > 0 and j[n].P.MW > 0) {
+        if (j[n].Y > 0 && j[n].P.MW > 0) {
           sum_X_MW += j[n].X * j[n].P.MW;
         }
       }
@@ -351,7 +351,7 @@ void flow::interpret_molecules() {
           atom_ID = new char[i[m].id.length()];
           strcpy(atom_ID, i[m].id.c_str());
 
-          if (i[m].id.length() == 1 and ctr_atom2 == 0) {
+          if (i[m].id.length() == 1 && ctr_atom2 == 0) {
             if (molec_ID[l] == atom_ID[0]) {
               ctr_atom1 = 1;
               atoms_ID.push_back(i[m].id);
@@ -374,7 +374,7 @@ void flow::interpret_molecules() {
           }
         }
 
-        if (ctr_atom1 == 1 or ctr_atom2 == 1) {
+        if (ctr_atom1 == 1 || ctr_atom2 == 1) {
           ctr_atom1 = 0;
           ctr_atom2 = 0;
           if (l == j[n].formula.length() - 1) {
@@ -601,7 +601,7 @@ void species::get_species_data_(string spc_type) {
       if (txt == id) {
         getline(sst, txt, ' ');
         P.MW = atof(txt.c_str());
-        if (getline(sst, txt, ' ') and txt == "valences:") {
+        if (getline(sst, txt, ' ') && txt == "valences:") {
           while (getline(sst, txt, ' ')) {
             val.push_back(atof(txt.c_str()));
           }
@@ -641,7 +641,7 @@ void flow::get_flow_composition(vector<species> &spc, string input) {
       getline(flow_file, line_txt);
       stringstream sst(line_txt);
       getline(sst, txt, ' ');
-      if (txt == "Flow_def" or txt == "Flow_def:" or txt == "flow_def" or
+      if (txt == "Flow_def" || txt == "Flow_def:" || txt == "flow_def" or
           txt == "flow_def:") {
         while (getline(sst, txt, ' ')) {
           if (txt == def) {
@@ -687,22 +687,22 @@ void flow::get_flow_composition(vector<species> &spc, string input) {
         if (getline(sst, symb, ' ')) {
           getline(sst, val, ' ');
           spc.push_back(species(txt, atof(val.c_str()), symb));
-          if (symb == "Y" and input == "MOLECULES") {
+          if (symb == "Y" && input == "MOLECULES") {
             molec_def = "Y";
           }
-          if (symb == "X" and input == "MOLECULES") {
+          if (symb == "X" && input == "MOLECULES") {
             molec_def = "X";
           }
-          if (symb == "Y" and input == "ATOMS") {
+          if (symb == "Y" && input == "ATOMS") {
             atom_def = "Y";
           }
-          if (symb == "X" and input == "ATOMS") {
+          if (symb == "X" && input == "ATOMS") {
             atom_def = "X";
           }
-          if (symb == "Y" and input == "PROXIMATE") {
+          if (symb == "Y" && input == "PROXIMATE") {
             prox_def = "Y";
           }
-          if (symb == "X" and input == "PROXIMATE") {
+          if (symb == "X" && input == "PROXIMATE") {
             prox_def = "X";
           }
 
@@ -753,7 +753,7 @@ void flow::get_flow_properties() {
       getline(flow_file, line_txt);
       stringstream sst(line_txt);
       getline(sst, txt, ' ');
-      if (txt == "Flow_def" or txt == "Flow_def:" or txt == "flow_def" or
+      if (txt == "Flow_def" || txt == "Flow_def:" || txt == "flow_def" or
           txt == "flow_def:") {
         while (getline(sst, txt, ' ')) {
           if (txt == def) {
@@ -827,7 +827,7 @@ void flow::get_flow_properties() {
 
     flow_file.close();
 
-    if (P.LHV == 0.0 and P.HHV > 0) {
+    if (P.LHV == 0.0 && P.HHV > 0) {
       int H = index_species(i, "H");
       P.LHV = P.HHV - i[H].Y * (18 / 2) * 2.5;
     }
@@ -891,7 +891,7 @@ void flow::get_flow_data(string input_def) {
       getline(db, line_txt);
       stringstream sst(line_txt);
       getline(sst, txt, ' ');
-      if (txt == "Flow_def" or txt == "Flow_def:" or txt == "flow_def" or
+      if (txt == "Flow_def" || txt == "Flow_def:" || txt == "flow_def" or
           txt == "flow_def:") {
         while (getline(sst, txt, ' ')) {
           if (txt == def) {
@@ -916,7 +916,7 @@ void flow::get_flow_data(string input_def) {
       getline(db, line_txt);
       stringstream sst(line_txt);
       getline(sst, txt, ' ');
-      if (txt == "Flow_cls" or txt == "Flow_cls:" or txt == "flow_cls" or
+      if (txt == "Flow_cls" || txt == "Flow_cls:" || txt == "flow_cls" or
           txt == "flow_cls:") {
         getline(sst, cls, ' ');
         flow_cls_defined = true;
@@ -929,7 +929,7 @@ void flow::get_flow_data(string input_def) {
       getline(db, line_txt);
       stringstream sst(line_txt);
       getline(sst, txt, ' ');
-      if (txt == "Prop_data" or txt == "Prop_data:" or txt == "prop_data" or
+      if (txt == "Prop_data" || txt == "Prop_data:" || txt == "prop_data" or
           txt == "prop_data:") {
         getline(sst, prop_data, ' ');
         if (prop_data == "refprop") {
@@ -949,7 +949,7 @@ void flow::get_flow_data(string input_def) {
     get_flow_composition(i, "ATOMS");
     interpret_molecules();
     // cout << "interpreting molecules" << endl;
-    // if(molec_def == "Y") { if(atom_def != "X" or atom_def != "Y")
+    // if(molec_def == "Y") { if(atom_def != "X" || atom_def != "Y")
     // {interpret_molecules();}}
     get_flow_composition(k, "PROXIMATE");
     get_flow_properties();
@@ -1180,7 +1180,7 @@ bool find_flow(string input_def) {
       getline(db, line_txt);
       stringstream sst(line_txt);
       getline(sst, txt, ' ');
-      if (txt == "Flow_def" or txt == "Flow_def:" or txt == "flow_def" or
+      if (txt == "Flow_def" || txt == "Flow_def:" || txt == "flow_def" or
           txt == "flow_def:") {
         while (getline(sst, txt, ' ')) {
           if (txt == input_def) {
