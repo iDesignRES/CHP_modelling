@@ -106,7 +106,7 @@ void steam_turbine_model(flow &in, flow &out, object &par) {
 
   flow out_n("water");
 
-  int N_bleed = par.vctp("P_bleed").size();
+  size_t N_bleed = par.vctp("P_bleed").size();
 
   cout << "No. bleeds: " << par.vctp("P_bleed").size() << endl;
 
@@ -236,7 +236,7 @@ void district_heating(flow &dh_in, flow &dh_out, object &par) {
 
     // interpret_bleeds(P_bleed,M_bleed);
 
-    vector<int> merged;
+    vector<size_t> merged;
     if (P_bleed.size() > 1) {
       for (size_t nb = 1; nb < P_bleed.size(); nb++) {
         if ((P_bleed[nb] - P_bleed[nb - 1]) < 5.0) {

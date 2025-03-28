@@ -132,7 +132,7 @@ species::species(string sid, double sTC, double sY, double sX, double sMW) {
   P.MW = sMW;
 }
 
-int index_species(vector<species> &spc, string spc_id) {
+size_t index_species(vector<species> &spc, string spc_id) {
   for (size_t i = 0; i < spc.size(); i++) {
     if (spc[i].id == spc_id) {
       return i;
@@ -224,7 +224,7 @@ void flow::get_species_data() {
   // for( int n=0; n<i.size(); n++){i[n].get_species_data();}
 }
 
-int index_flow(vector<flow> &f, string f_id) {
+size_t index_flow(vector<flow> &f, string f_id) {
   for (size_t i = 0; i < f.size(); i++) {
     if (f[i].id == f_id) {
       return i;
@@ -641,7 +641,7 @@ void flow::get_flow_composition(vector<species> &spc, string input) {
       getline(flow_file, line_txt);
       stringstream sst(line_txt);
       getline(sst, txt, ' ');
-      if (txt == "Flow_def" || txt == "Flow_def:" || txt == "flow_def" or
+      if (txt == "Flow_def" || txt == "Flow_def:" || txt == "flow_def" ||
           txt == "flow_def:") {
         while (getline(sst, txt, ' ')) {
           if (txt == def) {
@@ -891,7 +891,7 @@ void flow::get_flow_data(string input_def) {
       getline(db, line_txt);
       stringstream sst(line_txt);
       getline(sst, txt, ' ');
-      if (txt == "Flow_def" || txt == "Flow_def:" || txt == "flow_def" or
+      if (txt == "Flow_def" || txt == "Flow_def:" || txt == "flow_def" ||
           txt == "flow_def:") {
         while (getline(sst, txt, ' ')) {
           if (txt == def) {
@@ -916,7 +916,7 @@ void flow::get_flow_data(string input_def) {
       getline(db, line_txt);
       stringstream sst(line_txt);
       getline(sst, txt, ' ');
-      if (txt == "Flow_cls" || txt == "Flow_cls:" || txt == "flow_cls" or
+      if (txt == "Flow_cls" || txt == "Flow_cls:" || txt == "flow_cls" ||
           txt == "flow_cls:") {
         getline(sst, cls, ' ');
         flow_cls_defined = true;
@@ -929,7 +929,7 @@ void flow::get_flow_data(string input_def) {
       getline(db, line_txt);
       stringstream sst(line_txt);
       getline(sst, txt, ' ');
-      if (txt == "Prop_data" || txt == "Prop_data:" || txt == "prop_data" or
+      if (txt == "Prop_data" || txt == "Prop_data:" || txt == "prop_data" ||
           txt == "prop_data:") {
         getline(sst, prop_data, ' ');
         if (prop_data == "refprop") {
