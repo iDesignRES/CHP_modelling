@@ -56,7 +56,7 @@ string get_parameter_value(vector<parameter> &par, string sys_type, string sys_d
 	//cout << "getting value for " << data_id << " in " << sys_type << " " << sys_def << endl;
  	bool found = false;
  	for( int np = 0; np < par.size();np++){
-  		if( (par[np].sys_type == sys_type) and (par[np].sys_def == sys_def) and (par[np].data_id == data_id) ){
+  		if( par[np].sys_type == sys_type && par[np].sys_def == sys_def && par[np].data_id == data_id ){
    			string val = par[np].str[par[np].pos];
 			//cout << "value : " << val << endl; 
    			if (par[np].pos < par[np].str.size()-1)  { par[np].pos = par[np].pos +1; }
