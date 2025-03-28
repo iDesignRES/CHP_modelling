@@ -127,8 +127,8 @@ std::string getActualDir(string file_path) {
 }
 
 std::string project_name() {
-    std::string executablePath = getExecutablePath();
-    vector<string> dir = divide_string(getExecutablePath(),'/');
+    std::string executablePath = MyPaths::getExecutablePath();
+    vector<string> dir = divide_string(MyPaths::getExecutablePath(),'/');
     vector<string> name = divide_string(dir[dir.size()-1],'.');
     return name[0];
 }
