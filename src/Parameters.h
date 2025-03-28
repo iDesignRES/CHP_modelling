@@ -90,7 +90,7 @@ void export_parameter(vector<parameter> &par, string data_def, string sys_type, 
  bool found = false;
  for( int np = 0; np < par.size(); np++)
  {
-  if(par[np].sys_type == sys_type and par[np].sys_def == sys_def and par[np].data_id == data_id )
+  if(par[np].sys_type == sys_type && par[np].sys_def == sys_def && par[np].data_id == data_id )
   {
    par[np].str.push_back(val); par[np].pos = par[np].str.size()-1;
    found = true; 
@@ -119,7 +119,7 @@ void get_parameters( vector<parameter> &par, string sys_type, string sys_def, st
   	while(!sys_found) { 
 		getline(p_file, line_txt); 
 		stringstream sst(line_txt); sst >> type; sst >> def;
- 		if( type == sys_type and def == sys_def  ) { 
+ 		if( type == sys_type && def == sys_def  ) { 
 			//cout << sys_type << " " << sys_def << endl;
 			sys_found = true;
 
@@ -136,15 +136,15 @@ void get_parameters( vector<parameter> &par, string sys_type, string sys_def, st
 					p.data_info = "";
       					while(sst >> str) { 
 						vector<char> cstr(str.begin(), str.end());
-						if(!str_complete and cstr[0] != '#'){ p.str.push_back(str);}
+						if(!str_complete && cstr[0] != '#'){ p.str.push_back(str);}
 						if(cstr[0] == '#'){ str_complete = true; }
-						if(str_complete and cstr[0] != '#'){ p.data_info = str + " ";}
+						if(str_complete && cstr[0] != '#'){ p.data_info = str + " ";}
 		
 					} 
       					p.pos = 0; par.push_back(p); p = parameter(); p.str.clear(); p.num.clear();
      				}
 
-				if (txt != "input" and txt != "output" and txt != "prop"){
+				if (txt != "input" && txt != "output" && txt != "prop"){
 					par_set_found = true;
 					p_file.close(); return;
 				}  
@@ -207,7 +207,7 @@ vector<double> fp_vct(vector<parameter> &par, string sys_type, string sys_def, s
  	bool found = false;
  	vector<double> vct;
  	for( int np = 0; np < par.size(); np++){
-  		if(par[np].sys_type == sys_type and par[np].sys_def == sys_def and par[np].data_id == data_id ){
+  		if(par[np].sys_type == sys_type && par[np].sys_def == sys_def && par[np].data_id == data_id ){
    			for(int n = 0; n < par[np].str.size(); n++){ vct.push_back(atof(par[np].str[n].c_str()));} 
    			found = true; return vct;
   		} 
@@ -220,7 +220,7 @@ vector<string> sp_vct(vector<parameter> &par, string sys_type, string sys_def, s
  	bool found = false;
  	vector<string> vct;
  	for( int np = 0; np < par.size(); np++){
-  		if(par[np].sys_type == sys_type and par[np].sys_def == sys_def and par[np].data_id == data_id ){
+  		if(par[np].sys_type == sys_type && par[np].sys_def == sys_def && par[np].data_id == data_id ){
    			for(int n = 0; n < par[np].str.size(); n++){ vct.push_back(par[np].str[n]);} 
    			found = true; return vct;
   		} 
@@ -241,7 +241,7 @@ void fvct_p(vector<parameter> &par, string data_def, string sys_type, string sys
  	//cout << "exporting parameter" << endl;
  	bool found = false;
  	for( int np = 0; np < par.size(); np++){
-  		if(par[np].sys_type == sys_type and par[np].sys_def == sys_def and par[np].data_id == data_id ){
+  		if(par[np].sys_type == sys_type && par[np].sys_def == sys_def && par[np].data_id == data_id ){
   			par[np].str.clear(); 
   			for(int n = 0; n < val.size(); n++){par[np].str.push_back(to_string(val[n]));} par[np].pos = 0;
    			found = true; 
@@ -261,7 +261,7 @@ void svct_p(vector<parameter> &par, string data_def, string sys_type, string sys
  	//cout << "exporting parameter" << endl;
  	bool found = false;
  	for( int np = 0; np < par.size(); np++){
-  		if(par[np].sys_type == sys_type and par[np].sys_def == sys_def and par[np].data_id == data_id ){
+  		if(par[np].sys_type == sys_type && par[np].sys_def == sys_def && par[np].data_id == data_id ){
   			par[np].str.clear(); 
   			for(int n = 0; n < val.size(); n++){par[np].str.push_back(val[n]);} par[np].pos = 0;
    			found = true; 
@@ -291,7 +291,7 @@ object::object(string type, string def){
 
 int object::ic(string type, string def){ 
 
-	for(int n = 0; n < c.size(); n++){ if(c[n].sys_type == type and c[n].sys_def == def){ return n; }} 
+	for(int n = 0; n < c.size(); n++){ if(c[n].sys_type == type && c[n].sys_def == def){ return n; }} 
 	return -1; 
 
 }
