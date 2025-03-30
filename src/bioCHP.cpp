@@ -32,7 +32,8 @@ vector<string> divide_string(string str, char c) {
 
 #include "pathfinder.h"
 using namespace MyPaths;
-std::string DIR = getActualDir(string(__FILE__));
+//std::string DIR = getActualDir(string(__FILE__));
+std::string DIR = getExecutableDir()+"../src/";
 std::string project = project_name();
 
 //#include "Parameters.h"
@@ -61,7 +62,6 @@ bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, double W_el,
   cout << "calculating the bioCHP plant model" << endl;
   cout << "Actual path: " << DIR << endl;
   cout << "Project name: " << project << endl;
-  cout << "Actual path: " << getActualDir(string(__FILE__)) << endl;
 
   // Check specificatins of feedstock
   if (fuel_def.size() != Yj.size()) {
