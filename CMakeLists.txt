@@ -7,6 +7,11 @@ project(CHP_model)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+# Add shared library
+add_library(bioCHP_wrapper SHARED src/bioCHP_wrapper.cpp)
+set_target_properties(bioCHP_wrapper PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
+)
 enable_testing()
 
 # Add the executable
