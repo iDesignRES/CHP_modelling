@@ -823,7 +823,7 @@ bool find_flow(string input_def){
 
  	ifstream db_file;
 
-	string line_txt, txt, flow_cls, flow_db, error = input_def + " not found in the database";
+	string line_txt, txt, flow_cls, flow_db, error = input_def + " not found in the database" + DIR+"Database/;
 
  	db_file.open(DIR+"Database/Flows_database/Flow_list.txt");
 
