@@ -706,7 +706,8 @@ void flow::get_flow_composition(vector<species> &spc, string input) {
             prox_def = "X";
           }
 
-        } else {
+        } else
+ {
           spc.push_back(species(txt));
         }
 
