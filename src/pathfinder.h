@@ -116,11 +116,27 @@ std::string mergePaths(std::string pathA, std::string pathB) { return pathA + "/
 
 #endif
 
-bool checkIfFileExists(const std::string& filePath) {
+/*bool checkIfFileExists(const std::string& filePath) {
   return access(filePath.c_str(), 0) == 0;
-}
+}*/
 
 }  // namespace MyPaths
+
+std::string getFileDirectory() {
+    std::string filePath = __FILE__;
+    size_t pos = filePath.find_last_of("/\\");
+    return (pos == std::string::npos) ? "" : filePath.substr(0, pos);
+}
+
+std::string getCurrentDirectory() {
+    char cwd[PATH_MAX];
+    if (getcwd(cwd, sizeof(cwd)) != NULL) {
+        return std::string(cwd);
+    } else {
+        perror("getcwd() error");
+        return std::string();
+    }
+}
 
 std::string getActualDir(string file_path) {
   vector<string> dir = divide_string(file_path, '/');
