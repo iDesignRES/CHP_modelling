@@ -33,7 +33,9 @@ vector<string> divide_string(string str, char c) {
 #include "pathfinder.h"
 using namespace MyPaths;
 //std::string DIR = getActualDir(string(__FILE__));
-std::string DIR = getExecutableDir()+"../src/";
+//std::string DIR = getExecutableDir()+"../src/";
+//std::string DIR = getCurrentDirectory();
+std::string DIR = getFileDirectory()+"/";
 std::string project = project_name();
 
 //#include "Parameters.h"
@@ -60,7 +62,8 @@ bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, double W_el,
   // C_op_fix: Variable operating cost
 
   cout << "calculating the bioCHP plant model" << endl;
-  cout << "Actual path: " << DIR << endl;
+  cout << "Executable path: " << getExecutablePath () << endl;
+  cout << "Actual DIR: " << DIR << endl;
   cout << "Project name: " << project << endl;
 
   // Check specificatins of feedstock
