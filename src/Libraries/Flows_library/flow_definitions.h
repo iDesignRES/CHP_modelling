@@ -856,11 +856,11 @@ void flow::get_flow_data(string input_def) {
     while (flow_found == false) {
       getline(db_file, line_txt);
       stringstream sst(line_txt);
-      getline(sst, txt, ' ');
+      sst >> txt;
       if (txt == input_def) {
         flow_found = true;
-        getline(sst, cls, ' ');
-        getline(sst, flow_db, ' ');
+        sst >> cls;
+        sst >> flow_db;
         break;
       }
       if (db_file.eof()) {
@@ -890,10 +890,10 @@ void flow::get_flow_data(string input_def) {
     while (flow_found == false) {
       getline(db, line_txt);
       stringstream sst(line_txt);
-      getline(sst, txt, ' ');
+      sst >> txt;
       if (txt == "Flow_def" || txt == "Flow_def:" || txt == "flow_def" ||
           txt == "flow_def:") {
-        while (getline(sst, txt, ' ')) {
+        while (sst >> txt) {
           if (txt == def) {
             flow_found = true;
             break;
@@ -928,12 +928,12 @@ void flow::get_flow_data(string input_def) {
     while (prop_data_defined == false) {
       getline(db, line_txt);
       stringstream sst(line_txt);
-      getline(sst, txt, ' ');
+      sst >> txt;
       if (txt == "Prop_data" || txt == "Prop_data:" || txt == "prop_data" ||
           txt == "prop_data:") {
-        getline(sst, prop_data, ' ');
+        sst >> prop_data;
         if (prop_data == "refprop") {
-          if (getline(sst, txt, ' ')) {
+          if (sst >> txt) {
             thermo_file = txt;
           }
         }
