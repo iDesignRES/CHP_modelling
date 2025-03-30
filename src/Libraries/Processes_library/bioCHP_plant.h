@@ -32,14 +32,15 @@ void bioCHP_plant_model(object &bioCHP) {
   rankine.vct_fp("Tk_in", bioCHP.vctp("Tk_in"));
   rankine.vct_fp("Tk_out", bioCHP.vctp("Tk_out"));
 
+    double sum_Qk = 0.0;
+    for (size_t nk = 0; nk < bioCHP.vctp("Qk").size(); nk++) {
+      sum_Qk += bioCHP.vctp("Qk")[nk];
+    }
+
   if (bioCHP.bp("W_el")) {
     cout << "bioCHP PLANT calculation using W_el: " << endl;
 
-    double Hf = bioCHP.fp("W_el") / 0.2;
-    for (size_t nk = 0; nk < bioCHP.vctp("Qk").size(); nk++) {
-      Hf += bioCHP.vctp("Qk")[nk];
-    }
-    Hf = Hf / 0.9;
+    double Hf = (bioCHP.fp("W_el") / 0.2 + sum_Qk) / 0.9;
 
     double ratio = 0.0;
 
@@ -102,7 +103,7 @@ void bioCHP_plant_model(object &bioCHP) {
 
   bioCHP.fval_p("output-Biomass_mass_input_(t/h)", bioCHP.fp("M_fuel") * 3.6);
   bioCHP.fval_p("output-Biomass_energy_input_(MW)", bioCHP.fp("Hf"));
-  bioCHP.fval_p("output-Heat_production_(MW)", bioCHP.fp("heat_demand_MW"));
+  bioCHP.fval_p("output-Heat_production_(MW)", sum_Qk);
   bioCHP.fval_p("output-Electricity_production_(MW)", rankine.fp("W_el"));
 
   cost(bioCHP);
