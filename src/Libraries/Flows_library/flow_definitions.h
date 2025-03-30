@@ -856,11 +856,11 @@ void flow::get_flow_data(string input_def) {
     while (flow_found == false) {
       getline(db_file, line_txt);
       stringstream sst(line_txt);
-      getline(sst, txt, ' ');
+      sst >> txt;
       if (txt == input_def) {
         flow_found = true;
-        getline(sst, cls, ' ');
-        getline(sst, flow_db, ' ');
+        sst >> cls;
+        sst >> flow_db;
         break;
       }
       if (db_file.eof()) {
@@ -890,10 +890,10 @@ void flow::get_flow_data(string input_def) {
     while (flow_found == false) {
       getline(db, line_txt);
       stringstream sst(line_txt);
-      getline(sst, txt, ' ');
+      sst >> txt;
       if (txt == "Flow_def" || txt == "Flow_def:" || txt == "flow_def" ||
           txt == "flow_def:") {
-        while (getline(sst, txt, ' ')) {
+        while (sst >> txt) {
           if (txt == def) {
             flow_found = true;
             break;
@@ -928,12 +928,12 @@ void flow::get_flow_data(string input_def) {
     while (prop_data_defined == false) {
       getline(db, line_txt);
       stringstream sst(line_txt);
-      getline(sst, txt, ' ');
+      sst >> txt;
       if (txt == "Prop_data" || txt == "Prop_data:" || txt == "prop_data" ||
           txt == "prop_data:") {
-        getline(sst, prop_data, ' ');
+        sst >> prop_data;
         if (prop_data == "refprop") {
-          if (getline(sst, txt, ' ')) {
+          if (sst >> txt) {
             thermo_file = txt;
           }
         }
@@ -1140,7 +1140,7 @@ bool find_flow(string input_def) {
   db_file.open(DIR + "Database/Flows_database/Flow_list.txt");
 
   if (!db_file.good()) {
-    cout << error << endl;
+    cout << "Flow list not found" << endl;
     db_file.close();
   }
   if (db_file.good()) {
@@ -1148,11 +1148,11 @@ bool find_flow(string input_def) {
     while (flow_found == false) {
       getline(db_file, line_txt);
       stringstream sst(line_txt);
-      getline(sst, txt, ' ');
+      sst >> txt;
       if (txt == input_def) {
         flow_found = true;
-        getline(sst, flow_cls, ' ');
-        getline(sst, flow_db, ' ');
+        sst >> flow_cls;
+        sst >> flow_db;
         break;
       }
       if (db_file.eof()) {
@@ -1161,7 +1161,7 @@ bool find_flow(string input_def) {
     }
 
     if (flow_found == false) {
-      cout << error << endl;
+      cout << input_def + " not found in Flow_list" << endl;
       db_file.close();
     }
   }
@@ -1170,7 +1170,7 @@ bool find_flow(string input_def) {
   ifstream db;
   db.open(DIR + "Database/" + flow_db);
   if (!db.good()) {
-    cout << error << endl;
+    cout << DIR + "Database/" + flow_db + " not found" << endl;
     db.close();
     return false;
   }
@@ -1179,10 +1179,10 @@ bool find_flow(string input_def) {
     while (flow_found == false) {
       getline(db, line_txt);
       stringstream sst(line_txt);
-      getline(sst, txt, ' ');
+      sst >> txt;
       if (txt == "Flow_def" || txt == "Flow_def:" || txt == "flow_def" ||
           txt == "flow_def:") {
-        while (getline(sst, txt, ' ')) {
+        while (sst >> txt) {
           if (txt == input_def) {
             flow_found = true;
             return true;
