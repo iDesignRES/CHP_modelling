@@ -495,9 +495,9 @@ void species::get_species_data_(string spc_type) {
     while (molecule_found == false) {
       getline(db, line_txt);
       stringstream sst(line_txt);
-      getline(sst, txt, ' ');
+      sst >> txt;
       if (txt == "Species_id") {
-        while (getline(sst, txt, ' ')) {
+        while (sst >> txt) {
           if (txt == id) {
             molecule_found = true;
             break;
@@ -597,12 +597,12 @@ void species::get_species_data_(string spc_type) {
     while (atom_found == false) {
       getline(db, line_txt);
       stringstream sst(line_txt);
-      getline(sst, txt, ' ');
+      sst >> txt;
       if (txt == id) {
-        getline(sst, txt, ' ');
+        sst >> txt;
         P.MW = atof(txt.c_str());
         if (getline(sst, txt, ' ') && txt == "valences:") {
-          while (getline(sst, txt, ' ')) {
+          while (sst >> txt) {
             val.push_back(atof(txt.c_str()));
           }
         }
@@ -640,10 +640,10 @@ void flow::get_flow_composition(vector<species> &spc, string input) {
     while (flow_found == false) {
       getline(flow_file, line_txt);
       stringstream sst(line_txt);
-      getline(sst, txt, ' ');
+      sst >> txt;
       if (txt == "Flow_def" || txt == "Flow_def:" || txt == "flow_def" ||
           txt == "flow_def:") {
-        while (getline(sst, txt, ' ')) {
+        while (sst >> txt) {
           if (txt == def) {
             flow_found = true;
             break;
@@ -663,7 +663,7 @@ void flow::get_flow_composition(vector<species> &spc, string input) {
     while (!flow_file.eof()) {
       getline(flow_file, line_txt);
       stringstream sst(line_txt);
-      getline(sst, txt, ' ');
+      sst >> txt;
       if (txt == input) {
         break;
       }
@@ -676,16 +676,16 @@ void flow::get_flow_composition(vector<species> &spc, string input) {
 
     getline(flow_file, line_txt);
     stringstream sst(line_txt);
-    getline(sst, txt, ' ');
-    getline(sst, txt, ' ');
+    sst >> txt;
+    sst >> txt;
     n_spc = atoi(txt.c_str());
     if (n_spc > 0) {
       for (int n = 0; n < n_spc; n++) {
         getline(flow_file, line_txt);
         stringstream sst(line_txt);
-        getline(sst, txt, ' ');
-        if (getline(sst, symb, ' ')) {
-          getline(sst, val, ' ');
+        sst >> txt;
+        if (sst >> symb) {
+          sst >> val;
           spc.push_back(species(txt, atof(val.c_str()), symb));
           if (symb == "Y" && input == "MOLECULES") {
             molec_def = "Y";
@@ -706,7 +706,7 @@ void flow::get_flow_composition(vector<species> &spc, string input) {
             prox_def = "X";
           }
 
-        } else if (!getline(sst, symb, ' ')) {
+        } else {
           spc.push_back(species(txt));
         }
 
@@ -752,10 +752,10 @@ void flow::get_flow_properties() {
     while (flow_found == false) {
       getline(flow_file, line_txt);
       stringstream sst(line_txt);
-      getline(sst, txt, ' ');
+      sst >> txt;
       if (txt == "Flow_def" || txt == "Flow_def:" || txt == "flow_def" ||
           txt == "flow_def:") {
-        while (getline(sst, txt, ' ')) {
+        while (sst >> txt) {
           if (txt == def) {
             flow_found = true;
             break;
@@ -894,7 +894,7 @@ void flow::get_flow_data(string input_def) {
       if (txt == "Flow_def" || txt == "Flow_def:" || txt == "flow_def" ||
           txt == "flow_def:") {
         while (sst >> txt) {
-          if (txt == def) {
+          if (txt == input_def) {
             flow_found = true;
             break;
           }
@@ -905,7 +905,7 @@ void flow::get_flow_data(string input_def) {
       }
     }
     if (flow_found == false) {
-      cout << "flow def not found" << endl;
+      cout << input_def + " not found in " + flow_db << endl;
       db.close();
       return;
     }
