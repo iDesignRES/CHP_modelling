@@ -5,6 +5,37 @@
 
 using namespace std;
 
+vector<string> divide_string(string str, char c) {
+  // cout << "divide " << str << endl;
+  vector<string> list;
+  vector<char> cstr(str.begin(), str.end());
+  string element = "";
+  bool element_found = false;
+  int l = 0;
+  while (l < str.length()) {
+    if (cstr[l] != c) {
+      element = element + cstr[l];
+    }
+    if (cstr[l] == c) {
+      list.push_back(element);
+      element = "";
+    }
+    if (l == str.length() - 1) {
+      list.push_back(element);
+      break;
+    }
+    // cout << l << " " << cstr[l] << " " << element << endl;
+    l = l + 1;
+  }
+  cstr.clear();
+  return list;
+}
+
+#include "../src/pathfinder.h"
+using namespace MyPaths;
+std::string DIR = getActualDir(string(__FILE__));
+std::string project = project_name();
+
 int main() {
   vector<string> fuel_def = {"spruce_chips"};
   vector<double> Yj = {1.0};

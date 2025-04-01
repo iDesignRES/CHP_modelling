@@ -6,12 +6,22 @@ void get_feedstock(vector<flow> &f, object &plant) {
     f[nf].F.T = 25.0;
     f[nf].F.P = 1.01325;
     LHV += f[nf].P.LHV * plant.vctp("Yj")[nf];
+
+    if (index_species(f[nf].k, "H2O") < 0){
+      f[nf].k.push_back(species("H2O", plant.vctp("YH2Oj")[nf]));
+    }
+    else if (index_species(f[nf].k, "H2O") >= 0){
+      size_t H2O = index_species(f[nf].k, "H2O");	
+      f[nf].k[H2O].Y = plant.vctp("YH2Oj")[nf];
+    }
+
   }
 
   plant.fval_p("LHV_f", LHV);
 }
 
 void bioCHP_plant_model(object &bioCHP) {
+
   cout << "************************* " << endl;
   cout << "bioCHP PLANT: " << endl;
   cout << "************************* " << endl;

@@ -257,6 +257,8 @@ void opex(object &par) {
   par.fval_p("output-C_op", par.fp("C_op_mat") + par.fp("C_op_el") + par.fp("C_op_maint") +
                                 par.fp("C_op_ins") + par.fp("C_op_adm"));
 
+  par.fval_p("output-C_op_var", par.fp("C_op_mat") + par.fp("C_op_el"));
+
   cout << "-------------------------" << endl;
   cout << " Operational costs (M$): " << endl;
   cout << "-------------------------" << endl;

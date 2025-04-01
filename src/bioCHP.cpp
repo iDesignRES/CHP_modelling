@@ -36,6 +36,7 @@ using namespace MyPaths;
 //std::string DIR = getExecutableDir()+"../src/";
 //std::string DIR = getCurrentDirectory();
 std::string DIR = getFileDirectory()+"/";
+//std::string DIR = MAIN_DIR+"/";
 std::string project = project_name();
 
 //#include "Parameters.h"
@@ -44,12 +45,13 @@ std::string project = project_name();
 #include "Cost.h"
 #include "Processes.h"
 
-bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, double W_el,
+bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, vector<double> YH2Oj, double W_el,
                   vector<double> Qk, vector<double> Tk_in, vector<double> Tk_out,
-                  vector<double> &Mj, double &C_inv, double &C_op) {
+                  vector<double> &Mj, double &Q_prod, double &W_el_prod, double &C_inv, double &C_op, double &C_op_var) {
   // INPUTS
   // feed_def: name of each biomass feedstock
   // Yj: mass fraction of each biomass feedstock
+  // YH2Oj: moisture of each biomass feedstock
   // W_el: electric power output (MW_el)
   // Qk: heat demand (MW)
   // Tk_in: Return temperature for each heat demand (district heating)
@@ -57,9 +59,11 @@ bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, double W_el,
 
   // OUTPUTS
   // Mj: Required mass flow of each biomass feedstock
+  // Q_prod: calculated heat production (MW)
+  // W_el_prod: calculated electric power production (MW)
   // C_inv: Investment cost
+  // C_op: Total operating cost
   // C_op_var: Variable operating cost
-  // C_op_fix: Variable operating cost
 
   cout << "calculating the bioCHP plant model" << endl;
   cout << "Executable path: " << getExecutablePath () << endl;
@@ -78,9 +82,11 @@ bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, double W_el,
       for (size_t nff = 0; nff < fuel_def.size(); nff++) {
         Mj.push_back(0.0);
       }
+      Q_prod = 0.0;
+      W_el_prod = 0.0;
       C_inv = 0.0;
       C_op = 0.0;
-
+      C_op_var = 0.0;
       return false;
     }
   }
@@ -119,6 +125,12 @@ bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, double W_el,
     for (size_t nk = 0; nk < Qk.size(); nk++) {
       Qk[nk] = Qk[nk] * (0.5 * (W_el / 0.2)) / sum_Qk;
     }
+
+  double sum_Qk = 0.0;
+  for (size_t nk = 0; nk < Qk.size(); nk++) {
+    sum_Qk = sum_Qk + Qk[nk];
+  }
+
   }
 
   cout << "calculating the bioCHP plant model" << endl;
@@ -126,6 +138,7 @@ bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, double W_el,
   object bioCHP("plant", "bioCHP_PLANT", DIR + "Database/bioCHP_inputs");
   bioCHP.vct_sp("fuel_def", fuel_def);
   bioCHP.vct_fp("Yj", Yj);
+  bioCHP.vct_fp("YH2Oj", YH2Oj);
   bioCHP.fval_p("W_el", W_el);
   bioCHP.vct_fp("Qk", Qk);
   bioCHP.vct_fp("Tk_in", Tk_in);
@@ -134,8 +147,12 @@ bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, double W_el,
   bioCHP_plant_model(bioCHP);
 
   Mj = bioCHP.vctp("Mj");
+  Q_prod = bioCHP.fp("Heat_production_(MW)");
+  W_el_prod = bioCHP.fp("Electricity_production_(MW)");
+  C_inv = bioCHP.fp("C_inv") * 1e-6;
   C_inv = bioCHP.fp("C_inv") * 1e-6;
   C_op = bioCHP.fp("C_op") * 1e-6;
+  C_op_var = bioCHP.fp("C_op_var") * 1e-6;
 
   export_output_parameters(bioCHP, getExecutableDir() + "Output-bioCHP_" + project);
 
