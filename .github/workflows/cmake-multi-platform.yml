@@ -98,7 +98,8 @@ jobs:
       - name: Generate Doxygen docs
         run: |
           mkdir -p build/docs
-          doxygen -D OUTPUT_DIRECTORY=build/docs/${VERSION} Doxyfile
+          sed -i "s|^OUTPUT_DIRECTORY .*|OUTPUT_DIRECTORY = build/docs/${VERSION}|" Doxyfile
+          doxygen Doxyfile
 
       - name: Copy to latest if version is a tag
         if: startsWith(github.ref, 'refs/tags/')
