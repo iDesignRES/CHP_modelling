@@ -22,19 +22,13 @@ bool bioCHP_plant_c(const char** fuel_def, int fuel_count, const double* Yj, int
   std::vector<double> Mj_vec(Mj_len);
 
   bool result = bioCHP_plant(fuel_vec, Yj_vec, YH2Oj_vec, W_el, Qk_vec, Tk_in_vec,
-               Tk_out_vec, Mj_vec, Q_prod, W_el_prod, C_inv,
-               C_op, C_op_var);
+               Tk_out_vec, Mj_vec, *Q_prod, *W_el_prod, *C_inv, *C_op, *C_op_var);
 
   for (int i = 0; i < Mj_len; ++i) {
   Mj[i] = Mj_vec[i];
   }
 
-  *Q_prod = Q_prod;
-  *W_el_prod = W_el_prod;
-  *C_inv = C_inv;
-  *C_op = C_op;
-  *C_op_var = C_op_var;
-
   return result;
 }
 }
+
