@@ -1,6 +1,6 @@
-# bioCHP plant model
+## bioCHP plant model
 
-`bioCHP_plant` is a c++ module with functionality to model mass and energy flows, investment cost and operational cost of a combined heat and power production plant using biomass as feedstock.
+`bioCHP_plant` is a c++ module with functionality to model mass and energy flows, investment cost and operational cost of a combined heat and power production plant using biomass as feedstock. The documentation can be found at \ref detailed_model_documentation.
 
 ## Model test
 

@@ -67,5 +67,62 @@ jobs:
       run: |
         echo "=== Contents of LastTest.log ==="
         cat ${{ steps.strings.outputs.build-output-dir }}/Testing/Temporary/LastTest.log || echo "Log file not found"
- 
+
+    - name: Install dependencies for doxygen
+      if: always() && runner.os != 'Windows'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y doxygen graphviz
+
+  generate-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Doxygen
+        run: sudo apt-get install -y doxygen graphviz
+
+      - name: Set VERSION env variable
+        run: |
+          if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+            VERSION="${GITHUB_REF#refs/tags/}"
+          elif [[ "${GITHUB_REF}" == refs/heads/* ]]; then
+            VERSION="${GITHUB_REF#refs/heads/}"
+          else
+            VERSION="unknown"
+          fi
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Generate Doxygen docs
+        run: |
+          mkdir -p build/docs
+          sed -i "s|^OUTPUT_DIRECTORY .*|OUTPUT_DIRECTORY = build/docs/${VERSION}|" Doxyfile
+          doxygen Doxyfile
+
+      - name: Copy to latest if version is a tag
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          cp -r build/docs/${VERSION} build/docs/latest
+
+      - name: Generate root index.html with version links
+        run: |
+          mkdir -p build/docs
+          echo "<html><body><h1>Documentation Versions</h1><ul>" > build/docs/index.html
+          for dir in build/docs/*; do
+            if [ -d "$dir" ]; then
+              VERSION_NAME=$(basename "$dir")
+              echo "<li><a href=\"${VERSION_NAME}/index.html\">${VERSION_NAME}</a></li>" >> build/docs/index.html
+            fi
+          done
+          echo "</ul></body></html>" >> build/docs/index.html
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: build/docs
+          publish_branch: gh-pages
+          keep_files: true  # Don't delete previous versions 
  
