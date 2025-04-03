@@ -7,6 +7,9 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  push:
+    branches: [ "main" ]
+    tags: [ "v*" ]
 
 jobs:
   build:
@@ -125,4 +128,6 @@ jobs:
           publish_dir: build/docs
           publish_branch: gh-pages
           keep_files: true  # Don't delete previous versions 
+      - name: Debug GitHub Ref
+        run: echo "GITHUB_REF=${GITHUB_REF}"
  
