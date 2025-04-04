@@ -68,9 +68,6 @@ jobs:
       run: |
         echo "=== Contents of LastTest.log ==="
         cat ${{ steps.strings.outputs.build-output-dir }}/Testing/Temporary/LastTest.log || echo "Log file not found"
-<<<<<<< HEAD
- 
-=======
 
     - name: Install dependencies for doxygen
       if: always() && runner.os != 'Windows'
@@ -131,5 +128,3 @@ jobs:
           keep_files: true  # Don't delete previous versions 
       - name: Debug GitHub Ref
         run: echo "GITHUB_REF=${GITHUB_REF}"
->>>>>>> 83fcfafee4b81a8fbd1161e634edbcb32c6b9740
- 
