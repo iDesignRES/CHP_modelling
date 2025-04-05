@@ -2,10 +2,11 @@ name: CI
 
 on:
   push:
-    branches: [ "main", "doxygen-docs" ]
-    tags: [ "v*" ]
+    branches:
+      - main
+      - release-*
   pull_request:
-    branches: [ "main" ]
+    branches: [opened, synchronize, reopened]
 
 jobs:
   build:
