@@ -54,7 +54,7 @@ jobs:
       - name: Generate Doxygen docs
         run: |
           mkdir -p build/docs/${VERSION}
-          sed -i "s|^OUTPUT_DIRECTORY .*|OUTPUT_DIRECTORY = build/docs/${VERSION}|" Doxyfile
+          sed -i "s|^OUTPUT_DIRECTORY .*|OUTPUT_DIRECTORY = build/docs/${VERSION}|" docs/Doxyfile
           doxygen docs/Doxyfile
 
       - name: Copy to latest if version is a tag
