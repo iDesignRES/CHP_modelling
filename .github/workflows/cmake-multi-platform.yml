@@ -98,10 +98,16 @@ jobs:
           fi
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
-      - name: Generate Doxygen docs
+      #- name: Generate Doxygen docs
+      #  run: |
+      #    mkdir -p "build/docs/${VERSION}"
+      #    sed -i "s|^OUTPUT_DIRECTORY .*|OUTPUT_DIRECTORY = build/docs/${VERSION}|" Doxyfile
+      #    doxygen Doxyfile
+      - name: Generate Doxygen docs (PR mode)
+        if: github.ref != 'refs/heads/main' && github.ref != 'refs/tags/v*'
         run: |
-          mkdir -p "build/docs/${VERSION}"
-          sed -i "s|^OUTPUT_DIRECTORY .*|OUTPUT_DIRECTORY = build/docs/${VERSION}|" Doxyfile
+          mkdir -p build/docs
+          sed -i "s|^OUTPUT_DIRECTORY .*|OUTPUT_DIRECTORY = build/docs|" Doxyfile
           doxygen Doxyfile
 
       - name: Copy to latest if version is a tag
