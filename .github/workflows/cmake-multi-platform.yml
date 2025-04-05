@@ -91,6 +91,8 @@ jobs:
             VERSION="${GITHUB_REF#refs/tags/}"
           elif [[ "${GITHUB_REF}" == refs/heads/* ]]; then
             VERSION="${GITHUB_REF#refs/heads/}"
+          elif [[ -n "${{ github.head_ref }}" ]]; then
+            VERSION="${{ github.head_ref }}"
           else
             VERSION="unknown"
           fi
