@@ -100,7 +100,7 @@ jobs:
 
       - name: Generate Doxygen docs
         run: |
-          mkdir -p build/docs
+          mkdir -p "build/docs/${VERSION}"
           sed -i "s|^OUTPUT_DIRECTORY .*|OUTPUT_DIRECTORY = build/docs/${VERSION}|" Doxyfile
           doxygen Doxyfile
 
