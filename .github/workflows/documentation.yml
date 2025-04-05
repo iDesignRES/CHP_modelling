@@ -55,7 +55,7 @@ jobs:
         run: |
           mkdir -p build/docs/${VERSION}
           sed -i "s|^OUTPUT_DIRECTORY .*|OUTPUT_DIRECTORY = build/docs/${VERSION}|" Doxyfile
-          doxygen Doxyfile
+          doxygen docs/Doxyfile
 
       - name: Copy to latest if version is a tag
         if: startsWith(github.ref, 'refs/tags/')
