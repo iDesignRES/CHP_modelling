@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['credits_0',['CREDITS',['../md_src_CREDITS.html',1,'']]]
+  ['credits_0',['CREDITS',['../md_src_2CREDITS.html',1,'']]]
 ];

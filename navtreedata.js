@@ -26,22 +26,22 @@ var NAVTREE =
 [
   [ "CHP_modelling", "index.html", [
     [ "bioCHP plant model", "index.html", "index" ],
-    [ "CREDITS", "md_src_CREDITS.html", null ],
-    [ "Detailed Model Documentation", "md_docs_README.html", [
-      [ "BioCHP plant module", "md_docs_README.html#back-bio_CHP", null ],
-      [ "Parameters", "md_docs_README.html#back-bio_CHP-par", [
-        [ "Inputs", "md_docs_README.html#back-bio_CHP-par-inp", null ],
-        [ "Internal", "md_docs_README.html#back-bio_CHP-par-int", [
-          [ "Outputs (standard)", "md_docs_README.html#autotoc_md3", null ]
+    [ "CREDITS", "md_src_2CREDITS.html", null ],
+    [ "Detailed Model Documentation", "detailed_model_documentation.html", [
+      [ "BioCHP plant module", "detailed_model_documentation.html#back-bio_CHP", null ],
+      [ "Parameters", "detailed_model_documentation.html#back-bio_CHP-par", [
+        [ "Inputs", "detailed_model_documentation.html#back-bio_CHP-par-inp", null ],
+        [ "Internal", "detailed_model_documentation.html#back-bio_CHP-par-int", [
+          [ "Outputs (standard)", "detailed_model_documentation.html#autotoc_md3", null ]
         ] ]
       ] ],
-      [ "Outputs (standard)", "md_docs_README.html#back-bio_CHP-par-out_stand", null ],
-      [ "Mathematical formulation", "md_docs_README.html#back-bio_CHP-math", [
-        [ "Mass and energy flows (nominal steady state operation)", "md_docs_README.html#back-bio_CHP-math-balances", null ],
-        [ "CAPEX", "md_docs_README.html#back-bio_CHP-math-CAPEX", null ],
-        [ "OPEX", "md_docs_README.html#back-bio_CHP-math-OPEX", null ]
+      [ "Outputs (standard)", "detailed_model_documentation.html#back-bio_CHP-par-out_stand", null ],
+      [ "Mathematical formulation", "detailed_model_documentation.html#back-bio_CHP-math", [
+        [ "Mass and energy flows (nominal steady state operation)", "detailed_model_documentation.html#back-bio_CHP-math-balances", null ],
+        [ "CAPEX", "detailed_model_documentation.html#back-bio_CHP-math-CAPEX", null ],
+        [ "OPEX", "detailed_model_documentation.html#back-bio_CHP-math-OPEX", null ]
       ] ],
-      [ "File structure", "md_docs_README.html#back-bio_CHP-file_struct", null ]
+      [ "File structure", "detailed_model_documentation.html#back-bio_CHP-file_struct", null ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],

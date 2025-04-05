@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['parameter_0',['parameter',['../structparameter.html',1,'']]],
-  ['phase_1',['phase',['../structphase.html',1,'']]],
-  ['physical_5fparameter_2',['physical_parameter',['../structphysical__parameter.html',1,'']]],
-  ['physical_5fparameters_5fset_3',['physical_parameters_set',['../structphysical__parameters__set.html',1,'']]],
-  ['properties_4',['properties',['../structproperties.html',1,'']]]
+  ['nominal_20steady_20state_20operation_0',['Mass and energy flows (nominal steady state operation)',['../detailed_model_documentation.html#back-bio_CHP-math-balances',1,'']]],
+  ['nox_5freduction_5fparameters_1',['NOX_reduction_parameters',['../structNOX__reduction__parameters.html',1,'']]]
 ];

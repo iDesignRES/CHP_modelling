@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['detailed_20model_20documentation_0',['Detailed Model Documentation',['../md_docs_README.html',1,'']]]
+  ['detailed_20model_20documentation_0',['Detailed Model Documentation',['../detailed_model_documentation.html',1,'']]],
+  ['documentation_1',['Detailed Model Documentation',['../detailed_model_documentation.html',1,'']]]
 ];

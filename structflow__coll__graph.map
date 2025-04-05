@@ -1,6 +1,11 @@
 <map id="flow" name="flow">
-<area shape="rect" id="node1" title=" " alt="" coords="89,181,138,207"/>
-<area shape="rect" id="node2" href="$structproperties.html" title=" " alt="" coords="5,5,93,31"/>
-<area shape="rect" id="node4" href="$structphase.html" title=" " alt="" coords="83,93,144,119"/>
-<area shape="rect" id="node3" href="$structflow__parameters.html" title=" " alt="" coords="124,5,255,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="82,179,128,203"/>
+<area shape="rect" id="Node000002" href="$structproperties.html" title=" " alt="" coords="5,5,85,30"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="46,45,47,80,54,116,74,150,96,177,92,180,69,153,50,118,42,80,40,46"/>
+<area shape="rect" id="Node000004" href="$structphase.html" title=" " alt="" coords="77,92,133,117"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="64,41,99,90,95,93,60,44"/>
+<area shape="rect" id="Node000003" href="$structflow__parameters.html" title=" " alt="" coords="118,5,236,30"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="173,46,157,98,131,156,116,180,111,177,127,153,152,96,168,44"/>
+<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="160,43,117,94,113,90,156,40"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="108,132,108,179,102,179,102,132"/>
 </map>
