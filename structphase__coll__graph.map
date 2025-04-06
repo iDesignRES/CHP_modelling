@@ -1,7 +1,0 @@
-<map id="phase" name="phase">
-<area shape="rect" id="Node000001" title=" " alt="" coords="78,92,134,117"/>
-<area shape="rect" id="Node000002" href="$structproperties.html" title=" " alt="" coords="5,5,85,30"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="64,41,100,90,96,93,60,44"/>
-<area shape="rect" id="Node000003" href="$structflow__parameters.html" title=" " alt="" coords="108,5,227,30"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="153,44,117,93,112,90,148,41"/>
-</map>
