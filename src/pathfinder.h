@@ -123,19 +123,19 @@ std::string mergePaths(std::string pathA, std::string pathB) { return pathA + "/
 }  // namespace MyPaths
 
 std::string getFileDirectory() {
-    std::string filePath = __FILE__;
-    size_t pos = filePath.find_last_of("/\\");
-    return (pos == std::string::npos) ? "" : filePath.substr(0, pos);
+  std::string filePath = __FILE__;
+  size_t pos = filePath.find_last_of("/\\");
+  return (pos == std::string::npos) ? "" : filePath.substr(0, pos);
 }
 
 std::string getCurrentDirectory() {
-    char cwd[PATH_MAX];
-    if (getcwd(cwd, sizeof(cwd)) != NULL) {
-        return std::string(cwd);
-    } else {
-        perror("getcwd() error");
-        return std::string();
-    }
+  char cwd[PATH_MAX];
+  if (getcwd(cwd, sizeof(cwd)) != NULL) {
+    return std::string(cwd);
+  } else {
+    perror("getcwd() error");
+    return std::string();
+  }
 }
 
 std::string getActualDir(string file_path) {

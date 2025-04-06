@@ -1,5 +1,6 @@
-//#include "../src/bioCHP.cpp"
+// #include "../src/bioCHP.cpp"
 #include <string.h>
+
 #include <iostream>
 #include <vector>
 
@@ -49,7 +50,6 @@ int main() {
   double C_op;
 
   for (size_t nj = 0; nj < Yj.size(); nj++) {
-      cout << "Y_" + fuel_def[nj] + " = " << Yj[nj] << endl;
+    cout << "Y_" + fuel_def[nj] + " = " << Yj[nj] << endl;
   }
-
 }

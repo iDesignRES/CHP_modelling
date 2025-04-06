@@ -18,7 +18,8 @@ int main() {
   double C_op;
   double C_op_var;
 
-  if (bioCHP_plant(fuel_def, Yj, YH2Oj, W_el, Qk, Tk_in, Tk_out, Mj, Q_prod, W_el_prod, C_inv, C_op, C_op_var)) {
+  if (bioCHP_plant(fuel_def, Yj, YH2Oj, W_el, Qk, Tk_in, Tk_out, Mj, Q_prod, W_el_prod,
+                   C_inv, C_op, C_op_var)) {
     for (int nj = 0; nj < Mj.size(); nj++) {
       cout << "M_" + fuel_def[nj] + " = " << Mj[nj] << endl;
     }

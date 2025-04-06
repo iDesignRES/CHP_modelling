@@ -1,4 +1,5 @@
 #include <string.h>
+
 #include <iostream>
 #include <vector>
 
@@ -32,22 +33,23 @@ vector<string> divide_string(string str, char c) {
 
 #include "pathfinder.h"
 using namespace MyPaths;
-//std::string DIR = getActualDir(string(__FILE__));
-//std::string DIR = getExecutableDir()+"../src/";
-//std::string DIR = getCurrentDirectory();
-std::string DIR = getFileDirectory()+"/";
-//std::string DIR = MAIN_DIR+"/";
+// std::string DIR = getActualDir(string(__FILE__));
+// std::string DIR = getExecutableDir()+"../src/";
+// std::string DIR = getCurrentDirectory();
+std::string DIR = getFileDirectory() + "/";
+// std::string DIR = MAIN_DIR+"/";
 std::string project = project_name();
 
-//#include "Parameters.h"
-#include "Parameters.cpp"
-#include "Flows.h"
+// #include "Parameters.h"
 #include "Cost.h"
+#include "Flows.h"
+#include "Parameters.cpp"
 #include "Processes.h"
 
-bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, vector<double> YH2Oj, double W_el,
-                  vector<double> Qk, vector<double> Tk_in, vector<double> Tk_out,
-                  vector<double> &Mj, double &Q_prod, double &W_el_prod, double &C_inv, double &C_op, double &C_op_var) {
+bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, vector<double> YH2Oj,
+                  double W_el, vector<double> Qk, vector<double> Tk_in,
+                  vector<double> Tk_out, vector<double> &Mj, double &Q_prod,
+                  double &W_el_prod, double &C_inv, double &C_op, double &C_op_var) {
   // INPUTS
   // feed_def: name of each biomass feedstock
   // Yj: mass fraction of each biomass feedstock
@@ -66,7 +68,7 @@ bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, vector<double> YH2
   // C_op_var: Variable operating cost
 
   cout << "calculating the bioCHP plant model" << endl;
-  cout << "Executable path: " << getExecutablePath () << endl;
+  cout << "Executable path: " << getExecutablePath() << endl;
   cout << "Actual DIR: " << DIR << endl;
   cout << "Project name: " << project << endl;
 
@@ -126,11 +128,10 @@ bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, vector<double> YH2
       Qk[nk] = Qk[nk] * (0.5 * (W_el / 0.2)) / sum_Qk;
     }
 
-  double sum_Qk = 0.0;
-  for (size_t nk = 0; nk < Qk.size(); nk++) {
-    sum_Qk = sum_Qk + Qk[nk];
-  }
-
+    double sum_Qk = 0.0;
+    for (size_t nk = 0; nk < Qk.size(); nk++) {
+      sum_Qk = sum_Qk + Qk[nk];
+    }
   }
 
   cout << "calculating the bioCHP plant model" << endl;

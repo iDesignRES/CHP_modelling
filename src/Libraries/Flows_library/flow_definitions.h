@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+
 #include <cmath>
 #include <fstream>
 #include <vector>
@@ -706,8 +707,7 @@ void flow::get_flow_composition(vector<species> &spc, string input) {
             prox_def = "X";
           }
 
-        } else
- {
+        } else {
           spc.push_back(species(txt));
         }
 
@@ -1136,7 +1136,8 @@ void flow::print_flow() {
 bool find_flow(string input_def) {
   ifstream db_file;
 
-  string line_txt, txt, flow_cls, flow_db, error = input_def + " not found in the database"+DIR + "Database/";
+  string line_txt, txt, flow_cls, flow_db,
+      error = input_def + " not found in the database" + DIR + "Database/";
 
   db_file.open(DIR + "Database/Flows_database/Flow_list.txt");
 

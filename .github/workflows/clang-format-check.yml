@@ -1,0 +1,26 @@
+name: Clang-Format Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  check-formatting:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install clang-format
+        run: sudo apt-get install -y clang-format
+
+      - name: Run clang-format (Google style) check
+        run: |
+          SRC_FILES=$(find . -regex '.*\.\(cpp\|cc\|c\|h\|hpp\)' -not -path "./build/*")
+          if [ -n "$SRC_FILES" ]; then
+            clang-format --dry-run --Werror -style=Google $SRC_FILES
+          else
+            echo "No source files found to check"
+          fi
