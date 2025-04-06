@@ -136,7 +136,7 @@ $(document).ready(function(){initNavTree('combustion_8h_source.html',''); initRe
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordflow">if</span> (CO2 &gt; 0 &amp;&amp; fuel.j[CO2].Y &gt; 0) {</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>      <span class="comment">// gas fuel contains CO2</span></div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>      <span class="keywordtype">double</span> Y_CO2 = fuel.j[CO2].Y;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>      <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span>  nj = 0; nj &lt; fuel.j.size(); nj++) {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>      <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> nj = 0; nj &lt; fuel.j.size(); nj++) {</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">if</span> (fuel.j[nj].id != <span class="stringliteral">&quot;CO2&quot;</span>) {</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>          fuel.j[nj].Y = fuel.j[nj].Y / (1.0 - fuel.j[CO2].Y);</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        }</div>
@@ -205,7 +205,7 @@ $(document).ready(function(){initNavTree('combustion_8h_source.html',''); initRe
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>  vector&lt;flow&gt; fa;</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>  <span class="keywordflow">if</span> (air.size() == 0) {</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span>  n = 0; n &lt; fuel.size(); n++) {</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> n = 0; n &lt; fuel.size(); n++) {</div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>      air.push_back(<a class="code hl_struct" href="structflow.html">flow</a>(<span class="stringliteral">&quot;dry_air&quot;</span>));</div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>      fg.push_back(<a class="code hl_struct" href="structflow.html">flow</a>(<span class="stringliteral">&quot;flue_gas&quot;</span>, <span class="stringliteral">&quot;flue_gas&quot;</span>));</div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>      ba.push_back(<a class="code hl_struct" href="structflow.html">flow</a>(<span class="stringliteral">&quot;bottom_ash&quot;</span>, <span class="stringliteral">&quot;ash&quot;</span>));</div>
@@ -213,7 +213,7 @@ $(document).ready(function(){initNavTree('combustion_8h_source.html',''); initRe
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    }</div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>  }</div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>  <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span>  n = 0; n &lt; fuel.size(); n++) {</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>  <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> n = 0; n &lt; fuel.size(); n++) {</div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keywordtype">size_t</span> C = index_species(fuel[n].i, <span class="stringliteral">&quot;C&quot;</span>);</div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="keywordtype">size_t</span> H = index_species(fuel[n].i, <span class="stringliteral">&quot;H&quot;</span>);</div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keywordtype">size_t</span> O = index_species(fuel[n].i, <span class="stringliteral">&quot;O&quot;</span>);</div>
@@ -246,10 +246,10 @@ $(document).ready(function(){initNavTree('combustion_8h_source.html',''); initRe
 <div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    fg[n].j[CO2g].F.VN = fuel[n].F.M * comb_f.fp(<span class="stringliteral">&quot;vn_CO2_m&quot;</span>);</div>
 <div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    fg[n].j[H2Og].F.VN = fuel[n].F.M * comb_f.fp(<span class="stringliteral">&quot;vn_H2O_m&quot;</span>);</div>
 <div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    fg[n].F.VN = 0;</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span>  nj = 0; nj &lt; fg[n].j.size(); nj++) {</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> nj = 0; nj &lt; fg[n].j.size(); nj++) {</div>
 <div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>      fg[n].F.VN = fg[n].F.VN + fg[n].j[nj].F.VN;</div>
 <div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    }</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span>  nj = 0; nj &lt; fg[n].j.size(); nj++) {</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> nj = 0; nj &lt; fg[n].j.size(); nj++) {</div>
 <div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>      fg[n].j[nj].X = fg[n].j[nj].F.VN / fg[n].F.VN;</div>
 <div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    }</div>
 <div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    fg[n].molec_def = <span class="stringliteral">&quot;X&quot;</span>;</div>
@@ -270,7 +270,7 @@ $(document).ready(function(){initNavTree('combustion_8h_source.html',''); initRe
 <div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>  }</div>
 <div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
 <div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>  <span class="keywordtype">double</span> comb_Hf = 0;</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>  <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span>  n = 0; n &lt; fuel.size(); n++) {</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>  <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> n = 0; n &lt; fuel.size(); n++) {</div>
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    <span class="keywordflow">if</span> (n == 0) {</div>
 <div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>      <span class="keywordflow">if</span> (comb_air.size() == 0) {</div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        comb_air.push_back(air[n]);</div>
@@ -311,7 +311,7 @@ $(document).ready(function(){initNavTree('combustion_8h_source.html',''); initRe
 <div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>  cout &lt;&lt; <span class="stringliteral">&quot;Mass balance&quot;</span> &lt;&lt; endl;</div>
 <div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>  cout &lt;&lt; <span class="stringliteral">&quot;------------&quot;</span> &lt;&lt; endl;</div>
 <div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>  cout &lt;&lt; <span class="stringliteral">&quot;fuel M (kg/s): &quot;</span> &lt;&lt; comb.fp(<span class="stringliteral">&quot;M_fuel&quot;</span>) &lt;&lt; endl;</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>  <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span>  nf = 0; nf &lt; fuel.size(); nf++) {</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>  <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> nf = 0; nf &lt; fuel.size(); nf++) {</div>
 <div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    cout &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; fuel[nf].def &lt;&lt; <span class="stringliteral">&quot; (kg/s): &quot;</span> &lt;&lt; fuel[nf].F.M &lt;&lt; endl;</div>
 <div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>  }</div>
 <div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>  cout &lt;&lt; <span class="stringliteral">&quot;Combustion air M: &quot;</span> &lt;&lt; comb_air[0].F.M &lt;&lt; endl;</div>
@@ -323,7 +323,7 @@ $(document).ready(function(){initNavTree('combustion_8h_source.html',''); initRe
 <div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>  cout &lt;&lt; <span class="stringliteral">&quot;energy balance&quot;</span> &lt;&lt; endl;</div>
 <div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>  cout &lt;&lt; <span class="stringliteral">&quot;-------------&quot;</span> &lt;&lt; endl;</div>
 <div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>  cout &lt;&lt; <span class="stringliteral">&quot;Fuel Hf (MW): &quot;</span> &lt;&lt; comb.fp(<span class="stringliteral">&quot;Hf&quot;</span>) &lt;&lt; endl;</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>  <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span>  nf = 0; nf &lt; fuel.size(); nf++) {</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>  <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> nf = 0; nf &lt; fuel.size(); nf++) {</div>
 <div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    cout &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; fuel[nf].def &lt;&lt; <span class="stringliteral">&quot; (MW): &quot;</span> &lt;&lt; fuel[nf].F.Hf &lt;&lt; endl;</div>
 <div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>  }</div>
 <div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span> </div>
@@ -334,7 +334,7 @@ $(document).ready(function(){initNavTree('combustion_8h_source.html',''); initRe
 <div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>  cout &lt;&lt; <span class="stringliteral">&quot;H_ba: (MW) &quot;</span> &lt;&lt; bottom_ash.F.Ht * 1e-6 &lt;&lt; endl;</div>
 <div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>  cout &lt;&lt; <span class="stringliteral">&quot;H_fa: (MW) &quot;</span> &lt;&lt; fly_ash.F.Ht * 1e-6 &lt;&lt; endl;</div>
 <div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>}</div>
-<div class="ttc" id="astructflow_html"><div class="ttname"><a href="structflow.html">flow</a></div><div class="ttdef"><b>Definition</b> flow_definitions.h:153</div></div>
+<div class="ttc" id="astructflow_html"><div class="ttname"><a href="structflow.html">flow</a></div><div class="ttdef"><b>Definition</b> flow_definitions.h:154</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
