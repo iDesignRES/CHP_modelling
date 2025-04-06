@@ -30,7 +30,7 @@ jobs:
         run: |
           if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
             VERSION="${GITHUB_REF#refs/tags/}"
-            TARGET_DIR="v${VERSION}"
+            TARGET_DIR="${VERSION}"
           elif [[ "${GITHUB_REF}" == refs/heads/main ]]; then
             VERSION="dev"
             TARGET_DIR="dev"
