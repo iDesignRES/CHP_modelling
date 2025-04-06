@@ -6,7 +6,9 @@ on:
       - main
       - release-*
   pull_request:
-    branches: [opened, synchronize, reopened]
+    branches:
+      - main
+      - release-*
 
 jobs:
   build:
