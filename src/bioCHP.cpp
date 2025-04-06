@@ -41,9 +41,9 @@ std::string DIR = getFileDirectory() + "/";
 std::string project = project_name();
 
 // #include "Parameters.h"
-#include "Cost.h"
-#include "Flows.h"
 #include "Parameters.cpp"
+#include "Flows.h"
+#include "Cost.h"
 #include "Processes.h"
 
 bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, vector<double> YH2Oj,
