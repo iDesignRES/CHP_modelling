@@ -1,4 +1,10 @@
 name: Clang-Format Check
+# It is reccommended to test formatting locally before pushing to the repository.
+# To do this, do the following:
+# Install clang-format (if not already installed):
+# sudo apt install clang-format
+# Then, run the following command to check the formatting of all C++ files:
+# find . -regex '.*\.\(cpp\|hpp\|cc\|cxx\|h\)' -exec clang-format -i {} \;
 
 on:
   push:
