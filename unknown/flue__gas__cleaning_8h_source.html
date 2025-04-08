@@ -155,9 +155,9 @@ $(document).ready(function(){initNavTree('flue__gas__cleaning_8h_source.html',''
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>}</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keywordtype">void</span> dry_scrubber_model(<a class="code hl_struct" href="structflow.html">flow</a> &amp;in, <a class="code hl_struct" href="structflow.html">flow</a> &amp;out, <span class="keywordtype">object</span> &amp;par) {</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  cout &lt;&lt; <span class="stringliteral">&quot;=====================&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  cout &lt;&lt; <span class="stringliteral">&quot; WET SCRUBBER&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  cout &lt;&lt; <span class="stringliteral">&quot;=====================&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  <span class="comment">// cout &lt;&lt; &quot;=====================&quot; &lt;&lt; endl;</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  <span class="comment">// cout &lt;&lt; &quot; WET SCRUBBER&quot; &lt;&lt; endl;</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  <span class="comment">// cout &lt;&lt; &quot;=====================&quot; &lt;&lt; endl;</span></div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  in.F.T = par.fp(<span class="stringliteral">&quot;T_op&quot;</span>);</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  in.F.P = par.fp(<span class="stringliteral">&quot;P_op&quot;</span>);</div>
@@ -183,11 +183,13 @@ $(document).ready(function(){initNavTree('flue__gas__cleaning_8h_source.html',''
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>  equipment_cost(par.c[scrubber]);</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>  cout &lt;&lt; <span class="stringliteral">&quot;scrubber inlet M (kg/s): &quot;</span> &lt;&lt; in.F.M &lt;&lt; endl;</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>  cout &lt;&lt; <span class="stringliteral">&quot;scrubber cost (M$): &quot;</span> &lt;&lt; par.c[scrubber].fp(<span class="stringliteral">&quot;Cpi&quot;</span>) * 1e-6 &lt;&lt; endl;</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>  cout &lt;&lt; <span class="stringliteral">&quot;lime cost (M$ annual): &quot;</span> &lt;&lt; par.c[lime].fp(<span class="stringliteral">&quot;C_annual&quot;</span>) * 1e-6 &lt;&lt; endl;</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>  cout &lt;&lt; <span class="stringliteral">&quot;cake cost (M$ annual): &quot;</span> &lt;&lt; par.c[cake].fp(<span class="stringliteral">&quot;C_annual&quot;</span>) * 1e-6 &lt;&lt; endl;</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>}</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>  <span class="comment">/*    </span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="comment">  cout &lt;&lt; &quot;scrubber inlet M (kg/s): &quot; &lt;&lt; in.F.M &lt;&lt; endl;</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment">  cout &lt;&lt; &quot;scrubber cost (M$): &quot; &lt;&lt; par.c[scrubber].fp(&quot;Cpi&quot;) * 1e-6 &lt;&lt; endl;</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment">  cout &lt;&lt; &quot;lime cost (M$ annual): &quot; &lt;&lt; par.c[lime].fp(&quot;C_annual&quot;) * 1e-6 &lt;&lt; endl;</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment">  cout &lt;&lt; &quot;cake cost (M$ annual): &quot; &lt;&lt; par.c[cake].fp(&quot;C_annual&quot;) * 1e-6 &lt;&lt; endl;</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>}</div>
 <div class="ttc" id="astructNOX__reduction__parameters_html"><div class="ttname"><a href="structNOX__reduction__parameters.html">NOX_reduction_parameters</a></div><div class="ttdef"><b>Definition</b> flue_gas_cleaning.h:3</div></div>
 <div class="ttc" id="astructflow_html"><div class="ttname"><a href="structflow.html">flow</a></div><div class="ttdef"><b>Definition</b> flow_definitions.h:154</div></div>
 <div class="ttc" id="astructphysical__parameters__set_html"><div class="ttname"><a href="structphysical__parameters__set.html">physical_parameters_set</a></div><div class="ttdef"><b>Definition</b> flow_definitions.h:35</div></div>
