@@ -29,6 +29,8 @@ void bioCHP_plant_model(object &bioCHP) {
 
   vector<flow> feed;
   get_feedstock(feed, bioCHP);
+  double LHV_f = bioCHP.fp("LHV_f");			
+  vector<double> Yj = bioCHP.vctp("Yj");
 
   flow flue_gas, bottom_ash, fly_ash, dh_in, dh_out;
   vector<flow> comb_air;
@@ -39,39 +41,43 @@ void bioCHP_plant_model(object &bioCHP) {
   rankine.vct_fp("Tk_in", bioCHP.vctp("Tk_in"));
   rankine.vct_fp("Tk_out", bioCHP.vctp("Tk_out"));
 
+  vector<double> Qk = bioCHP.vctp("Qk");
   double sum_Qk = 0.0;
-  for (size_t nk = 0; nk < bioCHP.vctp("Qk").size(); nk++) {
-    sum_Qk += bioCHP.vctp("Qk")[nk];
+  for (size_t nk = 0; nk < Qk.size(); nk++) {
+    sum_Qk += Qk[nk];
   }
 
   if (bioCHP.bp("W_el")) {
     cout << "bioCHP PLANT calculation using W_el: " << endl;
 
-    double Hf = (bioCHP.fp("W_el") / 0.2 + sum_Qk) / 0.9;
+    double W_el = bioCHP.fp("W_el");	
+
+    double Hf = W_el / 0.2 + sum_Qk / 0.9;
 
     double ratio = 0.0;
 
-    double Mf = Hf / bioCHP.fp("LHV_f");
+    double W_el_prod = 0.0;
 
-    cout << "initial Hf: " << Hf << endl;
-    cout << "initial Mf: " << Mf << endl;
+    for( int n = 0; n < 5; n++ ){
 
-    for (size_t nf = 0; nf < feed.size(); nf++) {
-      feed[nf].F.M = bioCHP.vctp("Yj")[nf] * Mf;
-      feed[nf].F.Hf = feed[nf].F.M * feed[nf].P.LHV;
-    }
+      double Mf = Hf / LHV_f;
 
-    object b = boiler;
-    b.fval_p("M_fuel", Mf);
-    solid_fuel_boiler(feed, comb_air, flue_gas, bottom_ash, fly_ash, b);
+      for (size_t nf = 0; nf < Yj.size(); nf++) {
+        feed[nf].F.M = Yj[nf] * Mf;
+        feed[nf].F.Hf = feed[nf].F.M * feed[nf].P.LHV;
+      }
 
-    object r = rankine;
-    r.fval_p("Q_stm", b.fp("Q_out"));
-    rankine_cycle(r);
+      object b = boiler;
+      b.fval_p("M_fuel", Mf);
+      solid_fuel_boiler(feed, comb_air, flue_gas, bottom_ash, fly_ash, b);
 
-    Hf = Hf * bioCHP.fp("W_el") / r.fp("W_el");
+      object r = rankine;
+      r.fval_p("Q_stm", b.fp("Q_out"));
+      rankine_cycle(r);
+      W_el_prod = r.fp("W_el");	
+      Hf = Hf * W_el / W_el_prod;
 
-    cout << "Final Hf: " << Hf << endl;
+    }	
 
     bioCHP.fval_p("Hf", Hf);
   }

@@ -53,15 +53,15 @@ int main(int argc, char* argv[]) {
       Tk_out_len = 2;
 
       Mj_len = 4;
-      expected_Mj[0] = 2.46386;
-      expected_Mj[1] = 4.92771;
-      expected_Mj[2] = 7.39157;
-      expected_Mj[3] = 9.85543;
+      expected_Mj[0] = 2.55885;
+      expected_Mj[1] = 5.11771;
+      expected_Mj[2] = 7.67656;
+      expected_Mj[3] = 10.2354;
       expected_Q_prod = 70.0;
-      expected_W_el_prod = 95.906862;
-      expected_C_inv = 237.27238196773598133;
-      expected_C_op = 19.58327451795999963;
-      expected_C_op_var = 14.54207213797799980;
+      expected_W_el_prod = 99.9996;
+      expected_C_inv = 243.176189;
+      expected_C_op = 45.7679;
+      expected_C_op_var = 40.6013;
       break;
     case 2:
       fuel_def[0] = "spruce_stem";
@@ -91,15 +91,15 @@ int main(int argc, char* argv[]) {
       Tk_out_len = 2;
 
       Mj_len = 4;
-      expected_Mj[0] = 2.46386;
-      expected_Mj[1] = 7.39157;
-      expected_Mj[2] = 9.85543;
-      expected_Mj[3] = 4.92771;
+      expected_Mj[0] = 2.55885;
+      expected_Mj[1] = 7.67656;
+      expected_Mj[2] = 10.2354;
+      expected_Mj[3] = 5.11771;
       expected_Q_prod = 70.0;
-      expected_W_el_prod = 95.906862;
-      expected_C_inv = 237.27238196773598133;
-      expected_C_op = 19.58327451795999963;
-      expected_C_op_var = 14.54207213797799980;
+      expected_W_el_prod = 99.9996;
+      expected_C_inv = 243.176189;
+      expected_C_op = 45.7679;
+      expected_C_op_var = 40.6013;
       break;
   }
 
@@ -117,7 +117,7 @@ int main(int argc, char* argv[]) {
       }
     }
 
-    cout << fixed << setprecision(17);  // Set high precision
+    cout << fixed << setprecision(6);  // Set higher precision
     cout << "Q_prod (MW) = " << Q_prod << endl;
     cout << "W_el_prod (MW) = " << W_el_prod << endl;
     cout << "C_inv (M$) = " << C_inv << endl;

@@ -14,8 +14,20 @@ consumable spruce_chips
 input unit kg
 input price 50
 
+consumable spruce_stem
+input unit kg
+input price 70
+
 consumable spruce_T&B
 input unit kg
 input price 30
+
+consumable spruce_bark
+input unit kg
+input price 30
+
+consumable birch_stem
+input unit kg
+input price 70
 
 END

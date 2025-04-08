@@ -127,13 +127,22 @@ double I_cecpi(int year_ref, int year) {
 }
 
 void equipment_cost(object &par) {
-  par.fval_p("Cpi", par.fp("f_inst") * par.fp("Cpb") *
-                        pow(par.fp("S") / par.fp("Sb"), par.fp("n")) *
-                        I_cecpi(stoi(par.sp("base_year")), 2020));
+  double f_inst = par.fp("f_inst");
+  double Cpb = par.fp("Cpb");
+  double S = par.fp("S");
+  double Sb = par.fp("Sb");
+  double n = par.fp("n");
+  double Cpi = 	f_inst * Cpb * pow(S / Sb, n) *
+         I_cecpi(stoi(par.sp("base_year")), 2020);
+	
+  par.fval_p("Cpi", Cpi);
 }
 
 void material_cost(object &par) {
-  par.fval_p("C_annual", par.fp("Q_annual") * par.fp("price"));
+  double Q_annual = par.fp("Q_annual");
+  double price = par.fp("price");
+  double C_annual = Q_annual * price;	
+  par.fval_p("C_annual", C_annual);
 }
 
 void equipment_list(vector<equipment> &list, object &par) {
@@ -239,8 +248,6 @@ void opex(object &par) {
   cout << "------------------" << endl;
   double C_op_mat = 0.0;
   for (size_t n = 0; n < m.size(); n++) {
-    cout << m[n].type << m[n].def << " Q_annual: " << m[n].Q_annual
-         << " price: " << m[n].price << " " << m[n].C_annual << endl;
     C_op_mat = C_op_mat + m[n].C_annual;
   }
 
@@ -261,9 +268,12 @@ void opex(object &par) {
   par.fval_p("output-C_op_var", par.fp("C_op_mat") + par.fp("C_op_el"));
 
   cout << "-------------------------" << endl;
-  cout << " Operational costs (M$): " << endl;
+  cout << " Operational costs (M$ / year): " << endl;
   cout << "-------------------------" << endl;
   cout << "Materials = " << par.fp("C_op_mat") * 1e-6 << endl;
+  for (size_t n = 0; n < m.size(); n++) {
+     cout << '\t' << m[n].def << ": " << m[n].C_annual * 1e-6 << endl;
+  }	
   cout << "Electricity = " << par.fp("C_op_el") * 1e-6 << endl;
   cout << "Equipment maintenance = " << par.fp("C_eq_maint") * 1e-6 << endl;
   cout << "Piping maintenance = " << par.fp("C_piping_maint") * 1e-6 << endl;

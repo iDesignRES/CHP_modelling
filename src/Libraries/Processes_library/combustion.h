@@ -60,7 +60,6 @@ void calculate_fuel_combustion_properties(flow fuel, object &prop) {
     }
 
     else {
-      // otherwise
 
       prop.fval_p("n_H", (fuel.i[H].Y / 1) / (fuel.i[C].Y / 12));
       prop.fval_p("n_O", (fuel.i[O].Y / 16) / (fuel.i[C].Y / 12));
@@ -79,19 +78,14 @@ void calculate_fuel_combustion_properties(flow fuel, object &prop) {
     }
   }
 
-  // double kf_C, kf_H, kf_O, kf_H2O;
-  // double h_CHxOy; // MJ/kg enthalpy combustion CHxOy
-
-  // kf_C = 34.1; kf_H = 102.0; kf_O = -9.85; kf_H2O = -2.5;
-  // h_CHxOy = (kf_C + kf_H * x_f * (1 / 12) + kf_O * y_f * (16 / 12)) / (1 + x_f * (1 / 12)
-  // + y_f * (16 / 12));
 }
 
 void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_gas,
                        flow &bottom_ash, flow &fly_ash, object &comb) {
-  cout << "************************* " << endl;
-  cout << " Solid fuel boiler " << endl;
-  cout << "************************* " << endl;
+
+  //cout << "************************* " << endl;
+  //cout << " Solid fuel boiler " << endl;
+  //cout << "************************* " << endl;
 
   vector<flow> air;
   vector<flow> fg;
@@ -201,6 +195,7 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_ga
   equipment_cost(prep);
   comb.c.push_back(prep);
 
+  /*
   cout << "-------------" << endl;
   cout << "Mass balance" << endl;
   cout << "------------" << endl;
@@ -227,4 +222,5 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_ga
   cout << "H_fg: (MW) " << flue_gas.F.Ht * 1e-6 << endl;
   cout << "H_ba: (MW) " << bottom_ash.F.Ht * 1e-6 << endl;
   cout << "H_fa: (MW) " << fly_ash.F.Ht * 1e-6 << endl;
+  */
 }

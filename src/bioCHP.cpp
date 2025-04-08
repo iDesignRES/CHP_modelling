@@ -67,10 +67,10 @@ bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, vector<double> YH2
   // C_op: Total operating cost
   // C_op_var: Variable operating cost
 
-  cout << "calculating the bioCHP plant model" << endl;
-  cout << "Executable path: " << getExecutablePath() << endl;
-  cout << "Actual DIR: " << DIR << endl;
-  cout << "Project name: " << project << endl;
+  // cout << "calculating the bioCHP plant model" << endl;
+  // cout << "Executable path: " << getExecutablePath() << endl;
+  // cout << "Actual DIR: " << DIR << endl;
+  // cout << "Project name: " << project << endl;
 
   // Check specificatins of feedstock
   if (fuel_def.size() != Yj.size()) {

@@ -47,9 +47,9 @@ void NOx_reduction_model(flow &in, flow &out, vector<flow> &cons, vector<paramet
 }
 
 void dry_scrubber_model(flow &in, flow &out, object &par) {
-  cout << "=====================" << endl;
-  cout << " WET SCRUBBER" << endl;
-  cout << "=====================" << endl;
+  // cout << "=====================" << endl;
+  // cout << " WET SCRUBBER" << endl;
+  // cout << "=====================" << endl;
 
   in.F.T = par.fp("T_op");
   in.F.P = par.fp("P_op");
@@ -75,8 +75,10 @@ void dry_scrubber_model(flow &in, flow &out, object &par) {
 
   equipment_cost(par.c[scrubber]);
 
+  /*	
   cout << "scrubber inlet M (kg/s): " << in.F.M << endl;
   cout << "scrubber cost (M$): " << par.c[scrubber].fp("Cpi") * 1e-6 << endl;
   cout << "lime cost (M$ annual): " << par.c[lime].fp("C_annual") * 1e-6 << endl;
   cout << "cake cost (M$ annual): " << par.c[cake].fp("C_annual") * 1e-6 << endl;
+  */
 }

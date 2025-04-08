@@ -2,15 +2,16 @@
 #include <iomanip>  // for setprecision
 
 using namespace std;
+// using namespace MyPaths;
 
 int main() {
-  vector<string> fuel_def = {"spruce_chips", "spruce_T&B"};
-  vector<double> Yj = {0.5, 0.5};
-  vector<double> YH2Oj = {0.3, 0.6};
-  double W_el = 300.0;
-  vector<double> Qk = {};
-  vector<double> Tk_in = {};
-  vector<double> Tk_out = {};
+  vector<string> fuel_def = {"spruce_stem", "birch_stem", "spruce_T&B", "spruce_bark"};
+  vector<double> Yj = {0.1, 0.3, 0.4, 0.2};
+  vector<double> YH2Oj = {0.4, 0.35, 0.45, 0.5};
+  double W_el = 100.0;
+  vector<double> Qk = {30.0, 40.0};
+  vector<double> Tk_in = {70.0, 50.0};
+  vector<double> Tk_out = {90.0, 80.0};
 
   vector<double> Mj;
   double Q_prod;
