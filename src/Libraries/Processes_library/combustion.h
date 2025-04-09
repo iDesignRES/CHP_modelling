@@ -172,7 +172,7 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_ga
 
   comb.fval_p("Hf", comb_Hf);
   comb.fval_p("Q_loss", flue_gas.F.Ht * comb.fp("q_loss"));
-  comb.fval_p("Q_out", comb.fp("Hf") * 1e6 + comb_air[0].F.Ht - flue_gas.F.Ht -
+  comb.fval_p("Q_out", comb.fp("Hf") * 1.0e6 + comb_air[0].F.Ht - flue_gas.F.Ht -
                            bottom_ash.F.Ht - comb.fp("Q_loss"));
 
   object boiler("equipment", "biomass_stoker_boiler_power");

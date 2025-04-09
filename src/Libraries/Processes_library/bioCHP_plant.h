@@ -83,6 +83,8 @@ void bioCHP_plant_model(object &bioCHP) {
       b.fval_p("M_fuel", Mf);
       solid_fuel_boiler(feed, comb_air, flue_gas, bottom_ash, fly_ash, b);
 
+  	 cout << "Boiler Q_out (W) = " << b.fp("Q_out") << endl;
+
       object r = rankine;
       r.fval_p("Q_stm", b.fp("Q_out"));
       rankine_cycle(r);
