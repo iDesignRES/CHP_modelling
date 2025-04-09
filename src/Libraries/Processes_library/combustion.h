@@ -120,6 +120,7 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_ga
     air[n].F.P = comb.fp("P_bar");
     air[n].calculate_flow("PT");
 
+
     fg[n].F.T = comb.fp("T_g");
     fg[n].F.P = comb.fp("P_bar");
     fg[n].j[O2g].F.VN = (comb.fp("lambda") - 1) * comb_f.fp("V_stoich") * 0.21;
@@ -135,6 +136,7 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_ga
     }
     fg[n].molec_def = "X";
     fg[n].calculate_flow("PT");
+
 
     ba[n].P.cp = 1.25;  // kJ/kg*k
     comb.fval_p("fash_bottom", 0.1);

@@ -254,7 +254,7 @@ void flow::calculate_species_properties(string state_def) {
 
     j[n].P.cp = j[n].P.cp / j[n].P.MW;
     j[n].P.h = j[n].P.h / j[n].P.MW;
-    j[n].P.ht = j[n].P.ht / j[n].P.MW;
+    j[n].P.ht = j[n].P.cp * (j[n].F.T - 25.0) / j[n].P.MW;
     j[n].P.hf = j[n].P.hf / j[n].P.MW;
     j[n].P.s = j[n].P.s / j[n].P.MW;
     j[n].P.g = j[n].P.g / j[n].P.MW;
