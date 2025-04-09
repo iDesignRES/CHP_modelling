@@ -90,11 +90,11 @@ void bioCHP_plant_model(object &bioCHP) {
       rankine_cycle(r);
       W_el_prod = r.fp("W_el");
 
-  	 cout << '\t' << "Hf (MW) = " << Hf << " W_el (MW) = " << W_el << " W_el_prod (MW) = " << W_el_prod << endl;
+  	 //cout << '\t' << "Hf (MW) = " << Hf << " W_el (MW) = " << W_el << " W_el_prod (MW) = " << W_el_prod << endl;
 
       Hf = Hf * W_el / W_el_prod;
 
-  	 cout << '\t' << "Hf (MW) = " << Hf << endl;
+  	 //cout << '\t' << "Hf (MW) = " << Hf << endl;
 
     }	
 

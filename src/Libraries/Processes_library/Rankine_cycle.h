@@ -320,11 +320,11 @@ void rankine_cycle(object &par) {
   district_heating(dh_in, dh_out, par);
 
   // calculating steam turbines
-  cout << "calculating steam turbines" << endl;
-  cout << "Q steam in (W): " << par.fp("Q_stm") << endl;
-  cout << "h steam in (kJ/kg): " << steam.P.h << endl;
-  cout << "h bfw in (kJ/kg): " << bfw.P.h << endl;
-  cout << "M steam in (kg/s): " << steam.F.M << endl;
+  //cout << "calculating steam turbines" << endl;
+  //cout << "Q steam in (W): " << par.fp("Q_stm") << endl;
+  //cout << "h steam in (kJ/kg): " << steam.P.h << endl;
+  //cout << "h bfw in (kJ/kg): " << bfw.P.h << endl;
+  //cout << "M steam in (kg/s): " << steam.F.M << endl;
 
   steam_turbine_model(steam, steam_out, par);
   //cout << " - W_el (MW): " << par.fp("W_el") << endl;

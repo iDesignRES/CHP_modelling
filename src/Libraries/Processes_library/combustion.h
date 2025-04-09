@@ -27,7 +27,7 @@ void calculate_fuel_combustion_properties(flow fuel, object &prop) {
   if (fuel.prop_data == "gas_fuel") {
     size_t CO2 = index_species(fuel.j, "CO2");
 
-    if (CO2 > 0 && fuel.j[CO2].Y > 0) {
+    if (CO2 > 0 && fuel.j[CO2].Y > 0.0) {
       // gas fuel contains CO2
       double Y_CO2 = fuel.j[CO2].Y;
       for (size_t nj = 0; nj < fuel.j.size(); nj++) {
@@ -40,13 +40,13 @@ void calculate_fuel_combustion_properties(flow fuel, object &prop) {
       fuel.calculate_flow_composition();
       fuel.interpret_molecules();
 
-      prop.fval_p("n_H", (fuel.i[H].Y / 1) / ((fuel.i[C].Y - (Y_CO2 * 12 / 44)) / 12));
-      prop.fval_p("n_O", ((fuel.i[O].Y - (2 * Y_CO2 * 16 / 44)) / 16) /
-                             ((fuel.i[C].Y - (Y_CO2 * 12 / 44)) / 12));
+      prop.fval_p("n_H", (fuel.i[H].Y / 1.0) / ((fuel.i[C].Y - (Y_CO2 * 12.0 / 44.0)) / 12.0));
+      prop.fval_p("n_O", ((fuel.i[O].Y - (2.0 * Y_CO2 * 16.0 / 44.0)) / 16.0) /
+                             ((fuel.i[C].Y - (Y_CO2 * 12.0 / 44.0)) / 12.0));
       prop.fval_p("W_CHxOy", 0.012 + prop.fp("n_H") * 0.001 + prop.fp("n_O") * 0.016);
-      prop.fval_p("nu_O2", 1 + prop.fp("n_H") / 4 - prop.fp("n_O") / 2);
+      prop.fval_p("nu_O2", 1.0 + prop.fp("n_H") / 4.0 - prop.fp("n_O") / 2.0);
       prop.fval_p("nu_CO2", 1.0);
-      prop.fval_p("nu_H2O", prop.fp("n_H") / 2);
+      prop.fval_p("nu_H2O", prop.fp("n_H") / 2.0);
       prop.fval_p("V_stoich", fuel.F.M * (1.0 - Y_CO2) * (1 - fuel.k[H2O].Y) *
                                   (1 - fuel.k[ash].Y) * (prop.fp("nu_O2") / 0.21) *
                                   (0.02241 / prop.fp("W_CHxOy")));
@@ -61,19 +61,19 @@ void calculate_fuel_combustion_properties(flow fuel, object &prop) {
 
     else {
 
-      prop.fval_p("n_H", (fuel.i[H].Y / 1) / (fuel.i[C].Y / 12));
-      prop.fval_p("n_O", (fuel.i[O].Y / 16) / (fuel.i[C].Y / 12));
+      prop.fval_p("n_H", (fuel.i[H].Y / 1.0) / (fuel.i[C].Y / 12.0));
+      prop.fval_p("n_O", (fuel.i[O].Y / 16.0) / (fuel.i[C].Y / 12.0));
       prop.fval_p("W_CHxOy", 0.012 + prop.fp("n_H") * 0.001 + prop.fp("n_O") * 0.016);
-      prop.fval_p("nu_O2", 1 + prop.fp("n_H") / 4 - prop.fp("n_O") / 2);
+      prop.fval_p("nu_O2", 1.0 + prop.fp("n_H") / 4.0 - prop.fp("n_O") / 2.0);
       prop.fval_p("nu_CO2", 1.0);
-      prop.fval_p("nu_H2O", prop.fp("n_H") / 2);
-      prop.fval_p("V_stoich", fuel.F.M * (1 - fuel.k[H2O].Y) * (1 - fuel.k[ash].Y) *
+      prop.fval_p("nu_H2O", prop.fp("n_H") / 2.0);
+      prop.fval_p("V_stoich", fuel.F.M * (1.0 - fuel.k[H2O].Y) * (1.0 - fuel.k[ash].Y) *
                                   (prop.fp("nu_O2") / 0.21) *
                                   (0.02241 / prop.fp("W_CHxOy")));
       prop.fval_p("vn_CO2_m",
-                  (1 - fuel.k[H2O].Y) * prop.fp("nu_CO2") * (0.02241 / prop.fp("W_CHxOy")));
+                  (1.0 - fuel.k[H2O].Y) * prop.fp("nu_CO2") * (0.02241 / prop.fp("W_CHxOy")));
       prop.fval_p("vn_H2O_m",
-                  (1 - fuel.k[H2O].Y) * prop.fp("nu_H2O") * (0.02241 / prop.fp("W_CHxOy")) +
+                  (1.0 - fuel.k[H2O].Y) * prop.fp("nu_H2O") * (0.02241 / prop.fp("W_CHxOy")) +
                       fuel.k[H2O].Y * (0.02241 / 0.018));
     }
   }
@@ -125,7 +125,7 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_ga
     fg[n].j[N2g].F.VN = comb.fp("lambda") * comb_f.fp("V_stoich") * 0.79;
     fg[n].j[CO2g].F.VN = fuel[n].F.M * comb_f.fp("vn_CO2_m");
     fg[n].j[H2Og].F.VN = fuel[n].F.M * comb_f.fp("vn_H2O_m");
-    fg[n].F.VN = 0;
+    fg[n].F.VN = 0.0;
     for (size_t nj = 0; nj < fg[n].j.size(); nj++) {
       fg[n].F.VN = fg[n].F.VN + fg[n].j[nj].F.VN;
     }
@@ -141,14 +141,14 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_ga
     comb.fval_p("T_ash", 1000.0);
     ba[n].F.M = fuel[n].F.M * (1.0 - fuel[n].k[H2O].Y) *
                 (fuel[n].k[ash].Y * comb.fp("fash_bottom"));
-    ba[n].F.Ht = ba[n].F.M * (ba[n].P.cp * (comb.fp("T_ash") - 25) * 1.0e3 +
+    ba[n].F.Ht = ba[n].F.M * (ba[n].P.cp * (comb.fp("T_ash") - 25.0) * 1.0e3 +
                               comb.fp("yC_ash") * 34.1 * 1.0e6);
     fa[n].F.M = fuel[n].F.M * (1.0 - fuel[n].k[H2O].Y) * fuel[n].k[ash].Y *
                 (1.0 - comb.fp("fash_bottom"));
-    fa[n].F.Ht = fa[n].F.M * fa[n].P.cp * (comb.fp("T_ash") - 25);
+    fa[n].F.Ht = fa[n].F.M * fa[n].P.cp * (comb.fp("T_ash") - 25.0);
   }
 
-  double comb_Hf = 0;
+  double comb_Hf = 0.0;
   for (size_t n = 0; n < fuel.size(); n++) {
     if (n == 0) {
       if (comb_air.size() == 0) {
@@ -186,7 +186,7 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_ga
   equipment_cost(prep);
   comb.c.push_back(prep);
 
-  /*	
+
   cout << "-------------" << endl;
   cout << "Mass balance" << endl;
   cout << "------------" << endl;
@@ -212,5 +212,5 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_ga
   cout << "H_fg: (MW) " << flue_gas.F.Ht * 1.0e-6 << endl;
   cout << "H_ba: (MW) " << bottom_ash.F.Ht * 1.0e-6 << endl;
   cout << "H_fa: (MW) " << fly_ash.F.Ht * 1.0e-6 << endl;
-  */
+
 }
