@@ -15,7 +15,7 @@ set_target_properties(bioCHP_wrapper PROPERTIES
 enable_testing()
 
 # Add the executable
-add_executable(Flow_test Tests/Flow_test.cpp)
+add_executable(flow_test Tests/Flow_test.cpp)
 #add_executable(test1 Tests/bioCHP_test_1.cpp)
 #add_executable(test2 Tests/bioCHP_test_2.cpp)
 #add_executable(test3 Tests/bioCHP_test_3.cpp)
