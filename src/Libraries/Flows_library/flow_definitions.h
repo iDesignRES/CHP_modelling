@@ -1116,7 +1116,11 @@ void flow::print_flow() {
     cout << "Molecular composition: " << endl;
     cout << "------------------- " << endl;
     for (size_t n = 0; n < j.size(); n++) {
-      cout << j[n].id << " MW: " << j[n].P.MW << " X: " << j[n].X << " Y: " << j[n].Y
+      cout << j[n].id << " MW: " << j[n].P.MW 
+	   << " X: " << j[n].X 
+	   << " Y: " << j[n].Y
+	   << " cp: " << j[n].P.cp
+	   << " ht: " << j[n].P.ht
            << endl;
     }
   }
