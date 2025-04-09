@@ -10,8 +10,8 @@ struct steam_turbine_parameters {
 
 void steam_turbine_parameters::assign_parameter_values(string sys_type, string sys_def,
                                                        vector<parameter> &par) {
-  Po = atof(get_parameter_value(par, sys_type, sys_def, "Po").c_str());
-  mu_isent = atof(get_parameter_value(par, sys_type, sys_def, "mu_isent").c_str());
+  Po = get_num_parameter(par, sys_type, sys_def, "Po");
+  mu_isent = get_num_parameter(par, sys_type, sys_def, "mu_isent");
 }
 
 void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
@@ -282,10 +282,6 @@ void district_heating(flow &dh_in, flow &dh_out, object &par) {
 
 void rankine_cycle(object &par) {
 
-  //cout << "---------------------------------------------------- " << endl;
-  //cout << " Rankine cycle with heat output to district heating: " << endl;
-  //cout << "---------------------------------------------------- " << endl;
-
   flow bfw, sat_cond, sat_stm, steam, steam_out, cond, dh_in, dh_out;
   bfw = flow("bfw", "water");
   bfw.F.T = 105.0;
@@ -310,15 +306,18 @@ void rankine_cycle(object &par) {
   steam_out = flow("cond", "water");
   cond = flow("cond", "water");
 
+  // calculating district heating data
   district_heating(dh_in, dh_out, par);
+
+  // calculating steam turbines
   steam_turbine_model(steam, steam_out, par);
+
+  // calculating steam condenser
   steam_condenser(steam_out, cond, par);
 
   object rankine_eq("equipment", "rankine_cycle");
   rankine_eq.fval_p("S", par.fp("Q_stm") * 1e-6);
   equipment_cost(rankine_eq);
   par.c.push_back(rankine_eq);
-
-  //cout << "rankine_eq cost (M$): " << rankine_eq.fp("Cpi") * 1e-6 << endl;
 
 }

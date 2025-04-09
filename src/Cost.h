@@ -239,13 +239,13 @@ void capex(object &par) {
 }
 
 void opex(object &par) {
+
+  // Material list
+
   vector<material> m;
   material_list("consumable", m, par);
   material_list("solid_residue", m, par);
 
-  cout << "------------------" << endl;
-  cout << "Material list" << endl;
-  cout << "------------------" << endl;
   double C_op_mat = 0.0;
   for (size_t n = 0; n < m.size(); n++) {
     C_op_mat = C_op_mat + m[n].C_annual;

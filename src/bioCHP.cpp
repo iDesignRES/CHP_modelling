@@ -134,14 +134,12 @@ bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, vector<double> YH2
     }
   }
 
-  cout << "calculating the bioCHP plant model" << endl;
-
   object bioCHP("plant", "bioCHP_PLANT", DIR + "Database/bioCHP_inputs");
-  bioCHP.vct_sp("fuel_def", fuel_def);
-  bioCHP.vct_fp("Yj", Yj);
-  bioCHP.vct_fp("YH2Oj", YH2Oj);
-  bioCHP.fval_p("W_el", W_el);
-  bioCHP.vct_fp("Qk", Qk);
+  bioCHP.vct_sp("fuel_def", fuel_def); 
+  bioCHP.vct_fp("Yj", Yj);  
+  bioCHP.vct_fp("YH2Oj", YH2Oj); 
+  bioCHP.fval_p("W_el", W_el); 
+  bioCHP.vct_fp("Qk", Qk); 
   bioCHP.vct_fp("Tk_in", Tk_in);
   bioCHP.vct_fp("Tk_out", Tk_out);
 

@@ -83,10 +83,6 @@ void calculate_fuel_combustion_properties(flow fuel, object &prop) {
 void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_gas,
                        flow &bottom_ash, flow &fly_ash, object &comb) {
 
-  //cout << "************************* " << endl;
-  //cout << " Solid fuel boiler " << endl;
-  //cout << "************************* " << endl;
-
   vector<flow> air;
   vector<flow> fg;
   vector<flow> ba;
@@ -114,19 +110,15 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_ga
     size_t CO2g = index_species(fg[n].j, "CO2");
     size_t H2Og = index_species(fg[n].j, "H2O");
 
-    // calculating fuel combustion properties
-
     object comb_f("fuel", fuel[n].def);
     calculate_fuel_combustion_properties(fuel[n], comb_f);
 
     double T_0 = 25.0;
-    // calculating combustion air"
     air[n].F.VN = comb.fp("lambda") * comb_f.fp("V_stoich");
     air[n].F.T = comb.fp("T_ox");
     air[n].F.P = comb.fp("P_bar");
     air[n].calculate_flow("PT");
 
-    // calculating flue gas
     fg[n].F.T = comb.fp("T_g");
     fg[n].F.P = comb.fp("P_bar");
     fg[n].j[O2g].F.VN = (comb.fp("lambda") - 1) * comb_f.fp("V_stoich") * 0.21;
@@ -143,7 +135,6 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_ga
     fg[n].molec_def = "X";
     fg[n].calculate_flow("PT");
 
-    // calculating ash
     ba[n].P.cp = 1.25;  // kJ/kg*k
     comb.fval_p("fash_bottom", 0.1);
     comb.fval_p("yC_ash", 0.03);
@@ -195,7 +186,7 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_ga
   equipment_cost(prep);
   comb.c.push_back(prep);
 
-  /*
+  /*	
   cout << "-------------" << endl;
   cout << "Mass balance" << endl;
   cout << "------------" << endl;
@@ -215,7 +206,6 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_ga
   for (size_t nf = 0; nf < fuel.size(); nf++) {
     cout << '\t' << fuel[nf].def << " (MW): " << fuel[nf].F.Hf << endl;
   }
-
   cout << "Q_out: (MW) " << comb.fp("Q_out") * 1e-6 << endl;
   cout << "Q_loss: (MW) " << comb.fp("Q_loss") * 1e-6 << endl;
   cout << "H_air: (MW) " << comb_air[0].F.Ht * 1e-6 << endl;
