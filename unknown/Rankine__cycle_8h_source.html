@@ -427,19 +427,23 @@ $(document).ready(function(){initNavTree('Rankine__cycle_8h_source.html',''); in
 <div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span> </div>
 <div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>  <span class="comment">// calculating steam turbines</span></div>
 <div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>  cout &lt;&lt; <span class="stringliteral">&quot;calculating steam turbines&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>  cout &lt;&lt; <span class="stringliteral">&quot;M steam in (kg/s): &quot;</span> &lt;&lt; steam.F.M &lt;&lt; endl;</div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>  steam_turbine_model(steam, steam_out, par);</div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>  <span class="comment">//cout &lt;&lt; &quot; - W_el (MW): &quot; &lt;&lt; par.fp(&quot;W_el&quot;) &lt;&lt; endl;</span></div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span> </div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>  <span class="comment">// calculating steam condenser</span></div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>  steam_condenser(steam_out, cond, par);</div>
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span> </div>
-<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>  <span class="keywordtype">object</span> rankine_eq(<span class="stringliteral">&quot;equipment&quot;</span>, <span class="stringliteral">&quot;rankine_cycle&quot;</span>);</div>
-<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>  rankine_eq.fval_p(<span class="stringliteral">&quot;S&quot;</span>, par.fp(<span class="stringliteral">&quot;Q_stm&quot;</span>) * 1e-6);</div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>  equipment_cost(rankine_eq);</div>
-<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>  par.c.push_back(rankine_eq);</div>
-<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span> </div>
-<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>}</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>  cout &lt;&lt; <span class="stringliteral">&quot;Q steam in (W): &quot;</span> &lt;&lt; par.fp(<span class="stringliteral">&quot;Q_stm&quot;</span>) &lt;&lt; endl;</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>  cout &lt;&lt; <span class="stringliteral">&quot;h steam in (kJ/kg): &quot;</span> &lt;&lt; steam.P.h &lt;&lt; endl;</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>  cout &lt;&lt; <span class="stringliteral">&quot;h bfw in (kJ/kg): &quot;</span> &lt;&lt; bfw.P.h &lt;&lt; endl;</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>  cout &lt;&lt; <span class="stringliteral">&quot;M steam in (kg/s): &quot;</span> &lt;&lt; steam.F.M &lt;&lt; endl;</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span> </div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>  steam_turbine_model(steam, steam_out, par);</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>  <span class="comment">//cout &lt;&lt; &quot; - W_el (MW): &quot; &lt;&lt; par.fp(&quot;W_el&quot;) &lt;&lt; endl;</span></div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span> </div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>  <span class="comment">// calculating steam condenser</span></div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>  steam_condenser(steam_out, cond, par);</div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span> </div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>  <span class="keywordtype">object</span> rankine_eq(<span class="stringliteral">&quot;equipment&quot;</span>, <span class="stringliteral">&quot;rankine_cycle&quot;</span>);</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>  rankine_eq.fval_p(<span class="stringliteral">&quot;S&quot;</span>, par.fp(<span class="stringliteral">&quot;Q_stm&quot;</span>) * 1e-6);</div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>  equipment_cost(rankine_eq);</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>  par.c.push_back(rankine_eq);</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span> </div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>}</div>
 <div class="ttc" id="astructflow_html"><div class="ttname"><a href="structflow.html">flow</a></div><div class="ttdef"><b>Definition</b> flow_definitions.h:154</div></div>
 <div class="ttc" id="astructsteam__turbine__parameters_html"><div class="ttname"><a href="structsteam__turbine__parameters.html">steam_turbine_parameters</a></div><div class="ttdef"><b>Definition</b> Rankine_cycle.h:3</div></div>
 </div><!-- fragment --></div><!-- contents -->
