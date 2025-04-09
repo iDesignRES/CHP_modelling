@@ -141,8 +141,8 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_ga
     comb.fval_p("T_ash", 1000.0);
     ba[n].F.M = fuel[n].F.M * (1.0 - fuel[n].k[H2O].Y) *
                 (fuel[n].k[ash].Y * comb.fp("fash_bottom"));
-    ba[n].F.Ht = ba[n].F.M * (ba[n].P.cp * (comb.fp("T_ash") - 25) * 1e3 +
-                              comb.fp("yC_ash") * 34.1 * 1e6);
+    ba[n].F.Ht = ba[n].F.M * (ba[n].P.cp * (comb.fp("T_ash") - 25) * 1.0e3 +
+                              comb.fp("yC_ash") * 34.1 * 1.0e6);
     fa[n].F.M = fuel[n].F.M * (1.0 - fuel[n].k[H2O].Y) * fuel[n].k[ash].Y *
                 (1.0 - comb.fp("fash_bottom"));
     fa[n].F.Ht = fa[n].F.M * fa[n].P.cp * (comb.fp("T_ash") - 25);
@@ -206,11 +206,11 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_ga
   for (size_t nf = 0; nf < fuel.size(); nf++) {
     cout << '\t' << fuel[nf].def << " (MW): " << fuel[nf].F.Hf << endl;
   }
-  cout << "Q_out: (MW) " << comb.fp("Q_out") * 1e-6 << endl;
-  cout << "Q_loss: (MW) " << comb.fp("Q_loss") * 1e-6 << endl;
-  cout << "H_air: (MW) " << comb_air[0].F.Ht * 1e-6 << endl;
-  cout << "H_fg: (MW) " << flue_gas.F.Ht * 1e-6 << endl;
-  cout << "H_ba: (MW) " << bottom_ash.F.Ht * 1e-6 << endl;
-  cout << "H_fa: (MW) " << fly_ash.F.Ht * 1e-6 << endl;
+  cout << "Q_out: (MW) " << comb.fp("Q_out") * 1.0e-6 << endl;
+  cout << "Q_loss: (MW) " << comb.fp("Q_loss") * 1.0e-6 << endl;
+  cout << "H_air: (MW) " << comb_air[0].F.Ht * 1.0e-6 << endl;
+  cout << "H_fg: (MW) " << flue_gas.F.Ht * 1.0e-6 << endl;
+  cout << "H_ba: (MW) " << bottom_ash.F.Ht * 1.0e-6 << endl;
+  cout << "H_fa: (MW) " << fly_ash.F.Ht * 1.0e-6 << endl;
   */
 }

@@ -16,9 +16,9 @@ void steam_turbine_parameters::assign_parameter_values(string sys_type, string s
 
 void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
 
-  cout << "---------------------- " << endl;
-  cout << "steam turbine stage: " << endl;
-  cout << "---------------------- " << endl;
+  //cout << "---------------------- " << endl;
+  //cout << "steam turbine stage: " << endl;
+  //cout << "---------------------- " << endl;
 
   ST.Mi = in.F.M;
   ST.Ti = in.F.T;
@@ -85,6 +85,7 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
 
   ST.W = eff_el * in.F.M * 1.0e3 * (h_in - h_calc);
 
+  /*	
   cout << "---------------------- " << endl;
   cout << "M_in (kg/s): " << in.F.M << endl;
   cout << "h_calc (kJ/kg): " << h_calc << endl;
@@ -101,7 +102,8 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
   cout << "---------------------- " << endl;
   cout << "W_el (MW): " << 1.0e-6 * ST.W << endl;
   cout << "---------------------- " << endl;
-  
+  */
+
 }
 
 void steam_turbine_model(flow &in, flow &out, object &par) {
