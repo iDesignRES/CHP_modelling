@@ -189,7 +189,7 @@ $(document).ready(function(){initNavTree('bioCHP__plant_8h_source.html',''); ini
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>      b.fval_p(<span class="stringliteral">&quot;M_fuel&quot;</span>, Mf);</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>      solid_fuel_boiler(feed, comb_air, flue_gas, bottom_ash, fly_ash, b);</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>     cout &lt;&lt; <span class="stringliteral">&quot;Boiler Q_out (W) = &quot;</span> &lt;&lt; b.fp(<span class="stringliteral">&quot;Q_out&quot;</span>) &lt;&lt; endl;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>     <span class="comment">//cout &lt;&lt; &quot;Boiler Q_out (W) = &quot; &lt;&lt; b.fp(&quot;Q_out&quot;) &lt;&lt; endl;</span></div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>      <span class="keywordtype">object</span> r = rankine;</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>      r.fval_p(<span class="stringliteral">&quot;Q_stm&quot;</span>, b.fp(<span class="stringliteral">&quot;Q_out&quot;</span>));</div>
@@ -226,7 +226,7 @@ $(document).ready(function(){initNavTree('bioCHP__plant_8h_source.html',''); ini
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>  boiler.fval_p(<span class="stringliteral">&quot;M_fuel&quot;</span>, bioCHP.fp(<span class="stringliteral">&quot;M_fuel&quot;</span>));</div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>  solid_fuel_boiler(feed, comb_air, flue_gas, bottom_ash, fly_ash, boiler);</div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>  cout &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; <span class="stringliteral">&quot;Thermal power output, Q_out (MW) = &quot;</span> &lt;&lt; boiler.fp(<span class="stringliteral">&quot;Q_out&quot;</span>) &lt;&lt; endl;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>  cout &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; <span class="stringliteral">&quot;Thermal power output, Q_out (MW) = &quot;</span> &lt;&lt; boiler.fp(<span class="stringliteral">&quot;Q_out&quot;</span>)*1e-6 &lt;&lt; endl;</div>
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>  cout &lt;&lt; <span class="stringliteral">&quot;Calculating the Rankine cycle &quot;</span> &lt;&lt; endl;</div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
