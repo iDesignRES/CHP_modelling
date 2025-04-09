@@ -1,6 +1,7 @@
 
 
 void calculate_fuel_combustion_properties(flow fuel, object &prop) {
+
   size_t C = index_species(fuel.i, "C");
   size_t H = index_species(fuel.i, "H");
   size_t O = index_species(fuel.i, "O");
@@ -150,6 +151,10 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_ga
 
   double comb_Hf = 0.0;
   for (size_t n = 0; n < fuel.size(); n++) {
+    cout << fuel[n].def << " - fg Ht = " << fg[n].F.Ht << endl; 
+    cout << fuel[n].def << " - air Ht = " << air[n].F.Ht << endl; 
+    cout << fuel[n].def << " - ba Ht = " << ba[n].F.Ht << endl; 
+    cout << fuel[n].def << " - fa Ht = " << fa[n].F.Ht << endl; 
     if (n == 0) {
       if (comb_air.size() == 0) {
         comb_air.push_back(air[n]);
