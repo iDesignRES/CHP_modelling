@@ -208,9 +208,14 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_ga
   }
   cout << "Q_out: (MW) " << comb.fp("Q_out") * 1.0e-6 << endl;
   cout << "Q_loss: (MW) " << comb.fp("Q_loss") * 1.0e-6 << endl;
+  cout << "Q_loss: (W) " << comb.fp("Q_loss") << endl;
   cout << "H_air: (MW) " << comb_air[0].F.Ht * 1.0e-6 << endl;
+  cout << "H_air: (W) " << comb_air[0].F.Ht << endl;
   cout << "H_fg: (MW) " << flue_gas.F.Ht * 1.0e-6 << endl;
+  cout << "H_fg: (W) " << flue_gas.F.Ht << endl;
   cout << "H_ba: (MW) " << bottom_ash.F.Ht * 1.0e-6 << endl;
+  cout << "H_ba: (W) " << bottom_ash.F.Ht << endl;
   cout << "H_fa: (MW) " << fly_ash.F.Ht * 1.0e-6 << endl;
+  cout << "H_fa: (W) " << fly_ash.F.Ht << endl;
 
 }
