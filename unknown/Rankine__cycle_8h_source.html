@@ -123,86 +123,86 @@ $(document).ready(function(){initNavTree('Rankine__cycle_8h_source.html',''); in
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>}</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keywordtype">void</span> steam_turbine(<a class="code hl_struct" href="structflow.html">flow</a> &amp;in, <a class="code hl_struct" href="structflow.html">flow</a> &amp;out, <a class="code hl_struct" href="structsteam__turbine__parameters.html">steam_turbine_parameters</a> &amp;ST) {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>  <span class="comment">//cout &lt;&lt; &quot;---------------------- &quot; &lt;&lt; endl;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  <span class="comment">//cout &lt;&lt; &quot;steam turbine stage: &quot; &lt;&lt; endl;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  <span class="comment">//cout &lt;&lt; &quot;---------------------- &quot; &lt;&lt; endl;</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  ST.Mi = in.F.M;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  ST.Ti = in.F.T;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  ST.Pi = in.F.P;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  in.calculate_flow_properties(<span class="stringliteral">&quot;PT&quot;</span>);</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <span class="keywordtype">double</span> eff_el = 0.9;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>  <span class="keywordtype">double</span> s_out, s_in = sPTSupSteam(ST.Pi, ST.Ti);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  <span class="keywordtype">double</span> hs_out, h_out, h_calc, h_in = hPTSupSteam(ST.Pi, ST.Ti);</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  <span class="keywordtype">double</span> T_out, Ts_out = TSatWater(ST.Po);  <span class="comment">// initial guess</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  <span class="keywordtype">double</span> ys_moisture = 0.0, y_moisture;     <span class="comment">// Initial Guess</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  <span class="keywordtype">double</span> s_out_initial = sPTSupSteam(ST.Po, Ts_out);</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  <span class="keywordflow">if</span> (s_out_initial &lt; s_in) {</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    s_out = s_out_initial;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordflow">while</span> (s_out &lt; s_in) {</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>      Ts_out += 0.01;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>      s_out = sPTSupSteam(ST.Po, Ts_out);</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    }</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    hs_out = hPTSupSteam(ST.Po, Ts_out);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    h_out = h_in + ST.mu_isent * (hPTSupSteam(ST.Po, Ts_out) - h_in);</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  }</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  <span class="keywordflow">if</span> (s_out_initial &gt; s_in) {</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    s_out = s_out_initial;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">while</span> (s_out &gt; s_in) {</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>      ys_moisture += 0.001;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>      s_out = ys_moisture * sPWater(ST.Po) + (1.0 - ys_moisture) * sPSatSteam(ST.Po);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    hs_out = ys_moisture * hPWater(ST.Po) + (1.0 - ys_moisture) * hPSatSteam(ST.Po);</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    h_out = h_in + ST.mu_isent * (hs_out - h_in);</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  }</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>  <span class="keywordflow">if</span> (h_out &gt; hPSatSteam(ST.Po)) {</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    y_moisture = 0;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    T_out = Ts_out;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    h_calc = hPSatSteam(ST.Po);</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">while</span> (h_calc &lt; h_out) {</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>      T_out += 0.001;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>      h_calc = hPTSupSteam(ST.Po, T_out);</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    }</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  }</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>  <span class="keywordflow">if</span> (h_out &lt; hPSatSteam(ST.Po)) {</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    y_moisture = ys_moisture;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    T_out = Ts_out;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    h_calc = hs_out;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordflow">while</span> (h_calc &lt; h_out) {</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>      y_moisture = y_moisture - 0.001;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>      h_calc = y_moisture * hPWater(ST.Po) + (1.0 - y_moisture) * hPSatSteam(ST.Po);</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    }</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>  }</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>  in.F.Ht = in.F.M * 1e3 * h_in;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>  out.F.M = in.F.M;</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>  out.F.T = T_out;</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>  out.F.P = ST.Po;</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>  out.P.h = h_calc;</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>  out.P.ht = out.P.h;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>  out.F.Ht = out.F.M * 1e3 * h_calc;</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>  ST.W = eff_el * in.F.M * 1e3 * (h_in - h_calc);</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>  <span class="comment">/*    </span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="comment">  cout &lt;&lt; &quot;Parameter:&quot; &lt;&lt; &#39;\t&#39; &lt;&lt; &quot;in&quot; &lt;&lt; &#39;\t&#39; &lt;&lt; &quot;out&quot; &lt;&lt; endl;</span></div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment">  cout &lt;&lt; &quot;P (bar-a)&quot; &lt;&lt; &#39;\t&#39; &lt;&lt; ST.Pi &lt;&lt; &#39;\t&#39; &lt;&lt; ST.Po &lt;&lt; endl;</span></div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment">  cout &lt;&lt; &quot;T (deg-C)&quot; &lt;&lt; &#39;\t&#39; &lt;&lt; ST.Ti &lt;&lt; &#39;\t&#39; &lt;&lt; Ts_out &lt;&lt; endl;</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="comment">  cout &lt;&lt; &quot;hs (kJ/kg)&quot; &lt;&lt; &#39;\t&#39; &lt;&lt; h_in &lt;&lt; &#39;\t&#39; &lt;&lt; hs_out &lt;&lt; endl;</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment">  cout &lt;&lt; &quot;h (kJ/kg)&quot; &lt;&lt; &#39;\t&#39; &lt;&lt; h_in &lt;&lt; &#39;\t&#39; &lt;&lt; h_out &lt;&lt; endl;</span></div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="comment">  cout &lt;&lt; &quot;s (kJ/kg K)&quot; &lt;&lt; &#39;\t&#39; &lt;&lt; s_in &lt;&lt; &#39;\t&#39; &lt;&lt; s_out &lt;&lt; endl;</span></div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment">  cout &lt;&lt; &quot;q (kg/kg)&quot; &lt;&lt; &#39;\t&#39; &lt;&lt; &quot;0.0&quot; &lt;&lt; &#39;\t&#39; &lt;&lt; ys_moisture &lt;&lt; endl;</span></div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="comment">  cout &lt;&lt; &quot;W_el (MW): &quot; &lt;&lt; 1e-6 * ST.W &lt;&lt; endl;</span></div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="comment">  cout &lt;&lt; &quot;---------------------- &quot; &lt;&lt; endl;</span></div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="comment">  */</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  cout &lt;&lt; <span class="stringliteral">&quot;---------------------- &quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  cout &lt;&lt; <span class="stringliteral">&quot;steam turbine stage: &quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>  cout &lt;&lt; <span class="stringliteral">&quot;---------------------- &quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  ST.Mi = in.F.M;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  ST.Ti = in.F.T;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  ST.Pi = in.F.P;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>  in.calculate_flow_properties(<span class="stringliteral">&quot;PT&quot;</span>);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>  <span class="keywordtype">double</span> eff_el = 0.9;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  <span class="keywordtype">double</span> s_out, s_in = sPTSupSteam(ST.Pi, ST.Ti);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  <span class="keywordtype">double</span> hs_out, h_out, h_calc, h_in = hPTSupSteam(ST.Pi, ST.Ti);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  <span class="keywordtype">double</span> T_out, Ts_out = TSatWater(ST.Po);  <span class="comment">// initial guess</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  <span class="keywordtype">double</span> ys_moisture = 0.0, y_moisture;     <span class="comment">// Initial Guess</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  <span class="keywordtype">double</span> s_out_initial = sPTSupSteam(ST.Po, Ts_out);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  <span class="keywordflow">if</span> (s_out_initial &lt; s_in) {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    s_out = s_out_initial;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordflow">while</span> (s_out &lt; s_in) {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>      Ts_out += 0.01;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>      s_out = sPTSupSteam(ST.Po, Ts_out);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    }</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    hs_out = hPTSupSteam(ST.Po, Ts_out);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    h_out = h_in + ST.mu_isent * (hPTSupSteam(ST.Po, Ts_out) - h_in);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  }</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  <span class="keywordflow">if</span> (s_out_initial &gt; s_in) {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    s_out = s_out_initial;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordflow">while</span> (s_out &gt; s_in) {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>      ys_moisture += 0.001;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>      s_out = ys_moisture * sPWater(ST.Po) + (1.0 - ys_moisture) * sPSatSteam(ST.Po);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    }</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    hs_out = ys_moisture * hPWater(ST.Po) + (1.0 - ys_moisture) * hPSatSteam(ST.Po);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    h_out = h_in + ST.mu_isent * (hs_out - h_in);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  }</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  <span class="keywordflow">if</span> (h_out &gt; hPSatSteam(ST.Po)) {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    y_moisture = 0;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    T_out = Ts_out;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    h_calc = hPSatSteam(ST.Po);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordflow">while</span> (h_calc &lt; h_out) {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>      T_out += 0.001;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>      h_calc = hPTSupSteam(ST.Po, T_out);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    }</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  }</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>  <span class="keywordflow">if</span> (h_out &lt; hPSatSteam(ST.Po)) {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    y_moisture = ys_moisture;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    T_out = Ts_out;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    h_calc = hs_out;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">while</span> (h_calc &lt; h_out) {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>      y_moisture = y_moisture - 0.001;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>      h_calc = y_moisture * hPWater(ST.Po) + (1.0 - y_moisture) * hPSatSteam(ST.Po);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    }</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>  }</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>  in.F.Ht = in.F.M * 1e3 * h_in;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>  out.F.M = in.F.M;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>  out.F.T = T_out;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>  out.F.P = ST.Po;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>  out.P.h = h_calc;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>  out.P.ht = out.P.h;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>  out.F.Ht = out.F.M * 1e3 * h_calc;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>  ST.W = eff_el * in.F.M * 1e3 * (h_in - h_calc);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>  cout &lt;&lt; <span class="stringliteral">&quot;Parameter:&quot;</span> &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; <span class="stringliteral">&quot;in&quot;</span> &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; <span class="stringliteral">&quot;out&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>  cout &lt;&lt; <span class="stringliteral">&quot;P (bar-a)&quot;</span> &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; ST.Pi &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; ST.Po &lt;&lt; endl;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>  cout &lt;&lt; <span class="stringliteral">&quot;T (deg-C)&quot;</span> &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; ST.Ti &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; Ts_out &lt;&lt; endl;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>  cout &lt;&lt; <span class="stringliteral">&quot;hs (kJ/kg)&quot;</span> &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; h_in &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; hs_out &lt;&lt; endl;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>  cout &lt;&lt; <span class="stringliteral">&quot;h (kJ/kg)&quot;</span> &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; h_in &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; h_out &lt;&lt; endl;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>  cout &lt;&lt; <span class="stringliteral">&quot;s (kJ/kg K)&quot;</span> &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; s_in &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; s_out &lt;&lt; endl;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>  cout &lt;&lt; <span class="stringliteral">&quot;q (kg/kg)&quot;</span> &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; <span class="stringliteral">&quot;0.0&quot;</span> &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; ys_moisture &lt;&lt; endl;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>  cout &lt;&lt; <span class="stringliteral">&quot;W_el (MW): &quot;</span> &lt;&lt; 1e-6 * ST.W &lt;&lt; endl;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>  cout &lt;&lt; <span class="stringliteral">&quot;---------------------- &quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>  </div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>}</div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="keywordtype">void</span> steam_turbine_model(<a class="code hl_struct" href="structflow.html">flow</a> &amp;in, <a class="code hl_struct" href="structflow.html">flow</a> &amp;out, <span class="keywordtype">object</span> &amp;par) {</div>
@@ -415,20 +415,23 @@ $(document).ready(function(){initNavTree('Rankine__cycle_8h_source.html',''); in
 <div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>  cond = <a class="code hl_struct" href="structflow.html">flow</a>(<span class="stringliteral">&quot;cond&quot;</span>, <span class="stringliteral">&quot;water&quot;</span>);</div>
 <div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span> </div>
 <div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>  <span class="comment">// calculating district heating data</span></div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>  district_heating(dh_in, dh_out, par);</div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span> </div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>  <span class="comment">// calculating steam turbines</span></div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>  steam_turbine_model(steam, steam_out, par);</div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span> </div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>  <span class="comment">// calculating steam condenser</span></div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>  steam_condenser(steam_out, cond, par);</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>  <span class="comment">//cout &lt;&lt; &quot;calculating district heating data&quot; &lt;&lt; endl;</span></div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>  district_heating(dh_in, dh_out, par);</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span> </div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>  <span class="comment">// calculating steam turbines</span></div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>  <span class="comment">//cout &lt;&lt; &quot;calculating steam turbines&quot; &lt;&lt; endl;</span></div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>  steam_turbine_model(steam, steam_out, par);</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>  <span class="comment">//cout &lt;&lt; &quot; - W_el (MW): &quot; &lt;&lt; par.fp(&quot;W_el&quot;) &lt;&lt; endl;</span></div>
 <div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span> </div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>  <span class="keywordtype">object</span> rankine_eq(<span class="stringliteral">&quot;equipment&quot;</span>, <span class="stringliteral">&quot;rankine_cycle&quot;</span>);</div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>  rankine_eq.fval_p(<span class="stringliteral">&quot;S&quot;</span>, par.fp(<span class="stringliteral">&quot;Q_stm&quot;</span>) * 1e-6);</div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>  equipment_cost(rankine_eq);</div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>  par.c.push_back(rankine_eq);</div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span> </div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>}</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>  <span class="comment">// calculating steam condenser</span></div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>  steam_condenser(steam_out, cond, par);</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span> </div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>  <span class="keywordtype">object</span> rankine_eq(<span class="stringliteral">&quot;equipment&quot;</span>, <span class="stringliteral">&quot;rankine_cycle&quot;</span>);</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>  rankine_eq.fval_p(<span class="stringliteral">&quot;S&quot;</span>, par.fp(<span class="stringliteral">&quot;Q_stm&quot;</span>) * 1e-6);</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>  equipment_cost(rankine_eq);</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>  par.c.push_back(rankine_eq);</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span> </div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>}</div>
 <div class="ttc" id="astructflow_html"><div class="ttname"><a href="structflow.html">flow</a></div><div class="ttdef"><b>Definition</b> flow_definitions.h:154</div></div>
 <div class="ttc" id="astructsteam__turbine__parameters_html"><div class="ttname"><a href="structsteam__turbine__parameters.html">steam_turbine_parameters</a></div><div class="ttdef"><b>Definition</b> Rankine_cycle.h:3</div></div>
 </div><!-- fragment --></div><!-- contents -->
