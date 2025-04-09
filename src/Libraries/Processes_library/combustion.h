@@ -186,6 +186,10 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_ga
   equipment_cost(prep);
   comb.c.push_back(prep);
 
+  air.clear();
+  fg.clear();
+  ba.clear();
+  fa.clear();
 
   cout << "-------------" << endl;
   cout << "Mass balance" << endl;
