@@ -81,9 +81,9 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
   out.F.P = ST.Po;
   out.P.h = h_calc;
   out.P.ht = out.P.h;
-  out.F.Ht = out.F.M * 1e3 * h_calc;
+  out.F.Ht = out.F.M * 1.0e3 * h_calc;
 
-  ST.W = eff_el * in.F.M * 1e3 * (h_in - h_calc);
+  ST.W = eff_el * in.F.M * 1.0e3 * (h_in - h_calc);
 	
   cout << "Parameter:" << '\t' << "in" << '\t' << "out" << endl;
   cout << "P (bar-a)" << '\t' << ST.Pi << '\t' << ST.Po << endl;
@@ -92,7 +92,7 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
   cout << "h (kJ/kg)" << '\t' << h_in << '\t' << h_out << endl;
   cout << "s (kJ/kg K)" << '\t' << s_in << '\t' << s_out << endl;
   cout << "q (kg/kg)" << '\t' << "0.0" << '\t' << ys_moisture << endl;
-  cout << "W_el (MW): " << 1e-6 * ST.W << endl;
+  cout << "W_el (MW): " << 1.0e-6 * ST.W << endl;
   cout << "---------------------- " << endl;
   
 }
