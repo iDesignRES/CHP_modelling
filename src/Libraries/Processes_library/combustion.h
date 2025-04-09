@@ -153,10 +153,6 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_ga
 
   double comb_Hf = 0.0;
   for (size_t n = 0; n < fuel.size(); n++) {
-    cout << fuel[n].def << " - fg Ht = " << fg[n].F.Ht << endl; 
-    cout << fuel[n].def << " - air Ht = " << air[n].F.Ht << endl; 
-    cout << fuel[n].def << " - ba Ht = " << ba[n].F.Ht << endl; 
-    cout << fuel[n].def << " - fa Ht = " << fa[n].F.Ht << endl; 
     if (n == 0) {
       if (comb_air.size() == 0) {
         comb_air.push_back(air[n]);
@@ -198,6 +194,7 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_ga
   ba.clear();
   fa.clear();
 
+  /*  	
   cout << "-------------" << endl;
   cout << "Mass balance" << endl;
   cout << "------------" << endl;
@@ -228,5 +225,5 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_ga
   cout << "H_ba: (W) " << bottom_ash.F.Ht << endl;
   cout << "H_fa: (MW) " << fly_ash.F.Ht * 1.0e-6 << endl;
   cout << "H_fa: (W) " << fly_ash.F.Ht << endl;
-
+  */
 }

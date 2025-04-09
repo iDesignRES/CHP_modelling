@@ -83,7 +83,7 @@ void bioCHP_plant_model(object &bioCHP) {
       b.fval_p("M_fuel", Mf);
       solid_fuel_boiler(feed, comb_air, flue_gas, bottom_ash, fly_ash, b);
 
-  	 cout << "Boiler Q_out (W) = " << b.fp("Q_out") << endl;
+  	 //cout << "Boiler Q_out (W) = " << b.fp("Q_out") << endl;
 
       object r = rankine;
       r.fval_p("Q_stm", b.fp("Q_out"));
@@ -120,7 +120,7 @@ void bioCHP_plant_model(object &bioCHP) {
   boiler.fval_p("M_fuel", bioCHP.fp("M_fuel"));
   solid_fuel_boiler(feed, comb_air, flue_gas, bottom_ash, fly_ash, boiler);
 
-  cout << '\t' << "Thermal power output, Q_out (MW) = " << boiler.fp("Q_out") << endl;
+  cout << '\t' << "Thermal power output, Q_out (MW) = " << boiler.fp("Q_out")*1e-6 << endl;
 
   cout << "Calculating the Rankine cycle " << endl;
 

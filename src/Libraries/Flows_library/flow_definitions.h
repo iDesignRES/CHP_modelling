@@ -212,7 +212,6 @@ flow::flow(string flw_id, string flw_def) {
   P = properties();
   F.T = 25.0;
   F.P = 1.01325;
-  // flows_database(flw_def);
   get_flow_data(flw_def);
   if (cls == "woody_biomass" || cls == "sludge") {
     calculate_solid_fuel();
@@ -948,19 +947,17 @@ void flow::get_flow_data(string input_def) {
     get_flow_composition(j, "MOLECULES");
     get_flow_composition(i, "ATOMS");
     interpret_molecules();
-    // cout << "interpreting molecules" << endl;
-    // if(molec_def == "Y") { if(atom_def != "X" || atom_def != "Y")
-    // {interpret_molecules();}}
     get_flow_composition(k, "PROXIMATE");
     get_flow_properties();
-    // get_flow_chemistry();
   }
 
   calculate_flow_composition();
 }
 
 void flow::mix_flows(flow &f1, flow &f2) {
+
   F.M = f1.F.M + f2.F.M;
+
   F.N = f1.F.N + f2.F.N;
 
   P.LHV = (f1.F.M * f1.P.LHV + f2.F.M * f2.P.LHV) / F.M;

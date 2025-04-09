@@ -187,20 +187,20 @@ void flow::calculate_species_properties(string state_def) {
           thermodynamic_property(j[n].id, "cp", j[n].F.T + 273.15, j[n].F.P, "J/molK");
       if (j[n].P.cp == -1.0) {
         j[n].P.cp = 0.0;
-        cout << "Error: property: cp cannot be calculated for species: " << j[n].id << endl;
+        //cout << "Error: property: cp cannot be calculated for species: " << j[n].id << endl;
       }
 
       j[n].P.h = thermodynamic_property(j[n].id, "h", j[n].F.T + 273.15, j[n].F.P, "J/mol");
       if (j[n].P.h == -1.0) {
         j[n].P.h = 0.0;
-        cout << "Error: property: h cannot be calculated for species: " << j[n].id << endl;
+        //cout << "Error: property: h cannot be calculated for species: " << j[n].id << endl;
       }
 
       j[n].P.s =
           thermodynamic_property(j[n].id, "s", j[n].F.T + 273.15, j[n].F.P, "J/molK");
       if (j[n].P.s == -1.0) {
         j[n].P.s = 0.0;
-        cout << "Error: property: s cannot be calculated for species: " << j[n].id << endl;
+        //cout << "Error: property: s cannot be calculated for species: " << j[n].id << endl;
       }
 
     //}
@@ -211,7 +211,7 @@ void flow::calculate_species_properties(string state_def) {
     j[n].P.hf = j[n].P.hf / j[n].P.MW;
     j[n].P.s = j[n].P.s / j[n].P.MW;
 
-    cout << j[n].def << " cp = " << j[n].P.cp << " ht = " << j[n].P.ht << endl;  	
+    //cout << j[n].def << " cp = " << j[n].P.cp << " ht = " << j[n].P.ht << endl;  	
 
   }
 }
