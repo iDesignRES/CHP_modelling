@@ -121,17 +121,17 @@ $(document).ready(function(){initNavTree('species__thermodynamics_8h_source.html
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>  <span class="comment">// / (2 * t2) + G</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>  <span class="keywordflow">if</span> (property == <span class="stringliteral">&quot;cp&quot;</span>) {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordflow">return</span> A + B * pow(tK, 1) + C * pow(tK, 2) + D * pow(tK, 3) + E / pow(tK, 2);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordflow">return</span> A + B * pow(tK, 1.0) + C * pow(tK, 2.0) + D * pow(tK, 3.0) + E / pow(tK, 2.0);</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  }</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  <span class="keywordflow">if</span> (property == <span class="stringliteral">&quot;h&quot;</span>) {</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordflow">return</span> A * pow(tK, 1) + B * pow(tK, 2) / 2.0 + C * pow(tK, 3) / 3.0 +</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>           D * pow(tK, 4) / 4.0 - E / tK + F - Hf298;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordflow">return</span> A * pow(tK, 1.0) + B * pow(tK, 2.0) / 2.0 + C * pow(tK, 3.0) / 3.0 +</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>           D * pow(tK, 4.0) / 4.0 - E / tK + F - Hf298;</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  }</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  <span class="keywordflow">if</span> (property == <span class="stringliteral">&quot;hf&quot;</span>) {</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">return</span> Hf298;</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>  }</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <span class="keywordflow">if</span> (property == <span class="stringliteral">&quot;s&quot;</span>) {</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordflow">return</span> A * log(tK) + B * pow(tK, 1) + C * pow(tK, 2) / 2.0 + D * pow(tK, 3) / 3.0 -</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordflow">return</span> A * log(tK) + B * pow(tK, 1.0) + C * pow(tK, 2.0) / 2.0 + D * pow(tK, 3.0) / 3.0 -</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>           E / (2.0 * pow(tK, 2.0)) + G;</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  }</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
