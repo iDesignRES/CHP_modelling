@@ -314,12 +314,17 @@ $(document).ready(function(){initNavTree('combustion_8h_source.html',''); initRe
 <div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>  }</div>
 <div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>  cout &lt;&lt; <span class="stringliteral">&quot;Q_out: (MW) &quot;</span> &lt;&lt; comb.fp(<span class="stringliteral">&quot;Q_out&quot;</span>) * 1.0e-6 &lt;&lt; endl;</div>
 <div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>  cout &lt;&lt; <span class="stringliteral">&quot;Q_loss: (MW) &quot;</span> &lt;&lt; comb.fp(<span class="stringliteral">&quot;Q_loss&quot;</span>) * 1.0e-6 &lt;&lt; endl;</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>  cout &lt;&lt; <span class="stringliteral">&quot;H_air: (MW) &quot;</span> &lt;&lt; comb_air[0].F.Ht * 1.0e-6 &lt;&lt; endl;</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>  cout &lt;&lt; <span class="stringliteral">&quot;H_fg: (MW) &quot;</span> &lt;&lt; flue_gas.F.Ht * 1.0e-6 &lt;&lt; endl;</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>  cout &lt;&lt; <span class="stringliteral">&quot;H_ba: (MW) &quot;</span> &lt;&lt; bottom_ash.F.Ht * 1.0e-6 &lt;&lt; endl;</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>  cout &lt;&lt; <span class="stringliteral">&quot;H_fa: (MW) &quot;</span> &lt;&lt; fly_ash.F.Ht * 1.0e-6 &lt;&lt; endl;</div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> </div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>}</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>  cout &lt;&lt; <span class="stringliteral">&quot;Q_loss: (W) &quot;</span> &lt;&lt; comb.fp(<span class="stringliteral">&quot;Q_loss&quot;</span>) &lt;&lt; endl;</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>  cout &lt;&lt; <span class="stringliteral">&quot;H_air: (MW) &quot;</span> &lt;&lt; comb_air[0].F.Ht * 1.0e-6 &lt;&lt; endl;</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>  cout &lt;&lt; <span class="stringliteral">&quot;H_air: (W) &quot;</span> &lt;&lt; comb_air[0].F.Ht &lt;&lt; endl;</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>  cout &lt;&lt; <span class="stringliteral">&quot;H_fg: (MW) &quot;</span> &lt;&lt; flue_gas.F.Ht * 1.0e-6 &lt;&lt; endl;</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>  cout &lt;&lt; <span class="stringliteral">&quot;H_fg: (W) &quot;</span> &lt;&lt; flue_gas.F.Ht &lt;&lt; endl;</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>  cout &lt;&lt; <span class="stringliteral">&quot;H_ba: (MW) &quot;</span> &lt;&lt; bottom_ash.F.Ht * 1.0e-6 &lt;&lt; endl;</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>  cout &lt;&lt; <span class="stringliteral">&quot;H_ba: (W) &quot;</span> &lt;&lt; bottom_ash.F.Ht &lt;&lt; endl;</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>  cout &lt;&lt; <span class="stringliteral">&quot;H_fa: (MW) &quot;</span> &lt;&lt; fly_ash.F.Ht * 1.0e-6 &lt;&lt; endl;</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>  cout &lt;&lt; <span class="stringliteral">&quot;H_fa: (W) &quot;</span> &lt;&lt; fly_ash.F.Ht &lt;&lt; endl;</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>}</div>
 <div class="ttc" id="astructflow_html"><div class="ttname"><a href="structflow.html">flow</a></div><div class="ttdef"><b>Definition</b> flow_definitions.h:154</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
