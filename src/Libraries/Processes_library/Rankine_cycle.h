@@ -86,7 +86,10 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
   ST.W = eff_el * in.F.M * 1.0e3 * (h_in - h_calc);
 
   cout << "---------------------- " << endl;
+  cout << "M_in (kg/s): " << in.F.M << endl;
   cout << "h_calc (kJ/kg): " << h_calc << endl;
+  cout << "eff_el (-): " << eff_el << endl;
+  cout << "ST.W (W): " << ST.W << endl;
   cout << "---------------------- " << endl;
   cout << "Parameter:" << '\t' << "in" << '\t' << "out" << endl;
   cout << "P (bar-a)" << '\t' << ST.Pi << '\t' << ST.Po << endl;
