@@ -15,17 +15,17 @@ double shomate(string property, double tK, double A, double B, double C, double 
   // / (2 * t2) + G
 
   if (property == "cp") {
-    return A + B * pow(tK, 1) + C * pow(tK, 2) + D * pow(tK, 3) + E / pow(tK, 2);
+    return A + B * pow(tK, 1.0) + C * pow(tK, 2.0) + D * pow(tK, 3.0) + E / pow(tK, 2.0);
   }
   if (property == "h") {
-    return A * pow(tK, 1) + B * pow(tK, 2) / 2.0 + C * pow(tK, 3) / 3.0 +
-           D * pow(tK, 4) / 4.0 - E / tK + F - Hf298;
+    return A * pow(tK, 1.0) + B * pow(tK, 2.0) / 2.0 + C * pow(tK, 3.0) / 3.0 +
+           D * pow(tK, 4.0) / 4.0 - E / tK + F - Hf298;
   }
   if (property == "hf") {
     return Hf298;
   }
   if (property == "s") {
-    return A * log(tK) + B * pow(tK, 1) + C * pow(tK, 2) / 2.0 + D * pow(tK, 3) / 3.0 -
+    return A * log(tK) + B * pow(tK, 1.0) + C * pow(tK, 2.0) / 2.0 + D * pow(tK, 3.0) / 3.0 -
            E / (2.0 * pow(tK, 2.0)) + G;
   }
 
