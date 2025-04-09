@@ -189,9 +189,9 @@ $(document).ready(function(){initNavTree('Rankine__cycle_8h_source.html',''); in
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>  out.F.P = ST.Po;</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>  out.P.h = h_calc;</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>  out.P.ht = out.P.h;</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>  out.F.Ht = out.F.M * 1e3 * h_calc;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>  out.F.Ht = out.F.M * 1.0e3 * h_calc;</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>  ST.W = eff_el * in.F.M * 1e3 * (h_in - h_calc);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>  ST.W = eff_el * in.F.M * 1.0e3 * (h_in - h_calc);</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    </div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>  cout &lt;&lt; <span class="stringliteral">&quot;Parameter:&quot;</span> &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; <span class="stringliteral">&quot;in&quot;</span> &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; <span class="stringliteral">&quot;out&quot;</span> &lt;&lt; endl;</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>  cout &lt;&lt; <span class="stringliteral">&quot;P (bar-a)&quot;</span> &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; ST.Pi &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; ST.Po &lt;&lt; endl;</div>
@@ -200,7 +200,7 @@ $(document).ready(function(){initNavTree('Rankine__cycle_8h_source.html',''); in
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>  cout &lt;&lt; <span class="stringliteral">&quot;h (kJ/kg)&quot;</span> &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; h_in &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; h_out &lt;&lt; endl;</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>  cout &lt;&lt; <span class="stringliteral">&quot;s (kJ/kg K)&quot;</span> &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; s_in &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; s_out &lt;&lt; endl;</div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>  cout &lt;&lt; <span class="stringliteral">&quot;q (kg/kg)&quot;</span> &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; <span class="stringliteral">&quot;0.0&quot;</span> &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; ys_moisture &lt;&lt; endl;</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>  cout &lt;&lt; <span class="stringliteral">&quot;W_el (MW): &quot;</span> &lt;&lt; 1e-6 * ST.W &lt;&lt; endl;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>  cout &lt;&lt; <span class="stringliteral">&quot;W_el (MW): &quot;</span> &lt;&lt; 1.0e-6 * ST.W &lt;&lt; endl;</div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>  cout &lt;&lt; <span class="stringliteral">&quot;---------------------- &quot;</span> &lt;&lt; endl;</div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>  </div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>}</div>
