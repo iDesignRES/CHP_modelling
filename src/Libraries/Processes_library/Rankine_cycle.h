@@ -15,9 +15,10 @@ void steam_turbine_parameters::assign_parameter_values(string sys_type, string s
 }
 
 void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
-  //cout << "---------------------- " << endl;
-  //cout << "steam turbine stage: " << endl;
-  //cout << "---------------------- " << endl;
+
+  cout << "---------------------- " << endl;
+  cout << "steam turbine stage: " << endl;
+  cout << "---------------------- " << endl;
 
   ST.Mi = in.F.M;
   ST.Ti = in.F.T;
@@ -83,8 +84,7 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
   out.F.Ht = out.F.M * 1e3 * h_calc;
 
   ST.W = eff_el * in.F.M * 1e3 * (h_in - h_calc);
-
-  /*	
+	
   cout << "Parameter:" << '\t' << "in" << '\t' << "out" << endl;
   cout << "P (bar-a)" << '\t' << ST.Pi << '\t' << ST.Po << endl;
   cout << "T (deg-C)" << '\t' << ST.Ti << '\t' << Ts_out << endl;
@@ -94,7 +94,7 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
   cout << "q (kg/kg)" << '\t' << "0.0" << '\t' << ys_moisture << endl;
   cout << "W_el (MW): " << 1e-6 * ST.W << endl;
   cout << "---------------------- " << endl;
-  */
+  
 }
 
 void steam_turbine_model(flow &in, flow &out, object &par) {
@@ -307,10 +307,13 @@ void rankine_cycle(object &par) {
   cond = flow("cond", "water");
 
   // calculating district heating data
+  //cout << "calculating district heating data" << endl;
   district_heating(dh_in, dh_out, par);
 
   // calculating steam turbines
+  //cout << "calculating steam turbines" << endl;
   steam_turbine_model(steam, steam_out, par);
+  //cout << " - W_el (MW): " << par.fp("W_el") << endl;
 
   // calculating steam condenser
   steam_condenser(steam_out, cond, par);
