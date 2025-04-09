@@ -317,7 +317,7 @@ void print_parameters(vector<parameter> &p) {
 // **********************************************************
 
 double fp(vector<parameter> &par, string sys_type, string sys_def, string data_id) {
-  get_num_parameter(par, sys_type, sys_def, data_id);
+  return get_num_parameter(par, sys_type, sys_def, data_id);
 }
 
 // **********************************************************
