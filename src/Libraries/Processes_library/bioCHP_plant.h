@@ -70,7 +70,7 @@ void bioCHP_plant_model(object &bioCHP) {
 
     double W_el_prod = 0.0;
 
-    for( int n = 0; n < 1; n++ ){
+    for( int n = 0; n < 10; n++ ){
 
       double Mf = Hf / LHV_f;
 
@@ -86,8 +86,13 @@ void bioCHP_plant_model(object &bioCHP) {
       object r = rankine;
       r.fval_p("Q_stm", b.fp("Q_out"));
       rankine_cycle(r);
-      W_el_prod = r.fp("W_el");	
+      W_el_prod = r.fp("W_el");
+
+  	 cout << '\t' << "Hf (MW) = " << Hf << " W_el (MW) = " << W_el << " W_el_prod (MW) = " << W_el_prod << endl;
+
       Hf = Hf * W_el / W_el_prod;
+
+  	 cout << '\t' << "Hf (MW) = " << Hf << endl;
 
     }	
 
