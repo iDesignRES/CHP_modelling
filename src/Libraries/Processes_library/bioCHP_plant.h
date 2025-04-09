@@ -37,6 +37,8 @@ void bioCHP_plant_model(object &bioCHP) {
   double LHV_f = bioCHP.fp("LHV_f");			
   vector<double> Yj = bioCHP.vctp("Yj");
 
+  cout << "Feedstock LHV: " << bioCHP.fp("LHV_f") << endl;
+
   flow flue_gas, bottom_ash, fly_ash, dh_in, dh_out;
   vector<flow> comb_air;
 
@@ -68,7 +70,7 @@ void bioCHP_plant_model(object &bioCHP) {
 
     double W_el_prod = 0.0;
 
-    for( int n = 0; n < 10; n++ ){
+    for( int n = 0; n < 1; n++ ){
 
       double Mf = Hf / LHV_f;
 
