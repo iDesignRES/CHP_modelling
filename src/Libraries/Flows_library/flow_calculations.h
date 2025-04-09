@@ -105,6 +105,7 @@ void flow::calculate_flow_properties(string state_def) {
   }
 
   if (prop_data == "NIST") {
+
     calculate_species_properties(state_def);
 
     P.cp = 0.0;
@@ -120,11 +121,8 @@ void flow::calculate_flow_properties(string state_def) {
     P.ht = P.cp * (F.T - 25.0);
   }
 
-  if (prop_data == "NASA") {
-    // calculate_ideal_gas();
-  }
-
   if (prop_data == "hybrid") {
+
     calculate_species_properties(state_def);
 
     if (j.size() == 1) {
@@ -177,46 +175,41 @@ void flow::calculate_flow_properties(string state_def) {
 }
 
 void flow::calculate_species_properties(string state_def) {
-  // calculating individual species properties:
+
   for (size_t n = 0; n < j.size(); n++) {
+
     j[n].F.T = F.T;
+
     j[n].F.P = F.P;
-    if (!j[n].refprop && j[n].thermoPkg) {
+
+    //if (!j[n].refprop && j[n].thermoPkg) {
       j[n].P.cp =
           thermodynamic_property(j[n].id, "cp", j[n].F.T + 273.15, j[n].F.P, "J/molK");
       if (j[n].P.cp == -1.0) {
         j[n].P.cp = 0.0;
-        cout << "Error: property: cp cannot be calculated for species: " << j[n].id
-             << " T = " << j[n].F.T << " P = " << j[n].F.P << endl;
-        cout << "Exiting..." << endl;
-        return;
+        cout << "Error: property: cp cannot be calculated for species: " << j[n].id << endl;
       }
 
       j[n].P.h = thermodynamic_property(j[n].id, "h", j[n].F.T + 273.15, j[n].F.P, "J/mol");
       if (j[n].P.h == -1.0) {
+        j[n].P.h = 0.0;
         cout << "Error: property: h cannot be calculated for species: " << j[n].id << endl;
-        cout << "Exiting..." << endl;
-        return;
       }
 
       j[n].P.s =
           thermodynamic_property(j[n].id, "s", j[n].F.T + 273.15, j[n].F.P, "J/molK");
       if (j[n].P.s == -1.0) {
+        j[n].P.s = 0.0;
         cout << "Error: property: s cannot be calculated for species: " << j[n].id << endl;
-        cout << "Exiting..." << endl;
-        return;
       }
 
-    }
+    //}
 
     j[n].P.cp = j[n].P.cp / j[n].P.MW;
     j[n].P.h = j[n].P.h / j[n].P.MW;
     j[n].P.ht = j[n].P.cp * (j[n].F.T - 25.0) / j[n].P.MW;
     j[n].P.hf = j[n].P.hf / j[n].P.MW;
     j[n].P.s = j[n].P.s / j[n].P.MW;
-    j[n].P.g = j[n].P.g / j[n].P.MW;
-    j[n].P.gf = j[n].P.gf / j[n].P.MW;
-    j[n].P.s = j[n].P.e / j[n].P.MW;
 
     cout << j[n].def << " cp = " << j[n].P.cp << " ht = " << j[n].P.ht << endl;  	
 

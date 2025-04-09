@@ -199,7 +199,6 @@ flow::flow(string flw_def) {
   P = properties();
   F.T = 25.0;
   F.P = 1.01325;
-  // flows_database(flw_def);
   get_flow_data(flw_def);
   if (cls == "woody_biomass" || cls == "sludge") {
     calculate_solid_fuel();
