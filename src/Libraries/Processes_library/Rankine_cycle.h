@@ -309,7 +309,7 @@ void rankine_cycle(object &par) {
   steam.F.P = par.fp("P_stm");
   steam.F.T = par.fp("T_stm");
   steam.P.h = hPTSupSteam(steam.F.P, steam.F.T);
-  steam.F.M = 1e-3 * par.fp("Q_stm") / (steam.P.h - bfw.P.h);
+  steam.F.M = 1.0e-3 * par.fp("Q_stm") / (steam.P.h - bfw.P.h);
   steam_out = flow("cond", "water");
   cond = flow("cond", "water");
 
@@ -318,7 +318,8 @@ void rankine_cycle(object &par) {
   district_heating(dh_in, dh_out, par);
 
   // calculating steam turbines
-  //cout << "calculating steam turbines" << endl;
+  cout << "calculating steam turbines" << endl;
+  cout << "M steam in (kg/s): " << steam.F.M << endl;
   steam_turbine_model(steam, steam_out, par);
   //cout << " - W_el (MW): " << par.fp("W_el") << endl;
 
