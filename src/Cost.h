@@ -221,6 +221,7 @@ void capex(object &par) {
   par.fval_p("output-C_el_maint", par.fp("C_el") * 0.02);
   par.fval_p("output-C_I&C_maint", par.fp("C_I&C") * 0.02);
 
+  /*	
   cout << "-------------------------" << endl;
   cout << " Capital costs (M$): " << par.fp("C_inv") * 1e-6 << endl;
   cout << "------------------" << endl;
@@ -236,6 +237,7 @@ void capex(object &par) {
   cout << "C_dev = " << par.fp("C_dev") * 1e-6 << endl;
   cout << "C_cont = " << par.fp("C_cont") * 1e-6 << endl;
   cout << "------------------" << endl;
+  */
 }
 
 void opex(object &par) {
@@ -267,8 +269,9 @@ void opex(object &par) {
 
   par.fval_p("output-C_op_var", par.fp("C_op_mat") + par.fp("C_op_el"));
 
+  /*	
   cout << "-------------------------" << endl;
-  cout << " Operational costs (M$ / year): " << endl;
+  cout << " Operational costs (M$ / year): " << par.fp("C_op") << endl;
   cout << "-------------------------" << endl;
   cout << "Materials = " << par.fp("C_op_mat") * 1e-6 << endl;
   for (size_t n = 0; n < m.size(); n++) {
@@ -283,6 +286,7 @@ void opex(object &par) {
   cout << "Insurance and taxes = " << par.fp("C_op_ins") * 1e-6 << endl;
   cout << "Administration = " << par.fp("C_op_adm") * 1e-6 << endl;
   cout << "------------------" << endl;
+  */
 }
 
 void cost(object &par) {

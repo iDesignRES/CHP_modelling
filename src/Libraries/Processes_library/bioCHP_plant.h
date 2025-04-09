@@ -112,25 +112,11 @@ void bioCHP_plant_model(object &bioCHP) {
     material_cost(bioCHP.c[f]);
   }
 
-  cout << '\t' << "Hf (MW) = " << bioCHP.fp("Hf") << endl;
-  cout << '\t' << "Mf (kg / s) = " << bioCHP.fp("M_fuel") << endl;
-
-  cout << "Calculating the boiler " << endl;
-
   boiler.fval_p("M_fuel", bioCHP.fp("M_fuel"));
   solid_fuel_boiler(feed, comb_air, flue_gas, bottom_ash, fly_ash, boiler);
 
-  cout << '\t' << "Thermal power output, Q_out (MW) = " << boiler.fp("Q_out")*1e-6 << endl;
-
-  cout << "Calculating the Rankine cycle " << endl;
-
   rankine.fval_p("Q_stm", boiler.fp("Q_out"));
-
   rankine_cycle(rankine);
-
-  cout << '\t' << "Electric power output, W_el_prod (MW-el) = " << rankine.fp("W_el") << endl;
-
-  cout << "Calculating the flue gas cleaning " << endl;
 
   scrubber.fval_p("M_fuel", bioCHP.fp("M_fuel"));
 
@@ -139,8 +125,6 @@ void bioCHP_plant_model(object &bioCHP) {
   bioCHP.c.push_back(boiler);
   bioCHP.c.push_back(rankine);
   bioCHP.c.push_back(scrubber);
-
-  cout << "Creating bioCHP model process outputs " << endl;
 
   for (size_t nf = 0; nf < feed.size(); nf++) {
     bioCHP.fval_p("output-Mj", feed[nf].F.M);
@@ -152,7 +136,6 @@ void bioCHP_plant_model(object &bioCHP) {
   bioCHP.fval_p("output-Heat_production_(MW)", sum_Qk);
   bioCHP.fval_p("output-Electricity_production_(MW)", rankine.fp("W_el"));
 
-  cout << "Calculating costs " << endl;
   cost(bioCHP);
 
 }
