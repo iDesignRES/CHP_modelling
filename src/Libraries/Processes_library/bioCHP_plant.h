@@ -115,6 +115,36 @@ void bioCHP_plant_model(object &bioCHP) {
   boiler.fval_p("M_fuel", bioCHP.fp("M_fuel"));
   solid_fuel_boiler(feed, comb_air, flue_gas, bottom_ash, fly_ash, boiler);
 
+  cout << "-------------" << endl;
+  cout << "Boiler: " << endl;  	
+  cout << "-------------" << endl;
+  cout << "Mass balance" << endl;
+  cout << "------------" << endl;
+  cout << "fuel M (kg/s): " << boiler.fp("M_fuel") << endl;
+  for (size_t nf = 0; nf < feed.size(); nf++) {
+    cout << '\t' << feed[nf].def << " (kg/s): " << feed[nf].F.M << endl;
+  }
+  cout << "Combustion air M: " << comb_air[0].F.M << endl;
+  cout << "flue gas M: " << flue_gas.F.M << endl;
+  cout << "bottom ash M: " << bottom_ash.F.M << endl;
+  cout << "fly ash M: " << fly_ash.F.M << endl;
+
+  cout << "-------------" << endl;
+  cout << "energy balance" << endl;
+  cout << "-------------" << endl;
+  cout << "Fuel Hf (MW): " << boiler.fp("Hf") << endl;
+  for (size_t nf = 0; nf < feed.size(); nf++) {
+    cout << '\t' << feed[nf].def << " (MW): " << feed[nf].F.Hf << endl;
+  }
+  cout << "Q_out: (MW) " << boiler.fp("Q_out") * 1.0e-6 << endl;
+  cout << "Q_loss: (MW) " << boiler.fp("Q_loss") * 1.0e-6 << endl;
+  cout << "H_air: (MW) " << comb_air[0].F.Ht * 1.0e-6 << endl;
+  cout << "H_fg: (MW) " << flue_gas.F.Ht * 1.0e-6 << endl;
+  cout << "H_ba: (MW) " << bottom_ash.F.Ht * 1.0e-6 << endl;
+  cout << "H_fa: (MW) " << fly_ash.F.Ht * 1.0e-6 << endl;
+  cout << "-------------" << endl;
+
+
   rankine.fval_p("Q_stm", boiler.fp("Q_out"));
   rankine_cycle(rankine);
 
