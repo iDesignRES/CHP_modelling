@@ -46,10 +46,11 @@ std::string project = project_name();
 #include "Cost.h"
 #include "Processes.h"
 
-bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, vector<double> YH2Oj,
-                  double W_el, vector<double> Qk, vector<double> Tk_in,
-                  vector<double> Tk_out, vector<double> &Mj, double &Q_prod,
-                  double &W_el_prod, double &C_inv, double &C_op, double &C_op_var) {
+bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj,
+                  vector<double> YH2Oj, double W_el, vector<double> Qk,
+                  vector<double> Tk_in, vector<double> Tk_out,
+                  vector<double> &Mj, double &Q_prod, double &W_el_prod,
+                  double &C_inv, double &C_op, double &C_op_var) {
   // INPUTS
   // feed_def: name of each biomass feedstock
   // Yj: mass fraction of each biomass feedstock
@@ -103,7 +104,8 @@ bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, vector<double> YH2
     return false;
   }
   if (Tk_in.size() != Tk_out.size()) {
-    cout << "number of specifications for Tk_in and Tk_out are different" << endl;
+    cout << "number of specifications for Tk_in and Tk_out are different"
+         << endl;
     return false;
   }
   for (size_t nk = 0; nk < Tk_in.size(); nk++) {
@@ -120,7 +122,8 @@ bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, vector<double> YH2
     sum_Qk = sum_Qk + Qk[nk];
   }
   if (sum_Qk > 0.5 * (W_el / 0.2)) {
-    cout << "there is not sufficient heat available from Rankine cycle to supply the "
+    cout << "there is not sufficient heat available from Rankine cycle to "
+            "supply the "
             "specifiy heat demand"
          << endl;
     cout << "Reducing proportionally the heat demands" << endl;
@@ -135,11 +138,11 @@ bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, vector<double> YH2
   }
 
   object bioCHP("plant", "bioCHP_PLANT", DIR + "Database/bioCHP_inputs");
-  bioCHP.vct_sp("fuel_def", fuel_def); 
-  bioCHP.vct_fp("Yj", Yj);  
-  bioCHP.vct_fp("YH2Oj", YH2Oj); 
-  bioCHP.fval_p("W_el", W_el); 
-  bioCHP.vct_fp("Qk", Qk); 
+  bioCHP.vct_sp("fuel_def", fuel_def);
+  bioCHP.vct_fp("Yj", Yj);
+  bioCHP.vct_fp("YH2Oj", YH2Oj);
+  bioCHP.fval_p("W_el", W_el);
+  bioCHP.vct_fp("Qk", Qk);
   bioCHP.vct_fp("Tk_in", Tk_in);
   bioCHP.vct_fp("Tk_out", Tk_out);
 
@@ -153,7 +156,8 @@ bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, vector<double> YH2
   C_op = bioCHP.fp("C_op") * 1e-6;
   C_op_var = bioCHP.fp("C_op_var") * 1e-6;
 
-  export_output_parameters(bioCHP, getExecutableDir() + "Output-bioCHP_" + project);
+  export_output_parameters(bioCHP,
+                           getExecutableDir() + "Output-bioCHP_" + project);
 
   return true;
 }

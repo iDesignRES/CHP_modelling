@@ -1,5 +1,5 @@
 #include "../src/bioCHP.cpp"
-#include <iomanip>  // for setprecision
+#include <iomanip> // for setprecision
 
 using namespace std;
 
@@ -19,12 +19,12 @@ int main() {
   double C_op;
   double C_op_var;
 
-  if (bioCHP_plant(fuel_def, Yj, YH2Oj, W_el, Qk, Tk_in, Tk_out, Mj, Q_prod, W_el_prod,
-                   C_inv, C_op, C_op_var)) {
+  if (bioCHP_plant(fuel_def, Yj, YH2Oj, W_el, Qk, Tk_in, Tk_out, Mj, Q_prod,
+                   W_el_prod, C_inv, C_op, C_op_var)) {
     for (int nj = 0; nj < Mj.size(); nj++) {
       cout << "M_" + fuel_def[nj] + " = " << Mj[nj] << endl;
     }
-    cout << fixed << setprecision(6);  // Set higher precision
+    cout << fixed << setprecision(6); // Set higher precision
     cout << "Q_prod (MW) = " << Q_prod << endl;
     cout << "W_el_prod (MW) = " << W_el_prod << endl;
     cout << "C_inv (M$) = " << C_inv << endl;

@@ -10,7 +10,7 @@
 using namespace std;
 
 struct parameter {
- public:
+public:
   string sys_type, sys_def;
   string data_def, data_id, data_type, data_info;
   size_t pos;
@@ -27,24 +27,24 @@ parameter::parameter(string line) {
   sst >> sys_def;
   sst >> data_id;
   sst >> data_type;
-  if(data_type == "str"){
+  if (data_type == "str") {
     string txt;
     while (sst >> txt) {
       str.push_back(txt);
     }
   }
-  if(data_type == "num"){
+  if (data_type == "num") {
     double val;
     while (sst >> val) {
       vct.push_back(val);
     }
   }
-	
+
   pos = 0;
 }
 
 struct object {
- public:
+public:
   string sys_type, sys_def, sys_file;
   vector<object> c;
   vector<parameter> p;
@@ -66,8 +66,8 @@ struct object {
 
 // **********************************************************
 
-string get_str_parameter(vector<parameter> &par, string sys_type, string sys_def,
-                           string data_id) {
+string get_str_parameter(vector<parameter> &par, string sys_type,
+                         string sys_def, string data_id) {
   bool found = false;
   for (size_t np = 0; np < par.size(); np++) {
     if (par[np].sys_type == sys_type && par[np].sys_def == sys_def &&
@@ -87,8 +87,8 @@ string get_str_parameter(vector<parameter> &par, string sys_type, string sys_def
   return "null";
 }
 
-double get_num_parameter(vector<parameter> &par, string sys_type, string sys_def,
-                           string data_id) {
+double get_num_parameter(vector<parameter> &par, string sys_type,
+                         string sys_def, string data_id) {
   bool found = false;
   for (size_t np = 0; np < par.size(); np++) {
     if (par[np].sys_type == sys_type && par[np].sys_def == sys_def &&
@@ -107,15 +107,15 @@ double get_num_parameter(vector<parameter> &par, string sys_type, string sys_def
 
 // **********************************************************
 
-void print_parameter_value(vector<parameter> &p, string sys_type, string sys_def,
-                           string data_id) {
+void print_parameter_value(vector<parameter> &p, string sys_type,
+                           string sys_def, string data_id) {
   bool found = false;
   for (size_t np = 0; np < p.size(); np++) {
     if (p[np].sys_type == sys_type && p[np].sys_def == sys_def &&
         p[np].data_id == data_id) {
       found = true;
-      cout << p[np].sys_type << " " << p[np].sys_def << " " << p[np].data_def << " "
-           << p[np].data_id << " " << p[np].str[p[np].pos] << endl;
+      cout << p[np].sys_type << " " << p[np].sys_def << " " << p[np].data_def
+           << " " << p[np].data_id << " " << p[np].str[p[np].pos] << endl;
     }
   }
   if (found == false) {
@@ -127,7 +127,8 @@ void print_parameter_value(vector<parameter> &p, string sys_type, string sys_def
 
 /*
 void export_parameter(vector<parameter> &par, string data_def, string sys_type,
-                      string sys_def, string data_id, string data_type, string val) {
+                      string sys_def, string data_id, string data_type, string
+val) {
   // cout << "exporting parameter" << endl;
   bool found = false;
   for (size_t np = 0; np < par.size(); np++) {
@@ -183,7 +184,7 @@ void get_parameters(vector<parameter> &par, string sys_type, string sys_def,
       sys_found = true;
 
       while (!par_set_found) {
-        getline(p_file, line_txt);  // cout << "line_txt: " << line_txt << endl;
+        getline(p_file, line_txt); // cout << "line_txt: " << line_txt << endl;
         stringstream sst(line_txt);
         sst >> txt;
 
@@ -193,33 +194,37 @@ void get_parameters(vector<parameter> &par, string sys_type, string sys_def,
           p.data_def = txt;
           sst >> p.data_id;
           sst >> p.data_type;
-          //cout << "data_def: " << txt << " data_id: " << p.data_id << " data_type: " << p.data_type << endl;
+          // cout << "data_def: " << txt << " data_id: " << p.data_id << "
+          // data_type: " << p.data_type << endl;
 
           bool str_complete = false;
 
-            p.data_info = "";
-            while (sst >> str) {
-              vector<char> cstr(str.begin(), str.end());
-              if (!str_complete && cstr[0] != '#') {
+          p.data_info = "";
+          while (sst >> str) {
+            vector<char> cstr(str.begin(), str.end());
+            if (!str_complete && cstr[0] != '#') {
 
-                if(p.data_type == "str"){ p.str.push_back(str); }
-                if(p.data_type == "num"){ p.vct.push_back(stod(str)); }
-
+              if (p.data_type == "str") {
+                p.str.push_back(str);
               }
-              if (cstr[0] == '#') {
-                str_complete = true;
-              }
-              if (str_complete && cstr[0] != '#') {
-                p.data_info = str + " ";
+              if (p.data_type == "num") {
+                p.vct.push_back(stod(str));
               }
             }
-
-            p.pos = 0;
-            par.push_back(p);
-            p = parameter();
-            p.str.clear();
-            p.vct.clear();
+            if (cstr[0] == '#') {
+              str_complete = true;
+            }
+            if (str_complete && cstr[0] != '#') {
+              p.data_info = str + " ";
+            }
           }
+
+          p.pos = 0;
+          par.push_back(p);
+          p = parameter();
+          p.str.clear();
+          p.vct.clear();
+        }
 
         if (txt != "input" && txt != "output" && txt != "prop") {
           par_set_found = true;
@@ -269,18 +274,18 @@ void export_output_parameters(object &obj, string file) {
       output_parameters << obj.p[np].sys_type << " " << obj.p[np].sys_def << " "
                         << obj.p[np].data_id << " " << obj.p[np].data_type;
 
-      if( obj.p[np].data_type == "str" ){	
+      if (obj.p[np].data_type == "str") {
         for (size_t ns = 0; ns < obj.p[np].str.size(); ns++) {
           output_parameters << " " << obj.p[np].str[ns];
         }
       }
 
-      if( obj.p[np].data_type == "num" ){	
+      if (obj.p[np].data_type == "num") {
         for (size_t ns = 0; ns < obj.p[np].vct.size(); ns++) {
           output_parameters << " " << obj.p[np].vct[ns];
         }
       }
-	
+
       output_parameters << endl;
     }
   }
@@ -292,20 +297,21 @@ void export_output_parameters(object &obj, string file) {
 
 void print_parameter(parameter &p) {
 
-      cout << p.data_id << " " << p.data_type;
+  cout << p.data_id << " " << p.data_type;
 
-      if( p.data_type == "str" ){	
-        for (size_t ns = 0; ns < p.str.size(); ns++) {
-          cout << " " << p.str[ns];
-        } cout << endl;
-      }
+  if (p.data_type == "str") {
+    for (size_t ns = 0; ns < p.str.size(); ns++) {
+      cout << " " << p.str[ns];
+    }
+    cout << endl;
+  }
 
-      if( p.data_type == "num" ){	
-        for (size_t ns = 0; ns < p.vct.size(); ns++) {
-          cout << " " << p.vct[ns];
-        } cout << endl;
-      }
-
+  if (p.data_type == "num") {
+    for (size_t ns = 0; ns < p.vct.size(); ns++) {
+      cout << " " << p.vct[ns];
+    }
+    cout << endl;
+  }
 }
 
 // **********************************************************
@@ -318,44 +324,44 @@ void print_parameters(object &obj) {
 
   for (size_t np = 0; np < obj.p.size(); np++) {
 
-      print_parameter(obj.p[np]);	
-      /*
-      cout << obj.p[np].data_id << " " << obj.p[np].data_type;
+    print_parameter(obj.p[np]);
+    /*
+    cout << obj.p[np].data_id << " " << obj.p[np].data_type;
 
-      if( obj.p[np].data_type == "str" ){	
-        for (size_t ns = 0; ns < obj.p[np].str.size(); ns++) {
-          cout << " " << obj.p[np].str[ns];
-        } cout << endl;
-      }
+    if( obj.p[np].data_type == "str" ){
+      for (size_t ns = 0; ns < obj.p[np].str.size(); ns++) {
+        cout << " " << obj.p[np].str[ns];
+      } cout << endl;
+    }
 
-      if( obj.p[np].data_type == "num" ){	
-        for (size_t ns = 0; ns < obj.p[np].vct.size(); ns++) {
-          cout << " " << obj.p[np].vct[ns];
-        } cout << endl;
-      }
-      */
+    if( obj.p[np].data_type == "num" ){
+      for (size_t ns = 0; ns < obj.p[np].vct.size(); ns++) {
+        cout << " " << obj.p[np].vct[ns];
+      } cout << endl;
+    }
+    */
   }
   cout << " -------------------------------------- " << endl;
 
-  if(obj.c.size() > 0){
+  if (obj.c.size() > 0) {
 
     for (size_t nc = 0; nc < obj.c.size(); nc++) {
       print_parameters(obj.c[nc]);
-    }	
-
+    }
   }
-
 }
 
 // **********************************************************
 
-double fp(vector<parameter> &par, string sys_type, string sys_def, string data_id) {
+double fp(vector<parameter> &par, string sys_type, string sys_def,
+          string data_id) {
   return get_num_parameter(par, sys_type, sys_def, data_id);
 }
 
 // **********************************************************
 
-string sp(vector<parameter> &par, string sys_type, string sys_def, string data_id) {
+string sp(vector<parameter> &par, string sys_type, string sys_def,
+          string data_id) {
   return get_str_parameter(par, sys_type, sys_def, data_id);
 }
 
@@ -382,7 +388,6 @@ vector<string> sp_vct(vector<parameter> &par, string sys_type, string sys_def,
 }
 
 // **********************************************************
-
 
 int object::ic(string type, string def) {
   for (size_t n = 0; n < c.size(); n++) {
@@ -423,19 +428,22 @@ double object::fp(string symb) {
 
 // **********************************************************
 
-string object::sp(string symb) { return get_str_parameter(p, sys_type, sys_def, symb); }
+string object::sp(string symb) {
+  return get_str_parameter(p, sys_type, sys_def, symb);
+}
 
 // **********************************************************
 
-vector<string> object::svct(string symb) { return sp_vct(p, sys_type, sys_def, symb); }
-
+vector<string> object::svct(string symb) {
+  return sp_vct(p, sys_type, sys_def, symb);
+}
 
 // **********************************************************
 
-void val_p(vector<parameter> &par, string data_def, string sys_type, string sys_def,
-            string data_id, double val) {
+void val_p(vector<parameter> &par, string data_def, string sys_type,
+           string sys_def, string data_id, double val) {
 
-  //export_parameter(par, data_def, sys_type, sys_def, data_id, "num", val);
+  // export_parameter(par, data_def, sys_type, sys_def, data_id, "num", val);
 
   bool found = false;
   for (size_t np = 0; np < par.size(); np++) {
@@ -454,12 +462,11 @@ void val_p(vector<parameter> &par, string data_def, string sys_type, string sys_
     p.sys_def = sys_def;
     p.data_id = data_id;
     p.data_type = "num";
-    p.vct.push_back(val); 
+    p.vct.push_back(val);
     p.pos = 0;
     par.push_back(p);
   }
 }
-
 
 // **********************************************************
 
@@ -469,16 +476,16 @@ void object::fval_p(string symb, double val) {
   }
   if (divide_string(symb, '-').size() == 2) {
     val_p(p, divide_string(symb, '-')[0], sys_type, sys_def,
-                     divide_string(symb, '-')[1], val);
+          divide_string(symb, '-')[1], val);
   }
 }
 
 // **********************************************************
 
-void str_p(vector<parameter> &par, string data_def, string sys_type, string sys_def,
-            string data_id, string val) {
+void str_p(vector<parameter> &par, string data_def, string sys_type,
+           string sys_def, string data_id, string val) {
 
-  //export_parameter(par, data_def, sys_type, sys_def, data_id, "str", val);
+  // export_parameter(par, data_def, sys_type, sys_def, data_id, "str", val);
 
   bool found = false;
   for (size_t np = 0; np < par.size(); np++) {
@@ -497,15 +504,13 @@ void str_p(vector<parameter> &par, string data_def, string sys_type, string sys_
     p.sys_def = sys_def;
     p.data_id = data_id;
     p.data_type = "str";
-    p.str.push_back(val); 
+    p.str.push_back(val);
     p.pos = 0;
     par.push_back(p);
   }
-
 }
 
 // **********************************************************
-
 
 void object::sval_p(string symb, string val) {
   if (divide_string(symb, '-').size() == 1) {
@@ -513,7 +518,7 @@ void object::sval_p(string symb, string val) {
   }
   if (divide_string(symb, '-').size() == 2) {
     str_p(p, divide_string(symb, '-')[0], sys_type, sys_def,
-                     divide_string(symb, '-')[1], val);
+          divide_string(symb, '-')[1], val);
   }
 }
 
@@ -525,7 +530,7 @@ vector<double> fp_vct(vector<parameter> &par, string sys_type, string sys_def,
   vector<double> vct;
   for (size_t np = 0; np < par.size(); np++) {
     if (par[np].sys_type == sys_type && par[np].sys_def == sys_def &&
-        par[np].data_id == data_id) {       	
+        par[np].data_id == data_id) {
       for (size_t n = 0; n < par[np].vct.size(); n++) {
         vct.push_back(par[np].vct[n]);
       }
@@ -538,12 +543,14 @@ vector<double> fp_vct(vector<parameter> &par, string sys_type, string sys_def,
 
 // **********************************************************
 
-vector<double> object::vctp(string symb) { return fp_vct(p, sys_type, sys_def, symb); }
+vector<double> object::vctp(string symb) {
+  return fp_vct(p, sys_type, sys_def, symb);
+}
 
 // **********************************************************
 
-void fvct_p(vector<parameter> &par, string data_def, string sys_type, string sys_def,
-            string data_id, vector<double> val) {
+void fvct_p(vector<parameter> &par, string data_def, string sys_type,
+            string sys_def, string data_id, vector<double> val) {
   // cout << "exporting parameter" << endl;
   bool found = false;
   for (size_t np = 0; np < par.size(); np++) {
@@ -570,8 +577,8 @@ void fvct_p(vector<parameter> &par, string data_def, string sys_type, string sys
       p.vct.push_back(val[n]);
     }
     par.push_back(p);
-    // print_parameter_value(par,par[par.size()-1].sys_type, par[par.size()-1].sys_def,
-    // par[par.size()-1].data_id);
+    // print_parameter_value(par,par[par.size()-1].sys_type,
+    // par[par.size()-1].sys_def, par[par.size()-1].data_id);
   }
 }
 
@@ -582,16 +589,15 @@ void object::vct_fp(string symb, vector<double> vct) {
     fvct_p(p, "prop", sys_type, sys_def, symb, vct);
   }
   if (divide_string(symb, '-').size() == 2) {
-    fvct_p(p, divide_string(symb, '-')[0], sys_type, sys_def, divide_string(symb, '-')[1],
-           vct);
+    fvct_p(p, divide_string(symb, '-')[0], sys_type, sys_def,
+           divide_string(symb, '-')[1], vct);
   }
 }
 
 // **********************************************************
 
-
-void svct_p(vector<parameter> &par, string data_def, string sys_type, string sys_def,
-            string data_id, vector<string> val) {
+void svct_p(vector<parameter> &par, string data_def, string sys_type,
+            string sys_def, string data_id, vector<string> val) {
   // cout << "exporting parameter" << endl;
   bool found = false;
   for (size_t np = 0; np < par.size(); np++) {
@@ -618,8 +624,8 @@ void svct_p(vector<parameter> &par, string data_def, string sys_type, string sys
       p.str.push_back(val[n]);
     }
     par.push_back(p);
-    // print_parameter_value(par,par[par.size()-1].sys_type, par[par.size()-1].sys_def,
-    // par[par.size()-1].data_id);
+    // print_parameter_value(par,par[par.size()-1].sys_type,
+    // par[par.size()-1].sys_def, par[par.size()-1].data_id);
   }
 }
 
@@ -628,8 +634,8 @@ void object::vct_sp(string symb, vector<string> vct) {
     svct_p(p, "prop", sys_type, sys_def, symb, vct);
   }
   if (divide_string(symb, '-').size() == 2) {
-    svct_p(p, divide_string(symb, '-')[0], sys_type, sys_def, divide_string(symb, '-')[1],
-           vct);
+    svct_p(p, divide_string(symb, '-')[0], sys_type, sys_def,
+           divide_string(symb, '-')[1], vct);
   }
 }
 

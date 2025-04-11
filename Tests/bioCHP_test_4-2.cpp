@@ -1,11 +1,12 @@
 #include "../src/bioCHP.cpp"
-#include <iomanip>  // for setprecision
+#include <iomanip> // for setprecision
 
 using namespace std;
 // using namespace MyPaths;
 
 int main() {
-  vector<string> fuel_def = {"spruce_stem", "birch_stem", "spruce_T&B", "spruce_bark"};
+  vector<string> fuel_def = {"spruce_stem", "birch_stem", "spruce_T&B",
+                             "spruce_bark"};
   vector<double> Yj = {0.1, 0.3, 0.4, 0.2};
   vector<double> YH2Oj = {0.4, 0.35, 0.45, 0.5};
   double W_el = 100.0;
@@ -20,12 +21,12 @@ int main() {
   double C_op;
   double C_op_var;
 
-  if (bioCHP_plant(fuel_def, Yj, YH2Oj, W_el, Qk, Tk_in, Tk_out, Mj, Q_prod, W_el_prod,
-                   C_inv, C_op, C_op_var)) {
+  if (bioCHP_plant(fuel_def, Yj, YH2Oj, W_el, Qk, Tk_in, Tk_out, Mj, Q_prod,
+                   W_el_prod, C_inv, C_op, C_op_var)) {
     for (int nj = 0; nj < Mj.size(); nj++) {
       cout << "M_" + fuel_def[nj] + " = " << Mj[nj] << endl;
     }
-    cout << fixed << setprecision(6);  // Set higher precision
+    cout << fixed << setprecision(6); // Set higher precision
     cout << "Q_prod (MW) = " << Q_prod << endl;
     cout << "W_el_prod (MW) = " << W_el_prod << endl;
     cout << "C_inv (M$) = " << C_inv << endl;
