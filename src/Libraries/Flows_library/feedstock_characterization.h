@@ -5,8 +5,8 @@ void Heating_Value(flow &feed);
 
 void raw_feedstock_characterization(flow &feed, string feed_def) {
   // GdAS 03.03.2020
-  double cp = 0.0, rho = 0.0, cp_DM = 0.0, rho_DM = 0.0, cp_H2O = 0.0, rho_H2O = 0.0,
-         VDM_VH2O = 0.0;
+  double cp = 0.0, rho = 0.0, cp_DM = 0.0, rho_DM = 0.0, cp_H2O = 0.0,
+         rho_H2O = 0.0, VDM_VH2O = 0.0;
 
   double kH2O = -2.5;
 
@@ -191,8 +191,8 @@ void raw_feedstock_characterization(flow &feed, string feed_def) {
 void Heating_Value(flow &feed) {
   double sum_y = 0.0;
   double kC, kH, kO, kS, kN, kH2O, kA;
-  double yC = 0.0, yH = 0.0, yS = 0.0, yN = 0.0, yO = 0.0;  // atomic components
-  double yA = 0.0, yH2O = 0.0;                              // proximates
+  double yC = 0.0, yH = 0.0, yS = 0.0, yN = 0.0, yO = 0.0; // atomic components
+  double yA = 0.0, yH2O = 0.0;                             // proximates
 
   kC = 34.1;
   kH = 102;
@@ -201,9 +201,10 @@ void Heating_Value(flow &feed) {
   kN = 0;
   kH2O = -2.5;
   kA = 0.0;
-  // kC = 34.1; kH = 110.4; kO = -12; kS = 6.86; kN = -12; kH2O = -2.442; kA = -1.53;  //
-  // Milne's formulae (from Phyllis) kC = 34.8; kH = 93.9; kO = -10.8; kS = 10.5; kN = 6.3;
-  // kH2O = -2.45; kA = 0.0; // Ref. Christensen, T. (1998)
+  // kC = 34.1; kH = 110.4; kO = -12; kS = 6.86; kN = -12; kH2O = -2.442; kA =
+  // -1.53;  // Milne's formulae (from Phyllis) kC = 34.8; kH = 93.9; kO =
+  // -10.8; kS = 10.5; kN = 6.3; kH2O = -2.45; kA = 0.0; // Ref. Christensen, T.
+  // (1998)
 
   // fetching the weight fractions:
   for (size_t n = 0; n < feed.i.size(); n++) {
@@ -229,11 +230,13 @@ void Heating_Value(flow &feed) {
     }
   }
 
-  if (yH2O > 1) yH2O = yH2O / 100;
+  if (yH2O > 1)
+    yH2O = yH2O / 100;
 
   // sum_y = yC + yH + yO + yS + yN
   // if (sum_y > 1.0001) {
-  //    yC = yC / sum_y; yH = yH / sum_y; yO = yO / sum_y; yS = yS / sum_y; yN = yN / sum_y;
+  //    yC = yC / sum_y; yH = yH / sum_y; yO = yO / sum_y; yS = yS / sum_y; yN =
+  //    yN / sum_y;
   //}
 
   if (feed.P.LHV_dry == 0) {
@@ -260,8 +263,8 @@ void flow::calculate_solid_fuel() {
 
   double sum_y = 0.0;
   double kC, kH, kO, kS, kN, kH2O, kA;
-  double yC = 0.0, yH = 0.0, yS = 0.0, yN = 0.0, yO = 0.0;  // atomic components
-  double yA = 0.0, yH2O = 0.0, yDM = 0.0;                   // proximates
+  double yC = 0.0, yH = 0.0, yS = 0.0, yN = 0.0, yO = 0.0; // atomic components
+  double yA = 0.0, yH2O = 0.0, yDM = 0.0;                  // proximates
 
   if (index_species(k, "H2O") == -1 && index_species(k, "DM") != -1) {
     yH2O = 1.0 - k[index_species(k, "DM")].Y;
@@ -289,9 +292,10 @@ void flow::calculate_solid_fuel() {
   kN = 0;
   kH2O = -2.5;
   kA = 0.0;
-  // kC = 34.1; kH = 110.4; kO = -12; kS = 6.86; kN = -12; kH2O = -2.442; kA = -1.53;  //
-  // Milne's formulae (from Phyllis) kC = 34.8; kH = 93.9; kO = -10.8; kS = 10.5; kN = 6.3;
-  // kH2O = -2.45; kA = 0.0; // Ref. Christensen, T. (1998)
+  // kC = 34.1; kH = 110.4; kO = -12; kS = 6.86; kN = -12; kH2O = -2.442; kA =
+  // -1.53;  // Milne's formulae (from Phyllis) kC = 34.8; kH = 93.9; kO =
+  // -10.8; kS = 10.5; kN = 6.3; kH2O = -2.45; kA = 0.0; // Ref. Christensen, T.
+  // (1998)
 
   // fetching the weight fractions:
   for (size_t n = 0; n < i.size(); n++) {
@@ -323,7 +327,8 @@ void flow::calculate_solid_fuel() {
 
   // sum_y = yC + yH + yO + yS + yN
   // if (sum_y > 1.0001) {
-  //    yC = yC / sum_y; yH = yH / sum_y; yO = yO / sum_y; yS = yS / sum_y; yN = yN / sum_y;
+  //    yC = yC / sum_y; yH = yH / sum_y; yO = yO / sum_y; yS = yS / sum_y; yN =
+  //    yN / sum_y;
   //}
 
   if (P.LHV_dry == 0) {

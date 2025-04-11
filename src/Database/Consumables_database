@@ -1,21 +1,33 @@
 consumable lime
-input unit kg
-input price 0.31
+input unit str kg
+input price num 0.31
 
 solid_residue scrubber_cake
-input unit kg
-input price 0.0706
+input unit str kg
+input price num 0.0706
 
 consumable SE-pellets_arbacore_spruce_stem
-input unit kg
-input price 50
+input unit str kg
+input price num 50.0
 
 consumable spruce_chips
-input unit kg
-input price 50
+input unit str kg
+input price num 50.0
+
+consumable spruce_stem
+input unit str kg
+input price num 70.0
 
 consumable spruce_T&B
-input unit kg
-input price 30
+input unit str kg
+input price num 30.0
+
+consumable spruce_bark
+input unit str kg
+input price num 30.0
+
+consumable birch_stem
+input unit str kg
+input price num 70.0
 
 END
