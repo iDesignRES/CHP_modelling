@@ -9,7 +9,7 @@ using namespace std;
 using namespace MyPaths;
 
 struct physical_parameter {
- public:
+public:
   string symb, def, unit;
   double val;
   physical_parameter(string input_symb, double input_val, string input_unit);
@@ -33,7 +33,7 @@ physical_parameter::physical_parameter(string input_symb, string input_def,
 }
 
 struct physical_parameters_set {
- public:
+public:
   vector<physical_parameter> p;
   double f(string symb);
 };
@@ -50,31 +50,31 @@ double physical_parameters_set::f(string symb) {
 }
 
 struct properties {
- public:
+public:
   double LHV = 0.0, LHV_dry, HHV = 0.0, HHV_dry;
   double cp, rho, MW;
-  double hf, ht, h;              // J/mol (REFPROP)
-  double s, g, gf, e;            // (REFPROP)
-  double DP, BP, hVap, Tsat, q;  // dew point, bubble point, heat of evaporation
+  double hf, ht, h;             // J/mol (REFPROP)
+  double s, g, gf, e;           // (REFPROP)
+  double DP, BP, hVap, Tsat, q; // dew point, bubble point, heat of evaporation
   double k, visc;
-  double em_psr;       // energy particle size reducton
-  vector<double> val;  // valences
+  double em_psr;      // energy particle size reducton
+  vector<double> val; // valences
 };
 
 struct flow_parameters {
- public:
+public:
   double P, T;
-  double M, N, VN, V;  // M: mass, N: molar, VN: volumetric normal, V: volumetric
+  double M, N, VN, V; // M: mass, N: molar, VN: volumetric normal, V: volumetric
   double H, Ht, Hf;
 };
 
 struct species {
- public:
+public:
   string id, def, formula;
-  string prop_data;  // properties data: refprop, NASA || thermoPkg
+  string prop_data; // properties data: refprop, NASA || thermoPkg
   bool refprop, NASA, thermoPkg, input;
   string molec_db, refprop_file = "NONE", NASA_file, thermoPkg_file;
-  double TC, Y, X;  // TC: transfer coeff, Y: wt%, X: mol%
+  double TC, Y, X; // TC: transfer coeff, Y: wt%, X: mol%
   vector<double> val;
   properties P;
   flow_parameters F;
@@ -139,11 +139,12 @@ size_t index_species(vector<species> &spc, string spc_id) {
       return i;
     }
   }
-  return -1;  // returns a negative number if species does not exist in the vector
+  return -1; // returns a negative number if species does not exist in the
+             // vector
 }
 
 struct phase {
- public:
+public:
   string id;
   double C, Y, X, phi;
   properties P;
@@ -152,12 +153,12 @@ struct phase {
 };
 
 struct flow {
- public:
+public:
   string id, def, cls, prop_data;
   string flow_db, thermo_file, trans_file, chem_file;
   vector<species> i, j, k, l;
   int n_i, n_j, n_k, n_l;
-  string atom_def, molec_def, prox_def;  // i=atoms,j=molec,k=prox,l=const
+  string atom_def, molec_def, prox_def; // i=atoms,j=molec,k=prox,l=const
   // particles_distribution fp;
   properties P;
   flow_parameters F;
@@ -229,7 +230,8 @@ size_t index_flow(vector<flow> &f, string f_id) {
       return i;
     }
   }
-  return -1;  // returns a negative number if species does not exist in the vector
+  return -1; // returns a negative number if species does not exist in the
+             // vector
 }
 
 void flow::calculate_MW() {
@@ -331,17 +333,20 @@ void flow::interpret_molecules() {
       int l = 0;
       pos = 0;
       while (l < j[n].formula.length()) {
-        if (molec_ID[l] == 'T' && (molec_ID[l + 1] == 'X' || molec_ID[l + 1] == '-')) {
+        if (molec_ID[l] == 'T' &&
+            (molec_ID[l + 1] == 'X' || molec_ID[l + 1] == '-')) {
           l = l + 2;
         }
-        if (molec_ID[l] == 'S' && (molec_ID[l + 1] == 'X' || molec_ID[l + 1] == '-')) {
+        if (molec_ID[l] == 'S' &&
+            (molec_ID[l + 1] == 'X' || molec_ID[l + 1] == '-')) {
           l = l + 2;
         }
         if ((molec_ID[l] == '+' || molec_ID[l] == '-') &&
             (molec_ID[l + 1] >= '1' && molec_ID[l + 1] <= '9')) {
           break;
         }
-        if ((molec_ID[l] == '+' || molec_ID[l] == '-') && l == j[n].formula.length() - 1) {
+        if ((molec_ID[l] == '+' || molec_ID[l] == '-') &&
+            l == j[n].formula.length() - 1) {
           break;
         }
 
@@ -358,8 +363,8 @@ void flow::interpret_molecules() {
           }
 
           if (i[m].id.length() == 2) {
-            if (l + 1 <= j[n].formula.length() - 1 && molec_ID[l + 1] == atom_ID[1] &&
-                molec_ID[l] == atom_ID[0]) {
+            if (l + 1 <= j[n].formula.length() - 1 &&
+                molec_ID[l + 1] == atom_ID[1] && molec_ID[l] == atom_ID[0]) {
               ctr_atom2 = 1;
               l = l + 1;
               if (ctr_atom1 == 0) {
@@ -425,7 +430,7 @@ void flow::interpret_molecules() {
         sum_N = sum_N + atoms_N[ni];
         sum_M = sum_M + atoms_N[ni] * i[index].P.MW;
         i[index].X = 0;
-        i[index].Y = 0;  // initialize
+        i[index].Y = 0; // initialize
       }
 
       for (size_t ni = 0; ni < atoms_ID.size(); ni++) {
@@ -434,7 +439,8 @@ void flow::interpret_molecules() {
           i[index].X = i[index].X + j[n].X * atoms_N[ni] / sum_N;
         }
         if (molec_def == "Y") {
-          i[index].Y = i[index].Y + j[n].Y * atoms_N[ni] * i[index].P.MW / sum_M;
+          i[index].Y =
+              i[index].Y + j[n].Y * atoms_N[ni] * i[index].P.MW / sum_M;
         }
       }
 
@@ -931,7 +937,7 @@ void flow::get_flow_data(string input_def) {
       if (txt == "Prop_data" || txt == "Prop_data:" || txt == "prop_data" ||
           txt == "prop_data:") {
         sst >> prop_data;
-        //if (prop_data == "refprop") {
+        // if (prop_data == "refprop") {
         //  if (sst >> txt) {
         //    thermo_file = txt;
         //  }
@@ -1115,14 +1121,9 @@ void flow::print_flow() {
     cout << "Molecular composition: " << endl;
     cout << "------------------- " << endl;
     for (size_t n = 0; n < j.size(); n++) {
-      cout << j[n].id << " MW: " << j[n].P.MW 
-	   << " X: " << j[n].X 
-	   << " Y: " << j[n].Y
-	   << " cp: " << j[n].P.cp
-	   << " ht: " << j[n].P.ht
-	   << " h: " << j[n].P.h
-	   << " s: " << j[n].P.s
-           << endl;
+      cout << j[n].id << " MW: " << j[n].P.MW << " X: " << j[n].X
+           << " Y: " << j[n].Y << " cp: " << j[n].P.cp << " ht: " << j[n].P.ht
+           << " h: " << j[n].P.h << " s: " << j[n].P.s << endl;
     }
   }
   cout << "-------------------- " << endl;
@@ -1137,7 +1138,6 @@ void flow::print_flow() {
     }
   }
   cout << "-------------------- " << endl;
-
 }
 
 bool find_flow(string input_def) {

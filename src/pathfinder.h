@@ -37,7 +37,7 @@ std::string getExecutablePath() {
 
 std::string getExecutableDir() {
   std::string executablePath = getExecutablePath();
-  char* exePath = new char[executablePath.length()];
+  char *exePath = new char[executablePath.length()];
   strcpy(exePath, executablePath.c_str());
   PathRemoveFileSpecA(exePath);
   std::string directory = std::string(exePath);
@@ -64,7 +64,7 @@ std::string getExecutablePath() {
   char path[PATH_MAX];
   ssize_t count = readlink("/proc/self/exe", path, PATH_MAX);
   if (count != -1) {
-    path[count] = '\0';  // Null-terminate the string
+    path[count] = '\0'; // Null-terminate the string
     return std::string(path);
   } else {
     throw std::runtime_error("Failed to get executable path.");
@@ -87,7 +87,9 @@ std::string getExecutableDir() {
   return std::string(executableDir);*/
 }
 
-std::string mergePaths(std::string pathA, std::string pathB) { return pathA + "/" + pathB; }
+std::string mergePaths(std::string pathA, std::string pathB) {
+  return pathA + "/" + pathB;
+}
 
 #endif
 
@@ -105,14 +107,16 @@ std::string getExecutablePath() {
 
 std::string getExecutableDir() {
   std::string executablePath = getExecutablePath();
-  char* executablePathStr = new char[executablePath.length() + 1];
+  char *executablePathStr = new char[executablePath.length() + 1];
   strcpy(executablePathStr, executablePath.c_str());
-  char* executableDir = dirname(executablePathStr);
+  char *executableDir = dirname(executablePathStr);
   delete[] executablePathStr;
   return std::string(executableDir);
 }
 
-std::string mergePaths(std::string pathA, std::string pathB) { return pathA + "/" + pathB; }
+std::string mergePaths(std::string pathA, std::string pathB) {
+  return pathA + "/" + pathB;
+}
 
 #endif
 
@@ -120,7 +124,7 @@ std::string mergePaths(std::string pathA, std::string pathB) { return pathA + "/
   return access(filePath.c_str(), 0) == 0;
 }*/
 
-}  // namespace MyPaths
+} // namespace MyPaths
 
 std::string getFileDirectory() {
   std::string filePath = __FILE__;
