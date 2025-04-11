@@ -10,7 +10,7 @@
 using namespace std;
 
 struct parameter {
-public:
+ public:
   string sys_type, sys_def;
   string data_def, data_id, data_type, data_info;
   size_t pos;
@@ -44,7 +44,7 @@ parameter::parameter(string line) {
 }
 
 struct object {
-public:
+ public:
   string sys_type, sys_def, sys_file;
   vector<object> c;
   vector<parameter> p;
@@ -184,7 +184,7 @@ void get_parameters(vector<parameter> &par, string sys_type, string sys_def,
       sys_found = true;
 
       while (!par_set_found) {
-        getline(p_file, line_txt); // cout << "line_txt: " << line_txt << endl;
+        getline(p_file, line_txt);  // cout << "line_txt: " << line_txt << endl;
         stringstream sst(line_txt);
         sst >> txt;
 
@@ -203,7 +203,6 @@ void get_parameters(vector<parameter> &par, string sys_type, string sys_def,
           while (sst >> str) {
             vector<char> cstr(str.begin(), str.end());
             if (!str_complete && cstr[0] != '#') {
-
               if (p.data_type == "str") {
                 p.str.push_back(str);
               }
@@ -266,7 +265,6 @@ object::object(string type, string def) {
 // **********************************************************
 
 void export_output_parameters(object &obj, string file) {
-
   ofstream output_parameters(file);
 
   for (size_t np = 0; np < obj.p.size(); np++) {
@@ -296,7 +294,6 @@ void export_output_parameters(object &obj, string file) {
 // **********************************************************
 
 void print_parameter(parameter &p) {
-
   cout << p.data_id << " " << p.data_type;
 
   if (p.data_type == "str") {
@@ -317,13 +314,11 @@ void print_parameter(parameter &p) {
 // **********************************************************
 
 void print_parameters(object &obj) {
-
   cout << " -------------------------------------- " << endl;
   cout << obj.sys_type << " " << obj.sys_def << " parameters: " << endl;
   cout << " -------------------------------------- " << endl;
 
   for (size_t np = 0; np < obj.p.size(); np++) {
-
     print_parameter(obj.p[np]);
     /*
     cout << obj.p[np].data_id << " " << obj.p[np].data_type;
@@ -344,7 +339,6 @@ void print_parameters(object &obj) {
   cout << " -------------------------------------- " << endl;
 
   if (obj.c.size() > 0) {
-
     for (size_t nc = 0; nc < obj.c.size(); nc++) {
       print_parameters(obj.c[nc]);
     }
@@ -442,7 +436,6 @@ vector<string> object::svct(string symb) {
 
 void val_p(vector<parameter> &par, string data_def, string sys_type,
            string sys_def, string data_id, double val) {
-
   // export_parameter(par, data_def, sys_type, sys_def, data_id, "num", val);
 
   bool found = false;
@@ -484,7 +477,6 @@ void object::fval_p(string symb, double val) {
 
 void str_p(vector<parameter> &par, string data_def, string sys_type,
            string sys_def, string data_id, string val) {
-
   // export_parameter(par, data_def, sys_type, sys_def, data_id, "str", val);
 
   bool found = false;

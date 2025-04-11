@@ -1,6 +1,5 @@
 
 void get_feedstock(vector<flow> &f, object &plant) {
-
   double LHV = 0.0;
   for (size_t nf = 0; nf < plant.svct("fuel_def").size(); nf++) {
     f.push_back(flow("feed", plant.svct("fuel_def")[nf]));
@@ -20,7 +19,6 @@ void get_feedstock(vector<flow> &f, object &plant) {
 }
 
 void bioCHP_plant_model(object &bioCHP) {
-
   // cout << "------------------------ " << endl;
   // cout << "bioCHP PLANT: " << endl;
   // cout << "------------------------- " << endl;
@@ -57,7 +55,6 @@ void bioCHP_plant_model(object &bioCHP) {
   }
 
   if (bioCHP.bp("W_el")) {
-
     cout << "bioCHP PLANT calculation using W_el = " << bioCHP.fp("W_el")
          << endl;
 
@@ -72,7 +69,6 @@ void bioCHP_plant_model(object &bioCHP) {
     double W_el_prod = 0.0;
 
     for (int n = 0; n < 10; n++) {
-
       double Mf = Hf / LHV_f;
 
       for (size_t nf = 0; nf < Yj.size(); nf++) {

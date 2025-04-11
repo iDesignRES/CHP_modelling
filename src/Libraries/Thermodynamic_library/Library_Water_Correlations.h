@@ -592,5 +592,5 @@ double HVapH2O(double T) {
 }
 
 double CpWater(double T) {
-  return hTWater(T + 1) - hTWater(T); // 29.05.2003
+  return hTWater(T + 1) - hTWater(T);  // 29.05.2003
 }

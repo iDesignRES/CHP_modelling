@@ -1,7 +1,7 @@
 
 
 struct steam_turbine_parameters {
-public:
+ public:
   string id;
   double Mi, Pi, Ti, Po, mu_isent, W;
   vector<double> Pext, Mext;
@@ -16,7 +16,6 @@ void steam_turbine_parameters::assign_parameter_values(string sys_type,
 }
 
 void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
-
   // cout << "---------------------- " << endl;
   // cout << "steam turbine stage: " << endl;
   // cout << "---------------------- " << endl;
@@ -31,8 +30,8 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
   double s_out, s_in = sPTSupSteam(ST.Pi, ST.Ti);
   double hs_out, h_out, h_calc, h_in = hPTSupSteam(ST.Pi, ST.Ti);
 
-  double T_out, Ts_out = TSatWater(ST.Po); // initial guess
-  double ys_moisture = 0.0, y_moisture;    // Initial Guess
+  double T_out, Ts_out = TSatWater(ST.Po);  // initial guess
+  double ys_moisture = 0.0, y_moisture;     // Initial Guess
   double s_out_initial = sPTSupSteam(ST.Po, Ts_out);
 
   if (s_out_initial < s_in) {
@@ -110,7 +109,6 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
 }
 
 void steam_turbine_model(flow &in, flow &out, object &par) {
-
   // cout << "-------------------------- " << endl;
   // cout << "steam turbine with bleeds: " << endl;
   // cout << "-------------------------- " << endl;
@@ -199,7 +197,6 @@ void steam_condenser(flow &steam, flow &cond, object &par) {
 }
 
 void district_heating(flow &dh_in, flow &dh_out, object &par) {
-
   // cout << "---------------------- " << endl;
   // cout << "District heating: " << endl;
   // cout << "---------------------- " << endl;
@@ -213,18 +210,18 @@ void district_heating(flow &dh_in, flow &dh_out, object &par) {
     for (size_t nk = 0; nk < par.vctp("Qk").size(); nk++) {
       dh_in.F.T = par.vctp("Tk_in")[nk];
       dh_in.F.P = 1.01325;
-      dh_in.P.h = hTWater(dh_in.F.T); // h_in.calculate_flow_properties("PT");
+      dh_in.P.h = hTWater(dh_in.F.T);  // h_in.calculate_flow_properties("PT");
       dh_out.F.T = par.vctp("Tk_out")[nk];
       dh_out.F.P = 1.01325;
       dh_out.P.h =
-          hTWater(dh_out.F.T); // dh_out.calculate_flow_properties("PT");
+          hTWater(dh_out.F.T);  // dh_out.calculate_flow_properties("PT");
 
       dh_in.F.M = par.vctp("Qk")[nk] / (dh_out.P.h - dh_in.P.h);
       dh_out.F.M = dh_in.F.M;
 
       flow hf_in,
-          hf_out; // In / out heating fluid to for exporting heat to district
-                  // heating
+          hf_out;  // In / out heating fluid to for exporting heat to district
+                   // heating
       hf_in = flow("hf_in", "water");
       hf_out = flow("hf_out", "water");
       hf_in.F.T = dh_out.F.T + 25.0;
@@ -295,7 +292,6 @@ void district_heating(flow &dh_in, flow &dh_out, object &par) {
 }
 
 void rankine_cycle(object &par) {
-
   flow bfw, sat_cond, sat_stm, steam, steam_out, cond, dh_in, dh_out;
   bfw = flow("bfw", "water");
   bfw.F.T = 105.0;

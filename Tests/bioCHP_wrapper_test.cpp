@@ -1,9 +1,9 @@
 #include <cstring>
 #include <string>
 #include <vector>
-#include <cmath> // for fabs
+#include <cmath>  // for fabs
 #include "../src/bioCHP_wrapper.cpp"
-#include <iomanip> // for setprecision
+#include <iomanip>  // for setprecision
 
 using namespace std;
 
@@ -27,82 +27,82 @@ int main(int argc, char *argv[]) {
       expected_C_op, expected_C_op_var;
 
   switch (test) {
-  case 1:
-    fuel_def[0] = "spruce_stem";
-    fuel_def[1] = "spruce_bark";
-    fuel_def[2] = "birch_stem";
-    fuel_def[3] = "spruce_T&B";
-    fuel_count = 4;
-    Yj[0] = 0.1;
-    Yj[1] = 0.2;
-    Yj[2] = 0.3;
-    Yj[3] = 0.4;
-    Yj_len = 4;
-    YH2Oj[0] = 0.4;
-    YH2Oj[1] = 0.5;
-    YH2Oj[2] = 0.35;
-    YH2Oj[3] = 0.45;
-    YH2Oj_len = 4;
-    W_el = 100.0;
-    Qk[0] = 30.0;
-    Qk[1] = 40.0;
-    Qk_len = 2;
-    Tk_in[0] = 70.0;
-    Tk_in[1] = 50.0;
-    Tk_in_len = 2;
-    Tk_out[0] = 90.0;
-    Tk_out[1] = 80.0;
-    Tk_out_len = 2;
+    case 1:
+      fuel_def[0] = "spruce_stem";
+      fuel_def[1] = "spruce_bark";
+      fuel_def[2] = "birch_stem";
+      fuel_def[3] = "spruce_T&B";
+      fuel_count = 4;
+      Yj[0] = 0.1;
+      Yj[1] = 0.2;
+      Yj[2] = 0.3;
+      Yj[3] = 0.4;
+      Yj_len = 4;
+      YH2Oj[0] = 0.4;
+      YH2Oj[1] = 0.5;
+      YH2Oj[2] = 0.35;
+      YH2Oj[3] = 0.45;
+      YH2Oj_len = 4;
+      W_el = 100.0;
+      Qk[0] = 30.0;
+      Qk[1] = 40.0;
+      Qk_len = 2;
+      Tk_in[0] = 70.0;
+      Tk_in[1] = 50.0;
+      Tk_in_len = 2;
+      Tk_out[0] = 90.0;
+      Tk_out[1] = 80.0;
+      Tk_out_len = 2;
 
-    Mj_len = 4;
-    expected_Mj[0] = 2.55886;
-    expected_Mj[1] = 5.11772;
-    expected_Mj[2] = 7.67659;
-    expected_Mj[3] = 10.2354;
-    expected_Q_prod = 70.0;
-    expected_W_el_prod = 100.0;
-    expected_C_inv = 243.176757;
-    expected_C_op = 45.768077;
-    expected_C_op_var = 40.601427;
-    break;
-  case 2:
-    fuel_def[0] = "spruce_stem";
-    fuel_def[1] = "birch_stem";
-    fuel_def[2] = "spruce_T&B";
-    fuel_def[3] = "spruce_bark";
-    fuel_count = 4;
-    Yj[0] = 0.1;
-    Yj[1] = 0.3;
-    Yj[2] = 0.4;
-    Yj[3] = 0.2;
-    Yj_len = 4;
-    YH2Oj[0] = 0.4;
-    YH2Oj[1] = 0.35;
-    YH2Oj[2] = 0.45;
-    YH2Oj[3] = 0.5;
-    YH2Oj_len = 4;
-    W_el = 100.0;
-    Qk[0] = 30.0;
-    Qk[1] = 40.0;
-    Qk_len = 2;
-    Tk_in[0] = 70.0;
-    Tk_in[1] = 50.0;
-    Tk_in_len = 2;
-    Tk_out[0] = 90.0;
-    Tk_out[1] = 80.0;
-    Tk_out_len = 2;
+      Mj_len = 4;
+      expected_Mj[0] = 2.55886;
+      expected_Mj[1] = 5.11772;
+      expected_Mj[2] = 7.67659;
+      expected_Mj[3] = 10.2354;
+      expected_Q_prod = 70.0;
+      expected_W_el_prod = 100.0;
+      expected_C_inv = 243.176757;
+      expected_C_op = 45.768077;
+      expected_C_op_var = 40.601427;
+      break;
+    case 2:
+      fuel_def[0] = "spruce_stem";
+      fuel_def[1] = "birch_stem";
+      fuel_def[2] = "spruce_T&B";
+      fuel_def[3] = "spruce_bark";
+      fuel_count = 4;
+      Yj[0] = 0.1;
+      Yj[1] = 0.3;
+      Yj[2] = 0.4;
+      Yj[3] = 0.2;
+      Yj_len = 4;
+      YH2Oj[0] = 0.4;
+      YH2Oj[1] = 0.35;
+      YH2Oj[2] = 0.45;
+      YH2Oj[3] = 0.5;
+      YH2Oj_len = 4;
+      W_el = 100.0;
+      Qk[0] = 30.0;
+      Qk[1] = 40.0;
+      Qk_len = 2;
+      Tk_in[0] = 70.0;
+      Tk_in[1] = 50.0;
+      Tk_in_len = 2;
+      Tk_out[0] = 90.0;
+      Tk_out[1] = 80.0;
+      Tk_out_len = 2;
 
-    Mj_len = 4;
-    expected_Mj[0] = 2.55886;
-    expected_Mj[1] = 7.67659;
-    expected_Mj[2] = 10.2354;
-    expected_Mj[3] = 5.11772;
-    expected_Q_prod = 70.0;
-    expected_W_el_prod = 100.0;
-    expected_C_inv = 243.176757;
-    expected_C_op = 45.768077;
-    expected_C_op_var = 40.601427;
-    break;
+      Mj_len = 4;
+      expected_Mj[0] = 2.55886;
+      expected_Mj[1] = 7.67659;
+      expected_Mj[2] = 10.2354;
+      expected_Mj[3] = 5.11772;
+      expected_Q_prod = 70.0;
+      expected_W_el_prod = 100.0;
+      expected_C_inv = 243.176757;
+      expected_C_op = 45.768077;
+      expected_C_op_var = 40.601427;
+      break;
   }
 
   if (bioCHP_plant_c(fuel_def, fuel_count, Yj, Yj_len, YH2Oj, YH2Oj_len, W_el,
@@ -119,7 +119,7 @@ int main(int argc, char *argv[]) {
       }
     }
 
-    cout << fixed << setprecision(6); // Set higher precision
+    cout << fixed << setprecision(6);  // Set higher precision
     cout << "Q_prod (MW) = " << Q_prod << endl;
     cout << "W_el_prod (MW) = " << W_el_prod << endl;
     cout << "C_inv (M$) = " << C_inv << endl;

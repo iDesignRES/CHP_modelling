@@ -1,7 +1,6 @@
 
 
 void calculate_fuel_combustion_properties(flow fuel, object &prop) {
-
   size_t C = index_species(fuel.i, "C");
   size_t H = index_species(fuel.i, "H");
   size_t O = index_species(fuel.i, "O");
@@ -68,7 +67,6 @@ void calculate_fuel_combustion_properties(flow fuel, object &prop) {
     }
 
     else {
-
       prop.fval_p("n_H", (fuel.i[H].Y / 1.0) / (fuel.i[C].Y / 12.0));
       prop.fval_p("n_O", (fuel.i[O].Y / 16.0) / (fuel.i[C].Y / 12.0));
       prop.fval_p("W_CHxOy",
@@ -92,7 +90,6 @@ void calculate_fuel_combustion_properties(flow fuel, object &prop) {
 void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air,
                        flow &flue_gas, flow &bottom_ash, flow &fly_ash,
                        object &comb) {
-
   vector<flow> air;
   vector<flow> fg;
   vector<flow> ba;
@@ -157,13 +154,13 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air,
 
     ba[n].F.M =
         fuel[n].F.M * (1.0 - fuel[n].k[H2O].Y) * (fuel[n].k[ash].Y * f_ba);
-    ba[n].P.cp = 1.25; // kJ/kg*k
+    ba[n].P.cp = 1.25;  // kJ/kg*k
     ba[n].F.Ht =
         ba[n].F.M * (ba[n].P.cp * (T_ba - 25.0) * 1.0e3 + yC_ba * 34.1 * 1.0e6);
 
     fa[n].F.M = fuel[n].F.M * (1.0 - fuel[n].k[H2O].Y) * fuel[n].k[ash].Y *
                 (1.0 - f_ba);
-    fa[n].P.cp = 1.25; // kJ/kg*k
+    fa[n].P.cp = 1.25;  // kJ/kg*k
     fa[n].F.Ht = fa[n].F.M * fa[n].P.cp * (T_fa - 25.0);
   }
 

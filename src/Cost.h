@@ -8,13 +8,13 @@
 using namespace std;
 
 struct equipment {
-public:
+ public:
   string def;
   double Cpi, W_el, C_maint;
 };
 
 struct material {
-public:
+ public:
   string type, def;
   double Q_annual, price, C_annual;
 };
@@ -245,7 +245,6 @@ void capex(object &par) {
 }
 
 void opex(object &par) {
-
   // Material list
 
   vector<material> m;

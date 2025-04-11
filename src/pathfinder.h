@@ -64,7 +64,7 @@ std::string getExecutablePath() {
   char path[PATH_MAX];
   ssize_t count = readlink("/proc/self/exe", path, PATH_MAX);
   if (count != -1) {
-    path[count] = '\0'; // Null-terminate the string
+    path[count] = '\0';  // Null-terminate the string
     return std::string(path);
   } else {
     throw std::runtime_error("Failed to get executable path.");
@@ -124,7 +124,7 @@ std::string mergePaths(std::string pathA, std::string pathB) {
   return access(filePath.c_str(), 0) == 0;
 }*/
 
-} // namespace MyPaths
+}  // namespace MyPaths
 
 std::string getFileDirectory() {
   std::string filePath = __FILE__;

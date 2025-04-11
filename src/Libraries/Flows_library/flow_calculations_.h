@@ -1,7 +1,6 @@
 
 
 void flow::calculate_flow(string state_def) {
-
   if (prop_data == "solid_fuel" || prop_data == "bio_oil" ||
       prop_data == "ash") {
     calculate_solid_fuel();
@@ -87,13 +86,11 @@ void flow::calculate_flow_composition() {
 }
 
 void flow::calculate_flow_properties(string state_def) {
-
   if (prop_data == "solid_fuel") {
     calculate_solid_fuel();
   }
 
   if (prop_data == "NIST") {
-
     calculate_species_properties(state_def);
 
     P.cp = 0.0;
@@ -110,9 +107,7 @@ void flow::calculate_flow_properties(string state_def) {
 }
 
 void flow::calculate_species_properties(string state_def) {
-
   for (size_t n = 0; n < j.size(); n++) {
-
     j[n].F.T = F.T;
 
     j[n].F.P = F.P;
@@ -158,7 +153,6 @@ void flow::calculate_species_properties(string state_def) {
 }
 
 void flow::calculate_flow_parameters() {
-
   if (F.M == 0 && F.VN > 0 && F.N > 0 && P.MW > 0) {
     F.M = F.N * P.MW;
   } else if (F.N == 0 && F.VN > 0 && F.M > 0 && P.MW > 0) {

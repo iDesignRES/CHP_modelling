@@ -1,7 +1,6 @@
 
 
 void mix_same_type_flows(flow &f1, flow &f2, flow &f) {
-
   f = f1;
 
   f.F.M = f1.F.M + f2.F.M;
@@ -57,8 +56,8 @@ void flow::calculate_solid_fuel() {
 
   double sum_y = 0.0;
   double kC, kH, kO, kS, kN, kH2O, kA;
-  double yC = 0.0, yH = 0.0, yS = 0.0, yN = 0.0, yO = 0.0; // atomic components
-  double yA = 0.0, yH2O = 0.0, yDM = 0.0;                  // proximates
+  double yC = 0.0, yH = 0.0, yS = 0.0, yN = 0.0, yO = 0.0;  // atomic components
+  double yA = 0.0, yH2O = 0.0, yDM = 0.0;                   // proximates
 
   if (index_species(k, "H2O") == -1 && index_species(k, "DM") != -1) {
     yH2O = 1.0 - k[index_species(k, "DM")].Y;
@@ -231,9 +230,7 @@ void flow::calculate_flow_composition() {
 }
 
 void flow::calculate_flow_properties(string state_def) {
-
   if (prop_data == "NIST") {
-
     calculate_species_properties(state_def);
 
     P.cp = 0.0;
@@ -251,7 +248,6 @@ void flow::calculate_flow_properties(string state_def) {
 }
 
 void flow::calculate_species_properties(string state_def) {
-
   // calculating individual species properties:
   for (size_t n = 0; n < j.size(); n++) {
     j[n].F.T = F.T;

@@ -191,8 +191,8 @@ void raw_feedstock_characterization(flow &feed, string feed_def) {
 void Heating_Value(flow &feed) {
   double sum_y = 0.0;
   double kC, kH, kO, kS, kN, kH2O, kA;
-  double yC = 0.0, yH = 0.0, yS = 0.0, yN = 0.0, yO = 0.0; // atomic components
-  double yA = 0.0, yH2O = 0.0;                             // proximates
+  double yC = 0.0, yH = 0.0, yS = 0.0, yN = 0.0, yO = 0.0;  // atomic components
+  double yA = 0.0, yH2O = 0.0;                              // proximates
 
   kC = 34.1;
   kH = 102;
@@ -230,8 +230,7 @@ void Heating_Value(flow &feed) {
     }
   }
 
-  if (yH2O > 1)
-    yH2O = yH2O / 100;
+  if (yH2O > 1) yH2O = yH2O / 100;
 
   // sum_y = yC + yH + yO + yS + yN
   // if (sum_y > 1.0001) {
@@ -263,8 +262,8 @@ void flow::calculate_solid_fuel() {
 
   double sum_y = 0.0;
   double kC, kH, kO, kS, kN, kH2O, kA;
-  double yC = 0.0, yH = 0.0, yS = 0.0, yN = 0.0, yO = 0.0; // atomic components
-  double yA = 0.0, yH2O = 0.0, yDM = 0.0;                  // proximates
+  double yC = 0.0, yH = 0.0, yS = 0.0, yN = 0.0, yO = 0.0;  // atomic components
+  double yA = 0.0, yH2O = 0.0, yDM = 0.0;                   // proximates
 
   if (index_species(k, "H2O") == -1 && index_species(k, "DM") != -1) {
     yH2O = 1.0 - k[index_species(k, "DM")].Y;

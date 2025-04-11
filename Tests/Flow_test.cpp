@@ -1,10 +1,9 @@
 #include "../src/bioCHP.cpp"
-#include <iomanip> // for setprecision
+#include <iomanip>  // for setprecision
 
 // using namespace std;
 
 int main() {
-
   flow fg("flue_gas", "flue_gas");
 
   size_t O2g = index_species(fg.j, "O2");
