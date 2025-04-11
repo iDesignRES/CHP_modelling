@@ -1078,7 +1078,7 @@ void flow::mix_flows(flow &f1, flow &f2) {
 }
 
 void flow::print_flow() {
-  cout << "-------------------- " << endl;
+  cout << "------ Flow -------------- " << endl;
   cout << "id: " << id << endl;
   cout << "def: " << def << endl;
   cout << "cls: " << cls << endl;
@@ -1115,7 +1115,13 @@ void flow::print_flow() {
     cout << "Molecular composition: " << endl;
     cout << "------------------- " << endl;
     for (size_t n = 0; n < j.size(); n++) {
-      cout << j[n].id << " MW: " << j[n].P.MW << " X: " << j[n].X << " Y: " << j[n].Y
+      cout << j[n].id << " MW: " << j[n].P.MW 
+	   << " X: " << j[n].X 
+	   << " Y: " << j[n].Y
+	   << " cp: " << j[n].P.cp
+	   << " ht: " << j[n].P.ht
+	   << " h: " << j[n].P.h
+	   << " s: " << j[n].P.s
            << endl;
     }
   }
@@ -1130,6 +1136,8 @@ void flow::print_flow() {
       cout << k[n].id << " X: " << k[n].X << " Y: " << k[n].Y << endl;
     }
   }
+  cout << "-------------------- " << endl;
+
 }
 
 bool find_flow(string input_def) {

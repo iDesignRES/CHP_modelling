@@ -22,9 +22,9 @@ void get_feedstock(vector<flow> &f, object &plant) {
 
 void bioCHP_plant_model(object &bioCHP) {
 
-  cout << "------------------------ " << endl;
-  cout << "bioCHP PLANT: " << endl;
-  cout << "------------------------- " << endl;
+  //cout << "------------------------ " << endl;
+  //cout << "bioCHP PLANT: " << endl;
+  //cout << "------------------------- " << endl;
 
   object boiler("system", "solid_fuel_boiler", DIR + "Database/bioCHP_inputs");
   object rankine("process", "Rankine_cycle", DIR + "Database/bioCHP_inputs");
@@ -88,9 +88,11 @@ void bioCHP_plant_model(object &bioCHP) {
       object r = rankine;
       r.fval_p("Q_stm", b.fp("Q_out"));
       rankine_cycle(r);
+
       W_el_prod = r.fp("W_el");
 
-  	 //cout << '\t' << "Hf (MW) = " << Hf << " W_el (MW) = " << W_el << " W_el_prod (MW) = " << W_el_prod << endl;
+  	 //cout << '\t' << "Hf (MW) = " << Hf << " W_el (MW) = " << W_el 
+         //       << " W_el_prod (MW) = " << W_el_prod << endl;
 
       Hf = Hf * W_el / W_el_prod;
 
@@ -144,7 +146,6 @@ void bioCHP_plant_model(object &bioCHP) {
   cout << "H_fa: (MW) " << fly_ash.F.Ht * 1.0e-6 << endl;
   cout << "-------------" << endl;
 
-
   rankine.fval_p("Q_stm", boiler.fp("Q_out"));
   rankine_cycle(rankine);
 
@@ -168,4 +169,15 @@ void bioCHP_plant_model(object &bioCHP) {
 
   cost(bioCHP);
 
+  /*
+  for (size_t nf = 0; nf < feed.size(); nf++) {
+    feed[nf].print_flow();
+  }
+  comb_air[0].print_flow();
+  flue_gas.print_flow();
+  bottom_ash.print_flow();
+  fly_ash.print_flow();
+
+  print_parameters(bioCHP);
+  */
 }

@@ -8,7 +8,7 @@ int main() {
   vector<string> fuel_def = {"spruce_chips", "spruce_T&B"};
   vector<double> Yj = {0.5, 0.5};
   vector<double> YH2Oj = {0.3, 0.6};
-  double W_el = 300.0;
+  double W_el = 300.0000;
   vector<double> Qk = {30.0, 40.0};
   vector<double> Tk_in = {70.0, 70.0};
   vector<double> Tk_out = {90.0, 90.0};

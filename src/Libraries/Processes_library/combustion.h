@@ -139,18 +139,20 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_ga
     fg[n].calculate_flow("PT");
 
 
-    comb.fval_p("fash_bottom", 0.1);
-    comb.fval_p("yC_ash", 0.03);
-    comb.fval_p("T_ash", 1000.0);
+    //double T_ba = 1000.0, T_fa = 150.0, yC_ash = 0.03, f_ba = 0.1;
 
-    double T_ba = 1000.0, T_fa = 150.0, yC_ash = 0.03, f_ba = 0.1;
-   
+    double f_ba = comb.fp("f_ba");
+    double T_ba = comb.fp("T_ba");
+    double T_fa = comb.fp("T_fa");
+    double yC_ba = comb.fp("yC_ba");
 
+    //double T_ba = 1000.0, T_fa = 150.0, yC_ash = 0.03, f_ba = 0.1;
+    
     ba[n].F.M = fuel[n].F.M * (1.0 - fuel[n].k[H2O].Y) *
                 (fuel[n].k[ash].Y * f_ba);
     ba[n].P.cp = 1.25;  // kJ/kg*k
     ba[n].F.Ht = ba[n].F.M * (ba[n].P.cp * (T_ba - 25.0) * 1.0e3 +
-                              yC_ash * 34.1 * 1.0e6);
+                              yC_ba * 34.1 * 1.0e6);
 
     fa[n].F.M = fuel[n].F.M * (1.0 - fuel[n].k[H2O].Y) * fuel[n].k[ash].Y *
                 (1.0 - f_ba);
@@ -171,10 +173,10 @@ void solid_fuel_boiler(vector<flow> &fuel, vector<flow> &comb_air, flow &flue_ga
       fly_ash = fa[n];
     }
     if (n > 0) {
-      comb_air[0].mix_flows(comb_air[0], air[n]);
-      bottom_ash.mix_flows(bottom_ash, ba[n]);
-      flue_gas.mix_flows(flue_gas, fg[n]);
-      fly_ash.mix_flows(fly_ash, fa[n]);
+      mix_same_type_flows(comb_air[0], air[n], comb_air[0]);
+      mix_same_type_flows(bottom_ash, ba[n], bottom_ash);
+      mix_same_type_flows(flue_gas, fg[n], flue_gas);
+      mix_same_type_flows(fly_ash, fa[n], fly_ash);
     }
 
     comb_Hf = comb_Hf + fuel[n].F.Hf;

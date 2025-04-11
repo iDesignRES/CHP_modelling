@@ -290,28 +290,61 @@ void export_output_parameters(object &obj, string file) {
 
 // **********************************************************
 
-void print_parameters(vector<parameter> &p) {
+void print_parameter(parameter &p) {
 
-  cout << "no. parameters: " << p.size() << endl;
+      cout << p.data_id << " " << p.data_type;
 
-  for (size_t np = 0; np < p.size(); np++) {
-    cout << p[np].sys_type << " " << p[np].sys_def << " " << p[np].data_def << " "
-         << " " << p[np].data_id << p[np].data_type;
-
-    if( p[np].data_type == "str" ){	
-      for (size_t ns = 0; ns < p[np].str.size(); ns++) {
-        cout << " " << p[np].str[ns];
+      if( p.data_type == "str" ){	
+        for (size_t ns = 0; ns < p.str.size(); ns++) {
+          cout << " " << p.str[ns];
+        } cout << endl;
       }
-    }
 
-    if( p[np].data_type == "num" ){	
-      for (size_t ns = 0; ns < p[np].vct.size(); ns++) {
-        cout << " " << p[np].vct[ns];
+      if( p.data_type == "num" ){	
+        for (size_t ns = 0; ns < p.vct.size(); ns++) {
+          cout << " " << p.vct[ns];
+        } cout << endl;
       }
-    }
-    cout << endl;
+
+}
+
+// **********************************************************
+
+void print_parameters(object &obj) {
+
+  cout << " -------------------------------------- " << endl;
+  cout << obj.sys_type << " " << obj.sys_def << " parameters: " << endl;
+  cout << " -------------------------------------- " << endl;
+
+  for (size_t np = 0; np < obj.p.size(); np++) {
+
+      print_parameter(obj.p[np]);	
+      /*
+      cout << obj.p[np].data_id << " " << obj.p[np].data_type;
+
+      if( obj.p[np].data_type == "str" ){	
+        for (size_t ns = 0; ns < obj.p[np].str.size(); ns++) {
+          cout << " " << obj.p[np].str[ns];
+        } cout << endl;
+      }
+
+      if( obj.p[np].data_type == "num" ){	
+        for (size_t ns = 0; ns < obj.p[np].vct.size(); ns++) {
+          cout << " " << obj.p[np].vct[ns];
+        } cout << endl;
+      }
+      */
+  }
+  cout << " -------------------------------------- " << endl;
+
+  if(obj.c.size() > 0){
+
+    for (size_t nc = 0; nc < obj.c.size(); nc++) {
+      print_parameters(obj.c[nc]);
+    }	
 
   }
+
 }
 
 // **********************************************************
@@ -463,7 +496,7 @@ void str_p(vector<parameter> &par, string data_def, string sys_type, string sys_
     p.sys_type = sys_type;
     p.sys_def = sys_def;
     p.data_id = data_id;
-    p.data_type = "num";
+    p.data_type = "str";
     p.str.push_back(val); 
     p.pos = 0;
     par.push_back(p);
@@ -531,6 +564,7 @@ void fvct_p(vector<parameter> &par, string data_def, string sys_type, string sys
     p.sys_type = sys_type;
     p.sys_def = sys_def;
     p.data_id = data_id;
+    p.data_type = "num";
     p.pos = 0;
     for (size_t n = 0; n < val.size(); n++) {
       p.vct.push_back(val[n]);
@@ -578,6 +612,7 @@ void svct_p(vector<parameter> &par, string data_def, string sys_type, string sys
     p.sys_type = sys_type;
     p.sys_def = sys_def;
     p.data_id = data_id;
+    p.data_type = "str";
     p.pos = 0;
     for (size_t n = 0; n < val.size(); n++) {
       p.str.push_back(val[n]);

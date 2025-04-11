@@ -1,6 +1,34 @@
 
 
+void mix_same_type_flows(flow &f1, flow &f2, flow &f){
 
+  f = f1;
+
+  f.F.M = f1.F.M + f2.F.M;
+
+  f.F.N = f1.F.N + f2.F.N;
+
+  f.F.VN = f1.F.VN + f2.F.VN;
+
+  f.P.LHV = (f1.F.M * f1.P.LHV + f2.F.M * f2.P.LHV) / f.F.M;
+
+  f.P.HHV = (f1.F.M * f1.P.HHV + f2.F.M * f2.P.HHV) / f.F.M;
+
+  f.F.Ht = f1.F.Ht + f2.F.Ht;
+
+  f.P.cp = (f1.F.M * f1.P.cp + f2.F.M * f2.P.cp) / f.F.M;
+
+  f.P.rho = f.F.M / ((f1.F.M / f1.P.rho) + (f2.F.M / f2.P.rho));
+
+  f.F.T = 25.0 + f.F.Ht / (f.F.M * f.P.cp);
+
+  /*
+  if(f.j.size() > 0){ for (size_t n = 0; n < f.j.size(); n++) {
+    f.j[n].Y = (f1.j[n].Y * f1.F.M  + f2.j[n].Y * f2.F.M) / f.F.M;
+    f.j[n].X = (f1.j[n].X * f1.F.N  + f2.j[n].X * f2.F.N) / f.F.N;
+  }}
+  */	
+}
 
 void flow::calculate_flow(string state_def) {
   if (prop_data == "solid_fuel" || prop_data == "bio_oil" || prop_data == "ash") {

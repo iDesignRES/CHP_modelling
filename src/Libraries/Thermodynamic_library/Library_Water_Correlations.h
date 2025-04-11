@@ -21,7 +21,7 @@ double hPWater(double P) {
   i = 0.490013015;
 
   return (A + C * log(P) + E * pow(log(P), 2.0) + G * pow(log(P), 3.0) +
-          i * pow(log(P), 4)) /
+          i * pow(log(P), 4.0)) /
          (1 + B * log(P) + D * pow(log(P), 2.0) + f * pow(log(P), 3.0) +
           H * pow(log(P), 4.0));
 }
@@ -40,8 +40,8 @@ double hTWater(double T) {
   i = -0.00000022361;
   j = 3.98021E-14;
 
-  return (A + C * T + E * pow(T, 2) + G * pow(T, 3) + i * pow(T, 4)) /
-         (1 + B * T + D * pow(T, 2) + f * pow(T, 3) + H * pow(T, 4) + j * pow(T, 5));
+  return (A + C * T + E * pow(T, 2.0) + G * pow(T, 3.0) + i * pow(T, 4.0)) /
+         (1 + B * T + D * pow(T, 2.0) + f * pow(T, 3.0) + H * pow(T, 4.0) + j * pow(T, 5.0));
 }
 
 double TSatWater(double P) {
@@ -60,10 +60,10 @@ double TSatWater(double P) {
   j = 0.0000208266;
   k = -0.0057961;
 
-  return (A + C * log(P) + E * pow(log(P), 2) + G * pow(log(P), 3) + i * pow(log(P), 4) +
-          k * pow(log(P), 5)) /
-         (1 + B * log(P) + D * pow(log(P), 2) + f * pow(log(P), 3) + H * pow(log(P), 4) +
-          j * pow(log(P), 5));
+  return (A + C * log(P) + E * pow(log(P), 2.0) + G * pow(log(P), 3.0) + i * pow(log(P), 4.0) +
+          k * pow(log(P), 5.0)) /
+         (1 + B * log(P) + D * pow(log(P), 2.0) + f * pow(log(P), 3.0) + H * pow(log(P), 4.0) +
+          j * pow(log(P), 5.0));
 }
 
 double PSatWater(double T) {
@@ -82,8 +82,8 @@ double PSatWater(double T) {
   j = -4.9808e-14;
   k = -7.9081e-12;
 
-  return (A + C * T + E * pow(T, 2) + G * pow(T, 3) + i * pow(T, 4) + k * pow(T, 5)) /
-         (1 + B * T + D * pow(T, 2) + f * pow(T, 3) + H * pow(T, 4) + j * pow(T, 5));
+  return (A + C * T + E * pow(T, 2.0) + G * pow(T, 3.0) + i * pow(T, 4.0) + k * pow(T, 5.0)) /
+         (1 + B * T + D * pow(T, 2.0) + f * pow(T, 3.0) + H * pow(T, 4.0) + j * pow(T, 5.0));
 }
 
 double sPhSupSteam(double P, double H) {
@@ -91,7 +91,7 @@ double sPhSupSteam(double P, double H) {
   // [kJ/kg]
   double A, B, C, D, E, f, G, U, i, j, k;
 
-  if (P < 10) {
+  if (P < 10.0) {
     A = 15.90422271;
     B = -0.32133416;
     C = -43407.1173;
@@ -103,12 +103,12 @@ double sPhSupSteam(double P, double H) {
     i = 1583110;
     j = 30.39968182;
 
-    return A + B * log(P) + C / H + D * pow(log(P), 2) + E / pow(H, 2) + f * (log(P)) / H +
-           G * pow(log(P), 3) + U / pow(H, 3) + i * (log(P)) / pow(H, 2) +
-           j * pow(log(P), 2) / H;
+    return A + B * log(P) + C / H + D * pow(log(P), 2.0) + E / pow(H, 2.0) + f * (log(P)) / H +
+           G * pow(log(P), 3.0) + U / pow(H, 3.0) + i * (log(P)) / pow(H, 2.0) +
+           j * pow(log(P), 2.0) / H;
   }
 
-  if (P >= 10 && P < 24) {
+  if (P >= 10 && P < 24.0) {
     A = 12.17787168;
     B = -0.05047554;
     C = -11638.1867;
@@ -120,11 +120,11 @@ double sPhSupSteam(double P, double H) {
     i = 363315.174;
     j = 0.344766694;
 
-    return A + B * P + C / H + D * pow(P, 2) + E / pow(H, 2) + f * P / H + G * pow(P, 3) +
-           U / pow(H, 3) + i * P / pow(H, 2) + j * pow(P, 2) / H;
+    return A + B * P + C / H + D * pow(P, 2.0) + E / pow(H, 2.0) + f * P / H + G * pow(P, 3.0) +
+           U / pow(H, 3.0) + i * P / pow(H, 2.0) + j * pow(P, 2.0) / H;
   }
 
-  if (P >= 24 && P < 42) {
+  if (P >= 24.0 && P < 42.0) {
     A = 12.13000484;
     B = -0.02596893;
     C = -13150.5398;
@@ -136,11 +136,11 @@ double sPhSupSteam(double P, double H) {
     i = 225677.9999;
     j = -0.035514;
 
-    return A + B * P + C / H + D * pow(P, 2) + E / pow(H, 2) + f * P / H + G * pow(P, 3) +
-           U / pow(H, 3) + i * P / pow(H, 2) + j * pow(P, 2) / H;
+    return A + B * P + C / H + D * pow(P, 2.0) + E / pow(H, 2.0) + f * P / H + G * pow(P, 3.0) +
+           U / pow(H, 3.0) + i * P / pow(H, 2.0) + j * pow(P, 2.0) / H;
   }
 
-  if (P >= 42 && P < 60) {
+  if (P >= 42.0 && P < 60.0) {
     A = 10.64359824;
     B = -0.32048327;
     C = 12007.48665;
@@ -152,12 +152,12 @@ double sPhSupSteam(double P, double H) {
     i = 9512250;
     j = 133.8484047;
 
-    return A + B * log(P) + C / H + D * pow(log(P), 2) + E / pow(H, 2) + f * (log(P)) / H +
-           G * pow(log(P), 3) + U / pow(H, 3) + i * (log(P)) / pow(H, 2) +
-           j * pow(log(P), 2) / H;
+    return A + B * log(P) + C / H + D * pow(log(P), 2.0) + E / pow(H, 2.0) + f * (log(P)) / H +
+           G * pow(log(P), 3.0) + U / pow(H, 3.0) + i * (log(P)) / pow(H, 2.0) +
+           j * pow(log(P), 2.0) / H;
   }
 
-  if (P >= 60 && P < 100) {
+  if (P >= 60.0 && P < 100.0) {
     A = 10.1644606;
     B = 78.48986572;
     C = -11188.9497;
@@ -169,8 +169,8 @@ double sPhSupSteam(double P, double H) {
     i = -846390000;
     j = 5052500;
 
-    return A + B / P + C / H + D / pow(P, 2) + E / pow(H, 2) + f / (P * H) + G / pow(P, 3) +
-           U / pow(H, 3) + i / (P * pow(H, 2)) + j / (pow(P, 2) * H);
+    return A + B / P + C / H + D / pow(P, 2.0) + E / pow(H, 2.0) + f / (P * H) + G / pow(P, 3.0) +
+           U / pow(H, 3.0) + i / (P * pow(H, 2.0)) + j / (pow(P, 2.0) * H);
   }
 
   return -1;
@@ -196,7 +196,7 @@ double TPhSupSteam(double P, double H) {
            U / pow(H, 3) + i * P / pow(H, 2) + j * pow(P, 2) / H - 273.17;
   }
 
-  if (P >= 10 && P < 24) {
+  if (P >= 10.0 && P < 24.0) {
     A = 2537.3289;
     B = 16.07484702;
     C = -3557100;
@@ -208,11 +208,11 @@ double TPhSupSteam(double P, double H) {
     i = 244038000;
     j = -150.038485;
 
-    return A + B * P + C / H + D * pow(P, 2) + E / pow(H, 2) + f * P / H + G * pow(P, 3) +
-           U / pow(H, 3) + i * P / pow(H, 2) + j * pow(P, 2) / H - 273.17;
+    return A + B * P + C / H + D * pow(P, 2.0) + E / pow(H, 2.0) + f * P / H + G * pow(P, 3.0) +
+           U / pow(H, 3.0) + i * P / pow(H, 2.0) + j * pow(P, 2.0) / H - 273.17;
   }
 
-  if (P >= 24 && P < 40) {
+  if (P >= 24.0 && P < 40.0) {
     A = 1400.998669;
     B = 464.5647437;
     C = 4987640;
@@ -224,12 +224,12 @@ double TPhSupSteam(double P, double H) {
     i = 4251290000;
     j = 125603.7895;
 
-    return A + B * log(P) + C / H + D * pow(log(P), 2) + E / pow(H, 2) + f * (log(P)) / H +
-           G * pow(log(P), 3) + U / pow(H, 3) + i * (log(P)) / pow(H, 2) +
-           j * pow(log(P), 2) / H - 273.17;
+    return A + B * log(P) + C / H + D * pow(log(P), 2.0) + E / pow(H, 2.0) + f * (log(P)) / H +
+           G * pow(log(P), 3.0) + U / pow(H, 3.0) + i * (log(P)) / pow(H, 2.0) +
+           j * pow(log(P), 2.0) / H - 273.17;
   }
 
-  if (P >= 40 && P < 60) {
+  if (P >= 40.0 && P < 60.0) {
     A = 1400.749789;
     B = 578.0416208;
     C = 3673840;
@@ -241,12 +241,12 @@ double TPhSupSteam(double P, double H) {
     i = 3874260000;
     j = 132398.2899;
 
-    return A + B * log(P) + C / H + D * pow(log(P), 2) + E / pow(H, 2) + f * (log(P)) / H +
-           G * pow(log(P), 3) + U / pow(H, 3) + i * (log(P)) / pow(H, 2) +
-           j * pow(log(P), 2) / H - 273.17;
+    return A + B * log(P) + C / H + D * pow(log(P), 2.0) + E / pow(H, 2.0) + f * (log(P)) / H +
+           G * pow(log(P), 3.0) + U / pow(H, 3.0) + i * (log(P)) / pow(H, 2.0) +
+           j * pow(log(P), 2.0) / H - 273.17;
   }
 
-  if (P >= 60 && P < 100) {
+  if (P >= 60.0 && P < 100.0) {
     A = 1486950;
     B = 18029.10934;
     C = -550948.579;
@@ -258,9 +258,9 @@ double TPhSupSteam(double P, double H) {
     i = 269.4471355;
     j = -19.7817003;
 
-    return A + B * log(P) + C * log(H) + D * pow(log(P), 2) + E * pow(log(H), 2) +
-           f * log(P) * log(H) + G * pow(log(P), 3) + U * pow(log(H), 3) +
-           i * log(P) * pow(log(H), 2) + j * pow(log(P), 2) * log(H) - 273.17;
+    return A + B * log(P) + C * log(H) + D * pow(log(P), 2.0) + E * pow(log(H), 2.0) +
+           f * log(P) * log(H) + G * pow(log(P), 3.0) + U * pow(log(H), 3.0) +
+           i * log(P) * pow(log(H), 2.0) + j * pow(log(P), 2.0) * log(H) - 273.17;
   }
   return -1;
 }
@@ -271,7 +271,7 @@ double hPTSupSteam(double P, double Temp) {
 
   T = Temp + 273.15;
 
-  if (P < 6) {
+  if (P < 6.0) {
     A = -56835.8274;
     B = -978.268268;
     C = 30403.15382;
@@ -283,12 +283,12 @@ double hPTSupSteam(double P, double Temp) {
     i = -22.3871465;
     j = -0.14473537;
 
-    return A + B * P + C * log(T) + D * pow(P, 2) + E * pow(log(T), 2) + f * P * log(T) +
-           G * pow(P, 3) + H * pow(log(T), 3) + i * P * pow(log(T), 2) +
-           j * pow(P, 2) * log(T);
+    return A + B * P + C * log(T) + D * pow(P, 2.0) + E * pow(log(T), 2.0) + f * P * log(T) +
+           G * pow(P, 3.0) + H * pow(log(T), 3.0) + i * P * pow(log(T), 2.0) +
+           j * pow(P, 2.0) * log(T);
   }
 
-  if (P >= 6 && P < 10) {
+  if (P >= 6.0 && P < 10.0) {
     A = -131757.625;
     B = -6996.63699;
     C = 66816.71538;
@@ -300,12 +300,12 @@ double hPTSupSteam(double P, double Temp) {
     i = -186.603652;
     j = 59.50843382;
 
-    return A + B * log(P) + C * log(T) + D * pow(log(P), 2) + E * pow(log(T), 2) +
-           f * log(P) * log(T) + G * pow(log(P), 3) + H * pow(log(T), 3) +
-           i * log(P) * pow(log(T), 2) + j * pow(log(P), 2) * log(T);
+    return A + B * log(P) + C * log(T) + D * pow(log(P), 2.0) + E * pow(log(T), 2.0) +
+           f * log(P) * log(T) + G * pow(log(P), 3.0) + H * pow(log(T), 3.0) +
+           i * log(P) * pow(log(T), 2.0) + j * pow(log(P), 2.0) * log(T);
   }
 
-  if (P >= 10 && P < 24) {
+  if (P >= 10.0 && P < 24.0) {
     A = -186456.557;
     B = -755.251695;
     C = 90831.0755;
@@ -317,9 +317,9 @@ double hPTSupSteam(double P, double Temp) {
     i = -16.9130087;
     j = 0.033445377;
 
-    return A + B * P + C * log(T) + D * pow(P, 2) + E * pow(log(T), 2) + f * P * log(T) +
-           G * pow(P, 3) + H * pow(log(T), 3) + i * P * pow(log(T), 2) +
-           j * pow(P, 2) * log(T);
+    return A + B * P + C * log(T) + D * pow(P, 2.0) + E * pow(log(T), 2.0) + f * P * log(T) +
+           G * pow(P, 3.0) + H * pow(log(T), 3.0) + i * P * pow(log(T), 2.0) +
+           j * pow(P, 2.0) * log(T);
   }
 
   if (P >= 24 && P < 42) {
@@ -334,12 +334,11 @@ double hPTSupSteam(double P, double Temp) {
     i = -8055900;
     j = -21.1829918;
 
-    return A + B * P + C / T + D * pow(P, 2) + E / pow(T, 2) + f * P / T + G * pow(P, 3) +
-           H / pow(T, 3) + i * P / pow(T, 2) + j * pow(P, 2) / T;
+    return A + B * P + C / T + D * pow(P, 2.0) + E / pow(T, 2.0) + f * P / T + G * pow(P, 3.0) +
+           H / pow(T, 3.0) + i * P / pow(T, 2.0) + j * pow(P, 2.0) / T;
   }
 
-  // if (P >= 42 && P < 100) {
-  if (P >= 42 && P < 300) {
+  if (P >= 42.0 && P < 300.0) {
     A = 10440.24509;
     B = -20.9445233;
     C = -11277000;
@@ -351,8 +350,8 @@ double hPTSupSteam(double P, double Temp) {
     i = -11659000;
     j = -24.5631185;
 
-    return A + B * P + C / T + D * pow(P, 2) + E / pow(T, 2) + f * P / T + G * pow(P, 3) +
-           H / pow(T, 3) + i * P / pow(T, 2) + j * pow(P, 2) / T;
+    return A + B * P + C / T + D * pow(P, 2.0) + E / pow(T, 2.0) + f * P / T + G * pow(P, 3.0) +
+           H / pow(T, 3.0) + i * P / pow(T, 2.0) + j * pow(P, 2.0) / T;
   }
 
   return -1;
@@ -373,9 +372,9 @@ double hPSatSteam(double P) {
   i = -1.34590982;
   j = -0.0000010367;
 
-  return (A + C * log(P) + E * pow(log(P), 2) + G * pow(log(P), 3) + i * pow(log(P), 4)) /
-         (1 + B * log(P) + D * pow(log(P), 2) + f * pow(log(P), 3) + H * pow(log(P), 4) +
-          j * pow(log(P), 5));
+  return (A + C * log(P) + E * pow(log(P), 2.0) + G * pow(log(P), 3.0) + i * pow(log(P), 4.0)) /
+         (1 + B * log(P) + D * pow(log(P), 2.0) + f * pow(log(P), 3.0) + H * pow(log(P), 4.0) +
+          j * pow(log(P), 5.0));
 }
 
 double sPTSupSteam(double P, double T_in) {
@@ -384,7 +383,7 @@ double sPTSupSteam(double P, double T_in) {
 
   T = T_in + 273.15;
 
-  if (P < 10) {
+  if (P < 10.0) {
     A = -64.7641083;
     B = -3.92551262;
     C = 30.94072835;
@@ -396,12 +395,12 @@ double sPTSupSteam(double P, double T_in) {
     i = -0.08032672;
     j = 0.015149543;
 
-    return A + B * log(P) + C * log(T) + D * pow(log(P), 2) + E * pow(log(T), 2) +
-           f * log(P) * log(T) + G * pow(log(P), 3) + H * pow(log(T), 3) +
-           i * log(P) * pow(log(T), 2) + j * pow(log(P), 2) * log(T);
+    return A + B * log(P) + C * log(T) + D * pow(log(P), 2.0) + E * pow(log(T), 2.0) +
+           f * log(P) * log(T) + G * pow(log(P), 3.0) + H * pow(log(T), 3.0) +
+           i * log(P) * pow(log(T), 2.0) + j * pow(log(P), 2.0) * log(T);
   }
 
-  if (P >= 10 && P < 24) {
+  if (P >= 10.0 && P < 24.0) {
     A = 12.92832091;
     B = -0.10043202;
     C = -6049.57011;
@@ -413,11 +412,11 @@ double sPTSupSteam(double P, double T_in) {
     i = -13142.3681;
     j = 0.011191165;
 
-    return A + B * P + C / T + D * pow(P, 2) + E / pow(T, 2) + f * P / T + G * pow(P, 3) +
-           H / pow(T, 3) + i * P / pow(T, 2) + j * pow(P, 2) / T;
+    return A + B * P + C / T + D * pow(P, 2.0) + E / pow(T, 2.0) + f * P / T + G * pow(P, 3.0) +
+           H / pow(T, 3.0) + i * P / pow(T, 2.0) + j * pow(P, 2.0) / T;
   }
 
-  if (P >= 24 && P < 42) {
+  if (P >= 24.0 && P < 42.0) {
     A = 13.62876031;
     B = -0.0658488;
     C = -8058.25636;
@@ -429,12 +428,12 @@ double sPTSupSteam(double P, double T_in) {
     i = -14683.8767;
     j = -0.03100245;
 
-    return A + B * P + C / T + D * pow(P, 2) + E / pow(T, 2) + f * P / T + G * pow(P, 3) +
-           H / pow(T, 3) + i * P / pow(T, 2) + j * pow(P, 2) / T;
+    return A + B * P + C / T + D * pow(P, 2.0) + E / pow(T, 2.0) + f * P / T + G * pow(P, 3.0) +
+           H / pow(T, 3.0) + i * P / pow(T, 2.0) + j * pow(P, 2.0) / T;
   }
 
-  // if (P >= 42 && P < 100) {
-  if (P >= 42 && P < 300) {
+  // if (P >= 42.0 && P < 100.0) {
+  if (P >= 42.0 && P < 300.0) {
     A = 15.8812763;
     B = -0.05656025;
     C = -13082.1017;
@@ -446,8 +445,8 @@ double sPTSupSteam(double P, double T_in) {
     i = -19906.5907;
     j = -0.03586857;
 
-    return A + B * P + C / T + D * pow(P, 2) + E / pow(T, 2) + f * P / T + G * pow(P, 3) +
-           H / pow(T, 3) + i * P / pow(T, 2) + j * pow(P, 2) / T;
+    return A + B * P + C / T + D * pow(P, 2.0) + E / pow(T, 2.0) + f * P / T + G * pow(P, 3.0) +
+           H / pow(T, 3.0) + i * P / pow(T, 2.0) + j * pow(P, 2.0) / T;
   }
   return -1;
 }
@@ -468,10 +467,10 @@ double sPWater(double P) {
   j = 0.00000173044;
   k = -0.000067444;
 
-  return (A + C * log(P) + E * pow(log(P), 2) + G * pow(log(P), 3) + i * pow(log(P), 4) +
-          k * pow(log(P), 5)) /
-         (1 + B * log(P) + D * pow(log(P), 2) + f * pow(log(P), 3) + H * pow(log(P), 4) +
-          j * pow(log(P), 5));
+  return (A + C * log(P) + E * pow(log(P), 2.0) + G * pow(log(P), 3.0) + i * pow(log(P), 4.0) +
+          k * pow(log(P), 5.0)) /
+         (1.0 + B * log(P) + D * pow(log(P), 2.0) + f * pow(log(P), 3.0) + H * pow(log(P), 4.0) +
+          j * pow(log(P), 5.0));
 }
 
 double sPSatSteam(double P) {
@@ -489,9 +488,9 @@ double sPSatSteam(double P) {
   i = 0.002292981;
   j = 0.0000202713;
 
-  return (A + C * log(P) + E * pow(log(P), 2) + G * pow(log(P), 3) + i * pow(log(P), 4)) /
-         (1 + B * log(P) + D * pow(log(P), 2) + f * pow(log(P), 3) + H * pow(log(P), 4) +
-          j * pow(log(P), 5));
+  return (A + C * log(P) + E * pow(log(P), 2.0) + G * pow(log(P), 3.0) + i * pow(log(P), 4.0)) /
+         (1.0 + B * log(P) + D * pow(log(P), 2.0) + f * pow(log(P), 3.0) + H * pow(log(P), 4.0) +
+          j * pow(log(P), 5.0));
 }
 
 double sTWater(double T) {
@@ -510,9 +509,9 @@ double sTWater(double T) {
   j = -1.2373e-25;
   k = 3.70402e-24;
 
-  return pow(((A + C * pow(T, 2) + E * pow(T, 4) + G * pow(T, 6) + i * pow(T, 8) +
-               k * pow(T, 10)) /
-              (1 + B * pow(T, 2) + D * pow(T, 4) + f * pow(T, 6) + H * pow(T, 8) +
+  return pow(((A + C * pow(T, 2.0) + E * pow(T, 4.0) + G * pow(T, 6.0) + i * pow(T, 8.0) +
+               k * pow(T, 10.0)) /
+              (1.0 + B * pow(T, 2.0) + D * pow(T, 4.0) + f * pow(T, 6.0) + H * pow(T, 8.0) +
                j * pow(T, 10))),
              0.5);
 }
@@ -531,8 +530,8 @@ double HTSteam(double T) {
   H = -7.1983e-21;
   i = 1.18814E-14;
 
-  return pow(((A + C * pow(T, 2) + E * pow(T, 4) + G * pow(T, 6) + i * pow(T, 8)) /
-              (1 + B * pow(T, 2) + D * pow(T, 4) + f * pow(T, 6) + H * pow(T, 8))),
+  return pow(((A + C * pow(T, 2.0) + E * pow(T, 4.0) + G * pow(T, 6.0) + i * pow(T, 8.0)) /
+              (1.0 + B * pow(T, 2.0) + D * pow(T, 4.0) + f * pow(T, 6.0) + H * pow(T, 8.0))),
              0.5);
 }
 
@@ -545,7 +544,7 @@ double vTWater(double T) {
   D = 10271.62001;
   E = 0.048420526;
 
-  return A + B / pow((1 + 4 * pow(((T - C) / D), 2) * (pow(2, (1 / E)) - 1)), E);
+  return A + B / pow((1.0 + 4.0 * pow(((T - C) / D), 2.0) * (pow(2.0, (1.0 / E)) - 1.0)), E);
 }
 
 double vTSteam(double T) {
@@ -559,7 +558,7 @@ double vTSteam(double T) {
   E = 0.0000826718;
   f = -0.0000000061263;
 
-  return exp((A + C * T + E * pow(T, 2)) / (1 + B * T + D * pow(T, 2) + f * pow(T, 3)));
+  return exp((A + C * T + E * pow(T, 2.0)) / (1.0 + B * T + D * pow(T, 2.0) + f * pow(T, 3.0)));
 }
 
 double HVapH2O(double T) {
