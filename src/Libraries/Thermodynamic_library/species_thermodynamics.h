@@ -6,34 +6,35 @@
 
 using namespace std;
 
-double shomate(string property, double tK, double A, double B, double C, double D, double E,
-               double F, double G, double Hf298) {
+double shomate(string property, double tK, double A, double B, double C,
+               double D, double E, double F, double G, double Hf298) {
   // properties
   // cp = heat capacity (J/mol*K) = A + B * t + C * t2 + D * t3 + E / t2
-  // h - H°298.15 = standard enthalpy (kJ/mol) = A*t + B*t2/2 + C*t3/3 + D*t4/4 - E/t + F -
-  // Hf298 s = standard entropy (J/mol*K) = A * Ln(t) + B * t + C * t2 / 2 + D * t3 / 3 - E
-  // / (2 * t2) + G
+  // h - H°298.15 = standard enthalpy (kJ/mol) = A*t + B*t2/2 + C*t3/3 + D*t4/4
+  // - E/t + F - Hf298 s = standard entropy (J/mol*K) = A * Ln(t) + B * t + C *
+  // t2 / 2 + D * t3 / 3 - E / (2 * t2) + G
 
   if (property == "cp") {
-    return A + B * pow(tK, 1) + C * pow(tK, 2) + D * pow(tK, 3) + E / pow(tK, 2);
+    return A + B * pow(tK, 1.0) + C * pow(tK, 2.0) + D * pow(tK, 3.0) +
+           E / pow(tK, 2.0);
   }
   if (property == "h") {
-    return A * pow(tK, 1) + B * pow(tK, 2) / 2.0 + C * pow(tK, 3) / 3.0 +
-           D * pow(tK, 4) / 4.0 - E / tK + F - Hf298;
+    return A * pow(tK, 1.0) + B * pow(tK, 2.0) / 2.0 + C * pow(tK, 3.0) / 3.0 +
+           D * pow(tK, 4.0) / 4.0 - E / tK + F - Hf298;
   }
   if (property == "hf") {
     return Hf298;
   }
   if (property == "s") {
-    return A * log(tK) + B * pow(tK, 1) + C * pow(tK, 2) / 2.0 + D * pow(tK, 3) / 3.0 -
-           E / (2.0 * pow(tK, 2.0)) + G;
+    return A * log(tK) + B * pow(tK, 1.0) + C * pow(tK, 2.0) / 2.0 +
+           D * pow(tK, 3.0) / 3.0 - E / (2.0 * pow(tK, 2.0)) + G;
   }
 
   return -1;
 }
 
-double thermodynamic_property(string species, string property, double TK, double P,
-                              string unit) {
+double thermodynamic_property(string species, string property, double TK,
+                              double P, string unit) {
   double tK = TK / 1000.0;
 
   if (species == "CO2") {

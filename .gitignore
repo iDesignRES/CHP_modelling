@@ -2,3 +2,5 @@
 /build/
 /dev/
 /docs/build/
+*.o
+/Test/Output*

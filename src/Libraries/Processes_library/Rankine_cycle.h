@@ -8,21 +8,21 @@ struct steam_turbine_parameters {
   void assign_parameter_values(string, string, vector<parameter> &);
 };
 
-void steam_turbine_parameters::assign_parameter_values(string sys_type, string sys_def,
+void steam_turbine_parameters::assign_parameter_values(string sys_type,
+                                                       string sys_def,
                                                        vector<parameter> &par) {
-  Po = atof(get_parameter_value(par, sys_type, sys_def, "Po").c_str());
-  mu_isent = atof(get_parameter_value(par, sys_type, sys_def, "mu_isent").c_str());
+  Po = get_num_parameter(par, sys_type, sys_def, "Po");
+  mu_isent = get_num_parameter(par, sys_type, sys_def, "mu_isent");
 }
 
 void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
-  cout << "---------------------- " << endl;
-  cout << "steam turbine stage: " << endl;
-  cout << "---------------------- " << endl;
+  // cout << "---------------------- " << endl;
+  // cout << "steam turbine stage: " << endl;
+  // cout << "---------------------- " << endl;
 
   ST.Mi = in.F.M;
   ST.Ti = in.F.T;
   ST.Pi = in.F.P;
-  // in.calculate_refprop("PT");
   in.calculate_flow_properties("PT");
 
   double eff_el = 0.9;
@@ -48,9 +48,11 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
     s_out = s_out_initial;
     while (s_out > s_in) {
       ys_moisture += 0.001;
-      s_out = ys_moisture * sPWater(ST.Po) + (1.0 - ys_moisture) * sPSatSteam(ST.Po);
+      s_out = ys_moisture * sPWater(ST.Po) +
+              (1.0 - ys_moisture) * sPSatSteam(ST.Po);
     }
-    hs_out = ys_moisture * hPWater(ST.Po) + (1.0 - ys_moisture) * hPSatSteam(ST.Po);
+    hs_out =
+        ys_moisture * hPWater(ST.Po) + (1.0 - ys_moisture) * hPSatSteam(ST.Po);
     h_out = h_in + ST.mu_isent * (hs_out - h_in);
   }
 
@@ -70,21 +72,29 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
     h_calc = hs_out;
     while (h_calc < h_out) {
       y_moisture = y_moisture - 0.001;
-      h_calc = y_moisture * hPWater(ST.Po) + (1.0 - y_moisture) * hPSatSteam(ST.Po);
+      h_calc =
+          y_moisture * hPWater(ST.Po) + (1.0 - y_moisture) * hPSatSteam(ST.Po);
     }
   }
 
-  in.F.Ht = in.F.M * 1e3 * h_in;
+  in.F.Ht = in.F.M * 1.0e3 * h_in;
 
   out.F.M = in.F.M;
   out.F.T = T_out;
   out.F.P = ST.Po;
   out.P.h = h_calc;
   out.P.ht = out.P.h;
-  out.F.Ht = out.F.M * 1e3 * h_calc;
+  out.F.Ht = out.F.M * 1.0e3 * h_calc;
 
-  ST.W = eff_el * in.F.M * 1e3 * (h_in - h_calc);
+  ST.W = eff_el * in.F.M * 1.0e3 * (h_in - h_calc);
 
+  /*
+  cout << "---------------------- " << endl;
+  cout << "M_in (kg/s): " << in.F.M << endl;
+  cout << "h_calc (kJ/kg): " << h_calc << endl;
+  cout << "eff_el (-): " << eff_el << endl;
+  cout << "ST.W (W): " << ST.W << endl;
+  cout << "---------------------- " << endl;
   cout << "Parameter:" << '\t' << "in" << '\t' << "out" << endl;
   cout << "P (bar-a)" << '\t' << ST.Pi << '\t' << ST.Po << endl;
   cout << "T (deg-C)" << '\t' << ST.Ti << '\t' << Ts_out << endl;
@@ -92,14 +102,16 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
   cout << "h (kJ/kg)" << '\t' << h_in << '\t' << h_out << endl;
   cout << "s (kJ/kg K)" << '\t' << s_in << '\t' << s_out << endl;
   cout << "q (kg/kg)" << '\t' << "0.0" << '\t' << ys_moisture << endl;
-  cout << "W_el (MW): " << 1e-6 * ST.W << endl;
   cout << "---------------------- " << endl;
+  cout << "W_el (MW): " << 1.0e-6 * ST.W << endl;
+  cout << "---------------------- " << endl;
+  */
 }
 
 void steam_turbine_model(flow &in, flow &out, object &par) {
-  cout << "-------------------------- " << endl;
-  cout << "steam turbine with bleeds: " << endl;
-  cout << "-------------------------- " << endl;
+  // cout << "-------------------------- " << endl;
+  // cout << "steam turbine with bleeds: " << endl;
+  // cout << "-------------------------- " << endl;
 
   steam_turbine_parameters ST;
   ST.assign_parameter_values("process", "Rankine_cycle", par.p);
@@ -108,7 +120,7 @@ void steam_turbine_model(flow &in, flow &out, object &par) {
 
   size_t N_bleed = par.vctp("P_bleed").size();
 
-  cout << "No. bleeds: " << par.vctp("P_bleed").size() << endl;
+  // cout << "No. bleeds: " << par.vctp("P_bleed").size() << endl;
 
   double W = 0;
 
@@ -116,8 +128,8 @@ void steam_turbine_model(flow &in, flow &out, object &par) {
     steam_turbine(in, out, ST);
     par.fval_p("W_el", 1e-6 * ST.W);
 
-    cout << "-------------------------- " << endl;
-    cout << "Steam turbine power output: (MW): " << 1e-6 * W << endl;
+    // cout << "-------------------------- " << endl;
+    // cout << "Steam turbine power output: (MW): " << 1e-6 * W << endl;
   }
 
   if (N_bleed > 0) {
@@ -153,41 +165,41 @@ void steam_turbine_model(flow &in, flow &out, object &par) {
 
     par.fval_p("W_el", 1e-6 * W);
 
-    cout << "-------------------------- " << endl;
-    cout << "Steam turbine power output: (MW): " << 1e-6 * W << endl;
+    // cout << "-------------------------- " << endl;
+    // cout << "Steam turbine power output: (MW): " << 1e-6 * W << endl;
   }
 }
 
 void steam_condenser(flow &steam, flow &cond, object &par) {
-  cout << "---------------------- " << endl;
-  cout << "Steam condenser: " << endl;
-  cout << "---------------------- " << endl;
+  // cout << "---------------------- " << endl;
+  // cout << "Steam condenser: " << endl;
+  // cout << "---------------------- " << endl;
 
   cond = flow("cond", "water");
   cond.F.T = par.fp("T_cond");
   cond.F.P = par.fp("P_cond");
   cond.F.M = steam.F.M;
 
-  // steam.calculate_flow("PT");
   steam.P.h = hPTSupSteam(steam.F.P, steam.F.T);
-  // cond.calculate_flow("PT");
   cond.P.h = hTWater(cond.F.T);
   double Q_cond = steam.F.M * (steam.P.h - cond.P.h);
 
+  /*
   cout << "Parameter:" << '\t' << "in" << '\t' << "out" << endl;
   cout << "P (bar-a)" << '\t' << steam.F.P << '\t' << cond.F.P << endl;
   cout << "T (deg-C)" << '\t' << steam.F.T << '\t' << cond.F.T << endl;
   cout << "h (J/kg)" << '\t' << steam.P.h << '\t' << cond.P.h << endl;
 
   cout << "Steam condenser duty (MW): " << Q_cond * 1e-6 << endl;
+  */
 
   par.fval_p("Q_cond", Q_cond * 1e-6);
 }
 
 void district_heating(flow &dh_in, flow &dh_out, object &par) {
-  cout << "---------------------- " << endl;
-  cout << "District heating: " << endl;
-  cout << "---------------------- " << endl;
+  // cout << "---------------------- " << endl;
+  // cout << "District heating: " << endl;
+  // cout << "---------------------- " << endl;
 
   vector<double> P_bleed, M_bleed;
 
@@ -201,13 +213,15 @@ void district_heating(flow &dh_in, flow &dh_out, object &par) {
       dh_in.P.h = hTWater(dh_in.F.T);  // h_in.calculate_flow_properties("PT");
       dh_out.F.T = par.vctp("Tk_out")[nk];
       dh_out.F.P = 1.01325;
-      dh_out.P.h = hTWater(dh_out.F.T);  // dh_out.calculate_flow_properties("PT");
+      dh_out.P.h =
+          hTWater(dh_out.F.T);  // dh_out.calculate_flow_properties("PT");
 
       dh_in.F.M = par.vctp("Qk")[nk] / (dh_out.P.h - dh_in.P.h);
       dh_out.F.M = dh_in.F.M;
 
       flow hf_in,
-          hf_out;  // In / out heating fluid to for exporting heat to district heating
+          hf_out;  // In / out heating fluid to for exporting heat to district
+                   // heating
       hf_in = flow("hf_in", "water");
       hf_out = flow("hf_out", "water");
       hf_in.F.T = dh_out.F.T + 25.0;
@@ -221,6 +235,7 @@ void district_heating(flow &dh_in, flow &dh_out, object &par) {
       hf_in.F.M = 1e3 * par.vctp("Qk")[nk] / (hf_in.P.h - hf_out.P.h);
       hf_out.F.M = hf_in.F.M;
 
+      /*
       cout << "Heating fluid:" << '\t' << "in" << '\t' << "out" << endl;
       cout << "M (kg/s)" << '\t' << hf_in.F.M << '\t' << hf_out.F.M << endl;
       cout << "P (bar-a)" << '\t' << hf_in.F.P << '\t' << hf_out.F.P << endl;
@@ -228,13 +243,13 @@ void district_heating(flow &dh_in, flow &dh_out, object &par) {
       cout << "h (kJ/kg)" << '\t' << hf_in.P.h << '\t' << hf_out.P.h << endl;
 
       cout << "Qk (MW): " << par.vctp("Qk")[nk] << endl;
-      cout << "DH HX duty (MW): " << hf_in.F.M * (hf_in.P.h - hf_out.P.h) * 1e-3 << endl;
+      cout << "DH HX duty (MW): " << hf_in.F.M * (hf_in.P.h - hf_out.P.h) * 1e-3
+      << endl;
+      */
 
       P_bleed.push_back(hf_in.F.P);
       M_bleed.push_back(hf_in.F.M);
     }
-
-    // interpret_bleeds(P_bleed,M_bleed);
 
     vector<size_t> merged;
     if (P_bleed.size() > 1) {
@@ -254,8 +269,6 @@ void district_heating(flow &dh_in, flow &dh_out, object &par) {
     }
 
     vector<double> P_bleed_ord = P_bleed, M_bleed_ord;
-
-    // sort(P_bleed_ord.begin(), P_bleed_ord.end(), greater<>());
 
     for (size_t i = 0; i < P_bleed_ord.size() - 1; ++i) {
       for (size_t j = 0; j < P_bleed_ord.size() - i - 1; ++j) {
@@ -278,63 +291,7 @@ void district_heating(flow &dh_in, flow &dh_out, object &par) {
   }
 }
 
-void heat_extractions(object &par) {
-  cout << "---------------------- " << endl;
-  cout << " District heating: " << endl;
-  cout << "---------------------- " << endl;
-
-  cout << "Number of heat demands: " << par.vctp("Qk").size() << endl;
-
-  vector<double> P_bleed, M_bleed;
-
-  flow dh_in = flow("dh_in", "water"), dh_out = flow("dh_out", "water");
-
-  for (size_t nk = 0; nk < par.vctp("Qk").size(); nk++) {
-    dh_in.F.T = par.vctp("Tk_in")[nk];
-    dh_in.F.P = 1.01325;
-    dh_in.P.h = hTWater(dh_in.F.T);  // h_in.calculate_flow_properties("PT");
-    dh_out.F.T = par.vctp("Tk_out")[nk];
-    dh_out.F.P = 1.01325;
-    dh_out.P.h = hTWater(dh_out.F.T);  // dh_out.calculate_flow_properties("PT");
-
-    dh_in.F.M = par.vctp("Qk")[nk] / (dh_out.P.h - dh_in.P.h);
-    dh_out.F.M = dh_in.F.M;
-
-    flow hf_in, hf_out;  // In / out heating fluid to for exporting heat to district heating
-    hf_in = flow("hf_in", "water");
-    hf_out = flow("hf_out", "water");
-    hf_in.F.T = dh_out.F.T + 25.0;
-    hf_in.F.P = PSatWater(hf_in.F.T);
-    double Tsat_hf_in = TSatWater(hf_in.F.P);
-    hf_in.P.h = hPSatSteam(hf_in.F.P);
-    hf_out.F.T = Tsat_hf_in - 5.0;
-    hf_out.F.P = hf_in.F.P;
-    hf_out.P.h = hTWater(hf_out.F.T);
-
-    hf_in.F.M = 1e3 * par.fp("Q_dh") / (hf_in.P.h - hf_out.P.h);
-    hf_out.F.M = hf_in.F.M;
-
-    cout << "Heating fluid:" << '\t' << "in" << '\t' << "out" << endl;
-    cout << "M (kg/s)" << '\t' << hf_in.F.M << '\t' << hf_out.F.M << endl;
-    cout << "P (bar-a)" << '\t' << hf_in.F.P << '\t' << hf_out.F.P << endl;
-    cout << "T (deg-C)" << '\t' << hf_in.F.T << '\t' << hf_out.F.T << endl;
-    cout << "h (kJ/kg)" << '\t' << hf_in.P.h << '\t' << hf_out.P.h << endl;
-
-    cout << "Qk (MW): " << par.vctp("Qk")[nk] << endl;
-    cout << "DH HX duty (MW): " << hf_in.F.M * (hf_in.P.h - hf_out.P.h) * 1e-3 << endl;
-
-    P_bleed.push_back(hf_in.F.P);
-    M_bleed.push_back(hf_in.F.M);
-  }
-  par.vct_fp("P_bleed", P_bleed);
-  par.vct_fp("M_bleed", M_bleed);
-}
-
 void rankine_cycle(object &par) {
-  cout << "---------------------------------------------------- " << endl;
-  cout << " Rankine cycle with heat output to district heating: " << endl;
-  cout << "---------------------------------------------------- " << endl;
-
   flow bfw, sat_cond, sat_stm, steam, steam_out, cond, dh_in, dh_out;
   bfw = flow("bfw", "water");
   bfw.F.T = 105.0;
@@ -355,18 +312,29 @@ void rankine_cycle(object &par) {
   steam.F.P = par.fp("P_stm");
   steam.F.T = par.fp("T_stm");
   steam.P.h = hPTSupSteam(steam.F.P, steam.F.T);
-  steam.F.M = 1e-3 * par.fp("Q_stm") / (steam.P.h - bfw.P.h);
+  steam.F.M = 1.0e-3 * par.fp("Q_stm") / (steam.P.h - bfw.P.h);
   steam_out = flow("cond", "water");
   cond = flow("cond", "water");
 
+  // calculating district heating data
+  // cout << "calculating district heating data" << endl;
   district_heating(dh_in, dh_out, par);
+
+  // calculating steam turbines
+  // cout << "calculating steam turbines" << endl;
+  // cout << "Q steam in (W): " << par.fp("Q_stm") << endl;
+  // cout << "h steam in (kJ/kg): " << steam.P.h << endl;
+  // cout << "h bfw in (kJ/kg): " << bfw.P.h << endl;
+  // cout << "M steam in (kg/s): " << steam.F.M << endl;
+
   steam_turbine_model(steam, steam_out, par);
+  // cout << " - W_el (MW): " << par.fp("W_el") << endl;
+
+  // calculating steam condenser
   steam_condenser(steam_out, cond, par);
 
   object rankine_eq("equipment", "rankine_cycle");
   rankine_eq.fval_p("S", par.fp("Q_stm") * 1e-6);
   equipment_cost(rankine_eq);
   par.c.push_back(rankine_eq);
-
-  cout << "rankine_eq cost (M$): " << rankine_eq.fp("Cpi") * 1e-6 << endl;
 }

@@ -236,7 +236,7 @@ size_t index_flow(vector<flow> &f, string f_id) {
 }
 
 void flow::calculate_MW() {
-  get_species_data();
+  // get_species_data();
   P.MW = 0;
   for (size_t n = 0; n < j.size(); n++) {
     P.MW = P.MW + j[n].X * j[n].P.MW;
@@ -244,7 +244,7 @@ void flow::calculate_MW() {
 }
 
 void flow::calculate_properties() {
-  get_species_data();
+  // get_species_data();
   P.MW = 0;
   P.cp = 0;
   P.rho = 0;
@@ -938,11 +938,11 @@ void flow::get_flow_data(string input_def) {
       if (txt == "Prop_data" || txt == "Prop_data:" || txt == "prop_data" ||
           txt == "prop_data:") {
         sst >> prop_data;
-        // if (prop_data == "refprop") {
-        //  if (sst >> txt) {
-        //    thermo_file = txt;
-        //  }
-        //}
+        if (prop_data == "refprop") {
+          if (sst >> txt) {
+            thermo_file = txt;
+          }
+        }
         prop_data_defined = true;
       }
     }
@@ -954,12 +954,8 @@ void flow::get_flow_data(string input_def) {
     get_flow_composition(j, "MOLECULES");
     get_flow_composition(i, "ATOMS");
     interpret_molecules();
-    // cout << "interpreting molecules" << endl;
-    // if(molec_def == "Y") { if(atom_def != "X" || atom_def != "Y")
-    // {interpret_molecules();}}
     get_flow_composition(k, "PROXIMATE");
     get_flow_properties();
-    // get_flow_chemistry();
   }
 
   calculate_flow_composition();
@@ -1084,7 +1080,7 @@ void flow::mix_flows(flow &f1, flow &f2) {
 }
 
 void flow::print_flow() {
-  cout << "------ Flow -------------- " << endl;
+  cout << "-------------------- " << endl;
   cout << "id: " << id << endl;
   cout << "def: " << def << endl;
   cout << "cls: " << cls << endl;
@@ -1102,6 +1098,7 @@ void flow::print_flow() {
   cout << "s: " << P.s << endl;
   cout << "H : " << F.H << endl;
   cout << "Ht : " << F.Ht << endl;
+  cout << "Hf : " << F.Hf << endl;
   cout << "-------------------- " << endl;
   if (i.size() == 0) {
     cout << " atomic composition is not defined" << endl;
@@ -1123,7 +1120,7 @@ void flow::print_flow() {
     for (size_t n = 0; n < j.size(); n++) {
       cout << j[n].id << " MW: " << j[n].P.MW << " X: " << j[n].X
            << " Y: " << j[n].Y << " cp: " << j[n].P.cp << " ht: " << j[n].P.ht
-           << " h: " << j[n].P.h << " s: " << j[n].P.s << endl;
+           << endl;
     }
   }
   cout << "-------------------- " << endl;
@@ -1137,7 +1134,6 @@ void flow::print_flow() {
       cout << k[n].id << " X: " << k[n].X << " Y: " << k[n].Y << endl;
     }
   }
-  cout << "-------------------- " << endl;
 }
 
 bool find_flow(string input_def) {
