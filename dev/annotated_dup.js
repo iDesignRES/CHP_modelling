@@ -4,7 +4,6 @@ var annotated_dup =
     [ "flow", "structflow.html", null ],
     [ "flow_parameters", "structflow__parameters.html", null ],
     [ "material", "structmaterial.html", null ],
-    [ "NOX_reduction_parameters", "structNOX__reduction__parameters.html", null ],
     [ "object", "structobject.html", null ],
     [ "parameter", "structparameter.html", null ],
     [ "phase", "structphase.html", null ],
