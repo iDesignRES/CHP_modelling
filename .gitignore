@@ -3,6 +3,4 @@
 /dev/
 /docs/build/
 *.o
-*.so
-/Tests/test*
 /Test/Output*
