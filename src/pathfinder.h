@@ -37,7 +37,7 @@ std::string getExecutablePath() {
 
 std::string getExecutableDir() {
   std::string executablePath = getExecutablePath();
-  char *exePath = new char[executablePath.length()];
+  char* exePath = new char[executablePath.length()];
   strcpy(exePath, executablePath.c_str());
   PathRemoveFileSpecA(exePath);
   std::string directory = std::string(exePath);
@@ -87,9 +87,7 @@ std::string getExecutableDir() {
   return std::string(executableDir);*/
 }
 
-std::string mergePaths(std::string pathA, std::string pathB) {
-  return pathA + "/" + pathB;
-}
+std::string mergePaths(std::string pathA, std::string pathB) { return pathA + "/" + pathB; }
 
 #endif
 
@@ -107,16 +105,14 @@ std::string getExecutablePath() {
 
 std::string getExecutableDir() {
   std::string executablePath = getExecutablePath();
-  char *executablePathStr = new char[executablePath.length() + 1];
+  char* executablePathStr = new char[executablePath.length() + 1];
   strcpy(executablePathStr, executablePath.c_str());
-  char *executableDir = dirname(executablePathStr);
+  char* executableDir = dirname(executablePathStr);
   delete[] executablePathStr;
   return std::string(executableDir);
 }
 
-std::string mergePaths(std::string pathA, std::string pathB) {
-  return pathA + "/" + pathB;
-}
+std::string mergePaths(std::string pathA, std::string pathB) { return pathA + "/" + pathB; }
 
 #endif
 

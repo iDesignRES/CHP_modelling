@@ -1,7 +1,8 @@
 
 void get_feedstock(vector<flow> &f, object &plant) {
+	
   double LHV = 0.0;
-  for (size_t nf = 0; nf < plant.svct("fuel_def").size(); nf++) {
+  for (size_t nf = 0; nf < plant.svct("fuel_def").size(); nf++) {	
     f.push_back(flow("feed", plant.svct("fuel_def")[nf]));
     f[nf].F.T = 25.0;
     f[nf].F.P = 1.01325;
@@ -16,23 +17,24 @@ void get_feedstock(vector<flow> &f, object &plant) {
   }
 
   plant.fval_p("LHV_f", LHV);
+
 }
 
 void bioCHP_plant_model(object &bioCHP) {
-  // cout << "------------------------ " << endl;
-  // cout << "bioCHP PLANT: " << endl;
-  // cout << "------------------------- " << endl;
+
+  //cout << "------------------------ " << endl;
+  //cout << "bioCHP PLANT: " << endl;
+  //cout << "------------------------- " << endl;
 
   object boiler("system", "solid_fuel_boiler", DIR + "Database/bioCHP_inputs");
   object rankine("process", "Rankine_cycle", DIR + "Database/bioCHP_inputs");
-  object scrubber("process", "flue_gas_cleaning",
-                  DIR + "Database/bioCHP_inputs");
+  object scrubber("process", "flue_gas_cleaning", DIR + "Database/bioCHP_inputs");
 
   cout << "Getting the feedstock data: " << endl;
 
   vector<flow> feed;
   get_feedstock(feed, bioCHP);
-  double LHV_f = bioCHP.fp("LHV_f");
+  double LHV_f = bioCHP.fp("LHV_f");			
   vector<double> Yj = bioCHP.vctp("Yj");
 
   cout << "Feedstock LHV: " << bioCHP.fp("LHV_f") << endl;
@@ -55,12 +57,12 @@ void bioCHP_plant_model(object &bioCHP) {
   }
 
   if (bioCHP.bp("W_el")) {
-    cout << "bioCHP PLANT calculation using W_el = " << bioCHP.fp("W_el")
-         << endl;
+
+    cout << "bioCHP PLANT calculation using W_el = " << bioCHP.fp("W_el") << endl;
 
     cout << "Estimating the required feedstock mass flow rate" << endl;
 
-    double W_el = bioCHP.fp("W_el");
+    double W_el = bioCHP.fp("W_el");	
 
     double Hf = W_el / 0.2 + sum_Qk / 0.9;
 
@@ -68,7 +70,8 @@ void bioCHP_plant_model(object &bioCHP) {
 
     double W_el_prod = 0.0;
 
-    for (int n = 0; n < 10; n++) {
+    for( int n = 0; n < 10; n++ ){
+
       double Mf = Hf / LHV_f;
 
       for (size_t nf = 0; nf < Yj.size(); nf++) {
@@ -80,7 +83,7 @@ void bioCHP_plant_model(object &bioCHP) {
       b.fval_p("M_fuel", Mf);
       solid_fuel_boiler(feed, comb_air, flue_gas, bottom_ash, fly_ash, b);
 
-      // cout << "Boiler Q_out (W) = " << b.fp("Q_out") << endl;
+  	 //cout << "Boiler Q_out (W) = " << b.fp("Q_out") << endl;
 
       object r = rankine;
       r.fval_p("Q_stm", b.fp("Q_out"));
@@ -88,13 +91,14 @@ void bioCHP_plant_model(object &bioCHP) {
 
       W_el_prod = r.fp("W_el");
 
-      // cout << '\t' << "Hf (MW) = " << Hf << " W_el (MW) = " << W_el
-      //       << " W_el_prod (MW) = " << W_el_prod << endl;
+  	 //cout << '\t' << "Hf (MW) = " << Hf << " W_el (MW) = " << W_el 
+         //       << " W_el_prod (MW) = " << W_el_prod << endl;
 
       Hf = Hf * W_el / W_el_prod;
 
-      // cout << '\t' << "Hf (MW) = " << Hf << endl;
-    }
+  	 //cout << '\t' << "Hf (MW) = " << Hf << endl;
+
+    }	
 
     bioCHP.fval_p("Hf", Hf);
   }
@@ -114,7 +118,7 @@ void bioCHP_plant_model(object &bioCHP) {
   solid_fuel_boiler(feed, comb_air, flue_gas, bottom_ash, fly_ash, boiler);
 
   cout << "-------------" << endl;
-  cout << "Boiler: " << endl;
+  cout << "Boiler: " << endl;  	
   cout << "-------------" << endl;
   cout << "Mass balance" << endl;
   cout << "------------" << endl;

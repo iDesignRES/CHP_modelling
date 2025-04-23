@@ -49,6 +49,10 @@ double physical_parameters_set::f(string symb) {
   return -1;
 }
 
+/**
+ * @brief Structure to define flow or species properties
+ * 
+*/
 struct properties {
  public:
   double LHV = 0.0, LHV_dry, HHV = 0.0, HHV_dry;
@@ -61,14 +65,21 @@ struct properties {
   vector<double> val;  // valences
 };
 
+/**
+ * @brief Structure to define flow parameters
+ * 
+*/
 struct flow_parameters {
  public:
   double P, T;
-  double M, N, VN,
-      V;  // M: mass, N: molar, VN: volumetric normal, V: volumetric
+  double M, N, VN, V;  // M: mass, N: molar, VN: volumetric normal, V: volumetric
   double H, Ht, Hf;
 };
 
+/**
+ * @brief Structure to define species parameters
+ * 
+*/
 struct species {
  public:
   string id, def, formula;
@@ -140,10 +151,13 @@ size_t index_species(vector<species> &spc, string spc_id) {
       return i;
     }
   }
-  return -1;  // returns a negative number if species does not exist in the
-              // vector
+  return -1;  // returns a negative number if species does not exist in the vector
 }
 
+/**
+ * @brief Structure to define the parameters of one flow phase
+ * 
+*/
 struct phase {
  public:
   string id;
@@ -153,6 +167,10 @@ struct phase {
   vector<species> i, j, k;
 };
 
+/**
+ * @brief Structure to define the parameters of one flow
+ * 
+*/
 struct flow {
  public:
   string id, def, cls, prop_data;
@@ -221,20 +239,26 @@ flow::flow(string flw_id, string flw_def) {
 }
 
 void flow::get_species_data() {
-  // for( int n=0; n<j.size(); n++){j[n].get_species_data();}
-  // for( int n=0; n<i.size(); n++){i[n].get_species_data();}
 }
 
+/**
+ * @brief function to get the index of a phase withun a flow mixture
+ * 
+ * @param f input flow
+ * @param f_id string specifying the id of the phase
+*/
 size_t index_flow(vector<flow> &f, string f_id) {
   for (size_t i = 0; i < f.size(); i++) {
     if (f[i].id == f_id) {
       return i;
     }
   }
-  return -1;  // returns a negative number if species does not exist in the
-              // vector
+  return -1;  // returns a negative number if species does not exist in the vector
 }
 
+/**
+ * @brief function to calculate the molecular weight (kg/mol) of a flow
+*/
 void flow::calculate_MW() {
   get_species_data();
   P.MW = 0;
@@ -243,6 +267,9 @@ void flow::calculate_MW() {
   }
 }
 
+/**
+ * @brief function to calculate flow properties
+*/
 void flow::calculate_properties() {
   get_species_data();
   P.MW = 0;
@@ -310,6 +337,9 @@ void flow::calculate_properties() {
   }
 }
 
+/**
+ * @brief function to interpret the molecular composition of a flow
+*/
 void flow::interpret_molecules() {
   char *molec_ID;
   char *atom_ID;
@@ -334,20 +364,17 @@ void flow::interpret_molecules() {
       int l = 0;
       pos = 0;
       while (l < j[n].formula.length()) {
-        if (molec_ID[l] == 'T' &&
-            (molec_ID[l + 1] == 'X' || molec_ID[l + 1] == '-')) {
+        if (molec_ID[l] == 'T' && (molec_ID[l + 1] == 'X' || molec_ID[l + 1] == '-')) {
           l = l + 2;
         }
-        if (molec_ID[l] == 'S' &&
-            (molec_ID[l + 1] == 'X' || molec_ID[l + 1] == '-')) {
+        if (molec_ID[l] == 'S' && (molec_ID[l + 1] == 'X' || molec_ID[l + 1] == '-')) {
           l = l + 2;
         }
         if ((molec_ID[l] == '+' || molec_ID[l] == '-') &&
             (molec_ID[l + 1] >= '1' && molec_ID[l + 1] <= '9')) {
           break;
         }
-        if ((molec_ID[l] == '+' || molec_ID[l] == '-') &&
-            l == j[n].formula.length() - 1) {
+        if ((molec_ID[l] == '+' || molec_ID[l] == '-') && l == j[n].formula.length() - 1) {
           break;
         }
 
@@ -364,8 +391,8 @@ void flow::interpret_molecules() {
           }
 
           if (i[m].id.length() == 2) {
-            if (l + 1 <= j[n].formula.length() - 1 &&
-                molec_ID[l + 1] == atom_ID[1] && molec_ID[l] == atom_ID[0]) {
+            if (l + 1 <= j[n].formula.length() - 1 && molec_ID[l + 1] == atom_ID[1] &&
+                molec_ID[l] == atom_ID[0]) {
               ctr_atom2 = 1;
               l = l + 1;
               if (ctr_atom1 == 0) {
@@ -440,8 +467,7 @@ void flow::interpret_molecules() {
           i[index].X = i[index].X + j[n].X * atoms_N[ni] / sum_N;
         }
         if (molec_def == "Y") {
-          i[index].Y =
-              i[index].Y + j[n].Y * atoms_N[ni] * i[index].P.MW / sum_M;
+          i[index].Y = i[index].Y + j[n].Y * atoms_N[ni] * i[index].P.MW / sum_M;
         }
       }
 
@@ -466,6 +492,9 @@ void flow::interpret_molecules() {
   }
 }
 
+/**
+ * @brief function to initialize the flow parameters
+*/
 void flow::initialize_species(vector<species> &spc) {
   int n_spc = spc.size();
   if (n_spc > 0)
@@ -479,6 +508,11 @@ void flow::initialize_species(vector<species> &spc) {
     }
 }
 
+/**
+ * @brief function to import the data for a species
+ *
+ * @param spc_type = "molecule" or "atom"
+*/
 void species::get_species_data_(string spc_type) {
   P = properties();
   F = flow_parameters();
@@ -629,6 +663,12 @@ void species::get_species_data_(string spc_type) {
   }
 }
 
+/**
+ * @brief function to import the composition data of a flow from the database
+ *
+ * @param spc vector of species
+ * @param input string specifying the same of the flow
+*/
 void flow::get_flow_composition(vector<species> &spc, string input) {
   string txt, symb, val, line_txt;
   int n_spc;
@@ -740,6 +780,10 @@ void flow::get_flow_composition(vector<species> &spc, string input) {
   }
 }
 
+/**
+ * @brief function to import the properties of a flow from the database
+ *
+*/
 void flow::get_flow_properties() {
   string txt, line_txt, symb;
   double val;
@@ -840,6 +884,11 @@ void flow::get_flow_properties() {
   }
 }
 
+/**
+ * @brief function to import all data of a flow from the database
+ *
+ * @param input_def string specifying the name definition of the flow in the database
+*/
 void flow::get_flow_data(string input_def) {
   string line_txt, txt, symb;
   double val;
@@ -938,7 +987,7 @@ void flow::get_flow_data(string input_def) {
       if (txt == "Prop_data" || txt == "Prop_data:" || txt == "prop_data" ||
           txt == "prop_data:") {
         sst >> prop_data;
-        // if (prop_data == "refprop") {
+        //if (prop_data == "refprop") {
         //  if (sst >> txt) {
         //    thermo_file = txt;
         //  }
@@ -965,124 +1014,11 @@ void flow::get_flow_data(string input_def) {
   calculate_flow_composition();
 }
 
-void flow::mix_flows(flow &f1, flow &f2) {
-  F.M = f1.F.M + f2.F.M;
 
-  F.N = f1.F.N + f2.F.N;
-
-  P.LHV = (f1.F.M * f1.P.LHV + f2.F.M * f2.P.LHV) / F.M;
-
-  P.HHV = (f1.F.M * f1.P.HHV + f2.F.M * f2.P.HHV) / F.M;
-
-  F.Ht = f1.F.Ht + f2.F.Ht;
-
-  P.cp = (f1.F.M * f1.P.cp / f1.P.MW + f2.F.N * f2.P.cp / f2.P.MW) / F.M;
-
-  P.rho = F.M / ((f1.F.M / f1.P.rho) + (f2.F.M / f2.P.rho));
-
-  F.T = 25.0 + F.Ht / (F.N * P.cp);
-
-  bool equal_species;
-
-  // Dilute both flows
-
-  if (F.M > 0)
-    for (size_t n = 0; n < f2.j.size(); n++) {
-      f2.j[n].Y = f2.j[n].Y * f2.F.M / F.M;
-    }
-  if (F.M > 0)
-    for (size_t m = 0; m < f1.j.size(); m++) {
-      f1.j[m].Y = f1.j[m].Y * f1.F.M / F.M;
-    }
-  if (F.N > 0)
-    for (size_t n = 0; n < f2.j.size(); n++) {
-      f2.j[n].X = f2.j[n].X * f2.F.N / F.N;
-    }
-  if (F.N > 0)
-    for (size_t m = 0; m < f1.j.size(); m++) {
-      f1.j[m].X = f1.j[m].X * f1.F.N / F.N;
-    }
-
-  if (F.M > 0)
-    for (size_t n = 0; n < f2.i.size(); n++) {
-      f2.i[n].Y = f2.i[n].Y * f2.F.M / F.M;
-    }
-  if (F.M > 0)
-    for (size_t m = 0; m < f1.i.size(); m++) {
-      f1.i[m].Y = f1.i[m].Y * f1.F.M / F.M;
-    }
-  if (F.N > 0)
-    for (size_t n = 0; n < f2.i.size(); n++) {
-      f2.i[n].X = f2.i[n].X * f2.F.N / F.N;
-    }
-  if (F.N > 0)
-    for (size_t m = 0; m < f1.i.size(); m++) {
-      f1.i[m].X = f1.i[m].X * f1.F.N / F.N;
-    }
-
-  if (F.M > 0)
-    for (size_t n = 0; n < f2.k.size(); n++) {
-      f2.k[n].Y = f2.k[n].Y * f2.F.M / F.M;
-    }
-  if (F.M > 0)
-    for (size_t m = 0; m < f1.k.size(); m++) {
-      f1.k[m].Y = f1.k[m].Y * f1.F.M / F.M;
-    }
-
-  for (size_t n = 0; n < f2.j.size(); n++) {
-    equal_species = false;
-    for (size_t m = 0; m < f1.j.size(); m++) {
-      if (f2.j[n].id == f1.j[m].id) {
-        equal_species = true;
-        if (F.M > 0) {
-          j[m].Y = f2.j[n].Y + f1.j[m].Y;
-        }
-        if (F.N > 0) {
-          j[m].X = f2.j[n].X + f1.j[m].X;
-        }
-      }
-    }
-    if (equal_species == false) {
-      j.push_back(f2.j[n]);
-      // j[j.size()-1].Y = f2.F.M * f2.j[n].Y / F.M;
-    }
-  }
-
-  for (size_t n = 0; n < f2.i.size(); n++) {
-    equal_species = false;
-    for (size_t m = 0; m < f1.i.size(); m++) {
-      if (f2.i[n].id == f1.i[m].id) {
-        equal_species = true;
-        if (F.M > 0) {
-          i[m].Y = f2.i[n].Y + f1.i[n].Y;
-        } else if (F.N > 0) {
-          i[m].X = f2.i[n].X + f1.i[m].X;
-        }
-      }
-    }
-    if (equal_species == false) {
-      i.push_back(f2.i[n]);
-    }
-  }
-
-  for (size_t n = 0; n < f2.k.size(); n++) {
-    equal_species = false;
-    for (size_t m = 0; m < f1.k.size(); m++) {
-      if (f2.k[n].id == f1.k[m].id) {
-        equal_species = true;
-        if (F.M > 0) {
-          k[m].Y = f2.k[n].Y + f1.k[m].Y;
-        }
-      }
-    }
-    if (equal_species == false) {
-      k.push_back(f2.k[n]);
-    }
-  }
-
-  // calculate_properties();
-}
-
+/**
+ * @brief function to print the parameters of a flow
+ * 
+*/
 void flow::print_flow() {
   cout << "------ Flow -------------- " << endl;
   cout << "id: " << id << endl;
@@ -1121,9 +1057,14 @@ void flow::print_flow() {
     cout << "Molecular composition: " << endl;
     cout << "------------------- " << endl;
     for (size_t n = 0; n < j.size(); n++) {
-      cout << j[n].id << " MW: " << j[n].P.MW << " X: " << j[n].X
-           << " Y: " << j[n].Y << " cp: " << j[n].P.cp << " ht: " << j[n].P.ht
-           << " h: " << j[n].P.h << " s: " << j[n].P.s << endl;
+      cout << j[n].id << " MW: " << j[n].P.MW 
+	   << " X: " << j[n].X 
+	   << " Y: " << j[n].Y
+	   << " cp: " << j[n].P.cp
+	   << " ht: " << j[n].P.ht
+	   << " h: " << j[n].P.h
+	   << " s: " << j[n].P.s
+           << endl;
     }
   }
   cout << "-------------------- " << endl;
@@ -1138,8 +1079,15 @@ void flow::print_flow() {
     }
   }
   cout << "-------------------- " << endl;
+
 }
 
+/**
+ * @brief Boolean function to find out if a flow exists in the database
+ * 
+ * @param input_def string with the name of the flow in the database
+ * @return true if found, false otherwise
+*/
 bool find_flow(string input_def) {
   ifstream db_file;
 

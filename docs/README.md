@@ -65,10 +65,8 @@ Important features of the model include:
 - The feedstock is defined as a mixture of several types of *Biomass* resources.
 - Multiple heat demands are specified by thermal power, temperature, and pressure for **district heating** (each through a heat exchanger) or as **direct steam export**.
 
-The module is implemented as a nonlinear C++ model.
-It allows for multiple different configurations.
-It is not directly linked to `EnergyModelsX`.
-Instead, a sampling routine for capturing both the costs (capital expenditures and operating expenses) as well as the performance (heat-to-power production and varying power levels) will be implemented in a later stage.
+The module is implemented as a nonlinear C++ model linked to `EnergyModelsX` through a function that calculates both the **costs** (Investment, total and variable operating expenses) and the required **mass flow rate of each feedstock** as outputs, based on the specified *electric power production*, *heat demands* (thermal power capacity and return/supply temperatures) and **moisture content of each biomass feedstock** as inputs. 
+
 This sampling routine allows a tight integration of the model within the `EnergyModelsX` framework.
 
 \section back-bio_CHP-par Parameters
@@ -106,6 +104,20 @@ Both the input biomass and heat demands are specified as vectors.
 This implies that the ordering of the biomass types, their mass fractions, and the moisture content requires correct indexing.
 Similarly, the thermal power, temperature, and pressure conditions of the heat demands must follow the correct indexing.
 
+\section back-bio_CHP-par-out_stand Outputs (standard)
+
+The standard output of the model is given as
+
+- \f$ \dot{M}_F \f$ (`M_fuel` in the model) is the input mass flow rate of biomass to the BioCHP plant in kg/s.
+- \f$ \dot{H}_F \f$ (`H_fuel` in the model) is the input energy flow rate of biomass to the BioCHP plant in MW.
+- \f$ C_{inv} \f$ (`C_inv` in the model) represents the capital expenditures in M\$.
+- \f$ C_{op,d} \f$ (`C_op_d` in the model) represents the annual direct variable operating expenses in M\$.  
+  It is assumed that the plant operates at XXX h/year at full capacity.
+- \f$ C_{op,f} \f$ (`C_op_f` in the model) represents the annual fixed operating expenses in M\$.
+
+\note Format of the outputs:
+All outputs are required as `double` types in the model.
+
 \subsection back-bio_CHP-par-int Internal
 
 The different biomass types furthermore have a set of internal parameters.
@@ -128,32 +140,6 @@ Furthermore, process characteristics can be specified internally:
 
 \note Format of the parameters:
 All internal parameters are required as `double` types in the model.
-
-\anchor back_bio_CHP_par_out_stand
-
-### Outputs (standard)
-
-- \f$ \dot{M}_F \f$ (`M_fuel`): biomass mass flow rate (kg/s)
-- \f$ \dot{H}_F \f$ (`H_fuel`): energy flow rate of biomass (MW)
-- \f$ C_{inv} \f$ (`C_inv`): capital expenditures (M\$)
-- \f$ C_{op,d} \f$ (`C_op_d`): annual variable OPEX (M\$)
-- \f$ C_{op,f} \f$ (`C_op_f`): annual fixed OPEX (M\$)
-
-\tip All outputs are required to be `double` type.
-
-\section back-bio_CHP-par-out_stand Outputs (standard)
-
-The standard output of the model is given as
-
-- \f$ \dot{M}_F \f$ (`M_fuel` in the model) is the input mass flow rate of biomass to the BioCHP plant in kg/s.
-- \f$ \dot{H}_F \f$ (`H_fuel` in the model) is the input energy flow rate of biomass to the BioCHP plant in MW.
-- \f$ C_{inv} \f$ (`C_inv` in the model) represents the capital expenditures in M\$.
-- \f$ C_{op,d} \f$ (`C_op_d` in the model) represents the annual direct variable operating expenses in M\$.  
-  It is assumed that the plant operates at XXX h/year at full capacity.
-- \f$ C_{op,f} \f$ (`C_op_f` in the model) represents the annual fixed operating expenses in M\$.
-
-\note Format of the outputs:
-All outputs are required as `double` types in the model.
 
 \section back-bio_CHP-math Mathematical formulation
 
@@ -402,22 +388,3 @@ Here, the subscript \f$ k \f$ denotes the personnel categories and the parameter
 \note Number of employees:
 The number of employees depends on the size of the plant. The chosen distinction is based on the mass flow of biomass into the plant \f$ \dot{M}_F \f$, with a change in staffing when the flow exceeds 10 t/h.
 
-\section back-bio_CHP-file_struct File structure
-
-`bioCHP.cpp` contains the C++ function to interface with EMX.  
-It has the following structure:
-
-\verbatim
-├── Definitions.h
-├── Costs.h
-├── Flows
-│   ├── Flow_definitions.h
-│   ├── Flow_calculations.h
-│   └── Thermodynamics
-│       └── Water_thermodynamics.h
-└── Processes
-    ├── bioCHP_plant.h
-    ├── Combustion.h
-    ├── Rankine_cycle.h
-    └── Flue_gas_cleaning.h
-\endverbatim

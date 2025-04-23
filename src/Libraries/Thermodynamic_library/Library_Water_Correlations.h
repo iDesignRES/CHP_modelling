@@ -6,8 +6,12 @@
 
 using namespace std;
 
+/**
+ * @brief Specific enthalpy [kJ/kg] of water 
+ * 
+ * @param P = Pressure (bar-a)
+ */
 double hPWater(double P) {
-  // Entalpi [kJ/kg] i vann som funksjon av trykk P [bara]
   double A, B, C, D, E, f, G, H, i, j;
 
   A = 417.5841933;
@@ -26,6 +30,11 @@ double hPWater(double P) {
           H * pow(log(P), 4.0));
 }
 
+/**
+ * @brief Specific enthalpy [kJ/kg] of water 
+ * 
+ * @param T = Temperature (deg. C)
+ */
 double hTWater(double T) {
   double A, B, C, D, E, f, G, H, i, j;
 
@@ -45,8 +54,12 @@ double hTWater(double T) {
           j * pow(T, 5.0));
 }
 
+/**
+ * @brief Saturation temperature (deg. C) of water 
+ * 
+ * @param P = Pressure (bar-a)
+ */
 double TSatWater(double P) {
-  // Mettningstemperatur [C] for vann som funksjon av trykk P [bara]
   double A, B, C, D, E, f, G, H, i, j, k;
 
   A = 99.63289447;
@@ -67,8 +80,12 @@ double TSatWater(double P) {
           H * pow(log(P), 4.0) + j * pow(log(P), 5.0));
 }
 
+/**
+ * @brief Saturation pressure [bar-a] of water 
+ * 
+ * @param T = Temperature (deg. C)
+ */
 double PSatWater(double T) {
-  // Damptrykk [bara] for vann som funksjon av temperatur T [C]
   double A, B, C, D, E, f, G, H, i, j, k;
 
   A = 0.005990987;
@@ -89,9 +106,13 @@ double PSatWater(double T) {
           j * pow(T, 5.0));
 }
 
+/**
+ * @brief Specific entropy [kJ/kg K] of superheated steam 
+ * 
+ * @param P = Pressure (bar-a)
+ * @param H = Specific enthalpy (kJ/kg)
+ */
 double sPhSupSteam(double P, double H) {
-  // Entropi s [kJ/(kg K)] for overhetet damp som funksjon av trykk P [bara] og
-  // entalpi h [kJ/kg]
   double A, B, C, D, E, f, G, U, i, j, k;
 
   if (P < 10.0) {
@@ -182,9 +203,13 @@ double sPhSupSteam(double P, double H) {
   return -1;
 }
 
+/**
+ * @brief Temperature [deg.C] of superheated steam 
+ * 
+ * @param P = Pressure (bar-a)
+ * @param H = Specific enthalpy (kJ/kg)
+ */
 double TPhSupSteam(double P, double H) {
-  // Temperatur [C] for overhetet damp som funksjon av trykk P [bara] og entalpi
-  // h [kJ/kg]
   double A, B, C, D, E, f, G, U, i, j, k;
 
   if (P < 10) {
@@ -275,9 +300,13 @@ double TPhSupSteam(double P, double H) {
   return -1;
 }
 
+/**
+ * @brief Specific entalpy [kJ/kg] of superheated steam 
+ * 
+ * @param P = Pressure (bar-a)
+ * @param Temp = Temperature (deg.C)
+ */
 double hPTSupSteam(double P, double Temp) {
-  // Entalpi [kJ/kg] for overhetet damp som funksjon av temperatur T [C] og
-  // trykk P [bara]
   double A, B, C, D, E, f, G, H, i, j, k, T;
 
   T = Temp + 273.15;
@@ -371,8 +400,12 @@ double hPTSupSteam(double P, double Temp) {
   return -1;
 }
 
+/**
+ * @brief Specific entalpy [kJ/kg] of saturated steam 
+ * 
+ * @param P = Pressure (bar-a)
+ */
 double hPSatSteam(double P) {
-  // Entalpi [kJ/kg] i mettet damp som funksjon av trykk P [bara]
   double A, B, C, D, E, f, G, H, i, j, k;
 
   A = 2675.345891;
@@ -392,6 +425,12 @@ double hPSatSteam(double P) {
           H * pow(log(P), 4.0) + j * pow(log(P), 5.0));
 }
 
+/**
+ * @brief Specific entropy [kJ/kg K] of superheated steam 
+ * 
+ * @param P = Pressure (bar-a)
+ * @param T_in = Temperature (deg.C)
+ */
 double sPTSupSteam(double P, double T_in) {
   double A, B, C, D, E, f, G, H, i, j, k;
   double T;
@@ -470,6 +509,11 @@ double sPTSupSteam(double P, double T_in) {
   return -1;
 }
 
+/**
+ * @brief Specific entropy [kJ/kg K] of water 
+ * 
+ * @param P = Pressure (bar-a)
+ */
 double sPWater(double P) {
   // Entropi [kJ/(kg K)] i vann som funksjon av trykk P [bara]
   double A, B, C, D, E, f, G, H, i, j, k;
@@ -492,6 +536,11 @@ double sPWater(double P) {
           H * pow(log(P), 4.0) + j * pow(log(P), 5.0));
 }
 
+/**
+ * @brief Specific entropy [kJ/kg K] of saturated steam 
+ * 
+ * @param P = Pressure (bar-a)
+ */
 double sPSatSteam(double P) {
   // Entropi [kJ/(kg K)] som funksjon av trykk P [bara]
   double A, B, C, D, E, f, G, H, i, j, k;
@@ -513,6 +562,11 @@ double sPSatSteam(double P) {
           H * pow(log(P), 4.0) + j * pow(log(P), 5.0));
 }
 
+/**
+ * @brief Specific entropy [kJ/kg K] of water 
+ * 
+ * @param T = Temperature (deg.C)
+ */
 double sTWater(double T) {
   // Entropi [kJ/(kg K)] i vann som funksjon av temperatur T [C]
   double A, B, C, D, E, f, G, H, i, j, k;
@@ -536,8 +590,12 @@ double sTWater(double T) {
              0.5);
 }
 
+/**
+ * @brief Specific enthalpy [kJ/kg] of steam 
+ * 
+ * @param T = Temperature (deg.C)
+ */
 double HTSteam(double T) {
-  // Entalpi [kJ/kg] i damp som funksjon av temperatur T [C]
   double A, B, C, D, E, f, G, H, i;
 
   A = 6419730;
@@ -557,8 +615,12 @@ double HTSteam(double T) {
              0.5);
 }
 
+/**
+ * @brief Specific volume [m3/kg] of water 
+ * 
+ * @param T = Temerature (deg.C)
+ */
 double vTWater(double T) {
-  // Spesifikk volum [m3/kg] for vann som funksjon av temperatur T [C]
   double A, B, C, D, E;
   A = -0.0014778;
   B = 0.003805233;
@@ -571,8 +633,12 @@ double vTWater(double T) {
                      E);
 }
 
+/**
+ * @brief Specific volume [m3/kg] of steam
+ * 
+ * @param T = Temerature (deg.C)
+ */
 double vTSteam(double T) {
-  // Spesifikk volum [m3/kg] av damp som funksjon av temperatur T [C]
   double A, B, C, D, E, f;
 
   A = 5.329275975;
@@ -586,11 +652,20 @@ double vTSteam(double T) {
              (1.0 + B * T + D * pow(T, 2.0) + f * pow(T, 3.0)));
 }
 
+/**
+ * @brief Vaporization heat [kJ/kg] of water 
+ * 
+ * @param T = Temerature (deg.C)
+ */
 double HVapH2O(double T) {
-  // Fordampningsvarme for vann [kJ/kg] som funksjon av temperatur [C]
   return HTSteam(T) - hTWater(T);
 }
 
+/**
+ * @brief Specific heat [kJ/kg K] of water 
+ * 
+ * @param T = Temerature (deg.C)
+ */
 double CpWater(double T) {
   return hTWater(T + 1) - hTWater(T);  // 29.05.2003
 }
