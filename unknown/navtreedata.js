@@ -30,22 +30,24 @@ var NAVTREE =
     [ "Detailed Model Documentation", "detailed_model_documentation.html", [
       [ "BioCHP plant module", "detailed_model_documentation.html#back-bio_CHP", null ],
       [ "Parameters", "detailed_model_documentation.html#back-bio_CHP-par", [
-        [ "Inputs", "detailed_model_documentation.html#back-bio_CHP-par-inp", null ],
-        [ "Internal", "detailed_model_documentation.html#back-bio_CHP-par-int", [
-          [ "Outputs (standard)", "detailed_model_documentation.html#autotoc_md3", null ]
-        ] ]
+        [ "Inputs", "detailed_model_documentation.html#back-bio_CHP-par-inp", null ]
       ] ],
-      [ "Outputs (standard)", "detailed_model_documentation.html#back-bio_CHP-par-out_stand", null ],
+      [ "Outputs (standard)", "detailed_model_documentation.html#back-bio_CHP-par-out_stand", [
+        [ "Internal", "detailed_model_documentation.html#back-bio_CHP-par-int", null ]
+      ] ],
       [ "Mathematical formulation", "detailed_model_documentation.html#back-bio_CHP-math", [
         [ "Mass and energy flows (nominal steady state operation)", "detailed_model_documentation.html#back-bio_CHP-math-balances", null ],
         [ "CAPEX", "detailed_model_documentation.html#back-bio_CHP-math-CAPEX", null ],
         [ "OPEX", "detailed_model_documentation.html#back-bio_CHP-math-OPEX", null ]
-      ] ],
-      [ "File structure", "detailed_model_documentation.html#back-bio_CHP-file_struct", null ]
+      ] ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
-      [ "Class Index", "classes.html", null ]
+      [ "Class Index", "classes.html", null ],
+      [ "Class Members", "functions.html", [
+        [ "All", "functions.html", null ],
+        [ "Functions", "functions_func.html", null ]
+      ] ]
     ] ],
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ]

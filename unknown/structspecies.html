@@ -103,15 +103,20 @@ $(document).ready(function(){initNavTree('structspecies.html',''); initResizable
   <div class="headertitle"><div class="title">species Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Structure to define species parameters.  
+ <a href="structspecies.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="flow__definitions_8h_source.html">flow_definitions.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for species:</div>
 <div class="dyncontent">
 <div class="center"><img src="structspecies__coll__graph.png" border="0" usemap="#aspecies_coll__map" alt="Collaboration graph"/></div>
 <map name="aspecies_coll__map" id="aspecies_coll__map">
-<area shape="rect" title=" " alt="" coords="81,93,151,119"/>
-<area shape="rect" href="structproperties.html" title=" " alt="" coords="5,5,93,31"/>
+<area shape="rect" title="Structure to define species parameters." alt="" coords="81,93,151,119"/>
+<area shape="rect" href="structproperties.html" title="Structure to define flow or species properties." alt="" coords="5,5,93,31"/>
 <area shape="poly" title=" " alt="" coords="69,40,109,91,105,94,65,43"/>
-<area shape="rect" href="structflow__parameters.html" title=" " alt="" coords="117,5,248,31"/>
+<area shape="rect" href="structflow__parameters.html" title="Structure to define flow parameters." alt="" coords="117,5,248,31"/>
 <area shape="poly" title=" " alt="" coords="167,43,127,94,123,91,163,40"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
@@ -136,8 +141,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a569d18bb2ff680940a9a15222caa8ebc" id="r_a569d18bb2ff680940a9a15222caa8ebc"><td class="memItemLeft" align="right" valign="top"><a id="a569d18bb2ff680940a9a15222caa8ebc" name="a569d18bb2ff680940a9a15222caa8ebc"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>calculate_refprop</b> (string)</td></tr>
 <tr class="separator:a569d18bb2ff680940a9a15222caa8ebc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0732f7f75b666526bef7ff02e8f574d3" id="r_a0732f7f75b666526bef7ff02e8f574d3"><td class="memItemLeft" align="right" valign="top"><a id="a0732f7f75b666526bef7ff02e8f574d3" name="a0732f7f75b666526bef7ff02e8f574d3"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>get_species_data_</b> (string)</td></tr>
+<tr class="memitem:a0732f7f75b666526bef7ff02e8f574d3" id="r_a0732f7f75b666526bef7ff02e8f574d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structspecies.html#a0732f7f75b666526bef7ff02e8f574d3">get_species_data_</a> (string)</td></tr>
+<tr class="memdesc:a0732f7f75b666526bef7ff02e8f574d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">function to import the data for a species  <br /></td></tr>
 <tr class="separator:a0732f7f75b666526bef7ff02e8f574d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a65742b081060133244070367c81d7ace" id="r_a65742b081060133244070367c81d7ace"><td class="memItemLeft" align="right" valign="top"><a id="a65742b081060133244070367c81d7ace" name="a65742b081060133244070367c81d7ace"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>calculate_thermodynamic_properties</b> ()</td></tr>
@@ -224,6 +229,35 @@ vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>val
 <a class="el" href="structflow__parameters.html">flow_parameters</a>&#160;</td><td class="memItemRight" valign="bottom"><b>F</b></td></tr>
 <tr class="separator:a0a288b26111fb398cfff1da700339a6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Structure to define species parameters. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a0732f7f75b666526bef7ff02e8f574d3" name="a0732f7f75b666526bef7ff02e8f574d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0732f7f75b666526bef7ff02e8f574d3">&#9670;&#160;</a></span>get_species_data_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void species::get_species_data_ </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>spc_type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>function to import the data for a species </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">spc_type</td><td>= "molecule" or "atom" </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following files:<ul>
 <li>src/Libraries/Flows_library/<a class="el" href="flow__definitions_8h_source.html">flow_definitions.h</a></li>
 <li>src/Libraries/Flows_library/<a class="el" href="flow__definitions___8h_source.html">flow_definitions_.h</a></li>
