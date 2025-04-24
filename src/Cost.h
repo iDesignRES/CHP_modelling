@@ -9,8 +9,8 @@ using namespace std;
 
 /**
  * @brief Structure to equipment parameters
- * 
-*/
+ *
+ */
 struct equipment {
  public:
   string def;
@@ -19,8 +19,8 @@ struct equipment {
 
 /**
  * @brief Structure to define material consumables parameters
- * 
-*/
+ *
+ */
 struct material {
  public:
   string type, def;
@@ -29,9 +29,9 @@ struct material {
 
 /**
  * @brief Chemical Engineering Price index
- * 
- * @param year_input 
-*/
+ *
+ * @param year_input
+ */
 double cecpi(int year_input) {
   double CECPI;
   if (year_input == 1994) {
@@ -120,10 +120,10 @@ double cecpi(int year_input) {
 
 /**
  * @brief Function to calculate price index ratio relative to a reference year
- * 
+ *
  * @param year_ref integer specifying a referece year
  * @param year integer specifying the actual year
-*/
+ */
 double I_cecpi(int year_ref, int year) {
   double CECPI, CECPI_ref;
   int year_input;
@@ -147,39 +147,40 @@ double I_cecpi(int year_ref, int year) {
 
 /**
  * @brief Function to calculate equipment cost
- * 
- * @param par object including the input parameters of the equipment 
-*/
+ *
+ * @param par object including the input parameters of the equipment
+ */
 void equipment_cost(object &par) {
   double f_inst = par.fp("f_inst");
   double Cpb = par.fp("Cpb");
   double S = par.fp("S");
   double Sb = par.fp("Sb");
   double n = par.fp("n");
-  double Cpi = 	f_inst * Cpb * pow(S / Sb, n) *
-         I_cecpi(stoi(par.sp("base_year")), 2020);
-	
+  double Cpi =
+      f_inst * Cpb * pow(S / Sb, n) * I_cecpi(stoi(par.sp("base_year")), 2020);
+
   par.fval_p("Cpi", Cpi);
 }
 
 /**
  * @brief Function to calculate material cost
- * 
- * @param par object including the input parameters of the material 
-*/
+ *
+ * @param par object including the input parameters of the material
+ */
 void material_cost(object &par) {
   double Q_annual = par.fp("Q_annual");
   double price = par.fp("price");
-  double C_annual = Q_annual * price;	
+  double C_annual = Q_annual * price;
   par.fval_p("C_annual", C_annual);
 }
 
 /**
  * @brief Function to generate the equipment list of a system
- * 
- * @param par object representing a system, including the equipment as sub-objects 
- * @param list vector of equipment within the system 
-*/
+ *
+ * @param par object representing a system, including the equipment as
+ * sub-objects
+ * @param list vector of equipment within the system
+ */
 void equipment_list(vector<equipment> &list, object &par) {
   equipment eq;
   for (size_t n = 0; n < par.c.size(); n++) {
@@ -189,7 +190,8 @@ void equipment_list(vector<equipment> &list, object &par) {
       eq.W_el = par.c[n].fp("W_el");
       eq.C_maint = par.c[n].fp("Cpi") * par.c[n].fp("f_maint");
       list.push_back(eq);
-      par.fval_p("output-electric_load_" + par.c[n].sys_def, par.c[n].fp("W_el"));
+      par.fval_p("output-electric_load_" + par.c[n].sys_def,
+                 par.c[n].fp("W_el"));
     }
     if (par.c[n].c.size() > 0) {
       equipment_list(list, par.c[n]);
@@ -199,10 +201,11 @@ void equipment_list(vector<equipment> &list, object &par) {
 
 /**
  * @brief Function to generate the material flow list of a system
- * 
- * @param par object representing a system, including the equipment as sub-objects 
- * @param list vector of materials within the system 
-*/
+ *
+ * @param par object representing a system, including the equipment as
+ * sub-objects
+ * @param list vector of materials within the system
+ */
 void material_list(string type, vector<material> &list, object &par) {
   material m;
   for (size_t n = 0; n < par.c.size(); n++) {
@@ -221,9 +224,9 @@ void material_list(string type, vector<material> &list, object &par) {
 
 /**
  * @brief Function to print capital cost information
- * 
- * @param par object representing a system or equipment 
-*/
+ *
+ * @param par object representing a system or equipment
+ */
 void print_capex(object &par) {
   cout << "-------------------------" << endl;
   cout << " Capital costs (M$): " << par.fp("C_inv") * 1e-6 << endl;
@@ -244,9 +247,9 @@ void print_capex(object &par) {
 
 /**
  * @brief Function to calculate capital cost
- * 
- * @param par object representing a system or equipment 
-*/
+ *
+ * @param par object representing a system or equipment
+ */
 void capex(object &par) {
   vector<equipment> eq;
   equipment_list(eq, par);
@@ -265,49 +268,52 @@ void capex(object &par) {
   par.fval_p("output-C_piping", C_eq * par.fp("f_piping"));
   par.fval_p("output-C_el", C_eq * par.fp("f_el"));
   par.fval_p("output-C_I&C", C_eq * par.fp("f_I&C"));
-  par.fval_p("output-C_pi",
-             par.fp("C_eq") + par.fp("C_piping") + par.fp("C_el") + par.fp("C_I&C"));
+  par.fval_p("output-C_pi", par.fp("C_eq") + par.fp("C_piping") +
+                                par.fp("C_el") + par.fp("C_I&C"));
   par.fval_p("output-C_land", par.fp("C_pi") * par.fp("f_land"));
   par.fval_p("output-C_site", par.fp("C_pi") * par.fp("f_site"));
   par.fval_p("output-C_build", par.fp("C_pi") * par.fp("f_build"));
   par.fval_p("output-C_com", par.fp("C_pi") * par.fp("f_com"));
-  par.fval_p("output-C_eng",
-             (par.fp("C_pi") + par.fp("C_site") + par.fp("C_build") + par.fp("C_com")) *
-                 par.fp("f_eng"));
-  par.fval_p("output-C_dev", (par.fp("C_pi") + par.fp("C_land") + par.fp("C_site") +
-                              par.fp("C_build") + par.fp("C_com") + par.fp("C_eng")) *
-                                 par.fp("f_dev"));
+  par.fval_p("output-C_eng", (par.fp("C_pi") + par.fp("C_site") +
+                              par.fp("C_build") + par.fp("C_com")) *
+                                 par.fp("f_eng"));
+  par.fval_p("output-C_dev",
+             (par.fp("C_pi") + par.fp("C_land") + par.fp("C_site") +
+              par.fp("C_build") + par.fp("C_com") + par.fp("C_eng")) *
+                 par.fp("f_dev"));
   par.fval_p("output-C_cont",
-             (par.fp("C_pi") + par.fp("C_land") + par.fp("C_site") + par.fp("C_build") +
-              par.fp("C_com") + par.fp("C_eng") + par.fp("C_dev")) *
+             (par.fp("C_pi") + par.fp("C_land") + par.fp("C_site") +
+              par.fp("C_build") + par.fp("C_com") + par.fp("C_eng") +
+              par.fp("C_dev")) *
                  par.fp("f_cont"));
-  par.fval_p("output-C_inv", par.fp("C_pi") + par.fp("C_land") + par.fp("C_site") +
-                                 par.fp("C_build") + par.fp("C_com") + par.fp("C_eng") +
+  par.fval_p("output-C_inv", par.fp("C_pi") + par.fp("C_land") +
+                                 par.fp("C_site") + par.fp("C_build") +
+                                 par.fp("C_com") + par.fp("C_eng") +
                                  par.fp("C_dev") + par.fp("C_cont"));
   par.fval_p("output-C_eq_maint", par.fp("C_eq") * 0.02);
   par.fval_p("output-C_piping_maint", par.fp("C_piping") * 0.02);
   par.fval_p("output-C_el_maint", par.fp("C_el") * 0.02);
   par.fval_p("output-C_I&C_maint", par.fp("C_I&C") * 0.02);
-
 }
 
 /**
  * @brief Function to print operating cost
- * 
- * @param par object representing a system or equipment 
-*/
+ *
+ * @param par object representing a system or equipment
+ */
 void print_opex(object &par, vector<material> &m) {
   cout << "-------------------------" << endl;
   cout << " Operational costs (M$ / year): " << par.fp("C_op") << endl;
   cout << "-------------------------" << endl;
   cout << "Materials = " << par.fp("C_op_mat") * 1e-6 << endl;
   for (size_t n = 0; n < m.size(); n++) {
-     cout << '\t' << m[n].def << ": " << m[n].C_annual * 1e-6 << endl;
-  }	
+    cout << '\t' << m[n].def << ": " << m[n].C_annual * 1e-6 << endl;
+  }
   cout << "Electricity = " << par.fp("C_op_el") * 1e-6 << endl;
   cout << "Equipment maintenance = " << par.fp("C_eq_maint") * 1e-6 << endl;
   cout << "Piping maintenance = " << par.fp("C_piping_maint") * 1e-6 << endl;
-  cout << "Electric system maintenance = " << par.fp("C_el_maint") * 1e-6 << endl;
+  cout << "Electric system maintenance = " << par.fp("C_el_maint") * 1e-6
+       << endl;
   cout << "I&C_maintenance = " << par.fp("C_I&C_maint") * 1e-6 << endl;
   cout << "Total maintenance = " << par.fp("C_op_maint") * 1e-6 << endl;
   cout << "Insurance and taxes = " << par.fp("C_op_ins") * 1e-6 << endl;
@@ -317,9 +323,9 @@ void print_opex(object &par, vector<material> &m) {
 
 /**
  * @brief Function to calculate operating cost
- * 
- * @param par object representing a system or equipment 
-*/
+ *
+ * @param par object representing a system or equipment
+ */
 void opex(object &par) {
   vector<material> m;
   material_list("consumable", m, par);
@@ -332,26 +338,29 @@ void opex(object &par) {
 
   par.fval_p("output-C_op_mat", C_op_mat);
 
-  par.fval_p("output-C_op_el", par.fp("W_el(kW)") * par.fp("price_electricity") * 8000);
+  par.fval_p("output-C_op_el",
+             par.fp("W_el(kW)") * par.fp("price_electricity") * 8000);
 
-  par.fval_p("output-C_op_maint", par.fp("C_eq_maint") + par.fp("C_piping_maint") +
-                                      par.fp("C_el_maint") + par.fp("C_I&C_maint"));
+  par.fval_p("output-C_op_maint",
+             par.fp("C_eq_maint") + par.fp("C_piping_maint") +
+                 par.fp("C_el_maint") + par.fp("C_I&C_maint"));
 
   par.fval_p("output-C_op_ins", par.fp("C_pi") * par.fp("f_ins"));
 
   par.fval_p("output-C_op_adm", par.fp("C_pi") * par.fp("f_adm"));
 
-  par.fval_p("output-C_op", par.fp("C_op_mat") + par.fp("C_op_el") + par.fp("C_op_maint") +
-                                par.fp("C_op_ins") + par.fp("C_op_adm"));
+  par.fval_p("output-C_op", par.fp("C_op_mat") + par.fp("C_op_el") +
+                                par.fp("C_op_maint") + par.fp("C_op_ins") +
+                                par.fp("C_op_adm"));
 
   par.fval_p("output-C_op_var", par.fp("C_op_mat") + par.fp("C_op_el"));
 }
 
 /**
  * @brief Function to calculate capital and operating cost
- * 
- * @param par object representing a system or equipment 
-*/
+ *
+ * @param par object representing a system or equipment
+ */
 void cost(object &par) {
   capex(par);
   opex(par);

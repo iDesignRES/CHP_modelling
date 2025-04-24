@@ -5,6 +5,7 @@
 
 using namespace std;
 
+// clang-format off
 vector<string> divide_string(string str, char c) {
   // cout << "divide " << str << endl;
   vector<string> list;
@@ -33,45 +34,42 @@ vector<string> divide_string(string str, char c) {
 
 #include "pathfinder.h"
 using namespace MyPaths;
-// std::string DIR = getActualDir(string(__FILE__));
-// std::string DIR = getExecutableDir()+"../src/";
-// std::string DIR = getCurrentDirectory();
 std::string DIR = getFileDirectory() + "/";
-// std::string DIR = MAIN_DIR+"/";
 std::string project = project_name();
 
-// #include "Parameters.h"
 #include "Parameters.cpp"
 #include "Flows.h"
 #include "Cost.h"
 #include "Processes.h"
+// clang-format on
 
-bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, vector<double> YH2Oj,
-                  double W_el, vector<double> Qk, vector<double> Tk_in,
-                  vector<double> Tk_out, vector<double> &Mj, double &Q_prod,
-                  double &W_el_prod, double &C_inv, double &C_op, double &C_op_var) {
-  // INPUTS
-  // feed_def: name of each biomass feedstock
-  // Yj: mass fraction of each biomass feedstock
-  // YH2Oj: moisture of each biomass feedstock
-  // W_el: electric power output (MW_el)
-  // Qk: heat demand (MW)
-  // Tk_in: Return temperature for each heat demand (district heating)
-  // Tk_in: Supply temperature for each heat demand (district heating)
-
-  // OUTPUTS
-  // Mj: Required mass flow of each biomass feedstock
-  // Q_prod: calculated heat production (MW)
-  // W_el_prod: calculated electric power production (MW)
-  // C_inv: Investment cost
-  // C_op: Total operating cost
-  // C_op_var: Variable operating cost
-
-  // cout << "calculating the bioCHP plant model" << endl;
-  // cout << "Executable path: " << getExecutablePath() << endl;
-  // cout << "Actual DIR: " << DIR << endl;
-  // cout << "Project name: " << project << endl;
-
+/**
+ * @brief Main bioCHP model function
+ *
+ * INPUTS
+ * @param feed_def: name of each biomass feedstock
+ * @param Yj: mass fraction of each biomass feedstock
+ * @param YH2Oj: moisture of each biomass feedstock
+ * @param W_el: electric power output (MW_el)
+ * @param Qk: heat demand (MW)
+ * @param Tk_in: Return temperature for each heat demand (district heating)
+ * @param Tk_in: Supply temperature for each heat demand (district heating)
+ *
+ * OUTPUTS
+ * @param Mj: Required mass flow of each biomass feedstock
+ * @param Q_prod: calculated heat production (MW)
+ * @param W_el_prod: calculated electric power production (MW)
+ * @param C_inv: Investment cost
+ * @param C_op: Total operating cost
+ * @param C_op_var: Variable operating cost
+ *
+ * @return false if some error/inconsistency, or true otherwise
+ */
+bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj,
+                  vector<double> YH2Oj, double W_el, vector<double> Qk,
+                  vector<double> Tk_in, vector<double> Tk_out,
+                  vector<double> &Mj, double &Q_prod, double &W_el_prod,
+                  double &C_inv, double &C_op, double &C_op_var) {
   // Check specificatins of feedstock
   if (fuel_def.size() != Yj.size()) {
     cout << "number of specifications for Yj and fuel_def re different" << endl;
@@ -103,7 +101,8 @@ bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, vector<double> YH2
     return false;
   }
   if (Tk_in.size() != Tk_out.size()) {
-    cout << "number of specifications for Tk_in and Tk_out are different" << endl;
+    cout << "number of specifications for Tk_in and Tk_out are different"
+         << endl;
     return false;
   }
   for (size_t nk = 0; nk < Tk_in.size(); nk++) {
@@ -120,7 +119,8 @@ bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, vector<double> YH2
     sum_Qk = sum_Qk + Qk[nk];
   }
   if (sum_Qk > 0.5 * (W_el / 0.2)) {
-    cout << "there is not sufficient heat available from Rankine cycle to supply the "
+    cout << "there is not sufficient heat available from Rankine cycle to "
+            "supply the "
             "specifiy heat demand"
          << endl;
     cout << "Reducing proportionally the heat demands" << endl;
@@ -135,11 +135,11 @@ bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, vector<double> YH2
   }
 
   object bioCHP("plant", "bioCHP_PLANT", DIR + "Database/bioCHP_inputs");
-  bioCHP.vct_sp("fuel_def", fuel_def); 
-  bioCHP.vct_fp("Yj", Yj);  
-  bioCHP.vct_fp("YH2Oj", YH2Oj); 
-  bioCHP.fval_p("W_el", W_el); 
-  bioCHP.vct_fp("Qk", Qk); 
+  bioCHP.vct_sp("fuel_def", fuel_def);
+  bioCHP.vct_fp("Yj", Yj);
+  bioCHP.vct_fp("YH2Oj", YH2Oj);
+  bioCHP.fval_p("W_el", W_el);
+  bioCHP.vct_fp("Qk", Qk);
   bioCHP.vct_fp("Tk_in", Tk_in);
   bioCHP.vct_fp("Tk_out", Tk_out);
 
@@ -153,7 +153,8 @@ bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj, vector<double> YH2
   C_op = bioCHP.fp("C_op") * 1e-6;
   C_op_var = bioCHP.fp("C_op_var") * 1e-6;
 
-  export_output_parameters(bioCHP, getExecutableDir() + "Output-bioCHP_" + project);
+  export_output_parameters(bioCHP,
+                           getExecutableDir() + "Output-bioCHP_" + project);
 
   return true;
 }

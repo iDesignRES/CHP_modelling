@@ -1,5 +1,5 @@
-#include "../src/bioCHP.cpp"
 #include <iomanip>  // for setprecision
+#include "../src/bioCHP.cpp"
 
 using namespace std;
 // using namespace MyPaths;

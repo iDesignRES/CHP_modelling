@@ -87,7 +87,9 @@ std::string getExecutableDir() {
   return std::string(executableDir);*/
 }
 
-std::string mergePaths(std::string pathA, std::string pathB) { return pathA + "/" + pathB; }
+std::string mergePaths(std::string pathA, std::string pathB) {
+  return pathA + "/" + pathB;
+}
 
 #endif
 
@@ -112,7 +114,9 @@ std::string getExecutableDir() {
   return std::string(executableDir);
 }
 
-std::string mergePaths(std::string pathA, std::string pathB) { return pathA + "/" + pathB; }
+std::string mergePaths(std::string pathA, std::string pathB) {
+  return pathA + "/" + pathB;
+}
 
 #endif
 

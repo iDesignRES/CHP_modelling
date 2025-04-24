@@ -1,10 +1,9 @@
 
 /**
  * @brief function to mix two flows
- * 
-*/
+ *
+ */
 void flow::mix_flows(flow &f1, flow &f2) {
-
   F.M = f1.F.M + f2.F.M;
 
   F.N = f1.F.N + f2.F.N;
@@ -117,14 +116,11 @@ void flow::mix_flows(flow &f1, flow &f2) {
   }
 }
 
-
-
 /**
  * @brief function to mix two flow of the same composition
- * 
-*/
-void mix_same_type_flows(flow &f1, flow &f2, flow &f){
-
+ *
+ */
+void mix_same_type_flows(flow &f1, flow &f2, flow &f) {
   f = f1;
 
   f.F.M = f1.F.M + f2.F.M;
@@ -144,15 +140,15 @@ void mix_same_type_flows(flow &f1, flow &f2, flow &f){
   f.P.rho = f.F.M / ((f1.F.M / f1.P.rho) + (f2.F.M / f2.P.rho));
 
   f.F.T = 25.0 + f.F.Ht / (f.F.M * f.P.cp);
-
 }
 
 /**
  * @brief General function to calculate a flow
- * 
-*/
+ *
+ */
 void flow::calculate_flow(string state_def) {
-  if (prop_data == "solid_fuel" || prop_data == "bio_oil" || prop_data == "ash") {
+  if (prop_data == "solid_fuel" || prop_data == "bio_oil" ||
+      prop_data == "ash") {
     calculate_solid_fuel();
   }
 
@@ -162,8 +158,8 @@ void flow::calculate_flow(string state_def) {
     calculate_gas_fuel();
   }
 
-  if (prop_data != "solid_fuel" && prop_data != "gas_fuel" && prop_data != "bio_oil" &&
-      prop_data != "ash") {
+  if (prop_data != "solid_fuel" && prop_data != "gas_fuel" &&
+      prop_data != "bio_oil" && prop_data != "ash") {
     calculate_flow_composition();
     if (molec_def == "Y" || molec_def == "X") {
       calculate_flow_properties(state_def);
@@ -174,10 +170,9 @@ void flow::calculate_flow(string state_def) {
 
 /**
  * @brief Function to calculate solid fuel
- * 
-*/
+ *
+ */
 void flow::calculate_solid_fuel() {
-
   double sum_y = 0.0;
   double kC, kH, kO, kS, kN, kH2O, kA;
   double yC = 0.0, yH = 0.0, yS = 0.0, yN = 0.0, yO = 0.0;  // atomic components
@@ -261,8 +256,8 @@ void flow::calculate_solid_fuel() {
 
 /**
  * @brief Function to calculate gas fuel
- * 
-*/
+ *
+ */
 void flow::calculate_gas_fuel() {
   if (P.LHV == 0) {
     for (size_t nj = 0; nj < j.size(); nj++) {
@@ -289,13 +284,12 @@ void flow::calculate_gas_fuel() {
   P.ht = P.cp * (F.T - 25.0);
   P.hf = P.LHV * 1e6;
   P.h = P.ht + P.hf;
-
 }
 
 /**
  * @brief Function to calculate flow composition
- * 
-*/
+ *
+ */
 void flow::calculate_flow_composition() {
   double sum_Y, sum_X, sum_X_MW, sum_Y_MW;
   P.MW = 0;
@@ -361,13 +355,11 @@ void flow::calculate_flow_composition() {
 
 /**
  * @brief Function to calculate flow properties
- * 
- * @param state_def definition of thermodynamic state variables 
-*/
+ *
+ * @param state_def definition of thermodynamic state variables
+ */
 void flow::calculate_flow_properties(string state_def) {
-
   if (prop_data == "NIST") {
-
     calculate_species_properties(state_def);
 
     P.cp = 0.0;
@@ -382,47 +374,50 @@ void flow::calculate_flow_properties(string state_def) {
 
     P.ht = P.cp * (F.T - 25.0);
   }
-
 }
 
 /**
  * @brief Function to calculate species properties
- * 
- * @param state_def definition of thermodynamic state variables 
-*/
+ *
+ * @param state_def definition of thermodynamic state variables
+ */
 void flow::calculate_species_properties(string state_def) {
-
   // calculating individual species properties:
   for (size_t n = 0; n < j.size(); n++) {
     j[n].F.T = F.T;
     j[n].F.P = F.P;
 
-      j[n].P.cp =
-          thermodynamic_property(j[n].id, "cp", j[n].F.T + 273.15, j[n].F.P, "J/molK");
-      if (j[n].P.cp == -1.0) {
-        j[n].P.cp = 0.0;
-        //cout << "Error: property: cp cannot be calculated for species: " << j[n].id << endl;
-      }
+    j[n].P.cp = thermodynamic_property(j[n].id, "cp", j[n].F.T + 273.15,
+                                       j[n].F.P, "J/molK");
+    if (j[n].P.cp == -1.0) {
+      j[n].P.cp = 0.0;
+      // cout << "Error: property: cp cannot be calculated for species: " <<
+      // j[n].id << endl;
+    }
 
-      j[n].P.h = thermodynamic_property(j[n].id, "h", j[n].F.T + 273.15, j[n].F.P, "J/mol");
-      if (j[n].P.h == -1.0) {
-        j[n].P.h = 0.0;
-        //cout << "Error: property: h cannot be calculated for species: " << j[n].id << endl;
-      }
+    j[n].P.h = thermodynamic_property(j[n].id, "h", j[n].F.T + 273.15, j[n].F.P,
+                                      "J/mol");
+    if (j[n].P.h == -1.0) {
+      j[n].P.h = 0.0;
+      // cout << "Error: property: h cannot be calculated for species: " <<
+      // j[n].id << endl;
+    }
 
-      j[n].P.hf = thermodynamic_property(j[n].id, "hf", j[n].F.T + 273.15, j[n].F.P, "J/mol");
-      if (j[n].P.hf == -1.0) {
-        j[n].P.hf = 0.0;
-        //cout << "Error: property: h cannot be calculated for species: " << j[n].id << endl;
-      }
+    j[n].P.hf = thermodynamic_property(j[n].id, "hf", j[n].F.T + 273.15,
+                                       j[n].F.P, "J/mol");
+    if (j[n].P.hf == -1.0) {
+      j[n].P.hf = 0.0;
+      // cout << "Error: property: h cannot be calculated for species: " <<
+      // j[n].id << endl;
+    }
 
-      j[n].P.s =
-          thermodynamic_property(j[n].id, "s", j[n].F.T + 273.15, j[n].F.P, "J/molK");
-      if (j[n].P.s == -1.0) {
-        j[n].P.s = 0.0;
-        //cout << "Error: property: s cannot be calculated for species: " << j[n].id << endl;
-      }
-
+    j[n].P.s = thermodynamic_property(j[n].id, "s", j[n].F.T + 273.15, j[n].F.P,
+                                      "J/molK");
+    if (j[n].P.s == -1.0) {
+      j[n].P.s = 0.0;
+      // cout << "Error: property: s cannot be calculated for species: " <<
+      // j[n].id << endl;
+    }
 
     j[n].P.cp = j[n].P.cp / j[n].P.MW;
     j[n].P.h = j[n].P.h / j[n].P.MW;
@@ -433,8 +428,8 @@ void flow::calculate_species_properties(string state_def) {
 }
 
 /**
- * @brief Function to calculate flow parameters 
-*/
+ * @brief Function to calculate flow parameters
+ */
 void flow::calculate_flow_parameters() {
   if (F.M == 0 && F.VN > 0 && F.N > 0 && P.MW > 0) {
     F.M = F.N * P.MW;
