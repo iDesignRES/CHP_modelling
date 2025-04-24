@@ -1,9 +1,9 @@
+#include "../src/bioCHP_wrapper.cpp"
+#include <cmath>  // for fabs
 #include <cstring>
+#include <iomanip>  // for setprecision
 #include <string>
 #include <vector>
-#include <cmath>  // for fabs
-#include "../src/bioCHP_wrapper.cpp"
-#include <iomanip>  // for setprecision
 
 using namespace std;
 
