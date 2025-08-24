@@ -132,6 +132,7 @@ std::string getFileDirectory() {
   return (pos == std::string::npos) ? "" : filePath.substr(0, pos);
 }
 
+/*
 std::string getCurrentDirectory() {
   char cwd[PATH_MAX];
   if (getcwd(cwd, sizeof(cwd)) != NULL) {
@@ -151,6 +152,7 @@ std::string getActualDir(string file_path) {
   }
   return Dir;
 }
+*/
 
 std::string project_name() {
   std::string executablePath = MyPaths::getExecutablePath();

@@ -134,32 +134,6 @@ double get_num_parameter(vector<parameter> &par, string sys_type,
 // **********************************************************
 
 /**
- * @brief function to print the value of a parameter as string
- *
- * @param p vector of parameters to look into
- * @param sys_type system type of the parameter to look for
- * @param sys_def system name of the parameter to look for
- * @param data_id parameter name to print
- */
-void print_parameter_value(vector<parameter> &p, string sys_type,
-                           string sys_def, string data_id) {
-  bool found = false;
-  for (size_t np = 0; np < p.size(); np++) {
-    if (p[np].sys_type == sys_type && p[np].sys_def == sys_def &&
-        p[np].data_id == data_id) {
-      found = true;
-      cout << p[np].sys_type << " " << p[np].sys_def << " " << p[np].data_def
-           << " " << p[np].data_id << " " << p[np].str[p[np].pos] << endl;
-    }
-  }
-  if (found == false) {
-    cout << "none found" << endl;
-  }
-}
-
-// **********************************************************
-
-/**
  * @brief function to get parameter values from database
  *
  * @param par vector of parameters to get
@@ -370,11 +344,12 @@ void print_parameters(object &obj) {
  * @param data_id parameter name to get
  * @param par vector of parameters to look for
  */
+/*
 double fp(vector<parameter> &par, string sys_type, string sys_def,
           string data_id) {
   return get_num_parameter(par, sys_type, sys_def, data_id);
 }
-
+*/
 // **********************************************************
 
 /**
@@ -385,11 +360,12 @@ double fp(vector<parameter> &par, string sys_type, string sys_def,
  * @param data_id parameter name to get
  * @param par vector of parameters to look for
  */
+/*
 string sp(vector<parameter> &par, string sys_type, string sys_def,
           string data_id) {
   return get_str_parameter(par, sys_type, sys_def, data_id);
 }
-
+*/
 // **********************************************************
 
 /**

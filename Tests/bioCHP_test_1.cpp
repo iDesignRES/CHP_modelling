@@ -31,7 +31,6 @@ int main() {
     cout << "C_inv (M$) = " << C_inv << endl;
     cout << "C_op (M$) = " << C_op << endl;
     cout << "C_op_var (M$) = " << C_op_var << endl;
-
   } else {
     cout << "error" << endl;
   }

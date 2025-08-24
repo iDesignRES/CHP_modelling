@@ -1,6 +1,6 @@
 Flow_def flue_gas
 Flow_cls ideal_gas
-Prop_data NIST
+prop_data NIST
 
 MOLECULES
 n_molec 9

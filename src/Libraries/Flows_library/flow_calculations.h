@@ -1,122 +1,5 @@
 
 /**
- * @brief function to mix two flows
- *
- */
-void flow::mix_flows(flow &f1, flow &f2) {
-  F.M = f1.F.M + f2.F.M;
-
-  F.N = f1.F.N + f2.F.N;
-
-  P.LHV = (f1.F.M * f1.P.LHV + f2.F.M * f2.P.LHV) / F.M;
-
-  P.HHV = (f1.F.M * f1.P.HHV + f2.F.M * f2.P.HHV) / F.M;
-
-  F.Ht = f1.F.Ht + f2.F.Ht;
-
-  P.cp = (f1.F.M * f1.P.cp / f1.P.MW + f2.F.N * f2.P.cp / f2.P.MW) / F.M;
-
-  P.rho = F.M / ((f1.F.M / f1.P.rho) + (f2.F.M / f2.P.rho));
-
-  F.T = 25.0 + F.Ht / (F.N * P.cp);
-
-  bool equal_species;
-
-  if (F.M > 0)
-    for (size_t n = 0; n < f2.j.size(); n++) {
-      f2.j[n].Y = f2.j[n].Y * f2.F.M / F.M;
-    }
-  if (F.M > 0)
-    for (size_t m = 0; m < f1.j.size(); m++) {
-      f1.j[m].Y = f1.j[m].Y * f1.F.M / F.M;
-    }
-  if (F.N > 0)
-    for (size_t n = 0; n < f2.j.size(); n++) {
-      f2.j[n].X = f2.j[n].X * f2.F.N / F.N;
-    }
-  if (F.N > 0)
-    for (size_t m = 0; m < f1.j.size(); m++) {
-      f1.j[m].X = f1.j[m].X * f1.F.N / F.N;
-    }
-
-  if (F.M > 0)
-    for (size_t n = 0; n < f2.i.size(); n++) {
-      f2.i[n].Y = f2.i[n].Y * f2.F.M / F.M;
-    }
-  if (F.M > 0)
-    for (size_t m = 0; m < f1.i.size(); m++) {
-      f1.i[m].Y = f1.i[m].Y * f1.F.M / F.M;
-    }
-  if (F.N > 0)
-    for (size_t n = 0; n < f2.i.size(); n++) {
-      f2.i[n].X = f2.i[n].X * f2.F.N / F.N;
-    }
-  if (F.N > 0)
-    for (size_t m = 0; m < f1.i.size(); m++) {
-      f1.i[m].X = f1.i[m].X * f1.F.N / F.N;
-    }
-
-  if (F.M > 0)
-    for (size_t n = 0; n < f2.k.size(); n++) {
-      f2.k[n].Y = f2.k[n].Y * f2.F.M / F.M;
-    }
-  if (F.M > 0)
-    for (size_t m = 0; m < f1.k.size(); m++) {
-      f1.k[m].Y = f1.k[m].Y * f1.F.M / F.M;
-    }
-
-  for (size_t n = 0; n < f2.j.size(); n++) {
-    equal_species = false;
-    for (size_t m = 0; m < f1.j.size(); m++) {
-      if (f2.j[n].id == f1.j[m].id) {
-        equal_species = true;
-        if (F.M > 0) {
-          j[m].Y = f2.j[n].Y + f1.j[m].Y;
-        }
-        if (F.N > 0) {
-          j[m].X = f2.j[n].X + f1.j[m].X;
-        }
-      }
-    }
-    if (equal_species == false) {
-      j.push_back(f2.j[n]);
-    }
-  }
-
-  for (size_t n = 0; n < f2.i.size(); n++) {
-    equal_species = false;
-    for (size_t m = 0; m < f1.i.size(); m++) {
-      if (f2.i[n].id == f1.i[m].id) {
-        equal_species = true;
-        if (F.M > 0) {
-          i[m].Y = f2.i[n].Y + f1.i[n].Y;
-        } else if (F.N > 0) {
-          i[m].X = f2.i[n].X + f1.i[m].X;
-        }
-      }
-    }
-    if (equal_species == false) {
-      i.push_back(f2.i[n]);
-    }
-  }
-
-  for (size_t n = 0; n < f2.k.size(); n++) {
-    equal_species = false;
-    for (size_t m = 0; m < f1.k.size(); m++) {
-      if (f2.k[n].id == f1.k[m].id) {
-        equal_species = true;
-        if (F.M > 0) {
-          k[m].Y = f2.k[n].Y + f1.k[m].Y;
-        }
-      }
-    }
-    if (equal_species == false) {
-      k.push_back(f2.k[n]);
-    }
-  }
-}
-
-/**
  * @brief function to mix two flow of the same composition
  *
  */
@@ -147,19 +30,11 @@ void mix_same_type_flows(flow &f1, flow &f2, flow &f) {
  *
  */
 void flow::calculate_flow(string state_def) {
-  if (prop_data == "solid_fuel" || prop_data == "bio_oil" ||
-      prop_data == "ash") {
+  if (prop_data == "solid_fuel") {
     calculate_solid_fuel();
   }
 
-  if (prop_data == "gas_fuel") {
-    calculate_flow_composition();
-    calculate_flow_parameters();
-    calculate_gas_fuel();
-  }
-
-  if (prop_data != "solid_fuel" && prop_data != "gas_fuel" &&
-      prop_data != "bio_oil" && prop_data != "ash") {
+  if (prop_data != "solid_fuel" ) {
     calculate_flow_composition();
     if (molec_def == "Y" || molec_def == "X") {
       calculate_flow_properties(state_def);
@@ -255,41 +130,10 @@ void flow::calculate_solid_fuel() {
 }
 
 /**
- * @brief Function to calculate gas fuel
- *
- */
-void flow::calculate_gas_fuel() {
-  if (P.LHV == 0) {
-    for (size_t nj = 0; nj < j.size(); nj++) {
-      P.LHV += j[nj].P.LHV;
-    }
-  }
-
-  P.LHV = 0;
-  P.MW = 0.0;
-  for (size_t nj = 0; nj < j.size(); nj++) {
-    P.LHV += j[nj].P.LHV * j[nj].Y;
-    P.MW += j[nj].P.MW * j[nj].X;
-    P.cp += j[nj].P.cp * j[nj].Y;
-  }
-
-  double sum_Y_rho = 0.0;
-  for (size_t n = 0; n < j.size(); n++) {
-    sum_Y_rho += j[n].Y / j[n].P.rho;
-  }
-  P.rho = 1.0 / sum_Y_rho;
-
-  P.LHV_dry = P.LHV;
-
-  P.ht = P.cp * (F.T - 25.0);
-  P.hf = P.LHV * 1e6;
-  P.h = P.ht + P.hf;
-}
-
-/**
  * @brief Function to calculate flow composition
  *
  */
+
 void flow::calculate_flow_composition() {
   double sum_Y, sum_X, sum_X_MW, sum_Y_MW;
   P.MW = 0;
@@ -353,11 +197,13 @@ void flow::calculate_flow_composition() {
   }
 }
 
+
 /**
  * @brief Function to calculate flow properties
  *
  * @param state_def definition of thermodynamic state variables
  */
+
 void flow::calculate_flow_properties(string state_def) {
   if (prop_data == "NIST") {
     calculate_species_properties(state_def);

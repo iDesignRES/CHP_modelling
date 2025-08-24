@@ -7,7 +7,7 @@
 
 using namespace std;
 using namespace MyPaths;
-
+/*
 struct physical_parameter {
  public:
   string symb, def, unit;
@@ -48,7 +48,7 @@ double physical_parameters_set::f(string symb) {
   }
   return -1;
 }
-
+*/
 /**
  * @brief Structure to define flow or species properties
  *
@@ -95,10 +95,7 @@ struct species {
   species(string sid);
   species(string sid, double sY);
   species(string sid, double val, string def);
-  species(string sid, double sY, double sMW);
-  species(string sid, double sTC, double sY, double sX, double sMW);
   void calculate_refprop(string);
-  // void get_species_data();
   void get_species_data_(string);
   void calculate_thermodynamic_properties();
 };
@@ -127,23 +124,6 @@ species::species(string sid, double val, string def) {
   if (def == "X") {
     X = val;
   }
-}
-
-species::species(string sid, double sY, double sMW) {
-  id = sid;
-  TC = 1.0;
-  Y = sY;
-  X = 0.0;
-  P.MW = sMW;
-}
-
-species::species(string sid, double sTC, double sY, double sX, double sMW) {
-  id = sid;
-
-  TC = sTC;
-  Y = sY;
-  X = sX;
-  P.MW = sMW;
 }
 
 size_t index_species(vector<species> &spc, string spc_id) {
@@ -237,105 +217,6 @@ flow::flow(string flw_id, string flw_def) {
   get_flow_data(flw_def);
   if (cls == "woody_biomass" || cls == "sludge") {
     calculate_solid_fuel();
-  }
-}
-
-void flow::get_species_data() {}
-
-/**
- * @brief function to get the index of a phase withun a flow mixture
- *
- * @param f input flow
- * @param f_id string specifying the id of the phase
- */
-size_t index_flow(vector<flow> &f, string f_id) {
-  for (size_t i = 0; i < f.size(); i++) {
-    if (f[i].id == f_id) {
-      return i;
-    }
-  }
-  return -1;  // returns a negative number if species does not exist in the
-              // vector
-}
-
-/**
- * @brief function to calculate the molecular weight (kg/mol) of a flow
- */
-void flow::calculate_MW() {
-  get_species_data();
-  P.MW = 0;
-  for (size_t n = 0; n < j.size(); n++) {
-    P.MW = P.MW + j[n].X * j[n].P.MW;
-  }
-}
-
-/**
- * @brief function to calculate flow properties
- */
-void flow::calculate_properties() {
-  get_species_data();
-  P.MW = 0;
-  P.cp = 0;
-  P.rho = 0;
-  if (j.size() == 1) {
-    P.MW = j[0].P.MW * 1e-3;
-    P.cp = j[0].P.cp;
-    P.rho = j[0].P.rho;
-  }
-  if (j.size() > 1) {
-    double sum_Y = 0.0;
-    for (size_t n = 0; n < j.size(); n++) {
-      sum_Y += j[n].Y;
-    }
-    double sum_X = 0.0;
-    for (size_t n = 0; n < j.size(); n++) {
-      sum_X += j[n].X;
-    }
-    if (sum_Y > 0 && sum_X == 0) {
-      for (size_t n = 0; n < j.size(); n++) {
-        j[n].Y = j[n].Y / sum_Y;
-      }
-      double sum_Y_MW = 0.0;
-      for (size_t n = 0; n < j.size(); n++) {
-        if (j[n].Y > 0 && j[n].P.MW > 0) {
-          sum_Y_MW += j[n].Y / j[n].P.MW;
-        }
-      }
-      for (size_t n = 0; n < j.size(); n++) {
-        if (j[n].Y > 0 && j[n].P.MW > 0 && sum_Y_MW > 0) {
-          j[n].X = (j[n].Y / j[n].P.MW) / sum_Y_MW;
-        }
-        if (j[n].Y == 0) {
-          j[n].X = 0;
-        }
-      }
-    } else if (sum_Y == 0 && sum_X > 0) {
-      for (size_t n = 0; n < j.size(); n++) {
-        j[n].X = j[n].X / sum_X;
-      }
-      double sum_X_MW = 0.0;
-      for (size_t n = 0; n < j.size(); n++) {
-        if (j[n].Y > 0 && j[n].P.MW > 0) {
-          sum_X_MW += j[n].X * j[n].P.MW;
-        }
-      }
-      for (size_t n = 0; n < j.size(); n++) {
-        j[n].Y = (j[n].X * j[n].P.MW) / sum_X_MW;
-        if (j[n].X == 0) {
-          j[n].Y = 0;
-        }
-      }
-    }
-
-    for (size_t n = 0; n < j.size(); n++) {
-      P.MW += j[n].X * j[n].P.MW * 1e-3;
-      P.cp += j[n].X * j[n].P.cp;
-    }
-    double sum_Y_rho = 0.0;
-    for (size_t n = 0; n < j.size(); n++) {
-      sum_Y_rho += j[n].Y / j[n].P.rho;
-    }
-    P.rho = 1.0 / sum_Y_rho;
   }
 }
 
@@ -499,7 +380,7 @@ void flow::interpret_molecules() {
 }
 
 /**
- * @brief function to initialize the flow parameters
+ * @brief function to initialize species parameters
  */
 void flow::initialize_species(vector<species> &spc) {
   int n_spc = spc.size();
@@ -1120,6 +1001,7 @@ bool find_flow(string input_def) {
     if (flow_found == false) {
       cout << input_def + " not found in Flow_list" << endl;
       db_file.close();
+      return false;
     }
   }
 

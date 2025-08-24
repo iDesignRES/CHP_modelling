@@ -294,6 +294,7 @@ void capex(object &par) {
   par.fval_p("output-C_piping_maint", par.fp("C_piping") * 0.02);
   par.fval_p("output-C_el_maint", par.fp("C_el") * 0.02);
   par.fval_p("output-C_I&C_maint", par.fp("C_I&C") * 0.02);
+  print_capex(par);
 }
 
 /**
@@ -354,6 +355,7 @@ void opex(object &par) {
                                 par.fp("C_op_adm"));
 
   par.fval_p("output-C_op_var", par.fp("C_op_mat") + par.fp("C_op_el"));
+  print_opex(par,m);
 }
 
 /**

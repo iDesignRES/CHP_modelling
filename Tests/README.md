@@ -4,9 +4,15 @@ This README provides instructions on how to set up the environment and run the t
 ## Model tests description
 
 This repository contains separately c++ files bioCHP_function_test_[number].cpp:
- - bioCHP_function_test_1.cpp: single biomass feedstock with specified electric power production and no heat demand
- - bioCHP_function_test_2.cpp: multiple biomass feedstock with specified electric power production and no heat demands
- - bioCHP_function_test_3.cpp: multiple biomass feedstock with specified electric power production and several heat demand
+ - Parameters_test.cpp: Parameters functionalities
+ - Thermodynamics_test.cpp: Thermodynamics using NIST database and water-thermodynamics correlations
+ - Flows_test.cpp: Flows functionalities
+ - bioCHP_test_0-[1-5].cpp: errors in specifying the input parameters of the bioCHP plant
+ - bioCHP_function_test_1.cpp: bioCHP plant using a single biomass feedstock with specified electric power production and no heat demands
+ - bioCHP_function_test_2.cpp: bioCHP plant using two biomass feedstock with specified electric power production and no heat demands
+ - bioCHP_function_test_3.cpp: bioCHP plant using two biomass feedstock with specified electric power production and several heat demands
+ - bioCHP_function_test_4-[1,2].cpp: bioCHP plant using four biomass feedstock with specified electric power production and several heat demands
+ - bioCHP_wrapper_test.cpp: bioCHP plant using four biomass feedstock with specified electric power production and several heat 
 
 ## Prerequisites
 - **Git**: Ensure Git is installed on your system.
