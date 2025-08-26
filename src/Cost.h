@@ -355,7 +355,7 @@ void opex(object &par) {
                                 par.fp("C_op_adm"));
 
   par.fval_p("output-C_op_var", par.fp("C_op_mat") + par.fp("C_op_el"));
-  print_opex(par,m);
+  print_opex(par, m);
 }
 
 /**

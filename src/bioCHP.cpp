@@ -79,7 +79,8 @@ bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj,
   // Check that all feedstock exist in the database
   for (size_t nf = 0; nf < fuel_def.size(); nf++) {
     if (!find_flow(fuel_def[nf])) {
-      cout << "feedstock " + fuel_def[nf] + " not found in the database " << endl;
+      cout << "feedstock " + fuel_def[nf] + " not found in the database "
+           << endl;
       for (size_t nff = 0; nff < fuel_def.size(); nff++) {
         Mj.push_back(0.0);
       }

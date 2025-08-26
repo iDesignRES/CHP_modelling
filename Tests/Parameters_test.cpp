@@ -5,7 +5,6 @@
 // using namespace std;
 
 int main() {
-
   parameter p("prop plant bioCHP_PLANT T_stm num 450.0");
   print_parameter(p);
 
@@ -32,9 +31,8 @@ int main() {
   print_parameters(bioCHP);
 
   object CHP("plant", "CHP");
-  transfer_parameter("Qk",bioCHP,CHP);
-  str_p(CHP.p, "prop", "plant", "CHP", "land","Norway");
+  transfer_parameter("Qk", bioCHP, CHP);
+  str_p(CHP.p, "prop", "plant", "CHP", "land", "Norway");
   CHP.sval_p("city", "Trondheim");
   print_parameters(CHP);
-
 }

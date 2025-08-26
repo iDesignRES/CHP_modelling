@@ -34,7 +34,7 @@ void flow::calculate_flow(string state_def) {
     calculate_solid_fuel();
   }
 
-  if (prop_data != "solid_fuel" ) {
+  if (prop_data != "solid_fuel") {
     calculate_flow_composition();
     if (molec_def == "Y" || molec_def == "X") {
       calculate_flow_properties(state_def);
@@ -196,7 +196,6 @@ void flow::calculate_flow_composition() {
     }
   }
 }
-
 
 /**
  * @brief Function to calculate flow properties
