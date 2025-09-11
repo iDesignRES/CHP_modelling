@@ -49,4 +49,3 @@ git clone https://github.com/yourusername/your-repo.git
    ctest --verbose
    ```
 
-### Windows Setup
