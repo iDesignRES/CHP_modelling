@@ -17,6 +17,6 @@ void steam_turbine_model(flow &in, flow &out, object &par);
 
 void steam_condenser(flow &steam, flow &cond, object &par);
 
-void district_heating(flow &dh_in, flow &dh_out, object &par);
+void district_heating(object &par);
 
 void rankine_cycle(object &par);

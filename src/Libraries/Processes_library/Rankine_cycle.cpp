@@ -192,7 +192,7 @@ void steam_condenser(flow &steam, flow &cond, object &par) {
   par.fval_p("Q_cond", Q_cond * 1e-6);
 }
 
-void district_heating(flow &dh_in, flow &dh_out, object &par) {
+void district_heating(object &par) {
   // std::cout << "---------------------- " << std::endl;
   // std::cout << "District heating: " << std::endl;
   // std::cout << "---------------------- " << std::endl;
