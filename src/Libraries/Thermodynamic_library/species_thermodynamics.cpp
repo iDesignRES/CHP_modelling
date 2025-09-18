@@ -351,8 +351,19 @@ double thermodynamic_property(std::string species, std::string property, double 
       Hf298 = 9.078988;
     }
     return shomate(property, tK, A, B, C, D, E, F, G, Hf298);
+  } else if (species == "Ar") {
+    double A, B, C, D, E, F, G, Hf298;
+    A = 20.78600;
+    B = 2.825911e-7;
+    C = -1.464191e-7;
+    D = 1.092131e-8;
+    E = -3.661371e-8;
+    F = -6.197350;
+    G = 179.9990;
+    Hf298 = 0.000000;
+    return shomate(property, tK, A, B, C, D, E, F, G, Hf298);
   } else {
-    throw std::invalid_argument("Unknown species: " + species);
+    std::cerr << "Warning: Unknown species: " << species << std::endl;
   }
 
   return -1;
