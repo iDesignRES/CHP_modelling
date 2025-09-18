@@ -105,155 +105,154 @@ $(document).ready(function(){initNavTree('combustion_8h_source.html',''); initRe
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keywordtype">void</span> calculate_fuel_combustion_properties(<a class="code hl_struct" href="structflow.html">flow</a> fuel, <span class="keywordtype">object</span> &amp;prop) {</div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>  <span class="keywordtype">size_t</span> C = index_species(fuel.i, <span class="stringliteral">&quot;C&quot;</span>);</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>  <span class="keywordtype">size_t</span> H = index_species(fuel.i, <span class="stringliteral">&quot;H&quot;</span>);</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>  <span class="keywordtype">size_t</span> O = index_species(fuel.i, <span class="stringliteral">&quot;O&quot;</span>);</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>  <span class="keywordtype">size_t</span> H2O = index_species(fuel.k, <span class="stringliteral">&quot;H2O&quot;</span>);</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>  <span class="keywordtype">size_t</span> ash = index_species(fuel.k, <span class="stringliteral">&quot;ash&quot;</span>);</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>  <span class="keywordflow">if</span> (fuel.prop_data == <span class="stringliteral">&quot;solid_fuel&quot;</span>) {</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    prop.<a class="code hl_function" href="structobject.html#a378debdb72ee580796953525e863c1d3">fval_p</a>(<span class="stringliteral">&quot;n_H&quot;</span>, (fuel.i[H].Y / 1) / (fuel.i[C].Y / 12));</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    prop.<a class="code hl_function" href="structobject.html#a378debdb72ee580796953525e863c1d3">fval_p</a>(<span class="stringliteral">&quot;n_O&quot;</span>, (fuel.i[O].Y / 16) / (fuel.i[C].Y / 12));</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    prop.<a class="code hl_function" href="structobject.html#a378debdb72ee580796953525e863c1d3">fval_p</a>(<span class="stringliteral">&quot;W_CHxOy&quot;</span>,</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>                0.012 + prop.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;n_H&quot;</span>) * 0.001 + prop.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;n_O&quot;</span>) * 0.016);</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    prop.<a class="code hl_function" href="structobject.html#a378debdb72ee580796953525e863c1d3">fval_p</a>(<span class="stringliteral">&quot;nu_O2&quot;</span>, 1 + prop.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;n_H&quot;</span>) / 4 - prop.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;n_O&quot;</span>) / 2);</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    prop.<a class="code hl_function" href="structobject.html#a378debdb72ee580796953525e863c1d3">fval_p</a>(<span class="stringliteral">&quot;nu_CO2&quot;</span>, 1.0);</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    prop.<a class="code hl_function" href="structobject.html#a378debdb72ee580796953525e863c1d3">fval_p</a>(<span class="stringliteral">&quot;nu_H2O&quot;</span>, prop.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;n_H&quot;</span>) / 2);</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    prop.<a class="code hl_function" href="structobject.html#a378debdb72ee580796953525e863c1d3">fval_p</a>(<span class="stringliteral">&quot;V_stoich&quot;</span>,</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>                fuel.F.M * (1 - fuel.k[H2O].Y) * (1 - fuel.k[ash].Y) *</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>                    (prop.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;nu_O2&quot;</span>) / 0.21) * (0.02241 / prop.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;W_CHxOy&quot;</span>)));</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    prop.<a class="code hl_function" href="structobject.html#a378debdb72ee580796953525e863c1d3">fval_p</a>(<span class="stringliteral">&quot;vn_CO2_m&quot;</span>, (1 - fuel.k[H2O].Y) * prop.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;nu_CO2&quot;</span>) *</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>                                (0.02241 / prop.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;W_CHxOy&quot;</span>)));</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    prop.<a class="code hl_function" href="structobject.html#a378debdb72ee580796953525e863c1d3">fval_p</a>(<span class="stringliteral">&quot;vn_H2O_m&quot;</span>, (1 - fuel.k[H2O].Y) * prop.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;nu_H2O&quot;</span>) *</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>                                    (0.02241 / prop.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;W_CHxOy&quot;</span>)) +</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>                                fuel.k[H2O].Y * (0.02241 / 0.018));</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  }</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keywordtype">void</span> solid_fuel_boiler(vector&lt;flow&gt; &amp;fuel, vector&lt;flow&gt; &amp;comb_air,</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>                       <a class="code hl_struct" href="structflow.html">flow</a> &amp;flue_gas, <a class="code hl_struct" href="structflow.html">flow</a> &amp;bottom_ash, <a class="code hl_struct" href="structflow.html">flow</a> &amp;fly_ash,</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                       <span class="keywordtype">object</span> &amp;comb) {</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  vector&lt;flow&gt; air;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  vector&lt;flow&gt; fg;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  vector&lt;flow&gt; ba;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  vector&lt;flow&gt; fa;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  <span class="keywordflow">if</span> (air.size() == 0) {</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> n = 0; n &lt; fuel.size(); n++) {</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>      air.push_back(<a class="code hl_struct" href="structflow.html">flow</a>(<span class="stringliteral">&quot;dry_air&quot;</span>));</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>      fg.push_back(<a class="code hl_struct" href="structflow.html">flow</a>(<span class="stringliteral">&quot;flue_gas&quot;</span>, <span class="stringliteral">&quot;flue_gas&quot;</span>));</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>      ba.push_back(<a class="code hl_struct" href="structflow.html">flow</a>(<span class="stringliteral">&quot;bottom_ash&quot;</span>, <span class="stringliteral">&quot;ash&quot;</span>));</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>      fa.push_back(<a class="code hl_struct" href="structflow.html">flow</a>(<span class="stringliteral">&quot;fly_ash&quot;</span>, <span class="stringliteral">&quot;ash&quot;</span>));</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    }</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  }</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> n = 0; n &lt; fuel.size(); n++) {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordtype">size_t</span> C = index_species(fuel[n].i, <span class="stringliteral">&quot;C&quot;</span>);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordtype">size_t</span> H = index_species(fuel[n].i, <span class="stringliteral">&quot;H&quot;</span>);</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordtype">size_t</span> O = index_species(fuel[n].i, <span class="stringliteral">&quot;O&quot;</span>);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordtype">size_t</span> N = index_species(fuel[n].i, <span class="stringliteral">&quot;N&quot;</span>);</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordtype">size_t</span> H2O = index_species(fuel[n].k, <span class="stringliteral">&quot;H2O&quot;</span>);</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordtype">size_t</span> ash = index_species(fuel[n].k, <span class="stringliteral">&quot;ASH&quot;</span>);</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordtype">size_t</span> O2g = index_species(fg[n].j, <span class="stringliteral">&quot;O2&quot;</span>);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordtype">size_t</span> N2g = index_species(fg[n].j, <span class="stringliteral">&quot;N2&quot;</span>);</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordtype">size_t</span> CO2g = index_species(fg[n].j, <span class="stringliteral">&quot;CO2&quot;</span>);</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordtype">size_t</span> H2Og = index_species(fg[n].j, <span class="stringliteral">&quot;H2O&quot;</span>);</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordtype">object</span> comb_f(<span class="stringliteral">&quot;fuel&quot;</span>, fuel[n].def);</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    calculate_fuel_combustion_properties(fuel[n], comb_f);</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordtype">double</span> T_0 = 25.0;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    air[n].F.VN = comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;lambda&quot;</span>) * comb_f.fp(<span class="stringliteral">&quot;V_stoich&quot;</span>);</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    air[n].F.T = comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;T_ox&quot;</span>);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    air[n].F.P = comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;P_bar&quot;</span>);</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    air[n].molec_def = <span class="stringliteral">&quot;X&quot;</span>;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    air[n].calculate_flow(<span class="stringliteral">&quot;PT&quot;</span>);</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    fg[n].F.T = comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;T_g&quot;</span>);</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    fg[n].F.P = comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;P_bar&quot;</span>);</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    fg[n].j[O2g].F.VN = (comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;lambda&quot;</span>) - 1) * comb_f.fp(<span class="stringliteral">&quot;V_stoich&quot;</span>) * 0.21;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    fg[n].j[N2g].F.VN = comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;lambda&quot;</span>) * comb_f.fp(<span class="stringliteral">&quot;V_stoich&quot;</span>) * 0.79;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    fg[n].j[CO2g].F.VN = fuel[n].F.M * comb_f.fp(<span class="stringliteral">&quot;vn_CO2_m&quot;</span>);</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    fg[n].j[H2Og].F.VN = fuel[n].F.M * comb_f.fp(<span class="stringliteral">&quot;vn_H2O_m&quot;</span>);</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    fg[n].F.VN = 0.0;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> nj = 0; nj &lt; fg[n].j.size(); nj++) {</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>      fg[n].F.VN = fg[n].F.VN + fg[n].j[nj].F.VN;</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    }</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> nj = 0; nj &lt; fg[n].j.size(); nj++) {</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>      fg[n].j[nj].X = fg[n].j[nj].F.VN / fg[n].F.VN;</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    }</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="comment">// fg[n].molec_def = &quot;X&quot;;</span></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    fg[n].calculate_flow(<span class="stringliteral">&quot;PT&quot;</span>);</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="comment">// double T_ba = 1000.0, T_fa = 150.0, yC_ash = 0.03, f_ba = 0.1;</span></div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordtype">double</span> f_ba = comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;f_ba&quot;</span>);</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keywordtype">double</span> T_ba = comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;T_ba&quot;</span>);</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keywordtype">double</span> T_fa = comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;T_fa&quot;</span>);</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordtype">double</span> yC_ba = comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;yC_ba&quot;</span>);</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="comment">// double T_ba = 1000.0, T_fa = 150.0, yC_ash = 0.03, f_ba = 0.1;</span></div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    ba[n].F.M =</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        fuel[n].F.M * (1.0 - fuel[n].k[H2O].Y) * (fuel[n].k[ash].Y * f_ba);</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    ba[n].P.cp = 1.25;  <span class="comment">// kJ/kg*k</span></div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    ba[n].F.Ht =</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        ba[n].F.M * (ba[n].P.cp * (T_ba - 25.0) * 1.0e3 + yC_ba * 34.1 * 1.0e6);</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    fa[n].F.M = fuel[n].F.M * (1.0 - fuel[n].k[H2O].Y) * fuel[n].k[ash].Y *</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>                (1.0 - f_ba);</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    fa[n].P.cp = 1.25;  <span class="comment">// kJ/kg*k</span></div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    fa[n].F.Ht = fa[n].F.M * fa[n].P.cp * (T_fa - 25.0);</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>  }</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keywordtype">void</span> calculate_fuel_combustion_properties(<a class="code hl_struct" href="structflow.html">flow</a> fuel, <span class="keywordtype">object</span> &amp;prop) {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>  <span class="keywordtype">size_t</span> C = index_species(fuel.i, <span class="stringliteral">&quot;C&quot;</span>);</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>  <span class="keywordtype">size_t</span> H = index_species(fuel.i, <span class="stringliteral">&quot;H&quot;</span>);</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>  <span class="keywordtype">size_t</span> O = index_species(fuel.i, <span class="stringliteral">&quot;O&quot;</span>);</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>  <span class="keywordtype">size_t</span> H2O = index_species(fuel.k, <span class="stringliteral">&quot;H2O&quot;</span>);</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>  <span class="keywordtype">size_t</span> ash = index_species(fuel.k, <span class="stringliteral">&quot;ash&quot;</span>);</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>  <span class="keywordflow">if</span> (fuel.prop_data == <span class="stringliteral">&quot;solid_fuel&quot;</span>) {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    prop.<a class="code hl_function" href="structobject.html#a378debdb72ee580796953525e863c1d3">fval_p</a>(<span class="stringliteral">&quot;n_H&quot;</span>, (fuel.i[H].Y / 1) / (fuel.i[C].Y / 12));</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    prop.<a class="code hl_function" href="structobject.html#a378debdb72ee580796953525e863c1d3">fval_p</a>(<span class="stringliteral">&quot;n_O&quot;</span>, (fuel.i[O].Y / 16) / (fuel.i[C].Y / 12));</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    prop.<a class="code hl_function" href="structobject.html#a378debdb72ee580796953525e863c1d3">fval_p</a>(<span class="stringliteral">&quot;W_CHxOy&quot;</span>,</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>                0.012 + prop.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;n_H&quot;</span>) * 0.001 + prop.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;n_O&quot;</span>) * 0.016);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    prop.<a class="code hl_function" href="structobject.html#a378debdb72ee580796953525e863c1d3">fval_p</a>(<span class="stringliteral">&quot;nu_O2&quot;</span>, 1 + prop.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;n_H&quot;</span>) / 4 - prop.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;n_O&quot;</span>) / 2);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    prop.<a class="code hl_function" href="structobject.html#a378debdb72ee580796953525e863c1d3">fval_p</a>(<span class="stringliteral">&quot;nu_CO2&quot;</span>, 1.0);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    prop.<a class="code hl_function" href="structobject.html#a378debdb72ee580796953525e863c1d3">fval_p</a>(<span class="stringliteral">&quot;nu_H2O&quot;</span>, prop.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;n_H&quot;</span>) / 2);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    prop.<a class="code hl_function" href="structobject.html#a378debdb72ee580796953525e863c1d3">fval_p</a>(<span class="stringliteral">&quot;V_stoich&quot;</span>,</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>                fuel.F.M * (1 - fuel.k[H2O].Y) * (1 - fuel.k[ash].Y) *</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                    (prop.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;nu_O2&quot;</span>) / 0.21) * (0.02241 / prop.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;W_CHxOy&quot;</span>)));</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    prop.<a class="code hl_function" href="structobject.html#a378debdb72ee580796953525e863c1d3">fval_p</a>(<span class="stringliteral">&quot;vn_CO2_m&quot;</span>, (1 - fuel.k[H2O].Y) * prop.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;nu_CO2&quot;</span>) *</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>                                (0.02241 / prop.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;W_CHxOy&quot;</span>)));</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    prop.<a class="code hl_function" href="structobject.html#a378debdb72ee580796953525e863c1d3">fval_p</a>(<span class="stringliteral">&quot;vn_H2O_m&quot;</span>, (1 - fuel.k[H2O].Y) * prop.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;nu_H2O&quot;</span>) *</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                                    (0.02241 / prop.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;W_CHxOy&quot;</span>)) +</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>                                fuel.k[H2O].Y * (0.02241 / 0.018));</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  }</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>}</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keywordtype">void</span> solid_fuel_boiler(vector&lt;flow&gt; &amp;fuel, vector&lt;flow&gt; &amp;comb_air,</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                       <a class="code hl_struct" href="structflow.html">flow</a> &amp;flue_gas, <a class="code hl_struct" href="structflow.html">flow</a> &amp;bottom_ash, <a class="code hl_struct" href="structflow.html">flow</a> &amp;fly_ash,</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                       <span class="keywordtype">object</span> &amp;comb) {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  vector&lt;flow&gt; air;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  vector&lt;flow&gt; fg;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  vector&lt;flow&gt; ba;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  vector&lt;flow&gt; fa;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  <span class="keywordflow">if</span> (air.size() == 0) {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> n = 0; n &lt; fuel.size(); n++) {</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>      air.push_back(<a class="code hl_struct" href="structflow.html">flow</a>(<span class="stringliteral">&quot;dry_air&quot;</span>));</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>      fg.push_back(<a class="code hl_struct" href="structflow.html">flow</a>(<span class="stringliteral">&quot;flue_gas&quot;</span>, <span class="stringliteral">&quot;flue_gas&quot;</span>));</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>      ba.push_back(<a class="code hl_struct" href="structflow.html">flow</a>(<span class="stringliteral">&quot;bottom_ash&quot;</span>, <span class="stringliteral">&quot;ash&quot;</span>));</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>      fa.push_back(<a class="code hl_struct" href="structflow.html">flow</a>(<span class="stringliteral">&quot;fly_ash&quot;</span>, <span class="stringliteral">&quot;ash&quot;</span>));</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    }</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  }</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>  <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> n = 0; n &lt; fuel.size(); n++) {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordtype">size_t</span> C = index_species(fuel[n].i, <span class="stringliteral">&quot;C&quot;</span>);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordtype">size_t</span> H = index_species(fuel[n].i, <span class="stringliteral">&quot;H&quot;</span>);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordtype">size_t</span> O = index_species(fuel[n].i, <span class="stringliteral">&quot;O&quot;</span>);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordtype">size_t</span> N = index_species(fuel[n].i, <span class="stringliteral">&quot;N&quot;</span>);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordtype">size_t</span> H2O = index_species(fuel[n].k, <span class="stringliteral">&quot;H2O&quot;</span>);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keywordtype">size_t</span> ash = index_species(fuel[n].k, <span class="stringliteral">&quot;ASH&quot;</span>);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordtype">size_t</span> O2g = index_species(fg[n].j, <span class="stringliteral">&quot;O2&quot;</span>);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordtype">size_t</span> N2g = index_species(fg[n].j, <span class="stringliteral">&quot;N2&quot;</span>);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordtype">size_t</span> CO2g = index_species(fg[n].j, <span class="stringliteral">&quot;CO2&quot;</span>);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordtype">size_t</span> H2Og = index_species(fg[n].j, <span class="stringliteral">&quot;H2O&quot;</span>);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keywordtype">object</span> comb_f(<span class="stringliteral">&quot;fuel&quot;</span>, fuel[n].def);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    calculate_fuel_combustion_properties(fuel[n], comb_f);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordtype">double</span> T_0 = 25.0;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    air[n].F.VN = comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;lambda&quot;</span>) * comb_f.fp(<span class="stringliteral">&quot;V_stoich&quot;</span>);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    air[n].F.T = comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;T_ox&quot;</span>);</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    air[n].F.P = comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;P_bar&quot;</span>);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    air[n].molec_def = <span class="stringliteral">&quot;X&quot;</span>;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    air[n].calculate_flow(<span class="stringliteral">&quot;PT&quot;</span>);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    fg[n].F.T = comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;T_g&quot;</span>);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    fg[n].F.P = comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;P_bar&quot;</span>);</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    fg[n].j[O2g].F.VN = (comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;lambda&quot;</span>) - 1) * comb_f.fp(<span class="stringliteral">&quot;V_stoich&quot;</span>) * 0.21;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    fg[n].j[N2g].F.VN = comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;lambda&quot;</span>) * comb_f.fp(<span class="stringliteral">&quot;V_stoich&quot;</span>) * 0.79;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    fg[n].j[CO2g].F.VN = fuel[n].F.M * comb_f.fp(<span class="stringliteral">&quot;vn_CO2_m&quot;</span>);</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    fg[n].j[H2Og].F.VN = fuel[n].F.M * comb_f.fp(<span class="stringliteral">&quot;vn_H2O_m&quot;</span>);</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    fg[n].F.VN = 0.0;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> nj = 0; nj &lt; fg[n].j.size(); nj++) {</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>      fg[n].F.VN = fg[n].F.VN + fg[n].j[nj].F.VN;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    }</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> nj = 0; nj &lt; fg[n].j.size(); nj++) {</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>      fg[n].j[nj].X = fg[n].j[nj].F.VN / fg[n].F.VN;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    }</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="comment">// fg[n].molec_def = &quot;X&quot;;</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    fg[n].calculate_flow(<span class="stringliteral">&quot;PT&quot;</span>);</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="comment">// double T_ba = 1000.0, T_fa = 150.0, yC_ash = 0.03, f_ba = 0.1;</span></div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>  <span class="keywordtype">double</span> comb_Hf = 0.0;</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>  <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> n = 0; n &lt; fuel.size(); n++) {</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keywordflow">if</span> (n == 0) {</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>      <span class="keywordflow">if</span> (comb_air.size() == 0) {</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        comb_air.push_back(air[n]);</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>      } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (comb_air.size() &gt; 0) {</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        comb_air[0] = air[n];</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>      }</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>      flue_gas = fg[n];</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>      bottom_ash = ba[n];</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>      fly_ash = fa[n];</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    }</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keywordflow">if</span> (n &gt; 0) {</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>      mix_same_type_flows(comb_air[0], air[n], comb_air[0]);</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>      mix_same_type_flows(bottom_ash, ba[n], bottom_ash);</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>      mix_same_type_flows(flue_gas, fg[n], flue_gas);</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>      mix_same_type_flows(fly_ash, fa[n], fly_ash);</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    }</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keywordtype">double</span> f_ba = comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;f_ba&quot;</span>);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keywordtype">double</span> T_ba = comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;T_ba&quot;</span>);</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keywordtype">double</span> T_fa = comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;T_fa&quot;</span>);</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordtype">double</span> yC_ba = comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;yC_ba&quot;</span>);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="comment">// double T_ba = 1000.0, T_fa = 150.0, yC_ash = 0.03, f_ba = 0.1;</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    ba[n].F.M =</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        fuel[n].F.M * (1.0 - fuel[n].k[H2O].Y) * (fuel[n].k[ash].Y * f_ba);</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    ba[n].P.cp = 1.25;  <span class="comment">// kJ/kg*k</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    ba[n].F.Ht =</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        ba[n].F.M * (ba[n].P.cp * (T_ba - 25.0) * 1.0e3 + yC_ba * 34.1 * 1.0e6);</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    fa[n].F.M = fuel[n].F.M * (1.0 - fuel[n].k[H2O].Y) * fuel[n].k[ash].Y *</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>                (1.0 - f_ba);</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    fa[n].P.cp = 1.25;  <span class="comment">// kJ/kg*k</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    fa[n].F.Ht = fa[n].F.M * fa[n].P.cp * (T_fa - 25.0);</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>  }</div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    comb_Hf = comb_Hf + fuel[n].F.Hf;</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>  }</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>  comb.<a class="code hl_function" href="structobject.html#a378debdb72ee580796953525e863c1d3">fval_p</a>(<span class="stringliteral">&quot;Hf&quot;</span>, comb_Hf);</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>  comb.<a class="code hl_function" href="structobject.html#a378debdb72ee580796953525e863c1d3">fval_p</a>(<span class="stringliteral">&quot;Q_loss&quot;</span>, flue_gas.F.Ht * comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;q_loss&quot;</span>));</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>  comb.<a class="code hl_function" href="structobject.html#a378debdb72ee580796953525e863c1d3">fval_p</a>(<span class="stringliteral">&quot;Q_out&quot;</span>, comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;Hf&quot;</span>) * 1.0e6 + comb_air[0].F.Ht -</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>                           flue_gas.F.Ht - bottom_ash.F.Ht - comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;Q_loss&quot;</span>));</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>  <span class="keywordtype">object</span> boiler(<span class="stringliteral">&quot;equipment&quot;</span>, <span class="stringliteral">&quot;biomass_stoker_boiler_power&quot;</span>);</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>  boiler.fval_p(<span class="stringliteral">&quot;S&quot;</span>, comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;M_fuel&quot;</span>) * 3.6);</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>  equipment_cost(boiler);</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>  boiler.fval_p(<span class="stringliteral">&quot;W_el&quot;</span>, comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;M_fuel&quot;</span>) * 3.6 * boiler.fp(<span class="stringliteral">&quot;w_el&quot;</span>));</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>  comb.c.push_back(boiler);</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>  <span class="keywordtype">object</span> prep(<span class="stringliteral">&quot;equipment&quot;</span>, <span class="stringliteral">&quot;biomass_storage&amp;feeding&quot;</span>);</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>  prep.fval_p(<span class="stringliteral">&quot;S&quot;</span>, comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;M_fuel&quot;</span>) * 3.6);</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>  equipment_cost(prep);</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>  comb.c.push_back(prep);</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>  <span class="keywordtype">double</span> comb_Hf = 0.0;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>  <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> n = 0; n &lt; fuel.size(); n++) {</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="keywordflow">if</span> (n == 0) {</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>      <span class="keywordflow">if</span> (comb_air.size() == 0) {</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        comb_air.push_back(air[n]);</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>      } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (comb_air.size() &gt; 0) {</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        comb_air[0] = air[n];</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>      }</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>      flue_gas = fg[n];</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>      bottom_ash = ba[n];</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>      fly_ash = fa[n];</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    }</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    <span class="keywordflow">if</span> (n &gt; 0) {</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>      mix_same_type_flows(comb_air[0], air[n], comb_air[0]);</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>      mix_same_type_flows(bottom_ash, ba[n], bottom_ash);</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>      mix_same_type_flows(flue_gas, fg[n], flue_gas);</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>      mix_same_type_flows(fly_ash, fa[n], fly_ash);</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    }</div>
 <div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>  air.clear();</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>  fg.clear();</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>  ba.clear();</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>  fa.clear();</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>}</div>
-<div class="ttc" id="astructflow_html"><div class="ttname"><a href="structflow.html">flow</a></div><div class="ttdoc">Structure to define the parameters of one flow.</div><div class="ttdef"><b>Definition</b> flow_definitions.h:156</div></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    comb_Hf = comb_Hf + fuel[n].F.Hf;</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>  }</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>  comb.<a class="code hl_function" href="structobject.html#a378debdb72ee580796953525e863c1d3">fval_p</a>(<span class="stringliteral">&quot;Hf&quot;</span>, comb_Hf);</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>  comb.<a class="code hl_function" href="structobject.html#a378debdb72ee580796953525e863c1d3">fval_p</a>(<span class="stringliteral">&quot;Q_loss&quot;</span>, flue_gas.F.Ht * comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;q_loss&quot;</span>));</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>  comb.<a class="code hl_function" href="structobject.html#a378debdb72ee580796953525e863c1d3">fval_p</a>(<span class="stringliteral">&quot;Q_out&quot;</span>, comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;Hf&quot;</span>) * 1.0e6 + comb_air[0].F.Ht -</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>                           flue_gas.F.Ht - bottom_ash.F.Ht - comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;Q_loss&quot;</span>));</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>  <span class="keywordtype">object</span> boiler(<span class="stringliteral">&quot;equipment&quot;</span>, <span class="stringliteral">&quot;biomass_stoker_boiler_power&quot;</span>);</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>  boiler.fval_p(<span class="stringliteral">&quot;S&quot;</span>, comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;M_fuel&quot;</span>) * 3.6);</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>  equipment_cost(boiler);</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>  boiler.fval_p(<span class="stringliteral">&quot;W_el&quot;</span>, comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;M_fuel&quot;</span>) * 3.6 * boiler.fp(<span class="stringliteral">&quot;w_el&quot;</span>));</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>  comb.c.push_back(boiler);</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>  <span class="keywordtype">object</span> prep(<span class="stringliteral">&quot;equipment&quot;</span>, <span class="stringliteral">&quot;biomass_storage&amp;feeding&quot;</span>);</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>  prep.fval_p(<span class="stringliteral">&quot;S&quot;</span>, comb.<a class="code hl_function" href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">fp</a>(<span class="stringliteral">&quot;M_fuel&quot;</span>) * 3.6);</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>  equipment_cost(prep);</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>  comb.c.push_back(prep);</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>  air.clear();</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>  fg.clear();</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>  ba.clear();</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>  fa.clear();</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>}</div>
+<div class="ttc" id="astructflow_html"><div class="ttname"><a href="structflow.html">flow</a></div><div class="ttdoc">Structure to define the parameters of one flow.</div><div class="ttdef"><b>Definition</b> flow_definitions.h:163</div></div>
 <div class="ttc" id="astructobject_html_a378debdb72ee580796953525e863c1d3"><div class="ttname"><a href="structobject.html#a378debdb72ee580796953525e863c1d3">object::fval_p</a></div><div class="ttdeci">void fval_p(string symb, double val)</div><div class="ttdoc">object function to populate a vector of parameters with a input numerical parameter</div><div class="ttdef"><b>Definition</b> Parameters.cpp:543</div></div>
 <div class="ttc" id="astructobject_html_af1885328b51d89a6f94d091d6e4ed183"><div class="ttname"><a href="structobject.html#af1885328b51d89a6f94d091d6e4ed183">object::fp</a></div><div class="ttdeci">double fp(string symb)</div><div class="ttdoc">object function to get the numerical value of a parameter within the object</div><div class="ttdef"><b>Definition</b> Parameters.cpp:463</div></div>
 </div><!-- fragment --></div><!-- contents -->

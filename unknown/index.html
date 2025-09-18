@@ -99,8 +99,7 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
   <div class="headertitle"><div class="title">bioCHP plant model </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_README"></a> <a href="https://github.com/iDesignRES/CHP_modelling/actions?query=workflow%3ACI"><img src="https://github.com/iDesignRES/CHP_modelling/workflows/CI/badge.svg" alt="Build Status" style="pointer-events: none;" class="inline"/></a> <a href="https://idesignres.github.io/CHP_modelling/stable/"><img src="https://img.shields.io/badge/docs-stable-blue.svg" alt="Stable" style="pointer-events: none;" class="inline"/></a> <a href="https://idesignres.github.io/CHP_modelling/dev/"><img src="https://img.shields.io/badge/docs-dev-blue.svg" alt="In Development" style="pointer-events: none;" class="inline"/></a> <img src="https://img.shields.io/badge/clang--format-Google%20style-blue?logo=clang&amp;logoColor=white" alt="clang-format" class="inline"/></p>
-<p>This README provides an overview of the iDesignRES biomass-based Combined Heat and Power (bioCHP) Model within iDesignRES.</p>
+<div class="textblock"><p><a class="anchor" id="md_README"></a> This README provides an overview of the iDesignRES biomass-based Combined Heat and Power (bioCHP) Model within iDesignRES.</p>
 <p>It is handled by SINTEF Energy Research and part of WP1, Task number Task 1.3.</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
 Purpose of the model</h1>
@@ -114,7 +113,7 @@ Model design philosophy</h1>
 <li>Equipment as objects (classes) within processes, defined by their type (ex. pump, boiler, heat exchanger, etc) and main design specifications.</li>
 <li>Cost module, evaluates CAPEX and OPEX using flows and equipment as inputs. CAPEX is calculated in terms of the total permanent investment, which includes the installed cost of all equipment and additional capital cost factors associated with piping, electric system and instrumentation and control, land, civil work for site preparation and construction of buildings, engineering and contingencies for civil work and process equipment, and project development and licenses. OPEX is the annual operating costs, calculated as the sum of variable direct operational cost (proportional the annual operating time) and fixed indirect operational costs (required for having the plant in activity).</li>
 </ul>
-<p>Detailed description of the model can be found at <a class="el" href="detailed_model_documentation.html">Detailed Model Documentation</a>.</p>
+<p>Detailed description of the model can be found at detailed_model_documentation.</p>
 <h1><a class="anchor" id="autotoc_md3"></a>
 Core assumptions</h1>
 <ul>
@@ -144,21 +143,7 @@ Model tests description</h1>
 <li>bioCHP_wrapper_test.cpp: bioCHP plant using four biomass feedstock with specified electric power production and several heat</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md6"></a>
-Prerequisites</h1>
-<ul>
-<li><b>Git</b>: Ensure Git is installed on your system.</li>
-<li><b>CMake</b>: Install CMake from CMake website.</li>
-<li><b>C++ Compiler</b>: Install a C++ compiler (e.g., <code>g++</code> for Linux, <code>MinGW</code> or Visual Studio for Windows).</li>
-</ul>
-<h1><a class="anchor" id="autotoc_md7"></a>
-Getting Started</h1>
-<h2><a class="anchor" id="autotoc_md8"></a>
-Cloning the Repository</h2>
-<p>First, clone the repository to your local computer: </p><div class="fragment"><div class="line">mkdir [your_project_name]</div>
-<div class="line">cd [your_project_name]</div>
-<div class="line">git clone https://github.com/yourusername/your-repo.git</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md9"></a>
-Linux Setup</h2>
+Quick start - Linux Setup</h1>
 <ol type="1">
 <li><b>Install Dependencies</b>: Ensure you have <code>g++</code> and CMake installed. You can install them using: <div class="fragment"><div class="line">sudo apt update</div>
 <div class="line">sudo apt install g++ cmake</div>
@@ -171,7 +156,7 @@ Linux Setup</h2>
 <div class="line">ctest --verbose</div>
 </div><!-- fragment --></li>
 </ol>
-<h1><a class="anchor" id="autotoc_md10"></a>
+<h1><a class="anchor" id="autotoc_md7"></a>
 Project Funding</h1>
 <p>The development of <code>bioCHP_plant</code> was funded by the European Union’s Horizon Europe research and innovation programme in the project <a href="https://idesignres.eu/">iDesignRES</a> under grant agreement <a href="https://doi.org/10.3030/101095849">101095849</a>. </p>
 </div></div><!-- PageDoc -->

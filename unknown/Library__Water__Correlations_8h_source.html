@@ -589,101 +589,99 @@ $(document).ready(function(){initNavTree('Library__Water__Correlations_8h_source
 <div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span>}</div>
 <div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span> </div>
 <div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span><span class="keywordtype">double</span> sPSatSteam(<span class="keywordtype">double</span> P) {</div>
-<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span>  <span class="comment">// Entropi [kJ/(kg K)] som funksjon av trykk P [bara]</span></div>
-<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span>  <span class="keywordtype">double</span> A, B, C, D, E, f, G, H, i, j, k;</div>
-<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span> </div>
-<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span>  A = 7.359240216;</div>
-<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>  B = 0.13119276;</div>
-<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>  C = 0.630242728;</div>
-<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>  D = -0.10155537;</div>
-<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span>  E = -0.78903897;</div>
-<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>  f = 0.004329778;</div>
-<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span>  G = 0.065565806;</div>
-<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span>  H = 0.000569646;</div>
-<div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span>  i = 0.002292981;</div>
-<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span>  j = 0.0000202713;</div>
-<div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span> </div>
-<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>  <span class="keywordflow">return</span> (A + C * log(P) + E * pow(log(P), 2.0) + G * pow(log(P), 3.0) +</div>
-<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span>          i * pow(log(P), 4.0)) /</div>
-<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>         (1.0 + B * log(P) + D * pow(log(P), 2.0) + f * pow(log(P), 3.0) +</div>
-<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>          H * pow(log(P), 4.0) + j * pow(log(P), 5.0));</div>
-<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>}</div>
-<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span> </div>
-<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span><span class="keywordtype">double</span> sTWater(<span class="keywordtype">double</span> T) {</div>
-<div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span>  <span class="comment">// Entropi [kJ/(kg K)] i vann som funksjon av temperatur T [C]</span></div>
-<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span>  <span class="keywordtype">double</span> A, B, C, D, E, f, G, H, i, j, k;</div>
-<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span> </div>
-<div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span>  A = 1.40623e-50;</div>
-<div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span>  B = 0.000151552;</div>
-<div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>  C = 0.000217867;</div>
-<div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span>  D = -0.00000000054663;</div>
-<div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span>  E = 0.0000000225065;</div>
-<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span>  f = -1.7725e-14;</div>
-<div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span>  G = -2.5516e-13;</div>
-<div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span>  H = 1.14005e-19;</div>
-<div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span>  i = 7.68145e-20;</div>
-<div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span>  j = -1.2373e-25;</div>
-<div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>  k = 3.70402e-24;</div>
-<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span> </div>
-<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>  <span class="keywordflow">return</span> pow(((A + C * pow(T, 2.0) + E * pow(T, 4.0) + G * pow(T, 6.0) +</div>
-<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span>               i * pow(T, 8.0) + k * pow(T, 10.0)) /</div>
-<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span>              (1.0 + B * pow(T, 2.0) + D * pow(T, 4.0) + f * pow(T, 6.0) +</div>
-<div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>               H * pow(T, 8.0) + j * pow(T, 10))),</div>
-<div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span>             0.5);</div>
-<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>}</div>
-<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span> </div>
-<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span><span class="keywordtype">double</span> HTSteam(<span class="keywordtype">double</span> T) {</div>
-<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span>  <span class="keywordtype">double</span> A, B, C, D, E, f, G, H, i;</div>
-<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span> </div>
-<div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span>  A = 6419730;</div>
-<div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span>  B = 0.0000674237;</div>
-<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>  C = 559.7205236;</div>
-<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>  D = -0.0000000008934;</div>
-<div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span>  E = -0.00649911;</div>
-<div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span>  f = 3.6399e-15;</div>
-<div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span>  G = 0.0000000141076;</div>
-<div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span>  H = -7.1983e-21;</div>
-<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span>  i = 1.18814E-14;</div>
-<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span> </div>
-<div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span>  <span class="keywordflow">return</span> pow(((A + C * pow(T, 2.0) + E * pow(T, 4.0) + G * pow(T, 6.0) +</div>
-<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>               i * pow(T, 8.0)) /</div>
-<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>              (1.0 + B * pow(T, 2.0) + D * pow(T, 4.0) + f * pow(T, 6.0) +</div>
-<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span>               H * pow(T, 8.0))),</div>
-<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span>             0.5);</div>
-<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span>}</div>
-<div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span> </div>
-<div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span><span class="keywordtype">double</span> vTWater(<span class="keywordtype">double</span> T) {</div>
-<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span>  <span class="keywordtype">double</span> A, B, C, D, E;</div>
-<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span>  A = -0.0014778;</div>
-<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span>  B = 0.003805233;</div>
-<div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span>  C = 372.8596342;</div>
-<div class="line"><a id="l00628" name="l00628"></a><span class="lineno">  628</span>  D = 10271.62001;</div>
-<div class="line"><a id="l00629" name="l00629"></a><span class="lineno">  629</span>  E = 0.048420526;</div>
-<div class="line"><a id="l00630" name="l00630"></a><span class="lineno">  630</span> </div>
-<div class="line"><a id="l00631" name="l00631"></a><span class="lineno">  631</span>  <span class="keywordflow">return</span> A + B / pow((1.0 + 4.0 * pow(((T - C) / D), 2.0) *</div>
-<div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span>                                (pow(2.0, (1.0 / E)) - 1.0)),</div>
-<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span>                     E);</div>
-<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span>}</div>
-<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span> </div>
-<div class="line"><a id="l00641" name="l00641"></a><span class="lineno">  641</span><span class="keywordtype">double</span> vTSteam(<span class="keywordtype">double</span> T) {</div>
-<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span>  <span class="keywordtype">double</span> A, B, C, D, E, f;</div>
-<div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span> </div>
-<div class="line"><a id="l00644" name="l00644"></a><span class="lineno">  644</span>  A = 5.329275975;</div>
-<div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span>  B = 0.002538932;</div>
-<div class="line"><a id="l00646" name="l00646"></a><span class="lineno">  646</span>  C = -0.05548114;</div>
-<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span>  D = -0.0000065631;</div>
-<div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span>  E = 0.0000826718;</div>
-<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span>  f = -0.0000000061263;</div>
-<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span> </div>
-<div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span>  <span class="keywordflow">return</span> exp((A + C * T + E * pow(T, 2.0)) /</div>
-<div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span>             (1.0 + B * T + D * pow(T, 2.0) + f * pow(T, 3.0)));</div>
-<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>}</div>
-<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span> </div>
-<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span><span class="keywordtype">double</span> HVapH2O(<span class="keywordtype">double</span> T) { <span class="keywordflow">return</span> HTSteam(T) - hTWater(T); }</div>
-<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span> </div>
-<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span><span class="keywordtype">double</span> CpWater(<span class="keywordtype">double</span> T) {</div>
-<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span>  <span class="keywordflow">return</span> hTWater(T + 1) - hTWater(T);  <span class="comment">// 29.05.2003</span></div>
-<div class="line"><a id="l00669" name="l00669"></a><span class="lineno">  669</span>}</div>
+<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span>  <span class="keywordtype">double</span> A, B, C, D, E, f, G, H, i, j, k;</div>
+<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span> </div>
+<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span>  A = 7.359240216;</div>
+<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span>  B = 0.13119276;</div>
+<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>  C = 0.630242728;</div>
+<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>  D = -0.10155537;</div>
+<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>  E = -0.78903897;</div>
+<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span>  f = 0.004329778;</div>
+<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>  G = 0.065565806;</div>
+<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span>  H = 0.000569646;</div>
+<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span>  i = 0.002292981;</div>
+<div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span>  j = 0.0000202713;</div>
+<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span> </div>
+<div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>  <span class="keywordflow">return</span> (A + C * log(P) + E * pow(log(P), 2.0) + G * pow(log(P), 3.0) +</div>
+<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>          i * pow(log(P), 4.0)) /</div>
+<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span>         (1.0 + B * log(P) + D * pow(log(P), 2.0) + f * pow(log(P), 3.0) +</div>
+<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>          H * pow(log(P), 4.0) + j * pow(log(P), 5.0));</div>
+<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>}</div>
+<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span> </div>
+<div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span><span class="keywordtype">double</span> sTWater(<span class="keywordtype">double</span> T) {</div>
+<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span>  <span class="keywordtype">double</span> A, B, C, D, E, f, G, H, i, j, k;</div>
+<div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span> </div>
+<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span>  A = 1.40623e-50;</div>
+<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span>  B = 0.000151552;</div>
+<div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span>  C = 0.000217867;</div>
+<div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span>  D = -0.00000000054663;</div>
+<div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>  E = 0.0000000225065;</div>
+<div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span>  f = -1.7725e-14;</div>
+<div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span>  G = -2.5516e-13;</div>
+<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span>  H = 1.14005e-19;</div>
+<div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span>  i = 7.68145e-20;</div>
+<div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span>  j = -1.2373e-25;</div>
+<div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span>  k = 3.70402e-24;</div>
+<div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span> </div>
+<div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>  <span class="keywordflow">return</span> pow(((A + C * pow(T, 2.0) + E * pow(T, 4.0) + G * pow(T, 6.0) +</div>
+<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>               i * pow(T, 8.0) + k * pow(T, 10.0)) /</div>
+<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>              (1.0 + B * pow(T, 2.0) + D * pow(T, 4.0) + f * pow(T, 6.0) +</div>
+<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span>               H * pow(T, 8.0) + j * pow(T, 10))),</div>
+<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span>             0.5);</div>
+<div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>}</div>
+<div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span> </div>
+<div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span><span class="keywordtype">double</span> HTSteam(<span class="keywordtype">double</span> T) {</div>
+<div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span>  <span class="keywordtype">double</span> A, B, C, D, E, f, G, H, i;</div>
+<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span> </div>
+<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span>  A = 6419730;</div>
+<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span>  B = 0.0000674237;</div>
+<div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span>  C = 559.7205236;</div>
+<div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span>  D = -0.0000000008934;</div>
+<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>  E = -0.00649911;</div>
+<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>  f = 3.6399e-15;</div>
+<div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span>  G = 0.0000000141076;</div>
+<div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span>  H = -7.1983e-21;</div>
+<div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span>  i = 1.18814E-14;</div>
+<div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span> </div>
+<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span>  <span class="keywordflow">return</span> pow(((A + C * pow(T, 2.0) + E * pow(T, 4.0) + G * pow(T, 6.0) +</div>
+<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span>               i * pow(T, 8.0)) /</div>
+<div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span>              (1.0 + B * pow(T, 2.0) + D * pow(T, 4.0) + f * pow(T, 6.0) +</div>
+<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>               H * pow(T, 8.0))),</div>
+<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>             0.5);</div>
+<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span>}</div>
+<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span> </div>
+<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span><span class="keywordtype">double</span> vTWater(<span class="keywordtype">double</span> T) {</div>
+<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span>  <span class="keywordtype">double</span> A, B, C, D, E;</div>
+<div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span>  A = -0.0014778;</div>
+<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span>  B = 0.003805233;</div>
+<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span>  C = 372.8596342;</div>
+<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span>  D = 10271.62001;</div>
+<div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span>  E = 0.048420526;</div>
+<div class="line"><a id="l00628" name="l00628"></a><span class="lineno">  628</span> </div>
+<div class="line"><a id="l00629" name="l00629"></a><span class="lineno">  629</span>  <span class="keywordflow">return</span> A + B / pow((1.0 + 4.0 * pow(((T - C) / D), 2.0) *</div>
+<div class="line"><a id="l00630" name="l00630"></a><span class="lineno">  630</span>                                (pow(2.0, (1.0 / E)) - 1.0)),</div>
+<div class="line"><a id="l00631" name="l00631"></a><span class="lineno">  631</span>                     E);</div>
+<div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span>}</div>
+<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span> </div>
+<div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span><span class="keywordtype">double</span> vTSteam(<span class="keywordtype">double</span> T) {</div>
+<div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span>  <span class="keywordtype">double</span> A, B, C, D, E, f;</div>
+<div class="line"><a id="l00641" name="l00641"></a><span class="lineno">  641</span> </div>
+<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span>  A = 5.329275975;</div>
+<div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span>  B = 0.002538932;</div>
+<div class="line"><a id="l00644" name="l00644"></a><span class="lineno">  644</span>  C = -0.05548114;</div>
+<div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span>  D = -0.0000065631;</div>
+<div class="line"><a id="l00646" name="l00646"></a><span class="lineno">  646</span>  E = 0.0000826718;</div>
+<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span>  f = -0.0000000061263;</div>
+<div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span> </div>
+<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span>  <span class="keywordflow">return</span> exp((A + C * T + E * pow(T, 2.0)) /</div>
+<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span>             (1.0 + B * T + D * pow(T, 2.0) + f * pow(T, 3.0)));</div>
+<div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span>}</div>
+<div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span> </div>
+<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span><span class="keywordtype">double</span> HVapH2O(<span class="keywordtype">double</span> T) { <span class="keywordflow">return</span> HTSteam(T) - hTWater(T); }</div>
+<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span> </div>
+<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span><span class="keywordtype">double</span> CpWater(<span class="keywordtype">double</span> T) {</div>
+<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span>  <span class="keywordflow">return</span> hTWater(T + 1) - hTWater(T);  <span class="comment">// 29.05.2003</span></div>
+<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span>}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

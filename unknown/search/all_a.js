@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['nominal_20steady_20state_20operation_0',['Mass and energy flows (nominal steady state operation)',['../detailed_model_documentation.html#back-bio_CHP-math-balances',1,'']]]
+  ['object_0',['object',['../structobject.html',1,'object'],['../structobject.html#a1d4faef9484c90edd2ace948d7f4a9f1',1,'object::object()']]],
+  ['of_20the_20model_1',['Purpose of the model',['../index.html#autotoc_md1',1,'']]]
 ];

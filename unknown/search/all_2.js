@@ -6,8 +6,6 @@ var searchData=
   ['calculate_5fflow_5fproperties_3',['calculate_flow_properties',['../structflow.html#a04d288e5b942e195b7ca067e6517c7a0',1,'flow']]],
   ['calculate_5fsolid_5ffuel_4',['calculate_solid_fuel',['../structflow.html#af547bab0b5c03516afd2b2893e4d6fe0',1,'flow']]],
   ['calculate_5fspecies_5fproperties_5',['calculate_species_properties',['../structflow.html#a9d336cf18e1ab2424c79feb9caec2a2d',1,'flow']]],
-  ['capex_6',['CAPEX',['../detailed_model_documentation.html#back-bio_CHP-math-CAPEX',1,'']]],
-  ['cloning_20the_20repository_7',['Cloning the Repository',['../index.html#autotoc_md8',1,'']]],
-  ['core_20assumptions_8',['Core assumptions',['../index.html#autotoc_md3',1,'']]],
-  ['credits_9',['CREDITS',['../md_src_2CREDITS.html',1,'']]]
+  ['core_20assumptions_6',['Core assumptions',['../index.html#autotoc_md3',1,'']]],
+  ['credits_7',['CREDITS',['../md_src_2CREDITS.html',1,'']]]
 ];
