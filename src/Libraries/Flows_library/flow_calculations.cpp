@@ -238,7 +238,8 @@ void flow::calculate_species_properties(std::string state_def) {
     j[n].F.T = F.T;
     j[n].F.P = F.P;
 
-    j[n].P.cp = thermodynamic_property(j[n].id, "cp", j[n].F.T + 273.15, "J/molK");
+    j[n].P.cp =
+        thermodynamic_property(j[n].id, "cp", j[n].F.T + 273.15, "J/molK");
     if (j[n].P.cp == -1.0) {
       j[n].P.cp = 0.0;
     }
@@ -248,12 +249,14 @@ void flow::calculate_species_properties(std::string state_def) {
       j[n].P.h = 0.0;
     }
 
-    j[n].P.hf = thermodynamic_property(j[n].id, "hf", j[n].F.T + 273.15, "J/mol");
+    j[n].P.hf =
+        thermodynamic_property(j[n].id, "hf", j[n].F.T + 273.15, "J/mol");
     if (j[n].P.hf == -1.0) {
       j[n].P.hf = 0.0;
     }
 
-    j[n].P.s = thermodynamic_property(j[n].id, "s", j[n].F.T + 273.15, "J/molK");
+    j[n].P.s =
+        thermodynamic_property(j[n].id, "s", j[n].F.T + 273.15, "J/molK");
     if (j[n].P.s == -1.0) {
       j[n].P.s = 0.0;
     }

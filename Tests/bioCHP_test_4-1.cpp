@@ -1,14 +1,14 @@
-#include <iomanip>  // for setprecision
 #include <cstddef>
+#include <iomanip>  // for setprecision
+#include <iostream>
 #include <string>
 #include <vector>
-#include <iostream>
 
 #include "../src/bioCHP.h"
 
 int main() {
-  std::vector<std::string> fuel_def = {"spruce_stem", "spruce_bark", "birch_stem",
-                                       "spruce_T&B"};
+  std::vector<std::string> fuel_def = {"spruce_stem", "spruce_bark",
+                                       "birch_stem", "spruce_T&B"};
   std::vector<double> Yj = {0.1, 0.2, 0.3, 0.4};
   std::vector<double> YH2Oj = {0.4, 0.5, 0.35, 0.45};
   double W_el = 100.0;

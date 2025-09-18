@@ -1,9 +1,9 @@
 #include <iomanip>  // for setprecision
 
 #include <cstddef>
+#include <iostream>
 #include <string>
 #include <vector>
-#include <iostream>
 
 #include "../src/Parameters.h"
 #include "../src/bioCHP.h"

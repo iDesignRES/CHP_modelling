@@ -30,7 +30,8 @@ std::string get_database_path(std::string sub_path) {
   std::string db_file_path;
   std::size_t pos = current_file_path.find_last_of("/\\");
   if (pos != std::string::npos) {
-    db_file_path = current_file_path.substr(0, pos + 1) + "Database/" + sub_path;
+    db_file_path =
+        current_file_path.substr(0, pos + 1) + "Database/" + sub_path;
   } else {
     db_file_path = "";
   }

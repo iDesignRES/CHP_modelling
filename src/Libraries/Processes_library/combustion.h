@@ -29,5 +29,5 @@ void calculate_fuel_combustion_properties(flow fuel, object &prop);
  * @output &comb = boiler object with calculated output parameters
  */
 void solid_fuel_boiler(std::vector<flow> &fuel, std::vector<flow> &comb_air,
-             flow &flue_gas, flow &bottom_ash, flow &fly_ash,
-             object &comb);
+                       flow &flue_gas, flow &bottom_ash, flow &fly_ash,
+                       object &comb);

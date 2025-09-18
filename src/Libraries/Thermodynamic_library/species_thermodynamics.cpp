@@ -15,7 +15,7 @@
  * @param Hf298 specific molar formation enthalpy
  */
 double shomate(std::string property, double tK, double A, double B, double C,
-         double D, double E, double F, double G, double Hf298) {
+               double D, double E, double F, double G, double Hf298) {
   // properties
   // cp = heat capacity (J/mol*K) = A + B * t + C * t2 + D * t3 + E / t2
   // h - H°298.15 = standard enthalpy (kJ/mol) = A*t + B*t2/2 + C*t3/3 + D*t4/4
@@ -23,19 +23,21 @@ double shomate(std::string property, double tK, double A, double B, double C,
   // t2 / 2 + D * t3 / 3 - E / (2 * t2) + G
 
   if (property == "cp") {
-  return A + B * std::pow(tK, 1.0) + C * std::pow(tK, 2.0) + D * std::pow(tK, 3.0) +
-       E / std::pow(tK, 2.0);
+    return A + B * std::pow(tK, 1.0) + C * std::pow(tK, 2.0) +
+           D * std::pow(tK, 3.0) + E / std::pow(tK, 2.0);
   }
   if (property == "h") {
-  return A * std::pow(tK, 1.0) + B * std::pow(tK, 2.0) / 2.0 + C * std::pow(tK, 3.0) / 3.0 +
-       D * std::pow(tK, 4.0) / 4.0 - E / tK + F - Hf298;
+    return A * std::pow(tK, 1.0) + B * std::pow(tK, 2.0) / 2.0 +
+           C * std::pow(tK, 3.0) / 3.0 + D * std::pow(tK, 4.0) / 4.0 - E / tK +
+           F - Hf298;
   }
   if (property == "hf") {
-  return Hf298;
+    return Hf298;
   }
   if (property == "s") {
-  return A * std::log(tK) + B * std::pow(tK, 1.0) + C * std::pow(tK, 2.0) / 2.0 +
-       D * std::pow(tK, 3.0) / 3.0 - E / (2.0 * std::pow(tK, 2.0)) + G;
+    return A * std::log(tK) + B * std::pow(tK, 1.0) +
+           C * std::pow(tK, 2.0) / 2.0 + D * std::pow(tK, 3.0) / 3.0 -
+           E / (2.0 * std::pow(tK, 2.0)) + G;
   }
 
   return -1;
@@ -52,8 +54,8 @@ double shomate(std::string property, double tK, double A, double B, double C,
  * @param TK Temperature (K)
  * @param unit, string specifying the units of the property
  */
-double thermodynamic_property(std::string species, std::string property, double TK,
-                std::string unit) {
+double thermodynamic_property(std::string species, std::string property,
+                              double TK, std::string unit) {
   double tK = TK / 1000.0;
 
   if (species == "CO2") {

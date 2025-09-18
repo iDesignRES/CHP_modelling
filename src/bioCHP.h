@@ -26,7 +26,8 @@
  * @return false if some error/inconsistency, or true otherwise
  */
 bool bioCHP_plant(std::vector<std::string> fuel_def, std::vector<double> Yj,
-          std::vector<double> YH2Oj, double W_el, std::vector<double> Qk,
-          std::vector<double> Tk_in, std::vector<double> Tk_out,
-          std::vector<double> &Mj, double &Q_prod, double &W_el_prod,
-          double &C_inv, double &C_op, double &C_op_var);
+                  std::vector<double> YH2Oj, double W_el,
+                  std::vector<double> Qk, std::vector<double> Tk_in,
+                  std::vector<double> Tk_out, std::vector<double> &Mj,
+                  double &Q_prod, double &W_el_prod, double &C_inv,
+                  double &C_op, double &C_op_var);

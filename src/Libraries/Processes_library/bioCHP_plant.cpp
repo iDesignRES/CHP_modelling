@@ -3,11 +3,11 @@
 #include <cstddef>
 #include <iostream>
 
-#include "../../utils.h"
 #include "../../Cost.h"
-#include "flue_gas_cleaning.h"
-#include "combustion.h"
+#include "../../utils.h"
 #include "Rankine_cycle.h"
+#include "combustion.h"
+#include "flue_gas_cleaning.h"
 
 void get_feedstock(std::vector<flow> &f, object &plant) {
   double LHV = 0.0;
@@ -36,9 +36,12 @@ void get_feedstock(std::vector<flow> &f, object &plant) {
  * @return &bioCHP object with calculated output parameters
  */
 void bioCHP_plant_model(object &bioCHP) {
-  object boiler("system", "solid_fuel_boiler", get_database_path("bioCHP_inputs"));
-  object rankine("process", "Rankine_cycle", get_database_path("bioCHP_inputs"));
-  object scrubber("process", "flue_gas_cleaning", get_database_path("bioCHP_inputs"));
+  object boiler("system", "solid_fuel_boiler",
+                get_database_path("bioCHP_inputs"));
+  object rankine("process", "Rankine_cycle",
+                 get_database_path("bioCHP_inputs"));
+  object scrubber("process", "flue_gas_cleaning",
+                  get_database_path("bioCHP_inputs"));
 
   std::cout << "Getting the feedstock data: " << std::endl;
 
@@ -68,9 +71,10 @@ void bioCHP_plant_model(object &bioCHP) {
 
   if (bioCHP.bp("W_el")) {
     std::cout << "bioCHP PLANT calculation using W_el = " << bioCHP.fp("W_el")
-         << std::endl;
+              << std::endl;
 
-    std::cout << "Estimating the required feedstock mass flow rate" << std::endl;
+    std::cout << "Estimating the required feedstock mass flow rate"
+              << std::endl;
 
     double W_el = bioCHP.fp("W_el");
 
@@ -130,7 +134,8 @@ void bioCHP_plant_model(object &bioCHP) {
   std::cout << "------------" << std::endl;
   std::cout << "fuel M (kg/s): " << boiler.fp("M_fuel") << std::endl;
   for (std::size_t nf = 0; nf < feed.size(); nf++) {
-    std::cout << '\t' << feed[nf].def << " (kg/s): " << feed[nf].F.M << std::endl;
+    std::cout << '\t' << feed[nf].def << " (kg/s): " << feed[nf].F.M
+              << std::endl;
   }
   std::cout << "Combustion air M: " << comb_air[0].F.M << std::endl;
   std::cout << "flue gas M: " << flue_gas.F.M << std::endl;
@@ -142,7 +147,8 @@ void bioCHP_plant_model(object &bioCHP) {
   std::cout << "-------------" << std::endl;
   std::cout << "Fuel Hf (MW): " << boiler.fp("Hf") << std::endl;
   for (std::size_t nf = 0; nf < feed.size(); nf++) {
-    std::cout << '\t' << feed[nf].def << " (MW): " << feed[nf].F.Hf << std::endl;
+    std::cout << '\t' << feed[nf].def << " (MW): " << feed[nf].F.Hf
+              << std::endl;
   }
   std::cout << "Q_out: (MW) " << boiler.fp("Q_out") * 1.0e-6 << std::endl;
   std::cout << "Q_loss: (MW) " << boiler.fp("Q_loss") * 1.0e-6 << std::endl;

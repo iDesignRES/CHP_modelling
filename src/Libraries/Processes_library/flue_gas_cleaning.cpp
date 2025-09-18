@@ -1,8 +1,8 @@
 #include "flue_gas_cleaning.h"
 #include <cstddef>
+#include <iostream>
 #include <string>
 #include <vector>
-#include <iostream>
 
 #include "../../Cost.h"
 

@@ -13,9 +13,9 @@
  * @param C_maint = Maintenance cost
  */
 struct equipment {
-  public:
-    std::string def;
-    double Cpi, W_el, C_maint;
+ public:
+  std::string def;
+  double Cpi, W_el, C_maint;
 };
 
 /**
@@ -27,9 +27,9 @@ struct equipment {
  * @param C_annual = Annual cost
  */
 struct material {
-  public:
-    std::string type, def;
-    double Q_annual, price, C_annual;
+ public:
+  std::string type, def;
+  double Q_annual, price, C_annual;
 };
 
 /**

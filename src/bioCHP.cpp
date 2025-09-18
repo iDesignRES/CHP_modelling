@@ -2,18 +2,20 @@
 #include <cstddef>
 #include <iostream>
 
-#include "utils.h"
-#include "Parameters.h"
 #include "Libraries/Processes_library/bioCHP_plant.h"
+#include "Parameters.h"
+#include "utils.h"
 
 bool bioCHP_plant(std::vector<std::string> fuel_def, std::vector<double> Yj,
-                  std::vector<double> YH2Oj, double W_el, std::vector<double> Qk,
-                  std::vector<double> Tk_in, std::vector<double> Tk_out,
-                  std::vector<double> &Mj, double &Q_prod, double &W_el_prod,
-                  double &C_inv, double &C_op, double &C_op_var) {
+                  std::vector<double> YH2Oj, double W_el,
+                  std::vector<double> Qk, std::vector<double> Tk_in,
+                  std::vector<double> Tk_out, std::vector<double> &Mj,
+                  double &Q_prod, double &W_el_prod, double &C_inv,
+                  double &C_op, double &C_op_var) {
   // Check specificatins of feedstock
   if (fuel_def.size() != Yj.size()) {
-    std::cout << "number of specifications for Yj and fuel_def re different" << std::endl;
+    std::cout << "number of specifications for Yj and fuel_def re different"
+              << std::endl;
     return false;
   }
 
@@ -21,7 +23,7 @@ bool bioCHP_plant(std::vector<std::string> fuel_def, std::vector<double> Yj,
   for (std::size_t nf = 0; nf < fuel_def.size(); nf++) {
     if (!find_flow(fuel_def[nf])) {
       std::cout << "feedstock " + fuel_def[nf] + " not found in the database "
-           << std::endl;
+                << std::endl;
       for (std::size_t nff = 0; nff < fuel_def.size(); nff++) {
         Mj.push_back(0.0);
       }
@@ -36,22 +38,24 @@ bool bioCHP_plant(std::vector<std::string> fuel_def, std::vector<double> Yj,
 
   // Check specificatins of heat demands
   if (Qk.size() != Tk_in.size()) {
-    std::cout << "number of specifications for Tk_in and Qk are different" << std::endl;
+    std::cout << "number of specifications for Tk_in and Qk are different"
+              << std::endl;
     return false;
   }
   if (Qk.size() != Tk_out.size()) {
-    std::cout << "number of specifications for Tk_out and Qk are different" << std::endl;
+    std::cout << "number of specifications for Tk_out and Qk are different"
+              << std::endl;
     return false;
   }
   if (Tk_in.size() != Tk_out.size()) {
     std::cout << "number of specifications for Tk_in and Tk_out are different"
-         << std::endl;
+              << std::endl;
     return false;
   }
   for (std::size_t nk = 0; nk < Tk_in.size(); nk++) {
     if (Tk_in[nk] > Tk_out[nk]) {
       std::cout << "return temperature of heat demand no. " << nk
-           << " is higher than supply temperature" << std::endl;
+                << " is higher than supply temperature" << std::endl;
       return false;
     }
   }
@@ -63,9 +67,9 @@ bool bioCHP_plant(std::vector<std::string> fuel_def, std::vector<double> Yj,
   }
   if (sum_Qk > 0.5 * (W_el / 0.2)) {
     std::cout << "there is not sufficient heat available from Rankine cycle to "
-            "supply the "
-            "specifiy heat demand"
-         << std::endl;
+                 "supply the "
+                 "specifiy heat demand"
+              << std::endl;
     std::cout << "Reducing proportionally the heat demands" << std::endl;
     for (std::size_t nk = 0; nk < Qk.size(); nk++) {
       Qk[nk] = Qk[nk] * (0.5 * (W_el / 0.2)) / sum_Qk;

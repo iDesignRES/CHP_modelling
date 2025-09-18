@@ -38,13 +38,13 @@ struct object {
 
 // Function declarations
 std::string get_str_parameter(std::vector<parameter> &par, std::string sys_type,
-                         std::string sys_def, std::string data_id);
+                              std::string sys_def, std::string data_id);
 
 double get_num_parameter(std::vector<parameter> &par, std::string sys_type,
                          std::string sys_def, std::string data_id);
 
-void get_parameters(std::vector<parameter> &par, std::string sys_type, std::string sys_def,
-                    std::string input_file);
+void get_parameters(std::vector<parameter> &par, std::string sys_type,
+                    std::string sys_def, std::string input_file);
 
 void export_output_parameters(object &obj, std::string file);
 
@@ -52,22 +52,27 @@ void print_parameter(parameter &p);
 
 void print_parameters(object &obj);
 
-std::vector<std::string> sp_vct(std::vector<parameter> &par, std::string sys_type, std::string sys_def,
-                      std::string data_id);
+std::vector<std::string> sp_vct(std::vector<parameter> &par,
+                                std::string sys_type, std::string sys_def,
+                                std::string data_id);
 
-void val_p(std::vector<parameter> &par, std::string data_def, std::string sys_type,
-           std::string sys_def, std::string data_id, double val);
+void val_p(std::vector<parameter> &par, std::string data_def,
+           std::string sys_type, std::string sys_def, std::string data_id,
+           double val);
 
-void str_p(std::vector<parameter> &par, std::string data_def, std::string sys_type,
-           std::string sys_def, std::string data_id, std::string val);
+void str_p(std::vector<parameter> &par, std::string data_def,
+           std::string sys_type, std::string sys_def, std::string data_id,
+           std::string val);
 
-std::vector<double> fp_vct(std::vector<parameter> &par, std::string sys_type, std::string sys_def,
-                      std::string data_id);
+std::vector<double> fp_vct(std::vector<parameter> &par, std::string sys_type,
+                           std::string sys_def, std::string data_id);
 
-void fvct_p(std::vector<parameter> &par, std::string data_def, std::string sys_type,
-            std::string sys_def, std::string data_id, std::vector<double> val);
+void fvct_p(std::vector<parameter> &par, std::string data_def,
+            std::string sys_type, std::string sys_def, std::string data_id,
+            std::vector<double> val);
 
-void svct_p(std::vector<parameter> &par, std::string data_def, std::string sys_type,
-            std::string sys_def, std::string data_id, std::vector<std::string> val);
+void svct_p(std::vector<parameter> &par, std::string data_def,
+            std::string sys_type, std::string sys_def, std::string data_id,
+            std::vector<std::string> val);
 
 void transfer_parameter(std::string symb, object from, object &to);

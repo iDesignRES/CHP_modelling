@@ -1,7 +1,7 @@
 #pragma once
 
-#include <vector>
 #include <string>
+#include <vector>
 
 /**
  * @brief Structure to define flow or species properties
@@ -167,4 +167,3 @@ struct flow {
  * @return true if found, false otherwise
  */
 bool find_flow(std::string input_def);
-

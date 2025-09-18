@@ -1,8 +1,8 @@
-#include <iomanip>  // for setprecision
 #include <cstddef>
+#include <iomanip>  // for setprecision
+#include <iostream>
 #include <string>
 #include <vector>
-#include <iostream>
 
 #include "../src/bioCHP.h"
 

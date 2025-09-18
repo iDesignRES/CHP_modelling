@@ -14,7 +14,7 @@
  * @param Hf298 specific molar formation enthalpy
  */
 double shomate(std::string property, double tK, double A, double B, double C,
-         double D, double E, double F, double G, double Hf298);
+               double D, double E, double F, double G, double Hf298);
 
 /**
  * @brief Function to calculate thermodynamic properties of one species
@@ -27,5 +27,5 @@ double shomate(std::string property, double tK, double A, double B, double C,
  * @param TK Temperature (K)
  * @param unit, string specifying the units of the property
  */
-double thermodynamic_property(std::string species, std::string property, double TK,
-               std::string unit);
+double thermodynamic_property(std::string species, std::string property,
+                              double TK, std::string unit);

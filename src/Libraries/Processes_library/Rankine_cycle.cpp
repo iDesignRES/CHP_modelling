@@ -5,9 +5,8 @@
 #include "../../Cost.h"
 #include "../Thermodynamic_library/Library_Water_Correlations.h"
 
-void steam_turbine_parameters::assign_parameter_values(std::string sys_type,
-                                                       std::string sys_def,
-                                                       std::vector<parameter> &par) {
+void steam_turbine_parameters::assign_parameter_values(
+    std::string sys_type, std::string sys_def, std::vector<parameter> &par) {
   Po = get_num_parameter(par, sys_type, sys_def, "Po");
   mu_isent = get_num_parameter(par, sys_type, sys_def, "mu_isent");
 }
@@ -130,7 +129,8 @@ void steam_turbine_model(flow &in, flow &out, object &par) {
     par.fval_p("W_el", 1e-6 * ST.W);
 
     // std::cout << "-------------------------- " << std::endl;
-    // std::cout << "Steam turbine power output: (MW): " << 1e-6 * W << std::endl;
+    // std::cout << "Steam turbine power output: (MW): " << 1e-6 * W <<
+    // std::endl;
   }
 
   if (N_bleed > 0) {
@@ -167,7 +167,8 @@ void steam_turbine_model(flow &in, flow &out, object &par) {
     par.fval_p("W_el", 1e-6 * W);
 
     // std::cout << "-------------------------- " << std::endl;
-    // std::cout << "Steam turbine power output: (MW): " << 1e-6 * W << std::endl;
+    // std::cout << "Steam turbine power output: (MW): " << 1e-6 * W <<
+    // std::endl;
   }
 }
 
@@ -232,14 +233,16 @@ void district_heating(object &par) {
       hf_out.F.M = hf_in.F.M;
 
       /*
-      std::cout << "Heating fluid:" << '\t' << "in" << '\t' << "out" << std::endl;
-      std::cout << "M (kg/s)" << '\t' << hf_in.F.M << '\t' << hf_out.F.M << std::endl;
-      std::cout << "P (bar-a)" << '\t' << hf_in.F.P << '\t' << hf_out.F.P << std::endl;
-      std::cout << "T (deg-C)" << '\t' << hf_in.F.T << '\t' << hf_out.F.T << std::endl;
-      std::cout << "h (kJ/kg)" << '\t' << hf_in.P.h << '\t' << hf_out.P.h << std::endl;
+      std::cout << "Heating fluid:" << '\t' << "in" << '\t' << "out" <<
+      std::endl; std::cout << "M (kg/s)" << '\t' << hf_in.F.M << '\t' <<
+      hf_out.F.M << std::endl; std::cout << "P (bar-a)" << '\t' << hf_in.F.P <<
+      '\t' << hf_out.F.P << std::endl; std::cout << "T (deg-C)" << '\t' <<
+      hf_in.F.T << '\t' << hf_out.F.T << std::endl; std::cout << "h (kJ/kg)" <<
+      '\t' << hf_in.P.h << '\t' << hf_out.P.h << std::endl;
 
       std::cout << "Qk (MW): " << par.vctp("Qk")[nk] << std::endl;
-      std::cout << "DH HX duty (MW): " << hf_in.F.M * (hf_in.P.h - hf_out.P.h) * 1e-3
+      std::cout << "DH HX duty (MW): " << hf_in.F.M * (hf_in.P.h - hf_out.P.h) *
+      1e-3
       << std::endl;
       */
 

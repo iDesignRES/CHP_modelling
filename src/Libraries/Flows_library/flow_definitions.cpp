@@ -2,8 +2,8 @@
 
 #include <cmath>
 #include <fstream>
-#include <sstream>
 #include <iostream>
+#include <sstream>
 
 #include "../../utils.h"
 
@@ -36,7 +36,8 @@ std::size_t index_species(std::vector<species> &spc, std::string spc_id) {
       return i;
     }
   }
-  return static_cast<std::size_t>(-1);  // returns a negative number if species does not exist in the vector
+  return static_cast<std::size_t>(
+      -1);  // returns a negative number if species does not exist in the vector
 }
 
 flow::flow(std::string flw_def) {
@@ -76,7 +77,8 @@ void flow::interpret_molecules() {
   std::string txt;
   int ctr_atom, ctr_atom1, ctr_atom2, ctr_molec, pos1, pos2;
 
-  // std::cout << "Molecule interpreter. No. molecules: " << j.size() << std::endl;
+  // std::cout << "Molecule interpreter. No. molecules: " << j.size() <<
+  // std::endl;
 
   if (j.size() > 0) {
     for (std::size_t n = 0; n < j.size(); n++) {
@@ -91,19 +93,19 @@ void flow::interpret_molecules() {
       pos2 = 0;
       while (pos1 < j[n].formula.length()) {
         if (molec_ID[pos1] == 'T' &&
-        (molec_ID[pos1 + 1] == 'X' || molec_ID[pos1 + 1] == '-')) {
+            (molec_ID[pos1 + 1] == 'X' || molec_ID[pos1 + 1] == '-')) {
           pos1 = pos1 + 2;
         }
         if (molec_ID[pos1] == 'S' &&
-        (molec_ID[pos1 + 1] == 'X' || molec_ID[pos1 + 1] == '-')) {
+            (molec_ID[pos1 + 1] == 'X' || molec_ID[pos1 + 1] == '-')) {
           pos1 = pos1 + 2;
         }
         if ((molec_ID[pos1] == '+' || molec_ID[pos1] == '-') &&
-        (molec_ID[pos1 + 1] >= '1' && molec_ID[pos1 + 1] <= '9')) {
+            (molec_ID[pos1 + 1] >= '1' && molec_ID[pos1 + 1] <= '9')) {
           break;
         }
         if ((molec_ID[pos1] == '+' || molec_ID[pos1] == '-') &&
-        pos1 == j[n].formula.length() - 1) {
+            pos1 == j[n].formula.length() - 1) {
           break;
         }
 
@@ -120,7 +122,8 @@ void flow::interpret_molecules() {
 
           if (i[m].id.length() == 2) {
             if (pos1 + 1 <= j[n].formula.length() - 1 &&
-                molec_ID[pos1 + 1] == atom_ID[1] && molec_ID[pos1] == atom_ID[0]) {
+                molec_ID[pos1 + 1] == atom_ID[1] &&
+                molec_ID[pos1] == atom_ID[0]) {
               ctr_atom2 = 1;
               pos1 = pos1 + 1;
               if (ctr_atom1 == 0) {
@@ -143,13 +146,13 @@ void flow::interpret_molecules() {
           }
 
           if ((pos1 < j[n].formula.length() - 1) &&
-          !(molec_ID[pos1 + 1] >= '0' && molec_ID[pos1 + 1] <= '9')) {
+              !(molec_ID[pos1 + 1] >= '0' && molec_ID[pos1 + 1] <= '9')) {
             atoms_N.push_back(1);
             pos2 = pos1 + 1;
           }
 
           if ((pos1 < j[n].formula.length() - 1) &&
-          (molec_ID[pos1 + 1] >= '0' && molec_ID[pos1 + 1] <= '9')) {
+              (molec_ID[pos1 + 1] >= '0' && molec_ID[pos1 + 1] <= '9')) {
             if ((pos1 + 1) == (j[n].formula.length() - 1)) {
               ctr_molec = 1;
               atoms_N.push_back(molec_ID[pos1 + 1] - '0');
@@ -159,8 +162,8 @@ void flow::interpret_molecules() {
               while (molec_ID[pos1 + 1] >= '0' && molec_ID[pos1 + 1] <= '9') {
                 v = 10 * v + molec_ID[pos1 + 1] - '0';
                 if ((pos1 + 1) == j[n].formula.length() - 1) {
-              ctr_molec = 1;
-              break;
+                  ctr_molec = 1;
+                  break;
                 }
                 pos1 = pos1 + 1;
               }
@@ -357,7 +360,8 @@ void species::get_species_data_(std::string spc_type) {
       }
     }
     if (atom_found == false) {
-      std::cout << "atom id " << id << " not found in the database" << std::endl;
+      std::cout << "atom id " << id << " not found in the database"
+                << std::endl;
       db.close();
       return;
     }
@@ -734,8 +738,9 @@ void flow::print_flow() {
     std::cout << "------------------- " << std::endl;
     for (std::size_t n = 0; n < j.size(); n++) {
       std::cout << j[n].id << " MW: " << j[n].P.MW << " X: " << j[n].X
-           << " Y: " << j[n].Y << " cp: " << j[n].P.cp << " ht: " << j[n].P.ht
-           << " h: " << j[n].P.h << " s: " << j[n].P.s << std::endl;
+                << " Y: " << j[n].Y << " cp: " << j[n].P.cp
+                << " ht: " << j[n].P.ht << " h: " << j[n].P.h
+                << " s: " << j[n].P.s << std::endl;
     }
   }
   std::cout << "-------------------- " << std::endl;

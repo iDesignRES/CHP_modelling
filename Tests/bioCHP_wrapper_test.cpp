@@ -1,8 +1,8 @@
-#include <cmath>      // for fabs
-#include <iomanip>    // for setprecision
+#include <cmath>    // for fabs
+#include <iomanip>  // for setprecision
+#include <iostream>
 #include <string>
 #include <vector>
-#include <iostream>
 
 #include "../src/bioCHP_wrapper.h"
 
@@ -114,7 +114,7 @@ int main(int argc, char *argv[]) {
       if (!approxEqual(Mj[nj], expected_Mj[nj])) {
         all_passed = false;
         std::cout << "Mj[" << nj << "] failed: expected " << expected_Mj[nj]
-             << ", got " << Mj[nj] << std::endl;
+                  << ", got " << Mj[nj] << std::endl;
       }
     }
 
@@ -128,31 +128,31 @@ int main(int argc, char *argv[]) {
     if (!approxEqual(Q_prod, expected_Q_prod)) {
       all_passed = false;
       std::cout << "Q_prod failed: expected " << expected_Q_prod << ", got "
-           << Q_prod << std::endl;
+                << Q_prod << std::endl;
     }
 
     if (!approxEqual(W_el_prod, expected_W_el_prod)) {
       all_passed = false;
-      std::cout << "W_el_prod failed: expected " << expected_W_el_prod << ", got "
-           << W_el_prod << std::endl;
+      std::cout << "W_el_prod failed: expected " << expected_W_el_prod
+                << ", got " << W_el_prod << std::endl;
     }
 
     if (!approxEqual(C_inv, expected_C_inv)) {
       all_passed = false;
-      std::cout << "C_inv failed: expected " << expected_C_inv << ", got " << C_inv
-           << std::endl;
+      std::cout << "C_inv failed: expected " << expected_C_inv << ", got "
+                << C_inv << std::endl;
     }
 
     if (!approxEqual(C_op, expected_C_op)) {
       all_passed = false;
       std::cout << "C_op failed: expected " << expected_C_op << ", got " << C_op
-           << std::endl;
+                << std::endl;
     }
 
     if (!approxEqual(C_op_var, expected_C_op_var)) {
       all_passed = false;
       std::cout << "C_op_var failed: expected " << expected_C_op_var << ", got "
-           << C_op_var << std::endl;
+                << C_op_var << std::endl;
     }
 
     if (all_passed) {

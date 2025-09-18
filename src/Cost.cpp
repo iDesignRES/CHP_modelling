@@ -1,8 +1,8 @@
 #include "Cost.h"
 
+#include <cmath>
 #include <cstddef>
 #include <iostream>
-#include <cmath>
 
 /**
  * @brief Chemical Engineering Price index
@@ -11,35 +11,63 @@
  */
 double cecpi(int year_input) {
   switch (year_input) {
-    case 1994: return 268.1;
-    case 1995: return 381.1;
-    case 1996: return 381.7;
-    case 1997: return 386.5;
-    case 1998: return 389.5;
-    case 1999: return 390.6;
-    case 2000: return 394.1;
-    case 2001: return 394.3;
-    case 2002: return 395.6;
-    case 2003: return 402.0;
-    case 2004: return 444.2;
-    case 2005: return 468.2;
-    case 2006: return 499.6;
-    case 2007: return 525.4;
-    case 2008: return 550.8;
-    case 2009: return 521.9;
-    case 2010: return 575.4;
-    case 2011: return 525.4;
-    case 2012: return 584.6;
-    case 2013: return 587.3;
-    case 2014: return 586.77;
-    case 2015: return 592.0;
-    case 2016: return 606.0;
-    case 2017: return 623.5;
-    case 2018: return 638.1;
-    case 2019: return 652.9;
-    case 2020: return 668.0;
+    case 1994:
+      return 268.1;
+    case 1995:
+      return 381.1;
+    case 1996:
+      return 381.7;
+    case 1997:
+      return 386.5;
+    case 1998:
+      return 389.5;
+    case 1999:
+      return 390.6;
+    case 2000:
+      return 394.1;
+    case 2001:
+      return 394.3;
+    case 2002:
+      return 395.6;
+    case 2003:
+      return 402.0;
+    case 2004:
+      return 444.2;
+    case 2005:
+      return 468.2;
+    case 2006:
+      return 499.6;
+    case 2007:
+      return 525.4;
+    case 2008:
+      return 550.8;
+    case 2009:
+      return 521.9;
+    case 2010:
+      return 575.4;
+    case 2011:
+      return 525.4;
+    case 2012:
+      return 584.6;
+    case 2013:
+      return 587.3;
+    case 2014:
+      return 586.77;
+    case 2015:
+      return 592.0;
+    case 2016:
+      return 606.0;
+    case 2017:
+      return 623.5;
+    case 2018:
+      return 638.1;
+    case 2019:
+      return 652.9;
+    case 2020:
+      return 668.0;
     default:
-      std::cerr << "Error: CECPI value for year " << year_input << " not available." << std::endl;
+      std::cerr << "Error: CECPI value for year " << year_input
+                << " not available." << std::endl;
       throw std::invalid_argument("CECPI year not available");
   }
 }
@@ -50,9 +78,7 @@ double cecpi(int year_input) {
  * @param year_ref integer specifying a referece year
  * @param year integer specifying the actual year
  */
-double I_cecpi(int year_ref, int year) {
-  return cecpi(year) / cecpi(year_ref);
-}
+double I_cecpi(int year_ref, int year) { return cecpi(year) / cecpi(year_ref); }
 
 /**
  * @brief Function to calculate equipment cost
@@ -65,8 +91,8 @@ void equipment_cost(object &par) {
   double S = par.fp("S");
   double Sb = par.fp("Sb");
   double n = par.fp("n");
-  double Cpi =
-      f_inst * Cpb * std::pow(S / Sb, n) * I_cecpi(std::stoi(par.sp("base_year")), 2020);
+  double Cpi = f_inst * Cpb * std::pow(S / Sb, n) *
+               I_cecpi(std::stoi(par.sp("base_year")), 2020);
 
   par.fval_p("Cpi", Cpi);
 }
@@ -213,20 +239,26 @@ void capex(object &par) {
  */
 void print_opex(object &par, std::vector<material> &m) {
   std::cout << "-------------------------" << std::endl;
-  std::cout << " Operational costs (M$ / year): " << par.fp("C_op") << std::endl;
+  std::cout << " Operational costs (M$ / year): " << par.fp("C_op")
+            << std::endl;
   std::cout << "-------------------------" << std::endl;
   std::cout << "Materials = " << par.fp("C_op_mat") * 1e-6 << std::endl;
   for (std::size_t n = 0; n < m.size(); n++) {
     std::cout << '\t' << m[n].def << ": " << m[n].C_annual * 1e-6 << std::endl;
   }
   std::cout << "Electricity = " << par.fp("C_op_el") * 1e-6 << std::endl;
-  std::cout << "Equipment maintenance = " << par.fp("C_eq_maint") * 1e-6 << std::endl;
-  std::cout << "Piping maintenance = " << par.fp("C_piping_maint") * 1e-6 << std::endl;
+  std::cout << "Equipment maintenance = " << par.fp("C_eq_maint") * 1e-6
+            << std::endl;
+  std::cout << "Piping maintenance = " << par.fp("C_piping_maint") * 1e-6
+            << std::endl;
   std::cout << "Electric system maintenance = " << par.fp("C_el_maint") * 1e-6
-       << std::endl;
-  std::cout << "I&C_maintenance = " << par.fp("C_I&C_maint") * 1e-6 << std::endl;
-  std::cout << "Total maintenance = " << par.fp("C_op_maint") * 1e-6 << std::endl;
-  std::cout << "Insurance and taxes = " << par.fp("C_op_ins") * 1e-6 << std::endl;
+            << std::endl;
+  std::cout << "I&C_maintenance = " << par.fp("C_I&C_maint") * 1e-6
+            << std::endl;
+  std::cout << "Total maintenance = " << par.fp("C_op_maint") * 1e-6
+            << std::endl;
+  std::cout << "Insurance and taxes = " << par.fp("C_op_ins") * 1e-6
+            << std::endl;
   std::cout << "Administration = " << par.fp("C_op_adm") * 1e-6 << std::endl;
   std::cout << "------------------" << std::endl;
 }

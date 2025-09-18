@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../Flows_library/flow_definitions.h"
 #include "../../Parameters.h"
+#include "../Flows_library/flow_definitions.h"
 
 /**
  * @brief function to calculate a dry scrubber model
