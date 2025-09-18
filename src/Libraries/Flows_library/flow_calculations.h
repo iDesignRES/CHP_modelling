@@ -1,3 +1,11 @@
+#include "flow_calculations.h"
+
+#include <cstddef>
+#include <iostream>
+
+#include "../../Parameters.h"
+#include "../Thermodynamic_library/species_thermodynamics.h"
+#include "flow_definitions.h"
 
 /**
  * @brief function to mix two flow of the same composition
@@ -29,7 +37,7 @@ void mix_same_type_flows(flow &f1, flow &f2, flow &f) {
  * @brief General function to calculate a flow
  *
  */
-void flow::calculate_flow(string state_def) {
+void flow::calculate_flow(std::string state_def) {
   if (prop_data == "solid_fuel") {
     calculate_solid_fuel();
   }
@@ -48,7 +56,6 @@ void flow::calculate_flow(string state_def) {
  *
  */
 void flow::calculate_solid_fuel() {
-  double sum_y = 0.0;
   double kC, kH, kO, kS, kN, kH2O, kA;
   double yC = 0.0, yH = 0.0, yS = 0.0, yN = 0.0, yO = 0.0;  // atomic components
   double yA = 0.0, yH2O = 0.0, yDM = 0.0;                   // proximates
@@ -65,7 +72,7 @@ void flow::calculate_solid_fuel() {
 
   if (index_species(i, "O") == -1) {
     double sum_Yi = 0.0;
-    for (size_t ni = 0; ni < i.size(); ni++) {
+    for (std::size_t ni = 0; ni < i.size(); ni++) {
       sum_Yi += i[ni].Y;
     }
     double YO = 1.0 - sum_Yi;
@@ -81,7 +88,7 @@ void flow::calculate_solid_fuel() {
   kA = 0.0;
 
   // fetching the weight fractions:
-  for (size_t n = 0; n < i.size(); n++) {
+  for (std::size_t n = 0; n < i.size(); n++) {
     if (i[n].id == "C") {
       yC = i[n].Y;
     } else if (i[n].id == "H") {
@@ -96,7 +103,7 @@ void flow::calculate_solid_fuel() {
   }
 
   // fetching the proximates:
-  for (size_t n = 0; n < k.size(); n++) {
+  for (std::size_t n = 0; n < k.size(); n++) {
     if (k[n].id == "ash") {
       yA = k[n].Y;
     } else if (k[n].id == "H2O") {
@@ -145,11 +152,11 @@ void flow::calculate_flow_composition() {
 
   if (j.size() > 1) {
     sum_Y = 0.0;
-    for (size_t n = 0; n < j.size(); n++) {
+    for (std::size_t n = 0; n < j.size(); n++) {
       sum_Y += j[n].Y;
     }
     sum_X = 0.0;
-    for (size_t n = 0; n < j.size(); n++) {
+    for (std::size_t n = 0; n < j.size(); n++) {
       sum_X += j[n].X;
     }
     if (molec_def != "Y" && sum_Y > 0.0) {
@@ -161,12 +168,12 @@ void flow::calculate_flow_composition() {
 
     if (molec_def == "Y") {
       sum_Y_MW = 0.0;
-      for (size_t n = 0; n < j.size(); n++) {
+      for (std::size_t n = 0; n < j.size(); n++) {
         if (j[n].Y > 0 && j[n].P.MW > 0) {
           sum_Y_MW += j[n].Y / j[n].P.MW;
         }
       }
-      for (size_t n = 0; n < j.size(); n++) {
+      for (std::size_t n = 0; n < j.size(); n++) {
         if (j[n].Y > 0 && j[n].P.MW > 0 && sum_Y_MW > 0) {
           j[n].X = (j[n].Y / j[n].P.MW) / sum_Y_MW;
         }
@@ -176,12 +183,12 @@ void flow::calculate_flow_composition() {
       }
     } else if (molec_def == "X") {
       sum_X_MW = 0.0;
-      for (size_t n = 0; n < j.size(); n++) {
+      for (std::size_t n = 0; n < j.size(); n++) {
         if (j[n].X > 0 && j[n].P.MW > 0) {
           sum_X_MW += j[n].X * j[n].P.MW;
         }
       }
-      for (size_t n = 0; n < j.size(); n++) {
+      for (std::size_t n = 0; n < j.size(); n++) {
         if (j[n].X > 0 && j[n].P.MW > 0 && sum_X_MW > 0) {
           j[n].Y = (j[n].X * j[n].P.MW) / sum_X_MW;
         }
@@ -191,7 +198,7 @@ void flow::calculate_flow_composition() {
       }
     }
 
-    for (size_t n = 0; n < j.size(); n++) {
+    for (std::size_t n = 0; n < j.size(); n++) {
       P.MW += j[n].X * j[n].P.MW;
     }
   }
@@ -203,7 +210,7 @@ void flow::calculate_flow_composition() {
  * @param state_def definition of thermodynamic state variables
  */
 
-void flow::calculate_flow_properties(string state_def) {
+void flow::calculate_flow_properties(std::string state_def) {
   if (prop_data == "NIST") {
     calculate_species_properties(state_def);
 
@@ -211,7 +218,7 @@ void flow::calculate_flow_properties(string state_def) {
     P.h = 0.0;
     P.s = 0.0;
 
-    for (size_t n = 0; n < j.size(); n++) {
+    for (std::size_t n = 0; n < j.size(); n++) {
       P.cp += j[n].Y * j[n].P.cp;
       P.h += j[n].Y * j[n].P.h;
       P.s += j[n].Y * j[n].P.s;
@@ -226,31 +233,27 @@ void flow::calculate_flow_properties(string state_def) {
  *
  * @param state_def definition of thermodynamic state variables
  */
-void flow::calculate_species_properties(string state_def) {
-  for (size_t n = 0; n < j.size(); n++) {
+void flow::calculate_species_properties(std::string state_def) {
+  for (std::size_t n = 0; n < j.size(); n++) {
     j[n].F.T = F.T;
     j[n].F.P = F.P;
 
-    j[n].P.cp = thermodynamic_property(j[n].id, "cp", j[n].F.T + 273.15,
-                                       j[n].F.P, "J/molK");
+    j[n].P.cp = thermodynamic_property(j[n].id, "cp", j[n].F.T + 273.15, "J/molK");
     if (j[n].P.cp == -1.0) {
       j[n].P.cp = 0.0;
     }
 
-    j[n].P.h = thermodynamic_property(j[n].id, "h", j[n].F.T + 273.15, j[n].F.P,
-                                      "J/mol");
+    j[n].P.h = thermodynamic_property(j[n].id, "h", j[n].F.T + 273.15, "J/mol");
     if (j[n].P.h == -1.0) {
       j[n].P.h = 0.0;
     }
 
-    j[n].P.hf = thermodynamic_property(j[n].id, "hf", j[n].F.T + 273.15,
-                                       j[n].F.P, "J/mol");
+    j[n].P.hf = thermodynamic_property(j[n].id, "hf", j[n].F.T + 273.15, "J/mol");
     if (j[n].P.hf == -1.0) {
       j[n].P.hf = 0.0;
     }
 
-    j[n].P.s = thermodynamic_property(j[n].id, "s", j[n].F.T + 273.15, j[n].F.P,
-                                      "J/molK");
+    j[n].P.s = thermodynamic_property(j[n].id, "s", j[n].F.T + 273.15, "J/molK");
     if (j[n].P.s == -1.0) {
       j[n].P.s = 0.0;
     }

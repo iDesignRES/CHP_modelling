@@ -1,18 +1,9 @@
-#include <math.h>
-#include <stdio.h>
-#include <string.h>
+#include <cmath>
 
-#include <fstream>
+#include "Library_Water_Correlations.h"
 
-using namespace std;
-
-/**
- * @brief Specific enthalpy [kJ/kg] of water
- *
- * @param P = Pressure (bar-a)
- */
 double hPWater(double P) {
-  double A, B, C, D, E, f, G, H, i, j;
+  double A, B, C, D, E, f, G, H, i;
 
   A = 417.5841933;
   B = -0.07054123;
@@ -24,17 +15,12 @@ double hPWater(double P) {
   H = -0.00047385;
   i = 0.490013015;
 
-  return (A + C * log(P) + E * pow(log(P), 2.0) + G * pow(log(P), 3.0) +
-          i * pow(log(P), 4.0)) /
-         (1 + B * log(P) + D * pow(log(P), 2.0) + f * pow(log(P), 3.0) +
-          H * pow(log(P), 4.0));
+  return (A + C * std::log(P) + E * std::pow(std::log(P), 2.0) + G * std::pow(std::log(P), 3.0) +
+          i * std::pow(std::log(P), 4.0)) /
+         (1 + B * std::log(P) + D * std::pow(std::log(P), 2.0) + f * std::pow(std::log(P), 3.0) +
+          H * std::pow(std::log(P), 4.0));
 }
 
-/**
- * @brief Specific enthalpy [kJ/kg] of water
- *
- * @param T = Temperature (deg. C)
- */
 double hTWater(double T) {
   double A, B, C, D, E, f, G, H, i, j;
 
@@ -49,16 +35,11 @@ double hTWater(double T) {
   i = -0.00000022361;
   j = 3.98021E-14;
 
-  return (A + C * T + E * pow(T, 2.0) + G * pow(T, 3.0) + i * pow(T, 4.0)) /
-         (1 + B * T + D * pow(T, 2.0) + f * pow(T, 3.0) + H * pow(T, 4.0) +
-          j * pow(T, 5.0));
+  return (A + C * T + E * std::pow(T, 2.0) + G * std::pow(T, 3.0) + i * std::pow(T, 4.0)) /
+         (1 + B * T + D * std::pow(T, 2.0) + f * std::pow(T, 3.0) + H * std::pow(T, 4.0) +
+          j * std::pow(T, 5.0));
 }
 
-/**
- * @brief Saturation temperature (deg. C) of water
- *
- * @param P = Pressure (bar-a)
- */
 double TSatWater(double P) {
   double A, B, C, D, E, f, G, H, i, j, k;
 
@@ -74,17 +55,12 @@ double TSatWater(double P) {
   j = 0.0000208266;
   k = -0.0057961;
 
-  return (A + C * log(P) + E * pow(log(P), 2.0) + G * pow(log(P), 3.0) +
-          i * pow(log(P), 4.0) + k * pow(log(P), 5.0)) /
-         (1 + B * log(P) + D * pow(log(P), 2.0) + f * pow(log(P), 3.0) +
-          H * pow(log(P), 4.0) + j * pow(log(P), 5.0));
+  return (A + C * std::log(P) + E * std::pow(std::log(P), 2.0) + G * std::pow(std::log(P), 3.0) +
+          i * std::pow(std::log(P), 4.0) + k * std::pow(std::log(P), 5.0)) /
+         (1 + B * std::log(P) + D * std::pow(std::log(P), 2.0) + f * std::pow(std::log(P), 3.0) +
+          H * std::pow(std::log(P), 4.0) + j * std::pow(std::log(P), 5.0));
 }
 
-/**
- * @brief Saturation pressure [bar-a] of water
- *
- * @param T = Temperature (deg. C)
- */
 double PSatWater(double T) {
   double A, B, C, D, E, f, G, H, i, j, k;
 
@@ -100,20 +76,14 @@ double PSatWater(double T) {
   j = -4.9808e-14;
   k = -7.9081e-12;
 
-  return (A + C * T + E * pow(T, 2.0) + G * pow(T, 3.0) + i * pow(T, 4.0) +
-          k * pow(T, 5.0)) /
-         (1 + B * T + D * pow(T, 2.0) + f * pow(T, 3.0) + H * pow(T, 4.0) +
-          j * pow(T, 5.0));
+  return (A + C * T + E * std::pow(T, 2.0) + G * std::pow(T, 3.0) + i * std::pow(T, 4.0) +
+          k * std::pow(T, 5.0)) /
+         (1 + B * T + D * std::pow(T, 2.0) + f * std::pow(T, 3.0) + H * std::pow(T, 4.0) +
+          j * std::pow(T, 5.0));
 }
 
-/**
- * @brief Specific entropy [kJ/kg K] of superheated steam
- *
- * @param P = Pressure (bar-a)
- * @param H = Specific enthalpy (kJ/kg)
- */
 double sPhSupSteam(double P, double H) {
-  double A, B, C, D, E, f, G, U, i, j, k;
+  double A, B, C, D, E, f, G, U, i, j;
 
   if (P < 10.0) {
     A = 15.90422271;
@@ -127,9 +97,9 @@ double sPhSupSteam(double P, double H) {
     i = 1583110;
     j = 30.39968182;
 
-    return A + B * log(P) + C / H + D * pow(log(P), 2.0) + E / pow(H, 2.0) +
-           f * (log(P)) / H + G * pow(log(P), 3.0) + U / pow(H, 3.0) +
-           i * (log(P)) / pow(H, 2.0) + j * pow(log(P), 2.0) / H;
+    return A + B * std::log(P) + C / H + D * std::pow(std::log(P), 2.0) + E / std::pow(H, 2.0) +
+           f * (std::log(P)) / H + G * std::pow(std::log(P), 3.0) + U / std::pow(H, 3.0) +
+           i * (std::log(P)) / std::pow(H, 2.0) + j * std::pow(std::log(P), 2.0) / H;
   }
 
   if (P >= 10 && P < 24.0) {
@@ -144,9 +114,9 @@ double sPhSupSteam(double P, double H) {
     i = 363315.174;
     j = 0.344766694;
 
-    return A + B * P + C / H + D * pow(P, 2.0) + E / pow(H, 2.0) + f * P / H +
-           G * pow(P, 3.0) + U / pow(H, 3.0) + i * P / pow(H, 2.0) +
-           j * pow(P, 2.0) / H;
+    return A + B * P + C / H + D * std::pow(P, 2.0) + E / std::pow(H, 2.0) + f * P / H +
+           G * std::pow(P, 3.0) + U / std::pow(H, 3.0) + i * P / std::pow(H, 2.0) +
+           j * std::pow(P, 2.0) / H;
   }
 
   if (P >= 24.0 && P < 42.0) {
@@ -161,9 +131,9 @@ double sPhSupSteam(double P, double H) {
     i = 225677.9999;
     j = -0.035514;
 
-    return A + B * P + C / H + D * pow(P, 2.0) + E / pow(H, 2.0) + f * P / H +
-           G * pow(P, 3.0) + U / pow(H, 3.0) + i * P / pow(H, 2.0) +
-           j * pow(P, 2.0) / H;
+    return A + B * P + C / H + D * std::pow(P, 2.0) + E / std::pow(H, 2.0) + f * P / H +
+           G * std::pow(P, 3.0) + U / std::pow(H, 3.0) + i * P / std::pow(H, 2.0) +
+           j * std::pow(P, 2.0) / H;
   }
 
   if (P >= 42.0 && P < 60.0) {
@@ -178,9 +148,9 @@ double sPhSupSteam(double P, double H) {
     i = 9512250;
     j = 133.8484047;
 
-    return A + B * log(P) + C / H + D * pow(log(P), 2.0) + E / pow(H, 2.0) +
-           f * (log(P)) / H + G * pow(log(P), 3.0) + U / pow(H, 3.0) +
-           i * (log(P)) / pow(H, 2.0) + j * pow(log(P), 2.0) / H;
+    return A + B * std::log(P) + C / H + D * std::pow(std::log(P), 2.0) + E / std::pow(H, 2.0) +
+           f * (std::log(P)) / H + G * std::pow(std::log(P), 3.0) + U / std::pow(H, 3.0) +
+           i * (std::log(P)) / std::pow(H, 2.0) + j * std::pow(std::log(P), 2.0) / H;
   }
 
   if (P >= 60.0 && P < 100.0) {
@@ -195,22 +165,16 @@ double sPhSupSteam(double P, double H) {
     i = -846390000;
     j = 5052500;
 
-    return A + B / P + C / H + D / pow(P, 2.0) + E / pow(H, 2.0) + f / (P * H) +
-           G / pow(P, 3.0) + U / pow(H, 3.0) + i / (P * pow(H, 2.0)) +
-           j / (pow(P, 2.0) * H);
+    return A + B / P + C / H + D / std::pow(P, 2.0) + E / std::pow(H, 2.0) + f / (P * H) +
+           G / std::pow(P, 3.0) + U / std::pow(H, 3.0) + i / (P * std::pow(H, 2.0)) +
+           j / (std::pow(P, 2.0) * H);
   }
 
   return -1;
 }
 
-/**
- * @brief Temperature [deg.C] of superheated steam
- *
- * @param P = Pressure (bar-a)
- * @param H = Specific enthalpy (kJ/kg)
- */
 double TPhSupSteam(double P, double H) {
-  double A, B, C, D, E, f, G, U, i, j, k;
+  double A, B, C, D, E, f, G, U, i, j;
 
   if (P < 10) {
     A = 3383.21301;
@@ -224,9 +188,9 @@ double TPhSupSteam(double P, double H) {
     i = 568766000;
     j = -601.941773;
 
-    return A + B * P + C / H + D * pow(P, 2) + E / pow(H, 2) + f * P / H +
-           G * pow(P, 3) + U / pow(H, 3) + i * P / pow(H, 2) +
-           j * pow(P, 2) / H - 273.17;
+    return A + B * P + C / H + D * std::pow(P, 2) + E / std::pow(H, 2) + f * P / H +
+           G * std::pow(P, 3) + U / std::pow(H, 3) + i * P / std::pow(H, 2) +
+           j * std::pow(P, 2) / H - 273.17;
   }
 
   if (P >= 10.0 && P < 24.0) {
@@ -241,9 +205,9 @@ double TPhSupSteam(double P, double H) {
     i = 244038000;
     j = -150.038485;
 
-    return A + B * P + C / H + D * pow(P, 2.0) + E / pow(H, 2.0) + f * P / H +
-           G * pow(P, 3.0) + U / pow(H, 3.0) + i * P / pow(H, 2.0) +
-           j * pow(P, 2.0) / H - 273.17;
+    return A + B * P + C / H + D * std::pow(P, 2.0) + E / std::pow(H, 2.0) + f * P / H +
+           G * std::pow(P, 3.0) + U / std::pow(H, 3.0) + i * P / std::pow(H, 2.0) +
+           j * std::pow(P, 2.0) / H - 273.17;
   }
 
   if (P >= 24.0 && P < 40.0) {
@@ -258,9 +222,9 @@ double TPhSupSteam(double P, double H) {
     i = 4251290000;
     j = 125603.7895;
 
-    return A + B * log(P) + C / H + D * pow(log(P), 2.0) + E / pow(H, 2.0) +
-           f * (log(P)) / H + G * pow(log(P), 3.0) + U / pow(H, 3.0) +
-           i * (log(P)) / pow(H, 2.0) + j * pow(log(P), 2.0) / H - 273.17;
+    return A + B * std::log(P) + C / H + D * std::pow(std::log(P), 2.0) + E / std::pow(H, 2.0) +
+           f * (std::log(P)) / H + G * std::pow(std::log(P), 3.0) + U / std::pow(H, 3.0) +
+           i * (std::log(P)) / std::pow(H, 2.0) + j * std::pow(std::log(P), 2.0) / H - 273.17;
   }
 
   if (P >= 40.0 && P < 60.0) {
@@ -275,9 +239,9 @@ double TPhSupSteam(double P, double H) {
     i = 3874260000;
     j = 132398.2899;
 
-    return A + B * log(P) + C / H + D * pow(log(P), 2.0) + E / pow(H, 2.0) +
-           f * (log(P)) / H + G * pow(log(P), 3.0) + U / pow(H, 3.0) +
-           i * (log(P)) / pow(H, 2.0) + j * pow(log(P), 2.0) / H - 273.17;
+    return A + B * std::log(P) + C / H + D * std::pow(std::log(P), 2.0) + E / std::pow(H, 2.0) +
+           f * (std::log(P)) / H + G * std::pow(std::log(P), 3.0) + U / std::pow(H, 3.0) +
+           i * (std::log(P)) / std::pow(H, 2.0) + j * std::pow(std::log(P), 2.0) / H - 273.17;
   }
 
   if (P >= 60.0 && P < 100.0) {
@@ -292,22 +256,16 @@ double TPhSupSteam(double P, double H) {
     i = 269.4471355;
     j = -19.7817003;
 
-    return A + B * log(P) + C * log(H) + D * pow(log(P), 2.0) +
-           E * pow(log(H), 2.0) + f * log(P) * log(H) + G * pow(log(P), 3.0) +
-           U * pow(log(H), 3.0) + i * log(P) * pow(log(H), 2.0) +
-           j * pow(log(P), 2.0) * log(H) - 273.17;
+    return A + B * std::log(P) + C * std::log(H) + D * std::pow(std::log(P), 2.0) +
+           E * std::pow(std::log(H), 2.0) + f * std::log(P) * std::log(H) + G * std::pow(std::log(P), 3.0) +
+           U * std::pow(std::log(H), 3.0) + i * std::log(P) * std::pow(std::log(H), 2.0) +
+           j * std::pow(std::log(P), 2.0) * std::log(H) - 273.17;
   }
   return -1;
 }
 
-/**
- * @brief Specific entalpy [kJ/kg] of superheated steam
- *
- * @param P = Pressure (bar-a)
- * @param Temp = Temperature (deg.C)
- */
 double hPTSupSteam(double P, double Temp) {
-  double A, B, C, D, E, f, G, H, i, j, k, T;
+  double A, B, C, D, E, f, G, H, i, j, T;
 
   T = Temp + 273.15;
 
@@ -323,9 +281,9 @@ double hPTSupSteam(double P, double Temp) {
     i = -22.3871465;
     j = -0.14473537;
 
-    return A + B * P + C * log(T) + D * pow(P, 2.0) + E * pow(log(T), 2.0) +
-           f * P * log(T) + G * pow(P, 3.0) + H * pow(log(T), 3.0) +
-           i * P * pow(log(T), 2.0) + j * pow(P, 2.0) * log(T);
+    return A + B * P + C * std::log(T) + D * std::pow(P, 2.0) + E * std::pow(std::log(T), 2.0) +
+           f * P * std::log(T) + G * std::pow(P, 3.0) + H * std::pow(std::log(T), 3.0) +
+           i * P * std::pow(std::log(T), 2.0) + j * std::pow(P, 2.0) * std::log(T);
   }
 
   if (P >= 6.0 && P < 10.0) {
@@ -340,10 +298,10 @@ double hPTSupSteam(double P, double Temp) {
     i = -186.603652;
     j = 59.50843382;
 
-    return A + B * log(P) + C * log(T) + D * pow(log(P), 2.0) +
-           E * pow(log(T), 2.0) + f * log(P) * log(T) + G * pow(log(P), 3.0) +
-           H * pow(log(T), 3.0) + i * log(P) * pow(log(T), 2.0) +
-           j * pow(log(P), 2.0) * log(T);
+    return A + B * std::log(P) + C * std::log(T) + D * std::pow(std::log(P), 2.0) +
+           E * std::pow(std::log(T), 2.0) + f * std::log(P) * std::log(T) + G * std::pow(std::log(P), 3.0) +
+           H * std::pow(std::log(T), 3.0) + i * std::log(P) * std::pow(std::log(T), 2.0) +
+           j * std::pow(std::log(P), 2.0) * std::log(T);
   }
 
   if (P >= 10.0 && P < 24.0) {
@@ -358,9 +316,9 @@ double hPTSupSteam(double P, double Temp) {
     i = -16.9130087;
     j = 0.033445377;
 
-    return A + B * P + C * log(T) + D * pow(P, 2.0) + E * pow(log(T), 2.0) +
-           f * P * log(T) + G * pow(P, 3.0) + H * pow(log(T), 3.0) +
-           i * P * pow(log(T), 2.0) + j * pow(P, 2.0) * log(T);
+    return A + B * P + C * std::log(T) + D * std::pow(P, 2.0) + E * std::pow(std::log(T), 2.0) +
+           f * P * std::log(T) + G * std::pow(P, 3.0) + H * std::pow(std::log(T), 3.0) +
+           i * P * std::pow(std::log(T), 2.0) + j * std::pow(P, 2.0) * std::log(T);
   }
 
   if (P >= 24 && P < 42) {
@@ -375,9 +333,9 @@ double hPTSupSteam(double P, double Temp) {
     i = -8055900;
     j = -21.1829918;
 
-    return A + B * P + C / T + D * pow(P, 2.0) + E / pow(T, 2.0) + f * P / T +
-           G * pow(P, 3.0) + H / pow(T, 3.0) + i * P / pow(T, 2.0) +
-           j * pow(P, 2.0) / T;
+    return A + B * P + C / T + D * std::pow(P, 2.0) + E / std::pow(T, 2.0) + f * P / T +
+           G * std::pow(P, 3.0) + H / std::pow(T, 3.0) + i * P / std::pow(T, 2.0) +
+           j * std::pow(P, 2.0) / T;
   }
 
   if (P >= 42.0 && P < 300.0) {
@@ -392,21 +350,16 @@ double hPTSupSteam(double P, double Temp) {
     i = -11659000;
     j = -24.5631185;
 
-    return A + B * P + C / T + D * pow(P, 2.0) + E / pow(T, 2.0) + f * P / T +
-           G * pow(P, 3.0) + H / pow(T, 3.0) + i * P / pow(T, 2.0) +
-           j * pow(P, 2.0) / T;
+    return A + B * P + C / T + D * std::pow(P, 2.0) + E / std::pow(T, 2.0) + f * P / T +
+           G * std::pow(P, 3.0) + H / std::pow(T, 3.0) + i * P / std::pow(T, 2.0) +
+           j * std::pow(P, 2.0) / T;
   }
 
   return -1;
 }
 
-/**
- * @brief Specific entalpy [kJ/kg] of saturated steam
- *
- * @param P = Pressure (bar-a)
- */
 double hPSatSteam(double P) {
-  double A, B, C, D, E, f, G, H, i, j, k;
+  double A, B, C, D, E, f, G, H, i, j;
 
   A = 2675.345891;
   B = -0.15399836;
@@ -419,20 +372,14 @@ double hPSatSteam(double P) {
   i = -1.34590982;
   j = -0.0000010367;
 
-  return (A + C * log(P) + E * pow(log(P), 2.0) + G * pow(log(P), 3.0) +
-          i * pow(log(P), 4.0)) /
-         (1 + B * log(P) + D * pow(log(P), 2.0) + f * pow(log(P), 3.0) +
-          H * pow(log(P), 4.0) + j * pow(log(P), 5.0));
+  return (A + C * std::log(P) + E * std::pow(std::log(P), 2.0) + G * std::pow(std::log(P), 3.0) +
+          i * std::pow(std::log(P), 4.0)) /
+         (1 + B * std::log(P) + D * std::pow(std::log(P), 2.0) + f * std::pow(std::log(P), 3.0) +
+          H * std::pow(std::log(P), 4.0) + j * std::pow(std::log(P), 5.0));
 }
 
-/**
- * @brief Specific entropy [kJ/kg K] of superheated steam
- *
- * @param P = Pressure (bar-a)
- * @param T_in = Temperature (deg.C)
- */
 double sPTSupSteam(double P, double T_in) {
-  double A, B, C, D, E, f, G, H, i, j, k;
+  double A, B, C, D, E, f, G, H, i, j;
   double T;
 
   T = T_in + 273.15;
@@ -449,10 +396,10 @@ double sPTSupSteam(double P, double T_in) {
     i = -0.08032672;
     j = 0.015149543;
 
-    return A + B * log(P) + C * log(T) + D * pow(log(P), 2.0) +
-           E * pow(log(T), 2.0) + f * log(P) * log(T) + G * pow(log(P), 3.0) +
-           H * pow(log(T), 3.0) + i * log(P) * pow(log(T), 2.0) +
-           j * pow(log(P), 2.0) * log(T);
+    return A + B * std::log(P) + C * std::log(T) + D * std::pow(std::log(P), 2.0) +
+           E * std::pow(std::log(T), 2.0) + f * std::log(P) * std::log(T) + G * std::pow(std::log(P), 3.0) +
+           H * std::pow(std::log(T), 3.0) + i * std::log(P) * std::pow(std::log(T), 2.0) +
+           j * std::pow(std::log(P), 2.0) * std::log(T);
   }
 
   if (P >= 10.0 && P < 24.0) {
@@ -467,9 +414,9 @@ double sPTSupSteam(double P, double T_in) {
     i = -13142.3681;
     j = 0.011191165;
 
-    return A + B * P + C / T + D * pow(P, 2.0) + E / pow(T, 2.0) + f * P / T +
-           G * pow(P, 3.0) + H / pow(T, 3.0) + i * P / pow(T, 2.0) +
-           j * pow(P, 2.0) / T;
+    return A + B * P + C / T + D * std::pow(P, 2.0) + E / std::pow(T, 2.0) + f * P / T +
+           G * std::pow(P, 3.0) + H / std::pow(T, 3.0) + i * P / std::pow(T, 2.0) +
+           j * std::pow(P, 2.0) / T;
   }
 
   if (P >= 24.0 && P < 42.0) {
@@ -484,9 +431,9 @@ double sPTSupSteam(double P, double T_in) {
     i = -14683.8767;
     j = -0.03100245;
 
-    return A + B * P + C / T + D * pow(P, 2.0) + E / pow(T, 2.0) + f * P / T +
-           G * pow(P, 3.0) + H / pow(T, 3.0) + i * P / pow(T, 2.0) +
-           j * pow(P, 2.0) / T;
+    return A + B * P + C / T + D * std::pow(P, 2.0) + E / std::pow(T, 2.0) + f * P / T +
+           G * std::pow(P, 3.0) + H / std::pow(T, 3.0) + i * P / std::pow(T, 2.0) +
+           j * std::pow(P, 2.0) / T;
   }
 
   // if (P >= 42.0 && P < 100.0) {
@@ -502,18 +449,13 @@ double sPTSupSteam(double P, double T_in) {
     i = -19906.5907;
     j = -0.03586857;
 
-    return A + B * P + C / T + D * pow(P, 2.0) + E / pow(T, 2.0) + f * P / T +
-           G * pow(P, 3.0) + H / pow(T, 3.0) + i * P / pow(T, 2.0) +
-           j * pow(P, 2.0) / T;
+    return A + B * P + C / T + D * std::pow(P, 2.0) + E / std::pow(T, 2.0) + f * P / T +
+           G * std::pow(P, 3.0) + H / std::pow(T, 3.0) + i * P / std::pow(T, 2.0) +
+           j * std::pow(P, 2.0) / T;
   }
   return -1;
 }
 
-/**
- * @brief Specific entropy [kJ/kg K] of water
- *
- * @param P = Pressure (bar-a)
- */
 double sPWater(double P) {
   // Entropi [kJ/(kg K)] i vann som funksjon av trykk P [bara]
   double A, B, C, D, E, f, G, H, i, j, k;
@@ -530,19 +472,15 @@ double sPWater(double P) {
   j = 0.00000173044;
   k = -0.000067444;
 
-  return (A + C * log(P) + E * pow(log(P), 2.0) + G * pow(log(P), 3.0) +
-          i * pow(log(P), 4.0) + k * pow(log(P), 5.0)) /
-         (1.0 + B * log(P) + D * pow(log(P), 2.0) + f * pow(log(P), 3.0) +
-          H * pow(log(P), 4.0) + j * pow(log(P), 5.0));
+  return (A + C * std::log(P) + E * std::pow(std::log(P), 2.0) + G * std::pow(std::log(P), 3.0) +
+          i * std::pow(std::log(P), 4.0) + k * std::pow(std::log(P), 5.0)) /
+         (1.0 + B * std::log(P) + D * std::pow(std::log(P), 2.0) + f * std::pow(std::log(P), 3.0) +
+          H * std::pow(std::log(P), 4.0) + j * std::pow(std::log(P), 5.0));
 }
 
-/**
- * @brief Specific entropy [kJ/kg K] of saturated steam
- *
- * @param P = Pressure (bar-a)
- */
 double sPSatSteam(double P) {
-  double A, B, C, D, E, f, G, H, i, j, k;
+  // Entropi [kJ/(kg K)] som funksjon av trykk P [bara]
+  double A, B, C, D, E, f, G, H, i, j;
 
   A = 7.359240216;
   B = 0.13119276;
@@ -555,17 +493,12 @@ double sPSatSteam(double P) {
   i = 0.002292981;
   j = 0.0000202713;
 
-  return (A + C * log(P) + E * pow(log(P), 2.0) + G * pow(log(P), 3.0) +
-          i * pow(log(P), 4.0)) /
-         (1.0 + B * log(P) + D * pow(log(P), 2.0) + f * pow(log(P), 3.0) +
-          H * pow(log(P), 4.0) + j * pow(log(P), 5.0));
+  return (A + C * std::log(P) + E * std::pow(std::log(P), 2.0) + G * std::pow(std::log(P), 3.0) +
+          i * std::pow(std::log(P), 4.0)) /
+         (1.0 + B * std::log(P) + D * std::pow(std::log(P), 2.0) + f * std::pow(std::log(P), 3.0) +
+          H * std::pow(std::log(P), 4.0) + j * std::pow(std::log(P), 5.0));
 }
 
-/**
- * @brief Specific entropy [kJ/kg K] of water
- *
- * @param T = Temperature (deg.C)
- */
 double sTWater(double T) {
   double A, B, C, D, E, f, G, H, i, j, k;
 
@@ -581,18 +514,13 @@ double sTWater(double T) {
   j = -1.2373e-25;
   k = 3.70402e-24;
 
-  return pow(((A + C * pow(T, 2.0) + E * pow(T, 4.0) + G * pow(T, 6.0) +
-               i * pow(T, 8.0) + k * pow(T, 10.0)) /
-              (1.0 + B * pow(T, 2.0) + D * pow(T, 4.0) + f * pow(T, 6.0) +
-               H * pow(T, 8.0) + j * pow(T, 10))),
+  return std::pow(((A + C * std::pow(T, 2.0) + E * std::pow(T, 4.0) + G * std::pow(T, 6.0) +
+               i * std::pow(T, 8.0) + k * std::pow(T, 10.0)) /
+              (1.0 + B * std::pow(T, 2.0) + D * std::pow(T, 4.0) + f * std::pow(T, 6.0) +
+               H * std::pow(T, 8.0) + j * std::pow(T, 10))),
              0.5);
 }
 
-/**
- * @brief Specific enthalpy [kJ/kg] of steam
- *
- * @param T = Temperature (deg.C)
- */
 double HTSteam(double T) {
   double A, B, C, D, E, f, G, H, i;
 
@@ -606,10 +534,10 @@ double HTSteam(double T) {
   H = -7.1983e-21;
   i = 1.18814E-14;
 
-  return pow(((A + C * pow(T, 2.0) + E * pow(T, 4.0) + G * pow(T, 6.0) +
-               i * pow(T, 8.0)) /
-              (1.0 + B * pow(T, 2.0) + D * pow(T, 4.0) + f * pow(T, 6.0) +
-               H * pow(T, 8.0))),
+  return std::pow(((A + C * std::pow(T, 2.0) + E * std::pow(T, 4.0) + G * std::pow(T, 6.0) +
+               i * std::pow(T, 8.0)) /
+              (1.0 + B * std::pow(T, 2.0) + D * std::pow(T, 4.0) + f * std::pow(T, 6.0) +
+               H * std::pow(T, 8.0))),
              0.5);
 }
 
@@ -626,8 +554,8 @@ double vTWater(double T) {
   D = 10271.62001;
   E = 0.048420526;
 
-  return A + B / pow((1.0 + 4.0 * pow(((T - C) / D), 2.0) *
-                                (pow(2.0, (1.0 / E)) - 1.0)),
+  return A + B / std::pow((1.0 + 4.0 * std::pow(((T - C) / D), 2.0) *
+                                (std::pow(2.0, (1.0 / E)) - 1.0)),
                      E);
 }
 
@@ -646,16 +574,13 @@ double vTSteam(double T) {
   E = 0.0000826718;
   f = -0.0000000061263;
 
-  return exp((A + C * T + E * pow(T, 2.0)) /
-             (1.0 + B * T + D * pow(T, 2.0) + f * pow(T, 3.0)));
+  return exp((A + C * T + E * std::pow(T, 2.0)) /
+             (1.0 + B * T + D * std::pow(T, 2.0) + f * std::pow(T, 3.0)));
 }
 
-/**
- * @brief Vaporization heat [kJ/kg] of water
- *
- * @param T = Temerature (deg.C)
- */
-double HVapH2O(double T) { return HTSteam(T) - hTWater(T); }
+double HVapH2O(double T) { 
+  return HTSteam(T) - hTWater(T);
+}
 
 /**
  * @brief Specific heat [kJ/kg K] of water

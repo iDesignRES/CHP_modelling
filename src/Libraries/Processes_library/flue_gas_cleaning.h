@@ -1,11 +1,11 @@
-/**
- * @brief function to calculate a dry scrubber model
- *
- * @input &in = flow representing input raw flue gas
- * @input &par = object with input scrubber parameters
- * @output &out = flow representing calculated cleaned flue gas
- * @output &par = object with calculated output parameters
- */
+#include "flue_gas_cleaning.h"
+#include <cstddef>
+#include <string>
+#include <vector>
+#include <iostream>
+
+#include "../../Cost.h"
+
 void dry_scrubber_model(flow &in, flow &out, object &par) {
   in.F.T = par.fp("T_op");
   in.F.P = par.fp("P_op");
@@ -19,14 +19,14 @@ void dry_scrubber_model(flow &in, flow &out, object &par) {
   material_cost(par.c[lime]);
 
   par.c.push_back(object("solid_residue", "scrubber_cake"));
-  size_t cake = par.ic("solid_residue", "scrubber_cake");
+  std::size_t cake = par.ic("solid_residue", "scrubber_cake");
   par.c[cake].fval_p("Q_annual", par.c[lime].fp("Q_annual"));
   material_cost(par.c[cake]);
 
   out = in;
 
   par.c.push_back(object("equipment", "dry_scrubber"));
-  size_t scrubber = par.ic("equipment", "dry_scrubber");
+  std::size_t scrubber = par.ic("equipment", "dry_scrubber");
   par.c[scrubber].fval_p("S", in.F.M * 3.6);
   par.c[scrubber].fval_p("W_el",
                          par.fp("M_fuel") * 3.6 * par.c[scrubber].fp("w_el"));

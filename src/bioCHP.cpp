@@ -1,87 +1,28 @@
-#include <string.h>
-
+#include "bioCHP.h"
+#include <cstddef>
 #include <iostream>
-#include <vector>
 
-using namespace std;
+#include "utils.h"
+#include "Parameters.h"
+#include "Libraries/Processes_library/bioCHP_plant.h"
 
-// clang-format off
-vector<string> divide_string(string str, char c) {
-  // cout << "divide " << str << endl;
-  vector<string> list;
-  vector<char> cstr(str.begin(), str.end());
-  string element = "";
-  bool element_found = false;
-  int l = 0;
-  while (l < str.length()) {
-    if (cstr[l] != c) {
-      element = element + cstr[l];
-    }
-    if (cstr[l] == c) {
-      list.push_back(element);
-      element = "";
-    }
-    if (l == str.length() - 1) {
-      list.push_back(element);
-      break;
-    }
-    // cout << l << " " << cstr[l] << " " << element << endl;
-    l = l + 1;
-  }
-  cstr.clear();
-  return list;
-}
-
-#include "pathfinder.h"
-using namespace MyPaths;
-std::string DIR = getFileDirectory() + "/";
-std::string project = project_name();
-
-#include "Parameters.cpp"
-#include "Flows.h"
-#include "Cost.h"
-#include "Processes.h"
-// clang-format on
-
-/**
- * @brief Main bioCHP model function
- *
- * INPUTS
- * @param feed_def: name of each biomass feedstock
- * @param Yj: mass fraction of each biomass feedstock
- * @param YH2Oj: moisture of each biomass feedstock
- * @param W_el: electric power output (MW_el)
- * @param Qk: heat demand (MW)
- * @param Tk_in: Return temperature for each heat demand (district heating)
- * @param Tk_in: Supply temperature for each heat demand (district heating)
- *
- * OUTPUTS
- * @param Mj: Required mass flow of each biomass feedstock
- * @param Q_prod: calculated heat production (MW)
- * @param W_el_prod: calculated electric power production (MW)
- * @param C_inv: Investment cost
- * @param C_op: Total operating cost
- * @param C_op_var: Variable operating cost
- *
- * @return false if some error/inconsistency, or true otherwise
- */
-bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj,
-                  vector<double> YH2Oj, double W_el, vector<double> Qk,
-                  vector<double> Tk_in, vector<double> Tk_out,
-                  vector<double> &Mj, double &Q_prod, double &W_el_prod,
+bool bioCHP_plant(std::vector<std::string> fuel_def, std::vector<double> Yj,
+                  std::vector<double> YH2Oj, double W_el, std::vector<double> Qk,
+                  std::vector<double> Tk_in, std::vector<double> Tk_out,
+                  std::vector<double> &Mj, double &Q_prod, double &W_el_prod,
                   double &C_inv, double &C_op, double &C_op_var) {
   // Check specificatins of feedstock
   if (fuel_def.size() != Yj.size()) {
-    cout << "number of specifications for Yj and fuel_def re different" << endl;
+    std::cout << "number of specifications for Yj and fuel_def re different" << std::endl;
     return false;
   }
 
   // Check that all feedstock exist in the database
-  for (size_t nf = 0; nf < fuel_def.size(); nf++) {
+  for (std::size_t nf = 0; nf < fuel_def.size(); nf++) {
     if (!find_flow(fuel_def[nf])) {
-      cout << "feedstock " + fuel_def[nf] + " not found in the database "
-           << endl;
-      for (size_t nff = 0; nff < fuel_def.size(); nff++) {
+      std::cout << "feedstock " + fuel_def[nf] + " not found in the database "
+           << std::endl;
+      for (std::size_t nff = 0; nff < fuel_def.size(); nff++) {
         Mj.push_back(0.0);
       }
       Q_prod = 0.0;
@@ -95,48 +36,43 @@ bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj,
 
   // Check specificatins of heat demands
   if (Qk.size() != Tk_in.size()) {
-    cout << "number of specifications for Tk_in and Qk are different" << endl;
+    std::cout << "number of specifications for Tk_in and Qk are different" << std::endl;
     return false;
   }
   if (Qk.size() != Tk_out.size()) {
-    cout << "number of specifications for Tk_out and Qk are different" << endl;
+    std::cout << "number of specifications for Tk_out and Qk are different" << std::endl;
     return false;
   }
   if (Tk_in.size() != Tk_out.size()) {
-    cout << "number of specifications for Tk_in and Tk_out are different"
-         << endl;
+    std::cout << "number of specifications for Tk_in and Tk_out are different"
+         << std::endl;
     return false;
   }
-  for (size_t nk = 0; nk < Tk_in.size(); nk++) {
+  for (std::size_t nk = 0; nk < Tk_in.size(); nk++) {
     if (Tk_in[nk] > Tk_out[nk]) {
-      cout << "return temperature of heat demand no. " << nk
-           << " is higher than supply temperature" << endl;
+      std::cout << "return temperature of heat demand no. " << nk
+           << " is higher than supply temperature" << std::endl;
       return false;
     }
   }
 
   // Check that there is sufficient heat available from Rankine cycle
   double sum_Qk = 0.0;
-  for (size_t nk = 0; nk < Qk.size(); nk++) {
+  for (std::size_t nk = 0; nk < Qk.size(); nk++) {
     sum_Qk = sum_Qk + Qk[nk];
   }
   if (sum_Qk > 0.5 * (W_el / 0.2)) {
-    cout << "there is not sufficient heat available from Rankine cycle to "
+    std::cout << "there is not sufficient heat available from Rankine cycle to "
             "supply the "
             "specifiy heat demand"
-         << endl;
-    cout << "Reducing proportionally the heat demands" << endl;
-    for (size_t nk = 0; nk < Qk.size(); nk++) {
+         << std::endl;
+    std::cout << "Reducing proportionally the heat demands" << std::endl;
+    for (std::size_t nk = 0; nk < Qk.size(); nk++) {
       Qk[nk] = Qk[nk] * (0.5 * (W_el / 0.2)) / sum_Qk;
-    }
-
-    double sum_Qk = 0.0;
-    for (size_t nk = 0; nk < Qk.size(); nk++) {
-      sum_Qk = sum_Qk + Qk[nk];
     }
   }
 
-  object bioCHP("plant", "bioCHP_PLANT", DIR + "Database/bioCHP_inputs");
+  object bioCHP("plant", "bioCHP_PLANT", get_database_path("bioCHP_inputs"));
   bioCHP.vct_sp("fuel_def", fuel_def);
   bioCHP.vct_fp("Yj", Yj);
   bioCHP.vct_fp("YH2Oj", YH2Oj);
@@ -155,8 +91,7 @@ bool bioCHP_plant(vector<string> fuel_def, vector<double> Yj,
   C_op = bioCHP.fp("C_op") * 1e-6;
   C_op_var = bioCHP.fp("C_op_var") * 1e-6;
 
-  export_output_parameters(bioCHP,
-                           getExecutableDir() + "Output-bioCHP_" + project);
+  export_output_parameters(bioCHP, "Output-bioCHP_project");
 
   return true;
 }

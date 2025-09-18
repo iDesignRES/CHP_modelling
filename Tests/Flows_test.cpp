@@ -1,15 +1,17 @@
 #include <iomanip>  // for setprecision
+#include <iostream>
+#include <vector>
+#include <string>
+#include <cstddef>
 
-#include "../src/bioCHP.cpp"
-
-// using namespace std;
+#include "../src/Libraries/Flows_library/flow_definitions.h"
 
 int main() {
   flow f1("f1", "spruce_chips");
   flow f2("f2", "spruce_T&B");
   flow f3("dry_air");
-  vector<flow> f = {f1, f2, f3};
-  for (size_t nf = 0; nf < f.size(); nf++) {
+  std::vector<flow> f = {f1, f2, f3};
+  for (std::size_t nf = 0; nf < f.size(); nf++) {
     f[nf].F.M = 1.0;
     f[nf].F.T = 25.0;
     f[nf].F.P = 1.01325;
@@ -23,4 +25,6 @@ int main() {
   f4.print_flow();
   f5.mix_flows(f[0],f[2]);
   f5.print_flow();*/
+
+  return 0;
 }

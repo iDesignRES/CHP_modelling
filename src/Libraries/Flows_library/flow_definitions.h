@@ -1,102 +1,25 @@
-#include <stdio.h>
-#include <string.h>
+#include "flow_definitions.h"
 
 #include <cmath>
 #include <fstream>
-#include <vector>
+#include <sstream>
+#include <iostream>
 
-using namespace std;
-using namespace MyPaths;
+#include "../../utils.h"
 
-/**
- * @brief Structure to define flow or species properties
- *
- * @param "LHV" = Low Heating Value (MJ/kg)
- * @param "LHV_dry" = Low Heating Value dry basis (MJ/kg)
- * @param "HHV" = High Heating Value (MJ/kg)
- * @param "HHV_dry" = High Heating Value dry basis (MJ/kg)
- * @param "cp" = specific molar heat at constant pressure (J/kg K)
- * @param "rho" = density (kg/m3)
- * @param "MW" = molecular weight (kg/mol)
- * @param "h" = specific enthalpy (J/kg)
- * @param "hf" = specific formation enthalpy (J/kg)
- * @param "ht" = specific thermal enthalpy (J/kg)
- * @param "s" = specific entropy (J/kgK)
- * @param "Tsat" = saturation temperature (deg.C)
- * @param "q" = vapor compostion (kg/kg)
- * @param "k" = thermal conductivity (W/m*K)
- * @param "visc" = viscosity (Pa*s)
- * @param "hVap" = vaporization heat (J/kg)
- */
-struct properties {
- public:
-  double LHV = 0.0, LHV_dry, HHV = 0.0, HHV_dry;
-  double cp, rho, MW;
-  double hf, ht, h;
-  double s;
-  double Tsat, q, hVap;
-  double k, visc;
-};
-
-/**
- * @brief Structure to define flow parameters
- *
- * @param "P" = pressure (bar)
- * @param "T" = temperature (deg.C)
- * @param "M" = mass flow rate (kg/s)
- * @param "N" = molar flow rate (mol/s)
- * @param "VN" = standard volumetric flow rate (Nm3/s)
- * @param "V" = volumetric flow rate (m3/s)
- * @param "H" = Enthalpy flow (J/s)
- * @param "Hf" = Formation enthalpy flow (J/s)
- * @param "Ht" = Thermal enthalpy flow (J/s)
- */
-struct flow_parameters {
- public:
-  double P, T;
-  double M, N, VN, V;
-  double H, Ht, Hf;
-};
-
-/**
- * @brief Structure to define species parameters
- *
- * @param string "id" = name: Ex. vapor
- * @param string "def" = definition in database: Ex. water
- * @param string "formula" = chemical formula: Ex. H2O
- * @param "Y" = mass fraction (kg/kg)
- * @param "X" = molar fraction (mol/mol)
- * @param "val" = valences for atoms
- */
-struct species {
- public:
-  string id, def, formula;
-  double Y, X;
-  vector<double> val;
-  properties P;
-  flow_parameters F;
-  species(){};
-  species(string sid);
-  species(string sid, double sY);
-  species(string sid, double val, string def);
-  void calculate_refprop(string);
-  void get_species_data_(string);
-  void calculate_thermodynamic_properties();
-};
-
-species::species(string sid) {
+species::species(std::string sid) {
   id = sid;
   Y = 0.0;
   X = 0.0;
 }
 
-species::species(string sid, double sY) {
+species::species(std::string sid, double sY) {
   id = sid;
   Y = sY;
   X = 0.0;
 }
 
-species::species(string sid, double val, string def) {
+species::species(std::string sid, double val, std::string def) {
   id = sid;
   X = 0.0;
   if (def == "Y") {
@@ -107,96 +30,16 @@ species::species(string sid, double val, string def) {
   }
 }
 
-size_t index_species(vector<species> &spc, string spc_id) {
-  for (size_t i = 0; i < spc.size(); i++) {
+std::size_t index_species(std::vector<species> &spc, std::string spc_id) {
+  for (std::size_t i = 0; i < spc.size(); i++) {
     if (spc[i].id == spc_id) {
       return i;
     }
   }
-  return -1;  // returns a negative number if species does not exist in the
-              // vector
+  return static_cast<std::size_t>(-1);  // returns a negative number if species does not exist in the vector
 }
 
-/**
- * @brief Structure to define the parameters of one flow phase
- *
- * @param "Y" = mass fraction (kg/kg)
- * @param "X" = molar fraction (mol/mol)
- * @param "C" = molar concentration (mol/l)
- * @param "phi" = volume fraction (m3/m3)
- * @param "i" = atoms vector
- * @param "j" = molecules vector
- * @param "k" = proximate composition vector
- */
-struct phase {
- public:
-  string id;
-  double C, Y, X, phi;
-  properties P;
-  flow_parameters F;
-  vector<species> i, j, k;
-};
-
-/**
- * @brief Structure to define the parameters of one flow
- *
- * @param string "id" = name: Ex. wood
- * @param string "def" = definition in database: Ex. spruce_chips
- * @param string "cls" = flow class: Ex. hardwood
- * @param string "flow_db" = file with flow data in database
- * @param string "prop_data" = type of properties: Ex. solid_fuel
- * @param "Y" = mass fraction (kg/kg)
- * @param "X" = molar fraction (mol/mol)
- * @param "C" = molar concentration (mol/l)
- * @param "phi" = volume fraction (m3/m3)
- * @param "i" = atoms vector
- * @param "j" = molecules vector
- * @param "k" = proximate composition vector
- * @param "ph[3]" = phase vector: 1.solid, 2.liquid, 3.gas
- * @param string "atom_def" = type of atomic composition: "Y" mass fraction, "X"
- * mol fraction
- * @param string "molec_def" = type of molecular composition: "Y" mass fraction,
- * "X" mol fraction
- * @param string "prox_def" = type of proximate composition: "Y" mass fraction,
- * "X" mol fraction
- */
-struct flow {
- public:
-  string id, def, cls;
-  string prop_data, flow_db;
-  vector<species> i, j, k, l;
-  string atom_def, molec_def, prox_def;  // i=atoms,j=molec,k=prox,l=const
-  properties P;
-  flow_parameters F;
-  phase ph[3];
-  flow(string flw_def);
-  flow(string flw_def, string flw_id);
-  flow(){};
-  void get_flow_data(string);
-  void initialize_species(vector<species> &);
-  void get_flow_species(vector<species> &, string);
-  void get_flow_composition(vector<species> &, string);
-  void get_flow_properties();
-  void get_flow_chemistry();
-  void interpret_molecules();
-  void mix_flows(flow &, flow &);
-  void flows_database(string);
-  void get_species_data();
-  void get_species_MW();
-  void define_flow_prop_data();
-  void calculate_flow(string);
-  void calculate_flow_composition();
-  void calculate_flow_properties(string);
-  void calculate_species_properties(string);
-  void calculate_flow_parameters();
-  void calculate_solid_fuel();
-  void calculate_properties();
-  void calculate_thermodynamic_properties();
-  void calculate_MW();
-  void print_flow();
-};
-
-flow::flow(string flw_def) {
+flow::flow(std::string flw_def) {
   def = flw_def;
   F = flow_parameters();
   P = properties();
@@ -208,7 +51,7 @@ flow::flow(string flw_def) {
   }
 }
 
-flow::flow(string flw_id, string flw_def) {
+flow::flow(std::string flw_id, std::string flw_def) {
   id = flw_id;
   def = flw_def;
   F = flow_parameters();
@@ -225,63 +68,61 @@ flow::flow(string flw_id, string flw_def) {
  * @brief function to interpret the molecular composition of a flow
  */
 void flow::interpret_molecules() {
-  char *molec_ID;
-  char *atom_ID;
-  vector<string> atoms_ID;
-  vector<int> atoms_N;
-  string txt;
-  double val;
-  int ctr_atom, ctr_atom1, ctr_atom2, ctr_molec, pos;
+  std::string molec_ID;
+  std::string atom_ID;
 
-  // cout << "Molecule interpreter. No. molecules: " << j.size() << endl;
+  std::vector<std::string> atoms_ID;
+  std::vector<int> atoms_N;
+  std::string txt;
+  int ctr_atom, ctr_atom1, ctr_atom2, ctr_molec, pos1, pos2;
+
+  // std::cout << "Molecule interpreter. No. molecules: " << j.size() << std::endl;
 
   if (j.size() > 0) {
-    for (size_t n = 0; n < j.size(); n++) {
-      // cout << "molecule formula: " << j[n].formula << endl;
+    for (std::size_t n = 0; n < j.size(); n++) {
+      // std::cout << "molecule formula: " << j[n].formula << std::endl;
       ctr_atom = 0;
       ctr_atom1 = 0;
       ctr_atom2 = 0;
       ctr_molec = 0;
-      molec_ID = new char[j[n].formula.length()];
-      strcpy(molec_ID, j[n].formula.c_str());
+      molec_ID = j[n].formula;
       j[n].P.MW = 0.0;
-      int l = 0;
-      pos = 0;
-      while (l < j[n].formula.length()) {
-        if (molec_ID[l] == 'T' &&
-            (molec_ID[l + 1] == 'X' || molec_ID[l + 1] == '-')) {
-          l = l + 2;
+      pos1 = 0;
+      pos2 = 0;
+      while (pos1 < j[n].formula.length()) {
+        if (molec_ID[pos1] == 'T' &&
+        (molec_ID[pos1 + 1] == 'X' || molec_ID[pos1 + 1] == '-')) {
+          pos1 = pos1 + 2;
         }
-        if (molec_ID[l] == 'S' &&
-            (molec_ID[l + 1] == 'X' || molec_ID[l + 1] == '-')) {
-          l = l + 2;
+        if (molec_ID[pos1] == 'S' &&
+        (molec_ID[pos1 + 1] == 'X' || molec_ID[pos1 + 1] == '-')) {
+          pos1 = pos1 + 2;
         }
-        if ((molec_ID[l] == '+' || molec_ID[l] == '-') &&
-            (molec_ID[l + 1] >= '1' && molec_ID[l + 1] <= '9')) {
+        if ((molec_ID[pos1] == '+' || molec_ID[pos1] == '-') &&
+        (molec_ID[pos1 + 1] >= '1' && molec_ID[pos1 + 1] <= '9')) {
           break;
         }
-        if ((molec_ID[l] == '+' || molec_ID[l] == '-') &&
-            l == j[n].formula.length() - 1) {
+        if ((molec_ID[pos1] == '+' || molec_ID[pos1] == '-') &&
+        pos1 == j[n].formula.length() - 1) {
           break;
         }
 
         // finding a match in the atoms list
-        for (size_t m = 0; m < i.size(); m++) {
-          atom_ID = new char[i[m].id.length()];
-          strcpy(atom_ID, i[m].id.c_str());
+        for (std::size_t m = 0; m < i.size(); m++) {
+          atom_ID = i[m].id;
 
           if (i[m].id.length() == 1 && ctr_atom2 == 0) {
-            if (molec_ID[l] == atom_ID[0]) {
+            if (molec_ID[pos1] == atom_ID[0]) {
               ctr_atom1 = 1;
               atoms_ID.push_back(i[m].id);
             }
           }
 
           if (i[m].id.length() == 2) {
-            if (l + 1 <= j[n].formula.length() - 1 &&
-                molec_ID[l + 1] == atom_ID[1] && molec_ID[l] == atom_ID[0]) {
+            if (pos1 + 1 <= j[n].formula.length() - 1 &&
+                molec_ID[pos1 + 1] == atom_ID[1] && molec_ID[pos1] == atom_ID[0]) {
               ctr_atom2 = 1;
-              l = l + 1;
+              pos1 = pos1 + 1;
               if (ctr_atom1 == 0) {
                 atoms_ID.push_back(i[m].id);
               }
@@ -296,38 +137,38 @@ void flow::interpret_molecules() {
         if (ctr_atom1 == 1 || ctr_atom2 == 1) {
           ctr_atom1 = 0;
           ctr_atom2 = 0;
-          if (l == j[n].formula.length() - 1) {
+          if (pos1 == j[n].formula.length() - 1) {
             atoms_N.push_back(1);
             ctr_molec = 1;
           }
 
-          if ((l < j[n].formula.length() - 1) &&
-              !(molec_ID[l + 1] >= '0' && molec_ID[l + 1] <= '9')) {
+          if ((pos1 < j[n].formula.length() - 1) &&
+          !(molec_ID[pos1 + 1] >= '0' && molec_ID[pos1 + 1] <= '9')) {
             atoms_N.push_back(1);
-            pos = l + 1;
+            pos2 = pos1 + 1;
           }
 
-          if ((l < j[n].formula.length() - 1) &&
-              (molec_ID[l + 1] >= '0' && molec_ID[l + 1] <= '9')) {
-            if ((l + 1) == (j[n].formula.length() - 1)) {
+          if ((pos1 < j[n].formula.length() - 1) &&
+          (molec_ID[pos1 + 1] >= '0' && molec_ID[pos1 + 1] <= '9')) {
+            if ((pos1 + 1) == (j[n].formula.length() - 1)) {
               ctr_molec = 1;
-              atoms_N.push_back(molec_ID[l + 1] - '0');
+              atoms_N.push_back(molec_ID[pos1 + 1] - '0');
             }
-            if ((l + 1) < (j[n].formula.length() - 1)) {
+            if ((pos1 + 1) < (j[n].formula.length() - 1)) {
               int v = 0;
-              while (molec_ID[l + 1] >= '0' && molec_ID[l + 1] <= '9') {
-                v = 10 * v + molec_ID[l + 1] - '0';
-                if ((l + 1) == j[n].formula.length() - 1) {
-                  ctr_molec = 1;
-                  break;
+              while (molec_ID[pos1 + 1] >= '0' && molec_ID[pos1 + 1] <= '9') {
+                v = 10 * v + molec_ID[pos1 + 1] - '0';
+                if ((pos1 + 1) == j[n].formula.length() - 1) {
+              ctr_molec = 1;
+              break;
                 }
-                l = l + 1;
+                pos1 = pos1 + 1;
               }
               atoms_N.push_back(v);
-              pos = l + 1;
+              pos2 = pos1 + 1;
             }
           }
-          l = pos;
+          pos1 = pos2;
         }
 
         if (ctr_molec == 1) {
@@ -336,11 +177,11 @@ void flow::interpret_molecules() {
         }
       }
 
-      int index;
+      std::size_t index;
 
       double sum_N = 0;
       double sum_M = 0;
-      for (size_t ni = 0; ni < atoms_ID.size(); ni++) {
+      for (std::size_t ni = 0; ni < atoms_ID.size(); ni++) {
         index = index_species(i, atoms_ID[ni]);
         sum_N = sum_N + atoms_N[ni];
         sum_M = sum_M + atoms_N[ni] * i[index].P.MW;
@@ -348,7 +189,7 @@ void flow::interpret_molecules() {
         i[index].Y = 0;  // initialize
       }
 
-      for (size_t ni = 0; ni < atoms_ID.size(); ni++) {
+      for (std::size_t ni = 0; ni < atoms_ID.size(); ni++) {
         index = index_species(i, atoms_ID[ni]);
         if (molec_def == "X") {
           i[index].X = i[index].X + j[n].X * atoms_N[ni] / sum_N;
@@ -359,17 +200,17 @@ void flow::interpret_molecules() {
         }
       }
 
-      for (size_t ni = 0; ni < atoms_ID.size(); ni++) {
+      for (std::size_t ni = 0; ni < atoms_ID.size(); ni++) {
         index = index_species(i, atoms_ID[ni]);
         j[n].P.MW = j[n].P.MW + atoms_N[ni] * i[index].P.MW;
       }
 
       double sum_Y_MW = 0.0;
-      for (size_t ni = 0; ni < i.size(); ni++) {
+      for (std::size_t ni = 0; ni < i.size(); ni++) {
         sum_Y_MW += i[ni].Y / i[ni].P.MW;
       }
       if (molec_def == "Y") {
-        for (size_t ni = 0; ni < i.size(); ni++) {
+        for (std::size_t ni = 0; ni < i.size(); ni++) {
           i[ni].X = (i[ni].Y / i[ni].P.MW) / sum_Y_MW;
         }
       }
@@ -380,13 +221,10 @@ void flow::interpret_molecules() {
   }
 }
 
-/**
- * @brief function to initialize species parameters
- */
-void flow::initialize_species(vector<species> &spc) {
-  int n_spc = spc.size();
+void flow::initialize_species(std::vector<species> &spc) {
+  size_t n_spc = spc.size();
   if (n_spc > 0)
-    for (size_t ns = 0; ns < n_spc; ns++) {
+    for (std::size_t ns = 0; ns < n_spc; ns++) {
       {
         spc[ns].Y = 0;
         spc[ns].X = 0;
@@ -396,26 +234,21 @@ void flow::initialize_species(vector<species> &spc) {
     }
 }
 
-/**
- * @brief function to import the data for a species
- *
- * @param spc_type = "molecule" or "atom"
- */
-void species::get_species_data_(string spc_type) {
+void species::get_species_data_(std::string spc_type) {
   P = properties();
   F = flow_parameters();
-  string txt, line_txt, symb;
+  std::string txt, line_txt, symb;
   int n;
   double num;
   bool input;
 
-  // cout << "getting data for species: " << id << endl;
-  ifstream db;
+  // std::cout << "getting data for species: " << id << std::endl;
+  std::ifstream db;
 
   if (spc_type == "molecule") {
-    db.open(DIR + "Database/Flows_database/Molecules_db.txt");
+    db.open(get_database_path("Flows_database/Molecules_db.txt"));
     if (!db.good()) {
-      cout << "molecule file not found" << endl;
+      std::cout << "molecule file not found" << std::endl;
       db.close();
       return;
     }
@@ -423,7 +256,7 @@ void species::get_species_data_(string spc_type) {
     bool molecule_found = false;
     while (molecule_found == false) {
       getline(db, line_txt);
-      stringstream sst(line_txt);
+      std::stringstream sst(line_txt);
       sst >> txt;
       if (txt == "Species_id") {
         while (sst >> txt) {
@@ -438,7 +271,7 @@ void species::get_species_data_(string spc_type) {
       }
     }
     if (molecule_found == false) {
-      cout << "molecule " << id << " not found" << endl;
+      std::cout << "molecule " << id << " not found" << std::endl;
       db.close();
       return;
     }
@@ -496,9 +329,9 @@ void species::get_species_data_(string spc_type) {
   }
 
   if (spc_type == "atom") {
-    db.open(DIR + "Database/Flows_database/atoms_db.txt");
+    db.open(get_database_path("Flows_database/atoms_db.txt"));
     if (!db.good()) {
-      cout << "atom_file not found" << endl;
+      std::cout << "atom_file not found" << std::endl;
       db.close();
       return;
     }
@@ -506,7 +339,7 @@ void species::get_species_data_(string spc_type) {
     bool atom_found = false;
     while (atom_found == false) {
       getline(db, line_txt);
-      stringstream sst(line_txt);
+      std::stringstream sst(line_txt);
       sst >> txt;
       if (txt == id) {
         sst >> txt;
@@ -524,7 +357,7 @@ void species::get_species_data_(string spc_type) {
       }
     }
     if (atom_found == false) {
-      cout << "atom id not found in the databse" << endl;
+      std::cout << "atom id " << id << " not found in the database" << std::endl;
       db.close();
       return;
     }
@@ -533,29 +366,22 @@ void species::get_species_data_(string spc_type) {
   }
 }
 
-/**
- * @brief function to import the composition data of a flow from the database
- *
- * @param spc vector of species
- * @param input string specifying the same of the flow
- */
-void flow::get_flow_composition(vector<species> &spc, string input) {
-  string txt, symb, val, line_txt;
+void flow::get_flow_composition(std::vector<species> &spc, std::string input) {
+  std::string txt, symb, val, line_txt;
   int n_spc;
-  bool found = false;
   species sp;
 
-  ifstream flow_file;
+  std::ifstream flow_file;
   flow_file.open(flow_db);
 
   if (!flow_file.good()) {
-    cout << "flow_file problem" << endl;
+    std::cout << "flow_file problem" << std::endl;
   }
   if (flow_file.good()) {
     bool flow_found = false;
     while (flow_found == false) {
       getline(flow_file, line_txt);
-      stringstream sst(line_txt);
+      std::stringstream sst(line_txt);
       sst >> txt;
       if (txt == "Flow_def" || txt == "Flow_def:" || txt == "flow_def" ||
           txt == "flow_def:") {
@@ -571,14 +397,14 @@ void flow::get_flow_composition(vector<species> &spc, string input) {
       }
     }
     if (flow_found == false) {
-      cout << "flow def not found" << endl;
+      std::cout << "flow def not found" << std::endl;
       flow_file.close();
       return;
     }
 
     while (!flow_file.eof()) {
       getline(flow_file, line_txt);
-      stringstream sst(line_txt);
+      std::stringstream sst(line_txt);
       sst >> txt;
       if (txt == input) {
         break;
@@ -591,17 +417,17 @@ void flow::get_flow_composition(vector<species> &spc, string input) {
     }
 
     getline(flow_file, line_txt);
-    stringstream sst(line_txt);
+    std::stringstream sst(line_txt);
     sst >> txt;
     sst >> txt;
     n_spc = atoi(txt.c_str());
     if (n_spc > 0) {
       for (int n = 0; n < n_spc; n++) {
         getline(flow_file, line_txt);
-        stringstream sst(line_txt);
-        sst >> txt;
-        if (sst >> symb) {
-          sst >> val;
+        std::stringstream sst2(line_txt);
+        sst2 >> txt;
+        if (sst2 >> symb) {
+          sst2 >> val;
           spc.push_back(species(txt, atof(val.c_str()), symb));
           if (symb == "Y" && input == "MOLECULES") {
             molec_def = "Y";
@@ -650,20 +476,16 @@ void flow::get_flow_composition(vector<species> &spc, string input) {
   }
 }
 
-/**
- * @brief function to import the properties of a flow from the database
- *
- */
 void flow::get_flow_properties() {
-  string txt, line_txt, symb;
+  std::string txt, line_txt, symb;
   double val;
   int n;
 
-  ifstream flow_file;
+  std::ifstream flow_file;
   flow_file.open(flow_db);
 
   if (!flow_file.good()) {
-    cout << "flow_file problem" << endl;
+    std::cout << "flow_file problem" << std::endl;
     flow_file.close();
     return;
   }
@@ -671,7 +493,7 @@ void flow::get_flow_properties() {
     bool flow_found = false;
     while (flow_found == false) {
       getline(flow_file, line_txt);
-      stringstream sst(line_txt);
+      std::stringstream sst(line_txt);
       sst >> txt;
       if (txt == "Flow_def" || txt == "Flow_def:" || txt == "flow_def" ||
           txt == "flow_def:") {
@@ -687,7 +509,7 @@ void flow::get_flow_properties() {
       }
     }
     if (flow_found == false) {
-      cout << "flow def not found" << endl;
+      std::cout << "flow def not found" << std::endl;
       flow_file.close();
       return;
     }
@@ -748,32 +570,25 @@ void flow::get_flow_properties() {
     flow_file.close();
 
     if (P.LHV == 0.0 && P.HHV > 0) {
-      int H = index_species(i, "H");
+      size_t H = index_species(i, "H");
       P.LHV = P.HHV - i[H].Y * (18 / 2) * 2.5;
     }
   }
 }
 
-/**
- * @brief function to import all data of a flow from the database
- *
- * @param input_def string specifying the name definition of the flow in the
- * database
- */
-void flow::get_flow_data(string input_def) {
-  string line_txt, txt, symb;
-  double val;
-  int n;
+void flow::get_flow_data(std::string input_def) {
+  std::string line_txt, txt, symb;
   species spc;
 
   def = input_def;
 
-  ifstream db_file;
+  std::ifstream db_file;
 
-  db_file.open(DIR + "Database/Flows_database/Flow_list.txt");
+  // Get the directory of the current source file
+  db_file.open(get_database_path("Flows_database/Flow_list.txt"));
 
   if (!db_file.good()) {
-    cout << "flow_list file not found" << endl;
+    std::cout << "flow_list file not found" << std::endl;
     db_file.close();
     return;
   }
@@ -781,7 +596,7 @@ void flow::get_flow_data(string input_def) {
     bool flow_found = false;
     while (flow_found == false) {
       getline(db_file, line_txt);
-      stringstream sst(line_txt);
+      std::stringstream sst(line_txt);
       sst >> txt;
       if (txt == input_def) {
         flow_found = true;
@@ -795,19 +610,19 @@ void flow::get_flow_data(string input_def) {
     }
 
     if (flow_found == false) {
-      cout << "flow is not in the list" << endl;
+      std::cout << "flow is not in the list" << std::endl;
       db_file.close();
       return;
     }
     db_file.close();
   }
 
-  flow_db = DIR + "Database/" + flow_db;
+  flow_db = get_database_path(flow_db);
 
-  ifstream db;
+  std::ifstream db;
   db.open(flow_db);
   if (!db.good()) {
-    cout << "flow_db file problem" << endl;
+    std::cout << "flow_db file problem" << std::endl;
     db.close();
     return;
   }
@@ -815,7 +630,7 @@ void flow::get_flow_data(string input_def) {
     bool flow_found = false;
     while (flow_found == false) {
       getline(db, line_txt);
-      stringstream sst(line_txt);
+      std::stringstream sst(line_txt);
       sst >> txt;
       if (txt == "Flow_def" || txt == "Flow_def:" || txt == "flow_def" ||
           txt == "flow_def:") {
@@ -831,7 +646,7 @@ void flow::get_flow_data(string input_def) {
       }
     }
     if (flow_found == false) {
-      cout << input_def + " not found in " + flow_db << endl;
+      std::cout << input_def + " not found in " + flow_db << std::endl;
       db.close();
       return;
     }
@@ -840,7 +655,7 @@ void flow::get_flow_data(string input_def) {
 
     while (flow_cls_defined == false) {
       getline(db, line_txt);
-      stringstream sst(line_txt);
+      std::stringstream sst(line_txt);
       getline(sst, txt, ' ');
       if (txt == "Flow_cls" || txt == "Flow_cls:" || txt == "flow_cls" ||
           txt == "flow_cls:") {
@@ -853,7 +668,7 @@ void flow::get_flow_data(string input_def) {
 
     while (prop_data_defined == false) {
       getline(db, line_txt);
-      stringstream sst(line_txt);
+      std::stringstream sst(line_txt);
       sst >> txt;
       if (txt == "Prop_data" || txt == "Prop_data:" || txt == "prop_data" ||
           txt == "prop_data:") {
@@ -881,85 +696,79 @@ void flow::get_flow_data(string input_def) {
  *
  */
 void flow::print_flow() {
-  cout << "------ Flow -------------- " << endl;
-  cout << "id: " << id << endl;
-  cout << "def: " << def << endl;
-  cout << "cls: " << cls << endl;
-  cout << "prop_data: " << prop_data << endl;
-  cout << "M: " << F.M << endl;
-  cout << "T: " << F.T << endl;
-  cout << "P: " << F.P << endl;
-  cout << "LHV dry: " << P.LHV_dry << endl;
-  cout << "LHV: " << P.LHV << endl;
-  cout << "MW: " << P.MW << endl;
-  cout << "cp: " << P.cp << endl;
-  cout << "rho: " << P.rho << endl;
-  cout << "h: " << P.h << endl;
-  cout << "ht: " << P.ht << endl;
-  cout << "s: " << P.s << endl;
-  cout << "H : " << F.H << endl;
-  cout << "Ht : " << F.Ht << endl;
-  cout << "-------------------- " << endl;
+  std::cout << "------ Flow -------------- " << std::endl;
+  std::cout << "id: " << id << std::endl;
+  std::cout << "def: " << def << std::endl;
+  std::cout << "cls: " << cls << std::endl;
+  std::cout << "prop_data: " << prop_data << std::endl;
+  std::cout << "M: " << F.M << std::endl;
+  std::cout << "T: " << F.T << std::endl;
+  std::cout << "P: " << F.P << std::endl;
+  std::cout << "LHV dry: " << P.LHV_dry << std::endl;
+  std::cout << "LHV: " << P.LHV << std::endl;
+  std::cout << "MW: " << P.MW << std::endl;
+  std::cout << "cp: " << P.cp << std::endl;
+  std::cout << "rho: " << P.rho << std::endl;
+  std::cout << "h: " << P.h << std::endl;
+  std::cout << "ht: " << P.ht << std::endl;
+  std::cout << "s: " << P.s << std::endl;
+  std::cout << "H : " << F.H << std::endl;
+  std::cout << "Ht : " << F.Ht << std::endl;
+  std::cout << "-------------------- " << std::endl;
   if (i.size() == 0) {
-    cout << " atomic composition is not defined" << endl;
+    std::cout << " atomic composition is not defined" << std::endl;
   }
   if (i.size() > 0) {
-    cout << "Atomic composition: " << endl;
-    cout << "------------------- " << endl;
-    for (size_t n = 0; n < i.size(); n++) {
-      cout << i[n].id << " X: " << i[n].X << " Y: " << i[n].Y << endl;
+    std::cout << "Atomic composition: " << std::endl;
+    std::cout << "------------------- " << std::endl;
+    for (std::size_t n = 0; n < i.size(); n++) {
+      std::cout << i[n].id << " X: " << i[n].X << " Y: " << i[n].Y << std::endl;
     }
   }
-  cout << "-------------------- " << endl;
+  std::cout << "-------------------- " << std::endl;
   if (j.size() == 0) {
-    cout << " molecular composition is not defined" << endl;
+    std::cout << " molecular composition is not defined" << std::endl;
   }
   if (j.size() > 0) {
-    cout << "Molecular composition: " << endl;
-    cout << "------------------- " << endl;
-    for (size_t n = 0; n < j.size(); n++) {
-      cout << j[n].id << " MW: " << j[n].P.MW << " X: " << j[n].X
+    std::cout << "Molecular composition: " << std::endl;
+    std::cout << "------------------- " << std::endl;
+    for (std::size_t n = 0; n < j.size(); n++) {
+      std::cout << j[n].id << " MW: " << j[n].P.MW << " X: " << j[n].X
            << " Y: " << j[n].Y << " cp: " << j[n].P.cp << " ht: " << j[n].P.ht
-           << " h: " << j[n].P.h << " s: " << j[n].P.s << endl;
+           << " h: " << j[n].P.h << " s: " << j[n].P.s << std::endl;
     }
   }
-  cout << "-------------------- " << endl;
+  std::cout << "-------------------- " << std::endl;
   if (k.size() == 0) {
-    cout << " proximate composition is not defined" << endl;
+    std::cout << " proximate composition is not defined" << std::endl;
   }
   if (k.size() > 0) {
-    cout << "Proximate composition: " << endl;
-    cout << "------------------- " << endl;
-    for (size_t n = 0; n < k.size(); n++) {
-      cout << k[n].id << " X: " << k[n].X << " Y: " << k[n].Y << endl;
+    std::cout << "Proximate composition: " << std::endl;
+    std::cout << "------------------- " << std::endl;
+    for (std::size_t n = 0; n < k.size(); n++) {
+      std::cout << k[n].id << " X: " << k[n].X << " Y: " << k[n].Y << std::endl;
     }
   }
-  cout << "-------------------- " << endl;
+  std::cout << "-------------------- " << std::endl;
 }
 
-/**
- * @brief Boolean function to find out if a flow exists in the database
- *
- * @param input_def string with the name of the flow in the database
- * @return true if found, false otherwise
- */
-bool find_flow(string input_def) {
-  ifstream db_file;
+bool find_flow(std::string input_def) {
+  std::ifstream db_file;
 
-  string line_txt, txt, flow_cls, flow_db,
-      error = input_def + " not found in the database" + DIR + "Database/";
+  std::string line_txt, txt, flow_cls, flow_db,
+      error = input_def + " not found in the database Database/";
 
-  db_file.open(DIR + "Database/Flows_database/Flow_list.txt");
+  db_file.open(get_database_path("Flows_database/Flow_list.txt"));
 
   if (!db_file.good()) {
-    cout << "Flow list not found" << endl;
+    std::cout << "Flow list not found" << std::endl;
     db_file.close();
   }
   if (db_file.good()) {
     bool flow_found = false;
     while (flow_found == false) {
       getline(db_file, line_txt);
-      stringstream sst(line_txt);
+      std::stringstream sst(line_txt);
       sst >> txt;
       if (txt == input_def) {
         flow_found = true;
@@ -973,17 +782,17 @@ bool find_flow(string input_def) {
     }
 
     if (flow_found == false) {
-      cout << input_def + " not found in Flow_list" << endl;
+      std::cout << input_def + " not found in Flow_list" << std::endl;
       db_file.close();
       return false;
     }
   }
 
   db_file.close();
-  ifstream db;
-  db.open(DIR + "Database/" + flow_db);
+  std::ifstream db;
+  db.open(get_database_path(flow_db));
   if (!db.good()) {
-    cout << DIR + "Database/" + flow_db + " not found" << endl;
+    std::cout << "Database/" + flow_db + " not found" << std::endl;
     db.close();
     return false;
   }
@@ -991,7 +800,7 @@ bool find_flow(string input_def) {
     bool flow_found = false;
     while (flow_found == false) {
       getline(db, line_txt);
-      stringstream sst(line_txt);
+      std::stringstream sst(line_txt);
       sst >> txt;
       if (txt == "Flow_def" || txt == "Flow_def:" || txt == "flow_def" ||
           txt == "flow_def:") {
@@ -1007,7 +816,7 @@ bool find_flow(string input_def) {
       }
     }
     if (flow_found == false) {
-      cout << error << endl;
+      std::cout << error << std::endl;
       db.close();
     }
   }

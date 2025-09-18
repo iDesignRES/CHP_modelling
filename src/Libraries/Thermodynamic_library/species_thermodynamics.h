@@ -1,10 +1,7 @@
-#include <math.h>
-#include <string.h>
-#include <tgmath.h>
+#include <cmath>
+#include <iostream>
 
-#include <vector>
-
-using namespace std;
+#include "species_thermodynamics.h"
 
 /**
  * @brief Shomate function defined by NIST to calculate thermodynamic properties
@@ -17,8 +14,8 @@ using namespace std;
  * @param A,B,C,D,E,F,G constants of the Shomate function
  * @param Hf298 specific molar formation enthalpy
  */
-double shomate(string property, double tK, double A, double B, double C,
-               double D, double E, double F, double G, double Hf298) {
+double shomate(std::string property, double tK, double A, double B, double C,
+         double D, double E, double F, double G, double Hf298) {
   // properties
   // cp = heat capacity (J/mol*K) = A + B * t + C * t2 + D * t3 + E / t2
   // h - H°298.15 = standard enthalpy (kJ/mol) = A*t + B*t2/2 + C*t3/3 + D*t4/4
@@ -26,19 +23,19 @@ double shomate(string property, double tK, double A, double B, double C,
   // t2 / 2 + D * t3 / 3 - E / (2 * t2) + G
 
   if (property == "cp") {
-    return A + B * pow(tK, 1.0) + C * pow(tK, 2.0) + D * pow(tK, 3.0) +
-           E / pow(tK, 2.0);
+  return A + B * std::pow(tK, 1.0) + C * std::pow(tK, 2.0) + D * std::pow(tK, 3.0) +
+       E / std::pow(tK, 2.0);
   }
   if (property == "h") {
-    return A * pow(tK, 1.0) + B * pow(tK, 2.0) / 2.0 + C * pow(tK, 3.0) / 3.0 +
-           D * pow(tK, 4.0) / 4.0 - E / tK + F - Hf298;
+  return A * std::pow(tK, 1.0) + B * std::pow(tK, 2.0) / 2.0 + C * std::pow(tK, 3.0) / 3.0 +
+       D * std::pow(tK, 4.0) / 4.0 - E / tK + F - Hf298;
   }
   if (property == "hf") {
-    return Hf298;
+  return Hf298;
   }
   if (property == "s") {
-    return A * log(tK) + B * pow(tK, 1.0) + C * pow(tK, 2.0) / 2.0 +
-           D * pow(tK, 3.0) / 3.0 - E / (2.0 * pow(tK, 2.0)) + G;
+  return A * std::log(tK) + B * std::pow(tK, 1.0) + C * std::pow(tK, 2.0) / 2.0 +
+       D * std::pow(tK, 3.0) / 3.0 - E / (2.0 * std::pow(tK, 2.0)) + G;
   }
 
   return -1;
@@ -53,11 +50,10 @@ double shomate(string property, double tK, double A, double B, double C,
  *	"h" = specific molar enthalpy
  *	"s" = specific molar entropy
  * @param TK Temperature (K)
- * @param P Pressure (bar-g)
  * @param unit, string specifying the units of the property
  */
-double thermodynamic_property(string species, string property, double TK,
-                              double P, string unit) {
+double thermodynamic_property(std::string species, std::string property, double TK,
+                std::string unit) {
   double tK = TK / 1000.0;
 
   if (species == "CO2") {
@@ -71,8 +67,7 @@ double thermodynamic_property(string species, string property, double TK,
       F = -403.6075;
       G = 228.2431;
       Hf298 = -393.5224;
-    }
-    if (tK > 1.2) {
+    } else {
       A = 58.16639;
       B = 2.720074;
       C = -0.492289;
@@ -94,8 +89,7 @@ double thermodynamic_property(string species, string property, double TK,
       F = -118.0089;
       G = 227.3665;
       Hf298 = -110.5271;
-    }
-    if (tK > 1.3) {
+    } else {
       A = 35.1507;
       B = 1.300095;
       C = -0.205921;
@@ -117,8 +111,7 @@ double thermodynamic_property(string species, string property, double TK,
       F = -250.881;
       G = 223.3967;
       Hf298 = -241.8264;
-    }
-    if (tK > 1.7) {
+    } else {
       A = 41.96426;
       B = 8.622053;
       C = -1.499781;
@@ -140,8 +133,7 @@ double thermodynamic_property(string species, string property, double TK,
       F = -9.991971;
       G = 172.788;
       Hf298 = 0.0;
-    }
-    if (tK > 1.5) {
+    } else {
       A = 34.1434;
       B = 0.503927;
       C = 0.372036;
@@ -163,8 +155,7 @@ double thermodynamic_property(string species, string property, double TK,
       F = -76.84376;
       G = 158.7163;
       Hf298 = -74.8731;
-    }
-    if (tK > 1.3) {
+    } else {
       A = 85.81217;
       B = 11.26467;
       C = -2.114146;
@@ -208,8 +199,7 @@ double thermodynamic_property(string species, string property, double TK,
       F = -305.7688;
       G = 254.8872;
       Hf298 = -296.8422;
-    }
-    if (tK > 1.2) {
+    } else {
       A = 57.48188;
       B = 1.009328;
       C = -0.07629;
@@ -231,8 +221,7 @@ double thermodynamic_property(string species, string property, double TK,
       F = -407.8526;
       G = 253.5186;
       Hf298 = -395.7654;
-    }
-    if (tK > 1.2) {
+    } else {
       A = 81.99008;
       B = 0.622236;
       C = -0.12244;
@@ -254,8 +243,7 @@ double thermodynamic_property(string species, string property, double TK,
       F = -101.6206;
       G = 228.6866;
       Hf298 = -92.31201;
-    }
-    if (tK > 1.2) {
+    } else {
       A = 31.91923;
       B = 3.203184;
       C = -0.541539;
@@ -277,8 +265,7 @@ double thermodynamic_property(string species, string property, double TK,
       F = -10.8348;
       G = 259.029;
       Hf298 = 0.0;
-    }
-    if (tK > 1.0 && tK <= 3.0) {
+    } else if (1.0 < tK && tK <= 3.0) {
       A = 42.6773;
       B = -5.00957;
       C = 1.904621;
@@ -287,8 +274,7 @@ double thermodynamic_property(string species, string property, double TK,
       F = -17.2898;
       G = 269.84;
       Hf298 = 0.0;
-    }
-    if (tK > 3.0) {
+    } else {
       A = -42.5535;
       B = 41.6857;
       C = -7.12683;
@@ -310,8 +296,7 @@ double thermodynamic_property(string species, string property, double TK,
       F = -53.30667;
       G = 203.8591;
       Hf298 = -45.89806;
-    }
-    if (tK > 1.4) {
+    } else {
       A = 52.02427;
       B = 18.48801;
       C = -3.765128;
@@ -333,8 +318,7 @@ double thermodynamic_property(string species, string property, double TK,
       F = 26.17464;
       G = 240.5386;
       Hf298 = 33.09502;
-    }
-    if (tK > 1.2) {
+    } else {
       A = 56.82541;
       B = 0.738053;
       C = -0.144721;
@@ -356,8 +340,7 @@ double thermodynamic_property(string species, string property, double TK,
       F = -8.893428;
       G = 293.7724;
       Hf298 = 9.078988;
-    }
-    if (tK > 1.0) {
+    } else {
       A = 128.622;
       B = 2.524345;
       C = -0.520883;
@@ -368,6 +351,8 @@ double thermodynamic_property(string species, string property, double TK,
       Hf298 = 9.078988;
     }
     return shomate(property, tK, A, B, C, D, E, F, G, Hf298);
+  } else {
+    throw std::invalid_argument("Unknown species: " + species);
   }
 
   return -1;

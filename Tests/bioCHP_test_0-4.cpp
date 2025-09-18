@@ -1,19 +1,21 @@
+#include <cstddef>
+#include <string>
+#include <vector>
+#include <iostream>
 #include <iomanip>  // for setprecision
 
-#include "../src/bioCHP.cpp"
-
-// using namespace std;
+#include "../src/bioCHP.h"
 
 int main() {
-  vector<string> fuel_def = {"spruce_chips", "spruce_T&B"};
-  vector<double> Yj = {0.5, 0.5};
-  vector<double> YH2Oj = {0.3, 0.6};
+  std::vector<std::string> fuel_def = {"spruce_chips", "spruce_T&B"};
+  std::vector<double> Yj = {0.5, 0.5};
+  std::vector<double> YH2Oj = {0.3, 0.6};
   double W_el = 300.0000;
-  vector<double> Qk = {30.0, 40.0};
-  vector<double> Tk_in = {70.0, 70.0, 70.0};
-  vector<double> Tk_out = {90.0, 90.0};
+  std::vector<double> Qk = {30.0, 40.0};
+  std::vector<double> Tk_in = {70.0, 70.0, 70.0};
+  std::vector<double> Tk_out = {90.0, 90.0};
 
-  vector<double> Mj;
+  std::vector<double> Mj;
   double Q_prod;
   double W_el_prod;
   double C_inv;
@@ -22,9 +24,11 @@ int main() {
 
   if (bioCHP_plant(fuel_def, Yj, YH2Oj, W_el, Qk, Tk_in, Tk_out, Mj, Q_prod,
                    W_el_prod, C_inv, C_op, C_op_var)) {
-    cout << "No errors" << endl;
+    std::cout << "No errors" << std::endl;
 
   } else {
-    cout << "error" << endl;
+    std::cout << "error" << std::endl;
   }
+
+  return 0;
 }

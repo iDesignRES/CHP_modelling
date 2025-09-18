@@ -1,24 +1,22 @@
-#include "../src/bioCHP_wrapper.cpp"
-
-#include <cmath>  // for fabs
-#include <cstring>
-#include <iomanip>  // for setprecision
+#include <cmath>      // for fabs
+#include <iomanip>    // for setprecision
 #include <string>
 #include <vector>
+#include <iostream>
 
-using namespace std;
+#include "../src/bioCHP_wrapper.h"
 
 bool approxEqual(double a, double b, double tol = 1e-4) {
-  return fabs(a - b) < tol;
+  return std::fabs(a - b) < tol;
 }
 
 int main(int argc, char *argv[]) {
   if (argc != 2) {
-    cout << "Usage: " << argv[0] << " <test_number>" << endl;
+    std::cout << "Usage: " << argv[0] << " <test_number>" << std::endl;
     return 1;
   }
 
-  int test = stoi(argv[1]);
+  int test = std::stoi(argv[1]);
 
   const char *fuel_def[4];
   int fuel_count, Yj_len, YH2Oj_len, Qk_len, Tk_in_len, Tk_out_len, Mj_len;
@@ -112,60 +110,62 @@ int main(int argc, char *argv[]) {
     bool all_passed = true;
 
     for (int nj = 0; nj < Mj_len; nj++) {
-      cout << "M_" << fuel_def[nj] << " = " << Mj[nj] << endl;
+      std::cout << "M_" << fuel_def[nj] << " = " << Mj[nj] << std::endl;
       if (!approxEqual(Mj[nj], expected_Mj[nj])) {
         all_passed = false;
-        cout << "Mj[" << nj << "] failed: expected " << expected_Mj[nj]
-             << ", got " << Mj[nj] << endl;
+        std::cout << "Mj[" << nj << "] failed: expected " << expected_Mj[nj]
+             << ", got " << Mj[nj] << std::endl;
       }
     }
 
-    cout << fixed << setprecision(6);  // Set higher precision
-    cout << "Q_prod (MW) = " << Q_prod << endl;
-    cout << "W_el_prod (MW) = " << W_el_prod << endl;
-    cout << "C_inv (M$) = " << C_inv << endl;
-    cout << "C_op (M$) = " << C_op << endl;
-    cout << "C_op_var (M$) = " << C_op_var << endl;
+    std::cout << std::fixed << std::setprecision(6);  // Set higher precision
+    std::cout << "Q_prod (MW) = " << Q_prod << std::endl;
+    std::cout << "W_el_prod (MW) = " << W_el_prod << std::endl;
+    std::cout << "C_inv (M$) = " << C_inv << std::endl;
+    std::cout << "C_op (M$) = " << C_op << std::endl;
+    std::cout << "C_op_var (M$) = " << C_op_var << std::endl;
 
     if (!approxEqual(Q_prod, expected_Q_prod)) {
       all_passed = false;
-      cout << "Q_prod failed: expected " << expected_Q_prod << ", got "
-           << Q_prod << endl;
+      std::cout << "Q_prod failed: expected " << expected_Q_prod << ", got "
+           << Q_prod << std::endl;
     }
 
     if (!approxEqual(W_el_prod, expected_W_el_prod)) {
       all_passed = false;
-      cout << "W_el_prod failed: expected " << expected_W_el_prod << ", got "
-           << W_el_prod << endl;
+      std::cout << "W_el_prod failed: expected " << expected_W_el_prod << ", got "
+           << W_el_prod << std::endl;
     }
 
     if (!approxEqual(C_inv, expected_C_inv)) {
       all_passed = false;
-      cout << "C_inv failed: expected " << expected_C_inv << ", got " << C_inv
-           << endl;
+      std::cout << "C_inv failed: expected " << expected_C_inv << ", got " << C_inv
+           << std::endl;
     }
 
     if (!approxEqual(C_op, expected_C_op)) {
       all_passed = false;
-      cout << "C_op failed: expected " << expected_C_op << ", got " << C_op
-           << endl;
+      std::cout << "C_op failed: expected " << expected_C_op << ", got " << C_op
+           << std::endl;
     }
 
     if (!approxEqual(C_op_var, expected_C_op_var)) {
       all_passed = false;
-      cout << "C_op_var failed: expected " << expected_C_op_var << ", got "
-           << C_op_var << endl;
+      std::cout << "C_op_var failed: expected " << expected_C_op_var << ", got "
+           << C_op_var << std::endl;
     }
 
     if (all_passed) {
-      cout << "All tests pass!" << endl;
+      std::cout << "All tests pass!" << std::endl;
     } else {
-      cout << "Some tests failed!" << endl;
+      std::cout << "Some tests failed!" << std::endl;
     }
 
     return all_passed ? 0 : 1;
   } else {
-    cout << "Running bioCHP_plant_c failed on execution!" << endl;
+    std::cout << "Running bioCHP_plant_c failed on execution!" << std::endl;
     return 1;
   }
+
+  return 0;
 }
