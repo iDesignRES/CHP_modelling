@@ -25,22 +25,19 @@ double shomate(std::string property, double tK, double A, double B, double C,
   if (property == "cp") {
     return A + B * std::pow(tK, 1.0) + C * std::pow(tK, 2.0) +
            D * std::pow(tK, 3.0) + E / std::pow(tK, 2.0);
-  }
-  if (property == "h") {
+  } else if (property == "h") {
     return A * std::pow(tK, 1.0) + B * std::pow(tK, 2.0) / 2.0 +
            C * std::pow(tK, 3.0) / 3.0 + D * std::pow(tK, 4.0) / 4.0 - E / tK +
            F - Hf298;
-  }
-  if (property == "hf") {
+  } else if (property == "hf") {
     return Hf298;
-  }
-  if (property == "s") {
+  } else if (property == "s") {
     return A * std::log(tK) + B * std::pow(tK, 1.0) +
            C * std::pow(tK, 2.0) / 2.0 + D * std::pow(tK, 3.0) / 3.0 -
            E / (2.0 * std::pow(tK, 2.0)) + G;
+  } else {
+    throw std::invalid_argument("Unknown property: " + property);
   }
-
-  return -1;
 }
 
 /**
@@ -52,10 +49,13 @@ double shomate(std::string property, double tK, double A, double B, double C,
  *	"h" = specific molar enthalpy
  *	"s" = specific molar entropy
  * @param TK Temperature (K)
- * @param unit, string specifying the units of the property
  */
 double thermodynamic_property(std::string species, std::string property,
-                              double TK, std::string unit) {
+                              double TK) {
+  if (TK <= 0) {
+    throw std::invalid_argument("Temperature must be positive.");
+  }
+
   double tK = TK / 1000.0;
 
   if (species == "CO2") {
@@ -365,8 +365,6 @@ double thermodynamic_property(std::string species, std::string property,
     Hf298 = 0.000000;
     return shomate(property, tK, A, B, C, D, E, F, G, Hf298);
   } else {
-    std::cerr << "Warning: Unknown species: " << species << std::endl;
+    throw std::invalid_argument("Unknown species: " + species);
   }
-
-  return -1;
 }

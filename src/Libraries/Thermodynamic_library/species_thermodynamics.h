@@ -25,7 +25,6 @@ double shomate(std::string property, double tK, double A, double B, double C,
  *	"h" = specific molar enthalpy
  *	"s" = specific molar entropy
  * @param TK Temperature (K)
- * @param unit, string specifying the units of the property
  */
 double thermodynamic_property(std::string species, std::string property,
-                              double TK, std::string unit);
+                              double TK);

@@ -1,4 +1,5 @@
 #include <cmath>
+#include <iostream>
 
 #include "Library_Water_Correlations.h"
 
@@ -17,7 +18,7 @@ double hPWater(double P) {
 
   return (A + C * std::log(P) + E * std::pow(std::log(P), 2.0) +
           G * std::pow(std::log(P), 3.0) + i * std::pow(std::log(P), 4.0)) /
-         (1 + B * std::log(P) + D * std::pow(std::log(P), 2.0) +
+         (1.0 + B * std::log(P) + D * std::pow(std::log(P), 2.0) +
           f * std::pow(std::log(P), 3.0) + H * std::pow(std::log(P), 4.0));
 }
 
@@ -37,7 +38,7 @@ double hTWater(double T) {
 
   return (A + C * T + E * std::pow(T, 2.0) + G * std::pow(T, 3.0) +
           i * std::pow(T, 4.0)) /
-         (1 + B * T + D * std::pow(T, 2.0) + f * std::pow(T, 3.0) +
+         (1.0 + B * T + D * std::pow(T, 2.0) + f * std::pow(T, 3.0) +
           H * std::pow(T, 4.0) + j * std::pow(T, 5.0));
 }
 
@@ -59,7 +60,7 @@ double TSatWater(double P) {
   return (A + C * std::log(P) + E * std::pow(std::log(P), 2.0) +
           G * std::pow(std::log(P), 3.0) + i * std::pow(std::log(P), 4.0) +
           k * std::pow(std::log(P), 5.0)) /
-         (1 + B * std::log(P) + D * std::pow(std::log(P), 2.0) +
+         (1.0 + B * std::log(P) + D * std::pow(std::log(P), 2.0) +
           f * std::pow(std::log(P), 3.0) + H * std::pow(std::log(P), 4.0) +
           j * std::pow(std::log(P), 5.0));
 }
@@ -81,7 +82,7 @@ double PSatWater(double T) {
 
   return (A + C * T + E * std::pow(T, 2.0) + G * std::pow(T, 3.0) +
           i * std::pow(T, 4.0) + k * std::pow(T, 5.0)) /
-         (1 + B * T + D * std::pow(T, 2.0) + f * std::pow(T, 3.0) +
+         (1.0 + B * T + D * std::pow(T, 2.0) + f * std::pow(T, 3.0) +
           H * std::pow(T, 4.0) + j * std::pow(T, 5.0));
 }
 
@@ -105,9 +106,7 @@ double sPhSupSteam(double P, double H) {
            G * std::pow(std::log(P), 3.0) + U / std::pow(H, 3.0) +
            i * (std::log(P)) / std::pow(H, 2.0) +
            j * std::pow(std::log(P), 2.0) / H;
-  }
-
-  if (P >= 10 && P < 24.0) {
+  } else if (10.0 <= P && P < 24.0) {
     A = 12.17787168;
     B = -0.05047554;
     C = -11638.1867;
@@ -122,9 +121,7 @@ double sPhSupSteam(double P, double H) {
     return A + B * P + C / H + D * std::pow(P, 2.0) + E / std::pow(H, 2.0) +
            f * P / H + G * std::pow(P, 3.0) + U / std::pow(H, 3.0) +
            i * P / std::pow(H, 2.0) + j * std::pow(P, 2.0) / H;
-  }
-
-  if (P >= 24.0 && P < 42.0) {
+  } else if (24.0 <= P && P < 42.0) {
     A = 12.13000484;
     B = -0.02596893;
     C = -13150.5398;
@@ -139,9 +136,7 @@ double sPhSupSteam(double P, double H) {
     return A + B * P + C / H + D * std::pow(P, 2.0) + E / std::pow(H, 2.0) +
            f * P / H + G * std::pow(P, 3.0) + U / std::pow(H, 3.0) +
            i * P / std::pow(H, 2.0) + j * std::pow(P, 2.0) / H;
-  }
-
-  if (P >= 42.0 && P < 60.0) {
+  } else if (42.0 <= P && P < 60.0) {
     A = 10.64359824;
     B = -0.32048327;
     C = 12007.48665;
@@ -158,9 +153,7 @@ double sPhSupSteam(double P, double H) {
            G * std::pow(std::log(P), 3.0) + U / std::pow(H, 3.0) +
            i * (std::log(P)) / std::pow(H, 2.0) +
            j * std::pow(std::log(P), 2.0) / H;
-  }
-
-  if (P >= 60.0 && P < 100.0) {
+  } else if (60.0 <= P && P < 100.0) {
     A = 10.1644606;
     B = 78.48986572;
     C = -11188.9497;
@@ -175,9 +168,9 @@ double sPhSupSteam(double P, double H) {
     return A + B / P + C / H + D / std::pow(P, 2.0) + E / std::pow(H, 2.0) +
            f / (P * H) + G / std::pow(P, 3.0) + U / std::pow(H, 3.0) +
            i / (P * std::pow(H, 2.0)) + j / (std::pow(P, 2.0) * H);
+  } else {
+    throw std::invalid_argument("Pressure out of range (0-100 bar)");
   }
-
-  return -1;
 }
 
 double TPhSupSteam(double P, double H) {
@@ -195,12 +188,10 @@ double TPhSupSteam(double P, double H) {
     i = 568766000;
     j = -601.941773;
 
-    return A + B * P + C / H + D * std::pow(P, 2) + E / std::pow(H, 2) +
-           f * P / H + G * std::pow(P, 3) + U / std::pow(H, 3) +
-           i * P / std::pow(H, 2) + j * std::pow(P, 2) / H - 273.17;
-  }
-
-  if (P >= 10.0 && P < 24.0) {
+    return A + B * P + C / H + D * std::pow(P, 2.0) + E / std::pow(H, 2.0) +
+           f * P / H + G * std::pow(P, 3.0) + U / std::pow(H, 3.0) +
+           i * P / std::pow(H, 2.0) + j * std::pow(P, 2.0) / H - 273.17;
+  } else if (10.0 <= P && P < 24.0) {
     A = 2537.3289;
     B = 16.07484702;
     C = -3557100;
@@ -215,9 +206,7 @@ double TPhSupSteam(double P, double H) {
     return A + B * P + C / H + D * std::pow(P, 2.0) + E / std::pow(H, 2.0) +
            f * P / H + G * std::pow(P, 3.0) + U / std::pow(H, 3.0) +
            i * P / std::pow(H, 2.0) + j * std::pow(P, 2.0) / H - 273.17;
-  }
-
-  if (P >= 24.0 && P < 40.0) {
+  } else if (24.0 <= P && P < 40.0) {
     A = 1400.998669;
     B = 464.5647437;
     C = 4987640;
@@ -234,9 +223,7 @@ double TPhSupSteam(double P, double H) {
            G * std::pow(std::log(P), 3.0) + U / std::pow(H, 3.0) +
            i * (std::log(P)) / std::pow(H, 2.0) +
            j * std::pow(std::log(P), 2.0) / H - 273.17;
-  }
-
-  if (P >= 40.0 && P < 60.0) {
+  } else if (40.0 <= P && P < 60.0) {
     A = 1400.749789;
     B = 578.0416208;
     C = 3673840;
@@ -253,9 +240,7 @@ double TPhSupSteam(double P, double H) {
            G * std::pow(std::log(P), 3.0) + U / std::pow(H, 3.0) +
            i * (std::log(P)) / std::pow(H, 2.0) +
            j * std::pow(std::log(P), 2.0) / H - 273.17;
-  }
-
-  if (P >= 60.0 && P < 100.0) {
+  } else if (60.0 <= P && P < 100.0) {
     A = 1486950;
     B = 18029.10934;
     C = -550948.579;
@@ -273,8 +258,9 @@ double TPhSupSteam(double P, double H) {
            U * std::pow(std::log(H), 3.0) +
            i * std::log(P) * std::pow(std::log(H), 2.0) +
            j * std::pow(std::log(P), 2.0) * std::log(H) - 273.17;
+  } else {
+    throw std::invalid_argument("Pressure out of range (0-100 bar)");
   }
-  return -1;
 }
 
 double hPTSupSteam(double P, double Temp) {
@@ -299,9 +285,7 @@ double hPTSupSteam(double P, double Temp) {
            G * std::pow(P, 3.0) + H * std::pow(std::log(T), 3.0) +
            i * P * std::pow(std::log(T), 2.0) +
            j * std::pow(P, 2.0) * std::log(T);
-  }
-
-  if (P >= 6.0 && P < 10.0) {
+  } else if (6.0 <= P && P < 10.0) {
     A = -131757.625;
     B = -6996.63699;
     C = 66816.71538;
@@ -319,9 +303,7 @@ double hPTSupSteam(double P, double Temp) {
            H * std::pow(std::log(T), 3.0) +
            i * std::log(P) * std::pow(std::log(T), 2.0) +
            j * std::pow(std::log(P), 2.0) * std::log(T);
-  }
-
-  if (P >= 10.0 && P < 24.0) {
+  } else if (10.0 <= P && P < 24.0) {
     A = -186456.557;
     B = -755.251695;
     C = 90831.0755;
@@ -338,9 +320,7 @@ double hPTSupSteam(double P, double Temp) {
            G * std::pow(P, 3.0) + H * std::pow(std::log(T), 3.0) +
            i * P * std::pow(std::log(T), 2.0) +
            j * std::pow(P, 2.0) * std::log(T);
-  }
-
-  if (P >= 24 && P < 42) {
+  } else if (24.0 <= P && P < 42.0) {
     A = 8775.254532;
     B = -12.7851943;
     C = -8032300;
@@ -355,9 +335,7 @@ double hPTSupSteam(double P, double Temp) {
     return A + B * P + C / T + D * std::pow(P, 2.0) + E / std::pow(T, 2.0) +
            f * P / T + G * std::pow(P, 3.0) + H / std::pow(T, 3.0) +
            i * P / std::pow(T, 2.0) + j * std::pow(P, 2.0) / T;
-  }
-
-  if (P >= 42.0 && P < 300.0) {
+  } else if (42.0 <= P && P < 300.0) {
     A = 10440.24509;
     B = -20.9445233;
     C = -11277000;
@@ -372,9 +350,9 @@ double hPTSupSteam(double P, double Temp) {
     return A + B * P + C / T + D * std::pow(P, 2.0) + E / std::pow(T, 2.0) +
            f * P / T + G * std::pow(P, 3.0) + H / std::pow(T, 3.0) +
            i * P / std::pow(T, 2.0) + j * std::pow(P, 2.0) / T;
+  } else {
+    throw std::invalid_argument("Pressure out of range (0-300 bar)");
   }
-
-  return -1;
 }
 
 double hPSatSteam(double P) {
@@ -393,7 +371,7 @@ double hPSatSteam(double P) {
 
   return (A + C * std::log(P) + E * std::pow(std::log(P), 2.0) +
           G * std::pow(std::log(P), 3.0) + i * std::pow(std::log(P), 4.0)) /
-         (1 + B * std::log(P) + D * std::pow(std::log(P), 2.0) +
+         (1.0 + B * std::log(P) + D * std::pow(std::log(P), 2.0) +
           f * std::pow(std::log(P), 3.0) + H * std::pow(std::log(P), 4.0) +
           j * std::pow(std::log(P), 5.0));
 }
@@ -422,9 +400,7 @@ double sPTSupSteam(double P, double T_in) {
            H * std::pow(std::log(T), 3.0) +
            i * std::log(P) * std::pow(std::log(T), 2.0) +
            j * std::pow(std::log(P), 2.0) * std::log(T);
-  }
-
-  if (P >= 10.0 && P < 24.0) {
+  } else if (10.0 <= P && P < 24.0) {
     A = 12.92832091;
     B = -0.10043202;
     C = -6049.57011;
@@ -439,9 +415,7 @@ double sPTSupSteam(double P, double T_in) {
     return A + B * P + C / T + D * std::pow(P, 2.0) + E / std::pow(T, 2.0) +
            f * P / T + G * std::pow(P, 3.0) + H / std::pow(T, 3.0) +
            i * P / std::pow(T, 2.0) + j * std::pow(P, 2.0) / T;
-  }
-
-  if (P >= 24.0 && P < 42.0) {
+  } else if (24.0 <= P && P < 42.0) {
     A = 13.62876031;
     B = -0.0658488;
     C = -8058.25636;
@@ -456,10 +430,7 @@ double sPTSupSteam(double P, double T_in) {
     return A + B * P + C / T + D * std::pow(P, 2.0) + E / std::pow(T, 2.0) +
            f * P / T + G * std::pow(P, 3.0) + H / std::pow(T, 3.0) +
            i * P / std::pow(T, 2.0) + j * std::pow(P, 2.0) / T;
-  }
-
-  // if (P >= 42.0 && P < 100.0) {
-  if (P >= 42.0 && P < 300.0) {
+  } else if (42.0 <= P && P < 300.0) {
     A = 15.8812763;
     B = -0.05656025;
     C = -13082.1017;
@@ -474,8 +445,9 @@ double sPTSupSteam(double P, double T_in) {
     return A + B * P + C / T + D * std::pow(P, 2.0) + E / std::pow(T, 2.0) +
            f * P / T + G * std::pow(P, 3.0) + H / std::pow(T, 3.0) +
            i * P / std::pow(T, 2.0) + j * std::pow(P, 2.0) / T;
+  } else {
+    throw std::invalid_argument("Pressure out of range (0-300 bar)");
   }
-  return -1;
 }
 
 double sPWater(double P) {
@@ -543,7 +515,7 @@ double sTWater(double T) {
       ((A + C * std::pow(T, 2.0) + E * std::pow(T, 4.0) + G * std::pow(T, 6.0) +
         i * std::pow(T, 8.0) + k * std::pow(T, 10.0)) /
        (1.0 + B * std::pow(T, 2.0) + D * std::pow(T, 4.0) +
-        f * std::pow(T, 6.0) + H * std::pow(T, 8.0) + j * std::pow(T, 10))),
+        f * std::pow(T, 6.0) + H * std::pow(T, 8.0) + j * std::pow(T, 10.0))),
       0.5);
 }
 
@@ -600,8 +572,8 @@ double vTSteam(double T) {
   E = 0.0000826718;
   f = -0.0000000061263;
 
-  return exp((A + C * T + E * std::pow(T, 2.0)) /
-             (1.0 + B * T + D * std::pow(T, 2.0) + f * std::pow(T, 3.0)));
+  return std::exp((A + C * T + E * std::pow(T, 2.0)) /
+                  (1.0 + B * T + D * std::pow(T, 2.0) + f * std::pow(T, 3.0)));
 }
 
 double HVapH2O(double T) { return HTSteam(T) - hTWater(T); }
@@ -612,5 +584,5 @@ double HVapH2O(double T) { return HTSteam(T) - hTWater(T); }
  * @param T = Temperature (deg.C)
  */
 double CpWater(double T) {
-  return hTWater(T + 1) - hTWater(T);  // 29.05.2003
+  return hTWater(T + 1.0) - hTWater(T);  // 29.05.2003
 }

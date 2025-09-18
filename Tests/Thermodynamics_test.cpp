@@ -29,7 +29,7 @@ int main() {
         std::cout << "Species: " << s[ns] << std::endl;
         for (std::size_t npr = 0; npr < p.size(); npr++) {
           std::cout << '\t' << p[npr] << ", " << u[npr] << " = "
-                    << thermodynamic_property(s[ns], p[npr], TK[nt], "J/mol*K")
+                    << thermodynamic_property(s[ns], p[npr], TK[nt])
                     << std::endl;
         }
       }

@@ -36,8 +36,8 @@ std::size_t index_species(std::vector<species> &spc, std::string spc_id) {
       return i;
     }
   }
-  return static_cast<std::size_t>(
-      -1);  // returns a negative number if species does not exist in the vector
+  // returns a negative number if species does not exist in the vector
+  return static_cast<std::size_t>(-1);
 }
 
 flow::flow(std::string flw_def) {
@@ -294,32 +294,25 @@ void species::get_species_data_(std::string spc_type) {
           db >> num;
           if (symb == "MW") {
             P.MW = num;
-          }
-          if (symb == "hf") {
+          } else if (symb == "hf") {
             P.hf = num;
-          }
-          if (symb == "rho_m") {
+          } else if (symb == "rho_m") {
             P.rho = num;
-          }
-          if (symb == "cp_m") {
+          } else if (symb == "cp_m") {
             P.cp = num;
-          }
-          if (symb == "k") {
+          } else if (symb == "s_m") {
+            P.s = num;
+          } else if (symb == "k") {
             P.k = num;
-          }
-          if (symb == "visc") {
+          } else if (symb == "visc") {
             P.visc = num;
-          }
-          if (symb == "HHV") {
+          } else if (symb == "HHV") {
             P.HHV = num;
-          }
-          if (symb == "LHV") {
+          } else if (symb == "LHV") {
             P.LHV = num;
-          }
-          if (symb == "Tsat") {
+          } else if (symb == "Tsat") {
             P.Tsat = num;
-          }
-          if (symb == "hv") {
+          } else if (symb == "hv") {
             P.hVap = num;
           }
         }
@@ -433,43 +426,28 @@ void flow::get_flow_composition(std::vector<species> &spc, std::string input) {
         if (sst2 >> symb) {
           sst2 >> val;
           spc.push_back(species(txt, atof(val.c_str()), symb));
-          if (symb == "Y" && input == "MOLECULES") {
-            molec_def = "Y";
+          if (input == "MOLECULES") {
+            molec_def = symb;
+          } else if (input == "ATOMS") {
+            atom_def = symb;
+          } else if (input == "PROXIMATE") {
+            prox_def = symb;
           }
-          if (symb == "X" && input == "MOLECULES") {
-            molec_def = "X";
-          }
-          if (symb == "Y" && input == "ATOMS") {
-            atom_def = "Y";
-          }
-          if (symb == "X" && input == "ATOMS") {
-            atom_def = "X";
-          }
-          if (symb == "Y" && input == "PROXIMATE") {
-            prox_def = "Y";
-          }
-          if (symb == "X" && input == "PROXIMATE") {
-            prox_def = "X";
-          }
-
         } else {
           spc.push_back(species(txt));
         }
 
         if (input == "MOLECULES") {
           spc[spc.size() - 1].get_species_data_("molecule");
-        }
-        if (input == "ATOMS") {
+        } else if (input == "ATOMS") {
           spc[spc.size() - 1].get_species_data_("atom");
         }
         for (int m = 0; m < 3; m++) {
           if (input == "ATOMS") {
             ph[m].i.push_back(spc[spc.size() - 1]);
-          }
-          if (input == "MOLECULES") {
+          } else if (input == "MOLECULES") {
             ph[m].j.push_back(spc[spc.size() - 1]);
-          }
-          if (input == "PROXIMATE") {
+          } else if (input == "PROXIMATE") {
             ph[m].k.push_back(spc[spc.size() - 1]);
           }
         }

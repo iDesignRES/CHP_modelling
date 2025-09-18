@@ -66,9 +66,9 @@ double cecpi(int year_input) {
     case 2020:
       return 668.0;
     default:
-      std::cerr << "Error: CECPI value for year " << year_input
-                << " not available." << std::endl;
-      throw std::invalid_argument("CECPI year not available");
+      throw std::invalid_argument("CECPI value for year " +
+                                  std::to_string(year_input) +
+                                  " not available");
   }
 }
 
