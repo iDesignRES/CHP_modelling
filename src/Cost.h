@@ -9,7 +9,10 @@ using namespace std;
 
 /**
  * @brief Structure to equipment parameters
- *
+ * @param def = definying name in the database
+ * @param Cpi = Installed cost
+ * @param W_el = Electric load
+ * @param C_maint = Maintenance cost
  */
 struct equipment {
  public:
@@ -19,7 +22,11 @@ struct equipment {
 
 /**
  * @brief Structure to define material consumables parameters
- *
+ * @param type = type of material (consumable, product)
+ * @param def = definying name in the database
+ * @param Q_annual = Annual quantity
+ * @param price = unit price
+ * @param C_annual = Annual cost
  */
 struct material {
  public:

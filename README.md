@@ -1,10 +1,5 @@
 ## bioCHP plant model
 
-[![Build Status](https://github.com/iDesignRES/CHP_modelling/workflows/CI/badge.svg)](https://github.com/iDesignRES/CHP_modelling/actions?query=workflow%3ACI)
-[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://idesignres.github.io/CHP_modelling/stable/)
-[![In Development](https://img.shields.io/badge/docs-dev-blue.svg)](https://idesignres.github.io/CHP_modelling/dev/)
-![clang-format](https://img.shields.io/badge/clang--format-Google%20style-blue?logo=clang&logoColor=white)
-
 This README provides an overview of the iDesignRES biomass-based Combined Heat and Power (bioCHP) Model within iDesignRES.
 
 It is handled by SINTEF Energy Research and part of WP1, Task number Task 1.3. 
@@ -52,22 +47,7 @@ This repository contains separately c++ files bioCHP_function_test_[number].cpp:
  - bioCHP_function_test_4-[1,2].cpp: bioCHP plant using four biomass feedstock with specified electric power production and several heat demands
  - bioCHP_wrapper_test.cpp: bioCHP plant using four biomass feedstock with specified electric power production and several heat 
 
-## Prerequisites
-- **Git**: Ensure Git is installed on your system.
-- **CMake**: Install CMake from CMake website.
-- **C++ Compiler**: Install a C++ compiler (e.g., `g++` for Linux, `MinGW` or Visual Studio for Windows).
-
-## Getting Started
-
-### Cloning the Repository
-First, clone the repository to your local computer:
-```bash
-mkdir [your_project_name]
-cd [your_project_name]
-git clone https://github.com/yourusername/your-repo.git
-```
-
-### Linux Setup
+## Quick start - Linux Setup
 
 1. **Install Dependencies**:
    Ensure you have `g++` and CMake installed. You can install them using:

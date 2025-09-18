@@ -1,5 +1,16 @@
-
-
+/**
+ * @brief Structure with steam turbine parameters
+ *
+ * @param "id" = string, identifying name
+ * @param "Mi" = input steam mass flow rate (kg/s)
+ * @param "Pi" = input steam pressure (bar)
+ * @param "Ti" = input steam temperature (deg.C)
+ * @param "Po" = output steam pressure (bar)
+ * @param "mu_isent" = isentropic efficiency (-)
+ * @param "W" = output mechanical power (MW)
+ * @param "Pext" = vector with extractions pressure (bar)
+ * @param "Mext" = vector with extractions flows (kg/s)
+ */
 struct steam_turbine_parameters {
  public:
   string id;
@@ -15,11 +26,15 @@ void steam_turbine_parameters::assign_parameter_values(string sys_type,
   mu_isent = get_num_parameter(par, sys_type, sys_def, "mu_isent");
 }
 
+/**
+ * @brief function to calculate one steam turbine stage
+ *
+ * @input &in = flow vector representing input steam
+ * @output &out = flow with calculated output steam
+ * @input &ST = input steam turbine parameters
+ * @output &ST = calculated output steam turbine parameters
+ */
 void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
-  // cout << "---------------------- " << endl;
-  // cout << "steam turbine stage: " << endl;
-  // cout << "---------------------- " << endl;
-
   ST.Mi = in.F.M;
   ST.Ti = in.F.T;
   ST.Pi = in.F.P;
@@ -108,11 +123,15 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
   */
 }
 
+/**
+ * @brief function to calculate a steam turbine with bleeds
+ *
+ * @input &in = flow vector representing input steam
+ * @output &out = flow with calculated output steam
+ * @input &par = input steam turbine parameters
+ * @output &par = calculated output steam turbine parameters
+ */
 void steam_turbine_model(flow &in, flow &out, object &par) {
-  // cout << "-------------------------- " << endl;
-  // cout << "steam turbine with bleeds: " << endl;
-  // cout << "-------------------------- " << endl;
-
   steam_turbine_parameters ST;
   ST.assign_parameter_values("process", "Rankine_cycle", par.p);
 
@@ -170,11 +189,15 @@ void steam_turbine_model(flow &in, flow &out, object &par) {
   }
 }
 
+/**
+ * @brief function to calculate a steam condenser
+ *
+ * @input &in = flow vector representing input steam
+ * @output &out = flow with calculated output condensate
+ * @input &par = input condenser parameters
+ * @output &par = calculated output condenser parameters
+ */
 void steam_condenser(flow &steam, flow &cond, object &par) {
-  // cout << "---------------------- " << endl;
-  // cout << "Steam condenser: " << endl;
-  // cout << "---------------------- " << endl;
-
   cond = flow("cond", "water");
   cond.F.T = par.fp("T_cond");
   cond.F.P = par.fp("P_cond");
@@ -184,27 +207,20 @@ void steam_condenser(flow &steam, flow &cond, object &par) {
   cond.P.h = hTWater(cond.F.T);
   double Q_cond = steam.F.M * (steam.P.h - cond.P.h);
 
-  /*
-  cout << "Parameter:" << '\t' << "in" << '\t' << "out" << endl;
-  cout << "P (bar-a)" << '\t' << steam.F.P << '\t' << cond.F.P << endl;
-  cout << "T (deg-C)" << '\t' << steam.F.T << '\t' << cond.F.T << endl;
-  cout << "h (J/kg)" << '\t' << steam.P.h << '\t' << cond.P.h << endl;
-
-  cout << "Steam condenser duty (MW): " << Q_cond * 1e-6 << endl;
-  */
-
   par.fval_p("Q_cond", Q_cond * 1e-6);
 }
 
-void district_heating(flow &dh_in, flow &dh_out, object &par) {
-  // cout << "---------------------- " << endl;
-  // cout << "District heating: " << endl;
-  // cout << "---------------------- " << endl;
-
+/**
+ * @brief function to calculate heat demands by district heating
+ *
+ * @input &par = input district heating parameters
+ * @output &par = calculated output district heating parameters
+ */
+void district_heating(object &par) {
   vector<double> P_bleed, M_bleed;
 
-  dh_in = flow("dh_in", "water");
-  dh_out = flow("dh_out", "water");
+  flow dh_in("dh_in", "water");
+  flow dh_out("dh_out", "water");
 
   if (par.vctp("Qk").size() > 0) {
     for (size_t nk = 0; nk < par.vctp("Qk").size(); nk++) {
@@ -291,8 +307,14 @@ void district_heating(flow &dh_in, flow &dh_out, object &par) {
   }
 }
 
+/**
+ * @brief function to calculate a rankine cycle model
+ *
+ * @input &par = input rankine cycle parameters
+ * @output &par = calculated output rankine cycle parameters
+ */
 void rankine_cycle(object &par) {
-  flow bfw, sat_cond, sat_stm, steam, steam_out, cond, dh_in, dh_out;
+  flow bfw, sat_cond, sat_stm, steam, steam_out, cond;
   bfw = flow("bfw", "water");
   bfw.F.T = 105.0;
   bfw.F.P = par.fp("P_stm");
@@ -318,7 +340,7 @@ void rankine_cycle(object &par) {
 
   // calculating district heating data
   // cout << "calculating district heating data" << endl;
-  district_heating(dh_in, dh_out, par);
+  district_heating(par);
 
   // calculating steam turbines
   // cout << "calculating steam turbines" << endl;

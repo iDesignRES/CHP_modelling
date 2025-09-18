@@ -1,4 +1,10 @@
-
+/**
+ * @brief function to get feedstock defined in plant object
+ *
+ * @input &plant pointer to object with feedstock specification
+ *
+ * @return &f = flow vector containing all feedstock
+ */
 void get_feedstock(vector<flow> &f, object &plant) {
   double LHV = 0.0;
   for (size_t nf = 0; nf < plant.svct("fuel_def").size(); nf++) {
@@ -18,11 +24,14 @@ void get_feedstock(vector<flow> &f, object &plant) {
   plant.fval_p("LHV_f", LHV);
 }
 
+/**
+ * @brief function to calculate the bioCHP plant model
+ *
+ * @input &bioCHP object to object with bioCHP input parameters
+ *
+ * @return &bioCHP object with calculated output parameters
+ */
 void bioCHP_plant_model(object &bioCHP) {
-  // cout << "------------------------ " << endl;
-  // cout << "bioCHP PLANT: " << endl;
-  // cout << "------------------------- " << endl;
-
   object boiler("system", "solid_fuel_boiler", DIR + "Database/bioCHP_inputs");
   object rankine("process", "Rankine_cycle", DIR + "Database/bioCHP_inputs");
   object scrubber("process", "flue_gas_cleaning",
@@ -164,16 +173,4 @@ void bioCHP_plant_model(object &bioCHP) {
   bioCHP.fval_p("output-Electricity_production_(MW)", rankine.fp("W_el"));
 
   cost(bioCHP);
-
-  /*
-  for (size_t nf = 0; nf < feed.size(); nf++) {
-    feed[nf].print_flow();
-  }
-  comb_air[0].print_flow();
-  flue_gas.print_flow();
-  bottom_ash.print_flow();
-  fly_ash.print_flow();
-
-  print_parameters(bioCHP);
-  */
 }

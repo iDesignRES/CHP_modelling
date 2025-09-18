@@ -542,7 +542,6 @@ double sPWater(double P) {
  * @param P = Pressure (bar-a)
  */
 double sPSatSteam(double P) {
-  // Entropi [kJ/(kg K)] som funksjon av trykk P [bara]
   double A, B, C, D, E, f, G, H, i, j, k;
 
   A = 7.359240216;
@@ -568,7 +567,6 @@ double sPSatSteam(double P) {
  * @param T = Temperature (deg.C)
  */
 double sTWater(double T) {
-  // Entropi [kJ/(kg K)] i vann som funksjon av temperatur T [C]
   double A, B, C, D, E, f, G, H, i, j, k;
 
   A = 1.40623e-50;
@@ -618,7 +616,7 @@ double HTSteam(double T) {
 /**
  * @brief Specific volume [m3/kg] of water
  *
- * @param T = Temerature (deg.C)
+ * @param T = Temperature (deg.C)
  */
 double vTWater(double T) {
   double A, B, C, D, E;
@@ -636,7 +634,7 @@ double vTWater(double T) {
 /**
  * @brief Specific volume [m3/kg] of steam
  *
- * @param T = Temerature (deg.C)
+ * @param T = Temperature (deg.C)
  */
 double vTSteam(double T) {
   double A, B, C, D, E, f;
@@ -662,7 +660,7 @@ double HVapH2O(double T) { return HTSteam(T) - hTWater(T); }
 /**
  * @brief Specific heat [kJ/kg K] of water
  *
- * @param T = Temerature (deg.C)
+ * @param T = Temperature (deg.C)
  */
 double CpWater(double T) {
   return hTWater(T + 1) - hTWater(T);  // 29.05.2003

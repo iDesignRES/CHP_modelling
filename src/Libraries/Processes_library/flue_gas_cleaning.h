@@ -1,9 +1,12 @@
-
+/**
+ * @brief function to calculate a dry scrubber model
+ *
+ * @input &in = flow representing input raw flue gas
+ * @input &par = object with input scrubber parameters
+ * @output &out = flow representing calculated cleaned flue gas
+ * @output &par = object with calculated output parameters
+ */
 void dry_scrubber_model(flow &in, flow &out, object &par) {
-  // -------------------------
-  // WET SCRUBBER MODEL
-  // -------------------------
-
   in.F.T = par.fp("T_op");
   in.F.P = par.fp("P_op");
   in.calculate_flow("PT");
@@ -29,12 +32,4 @@ void dry_scrubber_model(flow &in, flow &out, object &par) {
                          par.fp("M_fuel") * 3.6 * par.c[scrubber].fp("w_el"));
 
   equipment_cost(par.c[scrubber]);
-
-  /*
-  cout << "scrubber inlet M (kg/s): " << in.F.M << endl;
-  cout << "scrubber cost (M$): " << par.c[scrubber].fp("Cpi") * 1e-6 << endl;
-  cout << "lime cost (M$ annual): " << par.c[lime].fp("C_annual") * 1e-6 <<
-  endl; cout << "cake cost (M$ annual): " << par.c[cake].fp("C_annual") * 1e-6
-  << endl;
-  */
 }

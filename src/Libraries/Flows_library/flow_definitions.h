@@ -7,87 +7,71 @@
 
 using namespace std;
 using namespace MyPaths;
-/*
-struct physical_parameter {
- public:
-  string symb, def, unit;
-  double val;
-  physical_parameter(string input_symb, double input_val, string input_unit);
-  physical_parameter(string input_symb, string input_def, double input_val,
-                     string input_unit);
-};
 
-physical_parameter::physical_parameter(string input_symb, double input_val,
-                                       string input_unit) {
-  symb = input_symb;
-  val = input_val;
-  unit = input_unit;
-}
-
-physical_parameter::physical_parameter(string input_symb, string input_def,
-                                       double input_val, string input_unit) {
-  symb = input_symb;
-  def = input_def;
-  val = input_val;
-  unit = input_unit;
-}
-
-struct physical_parameters_set {
- public:
-  vector<physical_parameter> p;
-  double f(string symb);
-};
-
-double physical_parameters_set::f(string symb) {
-  bool found = false;
-  for (size_t np = 0; np < p.size(); np++) {
-    if (p[np].symb == symb) {
-      found = true;
-      return p[np].val;
-    }
-  }
-  return -1;
-}
-*/
 /**
  * @brief Structure to define flow or species properties
  *
+ * @param "LHV" = Low Heating Value (MJ/kg)
+ * @param "LHV_dry" = Low Heating Value dry basis (MJ/kg)
+ * @param "HHV" = High Heating Value (MJ/kg)
+ * @param "HHV_dry" = High Heating Value dry basis (MJ/kg)
+ * @param "cp" = specific molar heat at constant pressure (J/kg K)
+ * @param "rho" = density (kg/m3)
+ * @param "MW" = molecular weight (kg/mol)
+ * @param "h" = specific enthalpy (J/kg)
+ * @param "hf" = specific formation enthalpy (J/kg)
+ * @param "ht" = specific thermal enthalpy (J/kg)
+ * @param "s" = specific entropy (J/kgK)
+ * @param "Tsat" = saturation temperature (deg.C)
+ * @param "q" = vapor compostion (kg/kg)
+ * @param "k" = thermal conductivity (W/m*K)
+ * @param "visc" = viscosity (Pa*s)
+ * @param "hVap" = vaporization heat (J/kg)
  */
 struct properties {
  public:
   double LHV = 0.0, LHV_dry, HHV = 0.0, HHV_dry;
   double cp, rho, MW;
-  double hf, ht, h;              // J/mol (REFPROP)
-  double s, g, gf, e;            // (REFPROP)
-  double DP, BP, hVap, Tsat, q;  // dew point, bubble point, heat of evaporation
+  double hf, ht, h;
+  double s;
+  double Tsat, q, hVap;
   double k, visc;
-  double em_psr;       // energy particle size reducton
-  vector<double> val;  // valences
 };
 
 /**
  * @brief Structure to define flow parameters
  *
+ * @param "P" = pressure (bar)
+ * @param "T" = temperature (deg.C)
+ * @param "M" = mass flow rate (kg/s)
+ * @param "N" = molar flow rate (mol/s)
+ * @param "VN" = standard volumetric flow rate (Nm3/s)
+ * @param "V" = volumetric flow rate (m3/s)
+ * @param "H" = Enthalpy flow (J/s)
+ * @param "Hf" = Formation enthalpy flow (J/s)
+ * @param "Ht" = Thermal enthalpy flow (J/s)
  */
 struct flow_parameters {
  public:
   double P, T;
-  double M, N, VN,
-      V;  // M: mass, N: molar, VN: volumetric normal, V: volumetric
+  double M, N, VN, V;
   double H, Ht, Hf;
 };
 
 /**
  * @brief Structure to define species parameters
  *
+ * @param string "id" = name: Ex. vapor
+ * @param string "def" = definition in database: Ex. water
+ * @param string "formula" = chemical formula: Ex. H2O
+ * @param "Y" = mass fraction (kg/kg)
+ * @param "X" = molar fraction (mol/mol)
+ * @param "val" = valences for atoms
  */
 struct species {
  public:
   string id, def, formula;
-  string prop_data;  // properties data: refprop, NASA || thermoPkg
-  bool refprop, NASA, thermoPkg, input;
-  string molec_db, refprop_file = "NONE", NASA_file, thermoPkg_file;
-  double TC, Y, X;  // TC: transfer coeff, Y: wt%, X: mol%
+  double Y, X;
   vector<double> val;
   properties P;
   flow_parameters F;
@@ -102,21 +86,18 @@ struct species {
 
 species::species(string sid) {
   id = sid;
-  TC = 1.0;
   Y = 0.0;
   X = 0.0;
 }
 
 species::species(string sid, double sY) {
   id = sid;
-  TC = 1.0;
   Y = sY;
   X = 0.0;
 }
 
 species::species(string sid, double val, string def) {
   id = sid;
-  TC = 1.0;
   X = 0.0;
   if (def == "Y") {
     Y = val;
@@ -139,6 +120,13 @@ size_t index_species(vector<species> &spc, string spc_id) {
 /**
  * @brief Structure to define the parameters of one flow phase
  *
+ * @param "Y" = mass fraction (kg/kg)
+ * @param "X" = molar fraction (mol/mol)
+ * @param "C" = molar concentration (mol/l)
+ * @param "phi" = volume fraction (m3/m3)
+ * @param "i" = atoms vector
+ * @param "j" = molecules vector
+ * @param "k" = proximate composition vector
  */
 struct phase {
  public:
@@ -152,19 +140,35 @@ struct phase {
 /**
  * @brief Structure to define the parameters of one flow
  *
+ * @param string "id" = name: Ex. wood
+ * @param string "def" = definition in database: Ex. spruce_chips
+ * @param string "cls" = flow class: Ex. hardwood
+ * @param string "flow_db" = file with flow data in database
+ * @param string "prop_data" = type of properties: Ex. solid_fuel
+ * @param "Y" = mass fraction (kg/kg)
+ * @param "X" = molar fraction (mol/mol)
+ * @param "C" = molar concentration (mol/l)
+ * @param "phi" = volume fraction (m3/m3)
+ * @param "i" = atoms vector
+ * @param "j" = molecules vector
+ * @param "k" = proximate composition vector
+ * @param "ph[3]" = phase vector: 1.solid, 2.liquid, 3.gas
+ * @param string "atom_def" = type of atomic composition: "Y" mass fraction, "X"
+ * mol fraction
+ * @param string "molec_def" = type of molecular composition: "Y" mass fraction,
+ * "X" mol fraction
+ * @param string "prox_def" = type of proximate composition: "Y" mass fraction,
+ * "X" mol fraction
  */
 struct flow {
  public:
-  string id, def, cls, prop_data;
-  string flow_db, thermo_file, trans_file, chem_file;
+  string id, def, cls;
+  string prop_data, flow_db;
   vector<species> i, j, k, l;
-  int n_i, n_j, n_k, n_l;
   string atom_def, molec_def, prox_def;  // i=atoms,j=molec,k=prox,l=const
-  // particles_distribution fp;
   properties P;
   flow_parameters F;
   phase ph[3];
-  // vector<chemical_reaction> rct; int n_rct;
   flow(string flw_def);
   flow(string flw_def, string flw_id);
   flow(){};
@@ -186,10 +190,7 @@ struct flow {
   void calculate_species_properties(string);
   void calculate_flow_parameters();
   void calculate_solid_fuel();
-  void calculate_gas_fuel();
-
   void calculate_properties();
-  void calculate_gas_thermodynamics();
   void calculate_thermodynamic_properties();
   void calculate_MW();
   void print_flow();
@@ -406,6 +407,7 @@ void species::get_species_data_(string spc_type) {
   string txt, line_txt, symb;
   int n;
   double num;
+  bool input;
 
   // cout << "getting data for species: " << id << endl;
   ifstream db;
@@ -444,25 +446,6 @@ void species::get_species_data_(string spc_type) {
     db >> txt;
     if (txt == "Composition:") {
       db >> formula;
-    }
-    db >> txt;
-    if (txt == "NASA") {
-      db >> txt;
-      if (txt == "yes") {
-        NASA = true;
-      } else {
-        NASA = false;
-      }
-    }
-    db >> txt;
-    if (txt == "thermo_data") {
-      db >> txt;
-      thermoPkg_file = txt;
-      if (txt == "none") {
-        thermoPkg = false;
-      } else {
-        thermoPkg = true;
-      }
     }
     db >> txt;
     if (txt == "inputs") {
@@ -875,11 +858,6 @@ void flow::get_flow_data(string input_def) {
       if (txt == "Prop_data" || txt == "Prop_data:" || txt == "prop_data" ||
           txt == "prop_data:") {
         sst >> prop_data;
-        // if (prop_data == "refprop") {
-        //  if (sst >> txt) {
-        //    thermo_file = txt;
-        //  }
-        //}
         prop_data_defined = true;
       }
     }
@@ -891,12 +869,8 @@ void flow::get_flow_data(string input_def) {
     get_flow_composition(j, "MOLECULES");
     get_flow_composition(i, "ATOMS");
     interpret_molecules();
-    // cout << "interpreting molecules" << endl;
-    // if(molec_def == "Y") { if(atom_def != "X" || atom_def != "Y")
-    // {interpret_molecules();}}
     get_flow_composition(k, "PROXIMATE");
     get_flow_properties();
-    // get_flow_chemistry();
   }
 
   calculate_flow_composition();
