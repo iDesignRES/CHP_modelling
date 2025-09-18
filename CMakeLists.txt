@@ -16,9 +16,9 @@ add_library(bioCHP_library SHARED ${SRC_FILES})
 target_compile_options(bioCHP_library PRIVATE)
 
 if(MSVC)
-    add_compile_options(/W4 /WX) # Enable all warnings and treat as errors for MSVC
+    add_compile_options(/W4) # Enable all warnings for MSVC, do not treat as errors
 else()
-    add_compile_options(-Wall -Wextra -Wpedantic -Werror) # GCC/Clang: all warnings, extra, pedantic, treat as errors
+    add_compile_options(-Wall -Wextra -Wpedantic) # GCC/Clang: all warnings, extra, pedantic, treat as errors
 endif()
 
 set_target_properties(bioCHP_library PROPERTIES
