@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>CHP_modelling: src/Libraries/Processes_library/flue_gas_cleaning.h Source File</title>
+<title>CHP_modelling: src/bioCHP_wrapper.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -75,7 +75,7 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('flue__gas__cleaning_8h_source.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('bioCHP__wrapper_8h_source.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -101,22 +101,25 @@ $(document).ready(function(){initNavTree('flue__gas__cleaning_8h_source.html',''
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">flue_gas_cleaning.h</div></div>
+  <div class="headertitle"><div class="title">bioCHP_wrapper.h</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;../../Parameters.h&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;../Flows_library/flow_definitions.h&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keywordtype">void</span> dry_scrubber_model(<a class="code hl_struct" href="structflow.html">flow</a> &amp;in, <a class="code hl_struct" href="structflow.html">flow</a> &amp;out, <span class="keywordtype">object</span> &amp;par);</div>
-<div class="ttc" id="astructflow_html"><div class="ttname"><a href="structflow.html">flow</a></div><div class="ttdoc">Structure to define the parameters of one flow.</div><div class="ttdef"><b>Definition</b> flow_definitions.h:127</div></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keywordtype">bool</span> bioCHP_plant_c(<span class="keyword">const</span> <span class="keywordtype">char</span>** fuel_def, <span class="keywordtype">int</span> fuel_count, <span class="keyword">const</span> <span class="keywordtype">double</span>* Yj,</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>                    <span class="keywordtype">int</span> Yj_len, <span class="keyword">const</span> <span class="keywordtype">double</span>* YH2Oj, <span class="keywordtype">int</span> YH2Oj_len, <span class="keywordtype">double</span> W_el,</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>                    <span class="keyword">const</span> <span class="keywordtype">double</span>* Qk, <span class="keywordtype">int</span> Qk_len, <span class="keyword">const</span> <span class="keywordtype">double</span>* Tk_in,</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>                    <span class="keywordtype">int</span> Tk_in_len, <span class="keyword">const</span> <span class="keywordtype">double</span>* Tk_out, <span class="keywordtype">int</span> Tk_out_len,</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>                    <span class="keywordtype">double</span>* Mj, <span class="keywordtype">int</span> Mj_len, <span class="keywordtype">double</span>* Q_prod, <span class="keywordtype">double</span>* W_el_prod,</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>                    <span class="keywordtype">double</span>* C_inv, <span class="keywordtype">double</span>* C_op, <span class="keywordtype">double</span>* C_op_var);</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a5e53cdfc4dc3e34218e25b9dcddbbe5.html">Libraries</a></li><li class="navelem"><a class="el" href="dir_52b50584d9ae756f940ebee2f160555a.html">Processes_library</a></li><li class="navelem"><b>flue_gas_cleaning.h</b></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><b>bioCHP_wrapper.h</b></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

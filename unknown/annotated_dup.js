@@ -8,6 +8,6 @@ var annotated_dup =
     [ "parameter", "structparameter.html", null ],
     [ "phase", "structphase.html", null ],
     [ "properties", "structproperties.html", null ],
-    [ "species", "structspecies.html", "structspecies" ],
+    [ "species", "structspecies.html", null ],
     [ "steam_turbine_parameters", "structsteam__turbine__parameters.html", null ]
 ];
