@@ -11,14 +11,6 @@ void steam_turbine_parameters::assign_parameter_values(
   mu_isent = get_num_parameter(par, sys_type, sys_def, "mu_isent");
 }
 
-/**
- * @brief function to calculate one steam turbine stage
- *
- * @input &in = flow vector representing input steam
- * @output &out = flow with calculated output steam
- * @input &ST = input steam turbine parameters
- * @output &ST = calculated output steam turbine parameters
- */
 void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
   ST.Mi = in.F.M;
   ST.Ti = in.F.T;
@@ -84,14 +76,6 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
   ST.W = eff_el * in.F.M * 1.0e3 * (h_in - h_calc);
 }
 
-/**
- * @brief function to calculate a steam turbine with bleeds
- *
- * @input &in = flow vector representing input steam
- * @output &out = flow with calculated output steam
- * @input &par = input steam turbine parameters
- * @output &par = calculated output steam turbine parameters
- */
 void steam_turbine_model(flow &in, flow &out, object &par) {
   steam_turbine_parameters ST;
   ST.assign_parameter_values("process", "Rankine_cycle", par.p);
@@ -142,14 +126,6 @@ void steam_turbine_model(flow &in, flow &out, object &par) {
   }
 }
 
-/**
- * @brief function to calculate a steam condenser
- *
- * @input &in = flow vector representing input steam
- * @output &out = flow with calculated output condensate
- * @input &par = input condenser parameters
- * @output &par = calculated output condenser parameters
- */
 void steam_condenser(flow &steam, flow &cond, object &par) {
   cond = flow("cond", "water");
   cond.F.T = par.fp("T_cond");
@@ -173,18 +149,17 @@ void district_heating(object &par) {
     for (std::size_t nk = 0; nk < par.vctp("Qk").size(); nk++) {
       dh_in.F.T = par.vctp("Tk_in")[nk];
       dh_in.F.P = 1.01325;
-      dh_in.P.h = hTWater(dh_in.F.T);  // h_in.calculate_flow_properties("PT");
+      dh_in.P.h = hTWater(dh_in.F.T);
       dh_out.F.T = par.vctp("Tk_out")[nk];
       dh_out.F.P = 1.01325;
-      dh_out.P.h =
-          hTWater(dh_out.F.T);  // dh_out.calculate_flow_properties("PT");
+      dh_out.P.h = hTWater(dh_out.F.T);
 
       dh_in.F.M = par.vctp("Qk")[nk] / (dh_out.P.h - dh_in.P.h);
       dh_out.F.M = dh_in.F.M;
 
-      flow hf_in,
-          hf_out;  // In / out heating fluid to for exporting heat to district
-                   // heating
+      // In / out heating fluid to for exporting heat to district heating
+      flow hf_in, hf_out;  
+
       hf_in = flow("hf_in", "water");
       hf_out = flow("hf_out", "water");
       hf_in.F.T = dh_out.F.T + 25.0;
@@ -242,12 +217,6 @@ void district_heating(object &par) {
   }
 }
 
-/**
- * @brief function to calculate a rankine cycle model
- *
- * @input &par = input rankine cycle parameters
- * @output &par = calculated output rankine cycle parameters
- */
 void rankine_cycle(object &par) {
   flow bfw, sat_cond, sat_stm, steam, steam_out, cond;
   bfw = flow("bfw", "water");

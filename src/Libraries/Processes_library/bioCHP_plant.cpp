@@ -28,13 +28,6 @@ void get_feedstock(std::vector<flow> &f, object &plant) {
   plant.fval_p("LHV_f", LHV);
 }
 
-/**
- * @brief function to calculate the bioCHP plant model
- *
- * @input &bioCHP object to object with bioCHP input parameters
- *
- * @return &bioCHP object with calculated output parameters
- */
 void bioCHP_plant_model(object &bioCHP) {
   object boiler("system", "solid_fuel_boiler",
                 get_database_path("bioCHP_inputs"));
@@ -94,20 +87,13 @@ void bioCHP_plant_model(object &bioCHP) {
       b.fval_p("M_fuel", Mf);
       solid_fuel_boiler(feed, comb_air, flue_gas, bottom_ash, fly_ash, b);
 
-      // std::cout << "Boiler Q_out (W) = " << b.fp("Q_out") << std::endl;
-
       object r = rankine;
       r.fval_p("Q_stm", b.fp("Q_out"));
       rankine_cycle(r);
 
       W_el_prod = r.fp("W_el");
 
-      // std::cout << '\t' << "Hf (MW) = " << Hf << " W_el (MW) = " << W_el
-      //       << " W_el_prod (MW) = " << W_el_prod << std::endl;
-
       Hf = Hf * W_el / W_el_prod;
-
-      // std::cout << '\t' << "Hf (MW) = " << Hf << std::endl;
     }
 
     bioCHP.fval_p("Hf", Hf);

@@ -80,17 +80,12 @@ void solid_fuel_boiler(std::vector<flow> &fuel, std::vector<flow> &comb_air,
     for (std::size_t nj = 0; nj < fg[n].j.size(); nj++) {
       fg[n].j[nj].X = fg[n].j[nj].F.VN / fg[n].F.VN;
     }
-    // fg[n].molec_def = "X";
     fg[n].calculate_flow("PT");
-
-    // double T_ba = 1000.0, T_fa = 150.0, yC_ash = 0.03, f_ba = 0.1;
 
     double f_ba = comb.fp("f_ba");
     double T_ba = comb.fp("T_ba");
     double T_fa = comb.fp("T_fa");
     double yC_ba = comb.fp("yC_ba");
-
-    // double T_ba = 1000.0, T_fa = 150.0, yC_ash = 0.03, f_ba = 0.1;
 
     ba[n].F.M =
         fuel[n].F.M * (1.0 - fuel[n].k[H2O].Y) * (fuel[n].k[ash].Y * f_ba);

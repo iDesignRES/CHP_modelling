@@ -451,7 +451,7 @@ double sPTSupSteam(double P, double T_in) {
 }
 
 double sPWater(double P) {
-  // Entropi [kJ/(kg K)] i vann som funksjon av trykk P [bara]
+  // Entropy [kJ/(kg K)] in water as a function of pressure P [bara]
   double A, B, C, D, E, f, G, H, i, j, k;
 
   A = 1.302760006;
@@ -475,7 +475,7 @@ double sPWater(double P) {
 }
 
 double sPSatSteam(double P) {
-  // Entropi [kJ/(kg K)] som funksjon av trykk P [bara]
+  // Entropy [kJ/(kg K)] as a function of pressure P [bara]
   double A, B, C, D, E, f, G, H, i, j;
 
   A = 7.359240216;

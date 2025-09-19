@@ -7,10 +7,6 @@
 #include "../Thermodynamic_library/species_thermodynamics.h"
 #include "flow_definitions.h"
 
-/**
- * @brief function to mix two flow of the same composition
- *
- */
 void mix_same_type_flows(flow &f1, flow &f2, flow &f) {
   f = f1;
 
@@ -140,7 +136,6 @@ void flow::calculate_solid_fuel() {
  * @brief Function to calculate flow composition
  *
  */
-
 void flow::calculate_flow_composition() {
   double sum_Y, sum_X, sum_X_MW, sum_Y_MW;
   P.MW = 0;
@@ -209,7 +204,6 @@ void flow::calculate_flow_composition() {
  *
  * @param state_def definition of thermodynamic state variables
  */
-
 void flow::calculate_flow_properties(std::string state_def) {
   if (prop_data == "NIST") {
     calculate_species_properties(state_def);

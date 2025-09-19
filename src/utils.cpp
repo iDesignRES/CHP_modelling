@@ -1,7 +1,6 @@
 #include "utils.h"
 
 std::vector<std::string> divide_string(std::string str, char c) {
-  // std::cout << "divide " << str << std::endl;
   std::vector<std::string> list;
   std::vector<char> cstr(str.begin(), str.end());
   std::string element = "";
@@ -18,7 +17,6 @@ std::vector<std::string> divide_string(std::string str, char c) {
       list.push_back(element);
       break;
     }
-    // std::cout << l << " " << cstr[l] << " " << element << std::endl;
     l = l + 1;
   }
   cstr.clear();

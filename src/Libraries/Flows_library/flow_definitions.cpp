@@ -77,12 +77,8 @@ void flow::interpret_molecules() {
   std::string txt;
   int ctr_atom, ctr_atom1, ctr_atom2, ctr_molec, pos1, pos2;
 
-  // std::cout << "Molecule interpreter. No. molecules: " << j.size() <<
-  // std::endl;
-
   if (j.size() > 0) {
     for (std::size_t n = 0; n < j.size(); n++) {
-      // std::cout << "molecule formula: " << j[n].formula << std::endl;
       ctr_atom = 0;
       ctr_atom1 = 0;
       ctr_atom2 = 0;
@@ -245,7 +241,6 @@ void species::get_species_data_(std::string spc_type) {
   double num;
   bool input;
 
-  // std::cout << "getting data for species: " << id << std::endl;
   std::ifstream db;
 
   if (spc_type == "molecule") {

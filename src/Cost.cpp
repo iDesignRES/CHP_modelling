@@ -4,11 +4,6 @@
 #include <cstddef>
 #include <iostream>
 
-/**
- * @brief Chemical Engineering Price index
- *
- * @param year_input
- */
 double cecpi(int year_input) {
   switch (year_input) {
     case 1994:
@@ -72,19 +67,8 @@ double cecpi(int year_input) {
   }
 }
 
-/**
- * @brief Function to calculate price index ratio relative to a reference year
- *
- * @param year_ref integer specifying a referece year
- * @param year integer specifying the actual year
- */
 double I_cecpi(int year_ref, int year) { return cecpi(year) / cecpi(year_ref); }
 
-/**
- * @brief Function to calculate equipment cost
- *
- * @param par object including the input parameters of the equipment
- */
 void equipment_cost(object &par) {
   double f_inst = par.fp("f_inst");
   double Cpb = par.fp("Cpb");
@@ -97,11 +81,6 @@ void equipment_cost(object &par) {
   par.fval_p("Cpi", Cpi);
 }
 
-/**
- * @brief Function to calculate material cost
- *
- * @param par object including the input parameters of the material
- */
 void material_cost(object &par) {
   double Q_annual = par.fp("Q_annual");
   double price = par.fp("price");
@@ -109,13 +88,6 @@ void material_cost(object &par) {
   par.fval_p("C_annual", C_annual);
 }
 
-/**
- * @brief Function to generate the equipment list of a system
- *
- * @param par object representing a system, including the equipment as
- * sub-objects
- * @param list vector of equipment within the system
- */
 void equipment_list(std::vector<equipment> &list, object &par) {
   equipment eq;
   for (std::size_t n = 0; n < par.c.size(); n++) {
@@ -134,13 +106,6 @@ void equipment_list(std::vector<equipment> &list, object &par) {
   }
 }
 
-/**
- * @brief Function to generate the material flow list of a system
- *
- * @param par object representing a system, including the equipment as
- * sub-objects
- * @param list vector of materials within the system
- */
 void material_list(std::string type, std::vector<material> &list, object &par) {
   material m;
   for (std::size_t n = 0; n < par.c.size(); n++) {
@@ -157,11 +122,6 @@ void material_list(std::string type, std::vector<material> &list, object &par) {
   }
 }
 
-/**
- * @brief Function to print capital cost information
- *
- * @param par object representing a system or equipment
- */
 void print_capex(object &par) {
   std::cout << "-------------------------" << std::endl;
   std::cout << " Capital costs (M$): " << par.fp("C_inv") * 1e-6 << std::endl;
@@ -180,11 +140,6 @@ void print_capex(object &par) {
   std::cout << "------------------" << std::endl;
 }
 
-/**
- * @brief Function to calculate capital cost
- *
- * @param par object representing a system or equipment
- */
 void capex(object &par) {
   std::vector<equipment> eq;
   equipment_list(eq, par);
@@ -232,11 +187,6 @@ void capex(object &par) {
   print_capex(par);
 }
 
-/**
- * @brief Function to print operating cost
- *
- * @param par object representing a system or equipment
- */
 void print_opex(object &par, std::vector<material> &m) {
   std::cout << "-------------------------" << std::endl;
   std::cout << " Operational costs (M$ / year): " << par.fp("C_op")
@@ -263,11 +213,6 @@ void print_opex(object &par, std::vector<material> &m) {
   std::cout << "------------------" << std::endl;
 }
 
-/**
- * @brief Function to calculate operating cost
- *
- * @param par object representing a system or equipment
- */
 void opex(object &par) {
   std::vector<material> m;
   material_list("consumable", m, par);
@@ -299,11 +244,6 @@ void opex(object &par) {
   print_opex(par, m);
 }
 
-/**
- * @brief Function to calculate capital and operating cost
- *
- * @param par object representing a system or equipment
- */
 void cost(object &par) {
   capex(par);
   opex(par);
