@@ -2,9 +2,8 @@
 
 #include <cstddef>
 #include <iostream>
-#include <string>
-#include <vector>
 
+#include "../src/utils.h"
 #include "../src/Parameters.h"
 #include "../src/bioCHP.h"
 
@@ -20,7 +19,7 @@ int main() {
   std::vector<double> Tk_in = {70.0, 70.0};
   std::vector<double> Tk_out = {90.0, 90.0};
 
-  object bioCHP("plant", "bioCHP_PLANT", "Database/bioCHP_inputs");
+  object bioCHP("plant", "bioCHP_PLANT", get_database_path("bioCHP_inputs.toml"));
 
   bioCHP.vct_sp("fuel_def", fuel_def);
   bioCHP.vct_fp("Yj", Yj);

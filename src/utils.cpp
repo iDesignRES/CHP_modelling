@@ -1,4 +1,5 @@
 #include "utils.h"
+#include <iostream>
 
 std::vector<std::string> divide_string(std::string str, char c) {
   std::vector<std::string> list;
@@ -34,4 +35,13 @@ std::string get_database_path(std::string sub_path) {
     db_file_path = "";
   }
   return db_file_path;
+}
+
+toml::table get_toml_table(std::string file) {
+  toml::table tbl;
+  try {
+    return toml::parse_file(file);
+  } catch (const toml::parse_error& err) {
+    throw std::runtime_error(std::string("Parsing failed:\n") + err.what());
+  }
 }

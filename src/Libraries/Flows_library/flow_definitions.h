@@ -107,8 +107,8 @@ struct phase {
  * @param string "id" = name: Ex. wood
  * @param string "def" = definition in database: Ex. spruce_chips
  * @param string "cls" = flow class: Ex. hardwood
- * @param string "flow_db" = file with flow data in database
  * @param string "prop_data" = type of properties: Ex. solid_fuel
+ * @param string "flow_db" = file with flow data in database
  * @param "Y" = mass fraction (kg/kg)
  * @param "X" = molar fraction (mol/mol)
  * @param "C" = molar concentration (mol/l)
@@ -128,8 +128,8 @@ struct flow {
  public:
   std::string id, def, cls;
   std::string prop_data, flow_db;
-  std::vector<species> i, j, k, l;
-  std::string atom_def, molec_def, prox_def;  // i=atoms,j=molec,k=prox,l=const
+  std::vector<species> i, j, k, l;  // i=atoms,j=molec,k=prox,l=const
+  std::string atom_def, molec_def, prox_def;  
   properties P;
   flow_parameters F;
   phase ph[3];

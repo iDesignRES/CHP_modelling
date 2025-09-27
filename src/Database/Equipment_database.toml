@@ -1,0 +1,265 @@
+[equipment]
+
+[[equipment.biomass_storage_and_feeding]]
+[[equipment.biomass_storage_and_feeding.item]]
+data_def = "input"
+data_id = "base_year"
+data_type = "str"
+data_info = ""
+values = ["2007"]
+
+[[equipment.biomass_storage_and_feeding.item]]
+data_def = "input"
+data_id = "Sb_unit"
+data_type = "str"
+data_info = ""
+values = ["ton/h"]
+
+[[equipment.biomass_storage_and_feeding.item]]
+data_def = "input"
+data_id = "Sb"
+data_type = "num"
+data_info = ""
+values = [25.0]
+
+[[equipment.biomass_storage_and_feeding.item]]
+data_def = "input"
+data_id = "Cpb"
+data_type = "num"
+data_info = ""
+values = [5.43e6]
+
+[[equipment.biomass_storage_and_feeding.item]]
+data_def = "input"
+data_id = "n"
+data_type = "num"
+data_info = ""
+values = [0.5]
+
+[[equipment.biomass_storage_and_feeding.item]]
+data_def = "input"
+data_id = "f_inst"
+data_type = "num"
+data_info = ""
+values = [2.1]
+
+[[equipment.biomass_stoker_boiler_heat]]
+[[equipment.biomass_stoker_boiler_heat.item]]
+data_def = "input"
+data_id = "base_year"
+data_type = "str"
+data_info = ""
+values = ["2007"]
+
+[[equipment.biomass_stoker_boiler_heat.item]]
+data_def = "input"
+data_id = "Sb_unit"
+data_type = "str"
+data_info = ""
+values = ["ton/h"]
+
+[[equipment.biomass_stoker_boiler_heat.item]]
+data_def = "input"
+data_id = "Sb"
+data_type = "num"
+data_info = ""
+values = [4.17]
+
+[[equipment.biomass_stoker_boiler_heat.item]]
+data_def = "input"
+data_id = "Cpb"
+data_type = "num"
+data_info = ""
+values = [1.195e6]
+
+[[equipment.biomass_stoker_boiler_heat.item]]
+data_def = "input"
+data_id = "n"
+data_type = "num"
+data_info = ""
+values = [0.7]
+
+[[equipment.biomass_stoker_boiler_heat.item]]
+data_def = "input"
+data_id = "f_inst"
+data_type = "num"
+data_info = ""
+values = [2.1]
+
+[[equipment.biomass_stoker_boiler_heat.item]]
+data_def = "input"
+data_id = "w_el_unit"
+data_type = "str"
+data_info = ""
+values = ["kW/t-h"]
+
+[[equipment.biomass_stoker_boiler_heat.item]]
+data_def = "input"
+data_id = "w_el"
+data_type = "num"
+data_info = ""
+values = [27.0]
+
+[[equipment.biomass_stoker_boiler_power]]
+[[equipment.biomass_stoker_boiler_power.item]]
+data_def = "input"
+data_id = "base_year"
+data_type = "str"
+data_info = ""
+values = ["2007"]
+
+[[equipment.biomass_stoker_boiler_power.item]]
+data_def = "input"
+data_id = "Sb_unit"
+data_type = "str"
+data_info = ""
+values = ["ton/h"]
+
+[[equipment.biomass_stoker_boiler_power.item]]
+data_def = "input"
+data_id = "Sb"
+data_type = "num"
+data_info = ""
+values = [25.0]
+
+[[equipment.biomass_stoker_boiler_power.item]]
+data_def = "input"
+data_id = "Cpb"
+data_type = "num"
+data_info = ""
+values = [7.98e6]
+
+[[equipment.biomass_stoker_boiler_power.item]]
+data_def = "input"
+data_id = "n"
+data_type = "num"
+data_info = ""
+values = [0.7]
+
+[[equipment.biomass_stoker_boiler_power.item]]
+data_def = "input"
+data_id = "f_inst"
+data_type = "num"
+data_info = ""
+values = [2.1]
+
+[[equipment.biomass_stoker_boiler_power.item]]
+data_def = "input"
+data_id = "w_el_unit"
+data_type = "str"
+data_info = ""
+values = ["kW/t-h"]
+
+[[equipment.biomass_stoker_boiler_power.item]]
+data_def = "input"
+data_id = "w_el"
+data_type = "num"
+data_info = ""
+values = [27.0]
+
+[[equipment.biomass_stoker_boiler_power.item]]
+data_def = "input"
+data_id = "f_maint"
+data_type = "num"
+data_info = ""
+values = [0.04]
+
+[[equipment.dry_scrubber]]
+[[equipment.dry_scrubber.item]]
+data_def = "input"
+data_id = "base_year"
+data_type = "str"
+data_info = ""
+values = ["2007"]
+
+[[equipment.dry_scrubber.item]]
+data_def = "input"
+data_id = "Sb_unit"
+data_type = "str"
+data_info = ""
+values = ["t/h"]
+
+[[equipment.dry_scrubber.item]]
+data_def = "input"
+data_id = "Sb"
+data_type = "num"
+data_info = ""
+values = [66.672]
+
+[[equipment.dry_scrubber.item]]
+data_def = "input"
+data_id = "Cpb"
+data_type = "num"
+data_info = ""
+values = [0.1749e6]
+
+[[equipment.dry_scrubber.item]]
+data_def = "input"
+data_id = "n"
+data_type = "num"
+data_info = ""
+values = [0.7]
+
+[[equipment.dry_scrubber.item]]
+data_def = "input"
+data_id = "f_inst"
+data_type = "num"
+data_info = ""
+values = [2.47]
+
+[[equipment.dry_scrubber.item]]
+data_def = "input"
+data_id = "w_el_unit"
+data_type = "str"
+data_info = ""
+values = ["t/h"]
+
+[[equipment.dry_scrubber.item]]
+data_def = "input"
+data_id = "w_el"
+data_type = "num"
+data_info = ""
+values = [9.0]
+
+[[equipment.dry_scrubber.item]]
+data_def = "input"
+data_id = "f_maint"
+data_type = "num"
+data_info = ""
+values = [0.01]
+
+[[equipment.rankine_cycle]]
+[[equipment.rankine_cycle.item]]
+data_def = "input"
+data_id = "base_year"
+data_type = "str"
+data_info = ""
+values = ["2006"]
+
+[[equipment.rankine_cycle.item]]
+data_def = "input"
+data_id = "Sb"
+data_type = "num"
+data_info = ""
+values = [1500.0]
+
+[[equipment.rankine_cycle.item]]
+data_def = "input"
+data_id = "Cpb"
+data_type = "num"
+data_info = ""
+values = [40.5e6]
+
+[[equipment.rankine_cycle.item]]
+data_def = "input"
+data_id = "n"
+data_type = "num"
+data_info = ""
+values = [0.7]
+
+[[equipment.rankine_cycle.item]]
+data_def = "input"
+data_id = "f_inst"
+data_type = "num"
+data_info = ""
+values = [1.35]

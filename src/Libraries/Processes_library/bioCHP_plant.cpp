@@ -30,11 +30,11 @@ void get_feedstock(std::vector<flow> &f, object &plant) {
 
 void bioCHP_plant_model(object &bioCHP) {
   object boiler("system", "solid_fuel_boiler",
-                get_database_path("bioCHP_inputs"));
+                get_database_path("bioCHP_inputs.toml"));
   object rankine("process", "Rankine_cycle",
-                 get_database_path("bioCHP_inputs"));
+                 get_database_path("bioCHP_inputs.toml"));
   object scrubber("process", "flue_gas_cleaning",
-                  get_database_path("bioCHP_inputs"));
+                  get_database_path("bioCHP_inputs.toml"));
 
   std::cout << "Getting the feedstock data: " << std::endl;
 

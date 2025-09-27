@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <toml++/toml.hpp>
 
 #include "utils.h"
 
@@ -47,13 +48,13 @@ object::object(std::string type, std::string def) {
   sys_type = type;
   sys_def = def;
   if (type == "equipment") {
-    get_parameters(p, type, def, get_database_path("Equipment_database"));
+    get_parameters(p, type, def, get_database_path("Equipment_database.toml"));
   }
   if (type == "consumable") {
-    get_parameters(p, type, def, get_database_path("Consumables_database"));
+    get_parameters(p, type, def, get_database_path("Consumables_database.toml"));
   }
   if (type == "solid_residue") {
-    get_parameters(p, type, def, get_database_path("Consumables_database"));
+    get_parameters(p, type, def, get_database_path("Consumables_database.toml"));
   }
 }
 
@@ -264,80 +265,37 @@ double get_num_parameter(std::vector<parameter> &par, std::string sys_type,
 
 void get_parameters(std::vector<parameter> &par, std::string sys_type,
                     std::string sys_def, std::string input_file) {
-  std::ifstream p_file;
-  p_file.open(input_file);
-  if (!p_file.good()) {
-    std::cout << "input file " << input_file << " not found " << std::endl;
-    p_file.close();
-    return;
-  }
+  toml::table tbl = get_toml_table(input_file);
 
-  parameter p;
-  std::string line_txt, type, def, txt, str;
-  bool par_set_found = false, sys_found = false;
+  auto sys_tbl = tbl[sys_type].as_table();
+  auto sys_def_arr = sys_tbl->at(sys_def).as_array();
+  for (const auto& biochp_elem : *sys_def_arr) {
+    auto biochp_tbl = biochp_elem.as_table();
+    auto items = biochp_tbl->at("item").as_array();
+    for (const auto& item_elem : *items) {
+      auto item_tbl = item_elem.as_table();
+      
+      parameter p;
+      p.sys_type = sys_type;
+      p.sys_def = sys_def;
+      p.data_def = item_tbl->at("data_def").value_or("");
+      p.data_id = item_tbl->at("data_id").value_or("");
+      p.data_type = item_tbl->at("data_type").value_or("");
+      p.data_info = item_tbl->at("data_info").value_or("");
+      p.pos = 0;
 
-  while (!sys_found) {
-    std::getline(p_file, line_txt);
-    std::stringstream sst(line_txt);
-    sst >> type;
-    sst >> def;
-    if (type == sys_type && def == sys_def) {
-      sys_found = true;
+      auto vals = item_tbl->at("values").as_array();
 
-      while (!par_set_found) {
-        std::getline(p_file, line_txt);
-        std::stringstream sst2(line_txt);
-        sst2 >> txt;
-
-        if (txt == "input" || txt == "prop" || txt == "output") {
-          p.sys_type = sys_type;
-          p.sys_def = sys_def;
-          p.data_def = txt;
-          sst2 >> p.data_id;
-          sst2 >> p.data_type;
-
-          bool str_complete = false;
-
-          p.data_info = "";
-          while (sst2 >> str) {
-            std::vector<char> cstr(str.begin(), str.end());
-            if (!str_complete && cstr[0] != '#') {
-              if (p.data_type == "str") {
-                p.str.push_back(str);
-              }
-              if (p.data_type == "num") {
-                p.vct.push_back(std::stod(str));
-              }
-            }
-            if (cstr[0] == '#') {
-              str_complete = true;
-            }
-            if (str_complete && cstr[0] != '#') {
-              p.data_info = str + " ";
-            }
-          }
-
-          p.pos = 0;
-          par.push_back(p);
-          p = parameter();
-          p.str.clear();
-          p.vct.clear();
-        }
-
-        if (txt != "input" && txt != "output" && txt != "prop") {
-          par_set_found = true;
-          p_file.close();
-          return;
-        }
+      for (const auto& val : *vals) {
+        if (p.data_type == "str")
+          p.str.push_back(val.value_or(""));
+        else
+          p.vct.push_back(static_cast<double>(val.value_or(0.0)));
       }
-    }
-    if (p_file.eof()) {
-      p_file.close();
-      return;
+      par.push_back(p);
     }
   }
 }
-
 
 void export_output_parameters(object &obj, std::string file) {
   std::ofstream output_parameters(file);

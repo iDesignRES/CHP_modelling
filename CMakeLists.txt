@@ -13,6 +13,7 @@ file(GLOB SRC_FILES src/*.cpp src/Libraries/*/*.cpp)
 
 # Add shared library
 add_library(bioCHP_library SHARED ${SRC_FILES})
+target_include_directories(bioCHP_library PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/tomlplusplus/include)
 target_compile_options(bioCHP_library PRIVATE)
 
 if(MSVC)
@@ -36,10 +37,12 @@ function(add_chp_test target src)
     foreach(arg IN LISTS ARGN)
       add_test(NAME ${target}-${arg}
                COMMAND $<TARGET_FILE:${target}> ${arg})
+      target_include_directories(${target} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/tomlplusplus/include)
     endforeach()
   else()
     add_test(NAME ${target}
              COMMAND $<TARGET_FILE:${target}>)
+    target_include_directories(${target} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/tomlplusplus/include)
   endif()
 endfunction()
 

@@ -1,0 +1,123 @@
+[consumable]
+
+[[consumable.lime]]
+[[consumable.lime.item]]
+data_def = "input"
+data_id = "unit"
+data_type = "str"
+data_info = ""
+values = ["kg"]
+
+[[consumable.lime.item]]
+data_def = "input"
+data_id = "price"
+data_type = "num"
+data_info = ""
+values = [0.31]
+
+[solid_residue]
+
+[[solid_residue.scrubber_cake]]
+[[solid_residue.scrubber_cake.item]]
+data_def = "input"
+data_id = "unit"
+data_type = "str"
+data_info = ""
+values = ["kg"]
+
+[[solid_residue.scrubber_cake.item]]
+data_def = "input"
+data_id = "price"
+data_type = "num"
+data_info = ""
+values = [0.0706]
+
+[[consumable.SE_pellets_arbacore_spruce_stem]]
+[[consumable.SE_pellets_arbacore_spruce_stem.item]]
+data_def = "input"
+data_id = "unit"
+data_type = "str"
+data_info = ""
+values = ["kg"]
+
+[[consumable.SE_pellets_arbacore_spruce_stem.item]]
+data_def = "input"
+data_id = "price"
+data_type = "num"
+data_info = ""
+values = [50.0]
+
+[[consumable.spruce_chips]]
+[[consumable.spruce_chips.item]]
+data_def = "input"
+data_id = "unit"
+data_type = "str"
+data_info = ""
+values = ["kg"]
+
+[[consumable.spruce_chips.item]]
+data_def = "input"
+data_id = "price"
+data_type = "num"
+data_info = ""
+values = [50.0]
+
+[[consumable.spruce_stem]]
+[[consumable.spruce_stem.item]]
+data_def = "input"
+data_id = "unit"
+data_type = "str"
+data_info = ""
+values = ["kg"]
+
+[[consumable.spruce_stem.item]]
+data_def = "input"
+data_id = "price"
+data_type = "num"
+data_info = ""
+values = [70.0]
+
+[[consumable.spruce_TandB]]
+[[consumable.spruce_TandB.item]]
+data_def = "input"
+data_id = "unit"
+data_type = "str"
+data_info = ""
+values = ["kg"]
+
+[[consumable.spruce_TandB.item]]
+data_def = "input"
+data_id = "price"
+data_type = "num"
+data_info = ""
+values = [30.0]
+
+[[consumable.spruce_bark]]
+[[consumable.spruce_bark.item]]
+data_def = "input"
+data_id = "unit"
+data_type = "str"
+data_info = ""
+values = ["kg"]
+
+[[consumable.spruce_bark.item]]
+data_def = "input"
+data_id = "price"
+data_type = "num"
+data_info = ""
+values = [30.0]
+
+[[consumable.birch_stem]]
+[[consumable.birch_stem.item]]
+data_def = "input"
+data_id = "unit"
+data_type = "str"
+data_info = ""
+values = ["kg"]
+
+[[consumable.birch_stem.item]]
+data_def = "input"
+data_id = "price"
+data_type = "num"
+data_info = ""
+values = [70.0]
