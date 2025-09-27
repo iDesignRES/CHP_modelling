@@ -6,7 +6,7 @@ solid_residue scrubber_cake
 input unit str kg
 input price num 0.0706
 
-consumable SE-pellets_arbacore_spruce_stem
+consumable SE_pellets_arbacore_spruce_stem
 input unit str kg
 input price num 50.0
 
@@ -18,7 +18,7 @@ consumable spruce_stem
 input unit str kg
 input price num 70.0
 
-consumable spruce_T&B
+consumable spruce_TandB
 input unit str kg
 input price num 30.0
 

@@ -132,7 +132,7 @@ void solid_fuel_boiler(std::vector<flow> &fuel, std::vector<flow> &comb_air,
   boiler.fval_p("W_el", comb.fp("M_fuel") * 3.6 * boiler.fp("w_el"));
   comb.c.push_back(boiler);
 
-  object prep("equipment", "biomass_storage&feeding");
+  object prep("equipment", "biomass_storage_and_feeding");
   prep.fval_p("S", comb.fp("M_fuel") * 3.6);
   equipment_cost(prep);
   comb.c.push_back(prep);

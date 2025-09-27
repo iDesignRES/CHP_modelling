@@ -1,4 +1,4 @@
-equipment biomass_storage&feeding
+equipment biomass_storage_and_feeding
 input base_year str 2007
 input Sb_unit str ton/h
 input Sb num 25.0

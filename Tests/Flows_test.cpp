@@ -8,7 +8,7 @@
 
 int main() {
   flow f1("f1", "spruce_chips");
-  flow f2("f2", "spruce_T&B");
+  flow f2("f2", "spruce_TandB");
   flow f3("dry_air");
   std::vector<flow> f = {f1, f2, f3};
   for (std::size_t nf = 0; nf < f.size(); nf++) {

@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
       fuel_def[0] = "spruce_stem";
       fuel_def[1] = "spruce_bark";
       fuel_def[2] = "birch_stem";
-      fuel_def[3] = "spruce_T&B";
+      fuel_def[3] = "spruce_TandB";
       fuel_count = 4;
       Yj[0] = 0.1;
       Yj[1] = 0.2;
@@ -67,7 +67,7 @@ int main(int argc, char *argv[]) {
     case 2:
       fuel_def[0] = "spruce_stem";
       fuel_def[1] = "birch_stem";
-      fuel_def[2] = "spruce_T&B";
+      fuel_def[2] = "spruce_TandB";
       fuel_def[3] = "spruce_bark";
       fuel_count = 4;
       Yj[0] = 0.1;

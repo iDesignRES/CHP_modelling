@@ -7,7 +7,7 @@
 #include "../src/bioCHP.h"
 
 int main() {
-  std::vector<std::string> fuel_def = {"spruce_chips", "spruce_T&B"};
+  std::vector<std::string> fuel_def = {"spruce_chips", "spruce_TandB"};
   std::vector<double> Yj = {0.5, 0.5};
   std::vector<double> YH2Oj = {0.3, 0.6};
   double W_el = 300.0000;
