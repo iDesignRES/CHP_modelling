@@ -3,9 +3,9 @@
 #include <cstddef>
 #include <iostream>
 
-#include "../src/utils.h"
 #include "../src/Parameters.h"
 #include "../src/bioCHP.h"
+#include "../src/utils.h"
 
 int main() {
   parameter p("prop plant bioCHP_PLANT T_stm num 450.0");
@@ -19,7 +19,8 @@ int main() {
   std::vector<double> Tk_in = {70.0, 70.0};
   std::vector<double> Tk_out = {90.0, 90.0};
 
-  object bioCHP("plant", "bioCHP_PLANT", get_database_path("bioCHP_inputs.toml"));
+  object bioCHP("plant", "bioCHP_PLANT",
+                get_database_path("bioCHP_inputs.toml"));
 
   bioCHP.vct_sp("fuel_def", fuel_def);
   bioCHP.vct_fp("Yj", Yj);

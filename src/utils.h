@@ -1,8 +1,8 @@
 #pragma once
 
 #include <string>
-#include <vector>
 #include <toml++/toml.hpp>
+#include <vector>
 
 /**
  * @brief Splits a string into a vector of substrings based on a delimiter
@@ -36,7 +36,7 @@ std::string get_database_path(std::string sub_path);
 
 /**
  * @brief Opens and parses a TOML file, returning its contents as a toml::table
- * 
+ *
  * @param file The path to the TOML file to be opened and parsed.
  * @return toml::table The parsed contents of the TOML file as a toml::table.
  * @throws std::runtime_error if parsing fails, with the error message.

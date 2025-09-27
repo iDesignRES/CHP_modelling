@@ -129,7 +129,7 @@ struct flow {
   std::string id, def, cls;
   std::string prop_data, flow_db;
   std::vector<species> i, j, k, l;  // i=atoms,j=molec,k=prox,l=const
-  std::string atom_def, molec_def, prox_def;  
+  std::string atom_def, molec_def, prox_def;
   properties P;
   flow_parameters F;
   phase ph[3];

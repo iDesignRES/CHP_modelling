@@ -158,7 +158,7 @@ void district_heating(object &par) {
       dh_out.F.M = dh_in.F.M;
 
       // In / out heating fluid to for exporting heat to district heating
-      flow hf_in, hf_out;  
+      flow hf_in, hf_out;
 
       hf_in = flow("hf_in", "water");
       hf_out = flow("hf_out", "water");

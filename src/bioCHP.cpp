@@ -76,7 +76,8 @@ bool bioCHP_plant(std::vector<std::string> fuel_def, std::vector<double> Yj,
     }
   }
 
-  object bioCHP("plant", "bioCHP_PLANT", get_database_path("bioCHP_inputs.toml"));
+  object bioCHP("plant", "bioCHP_PLANT",
+                get_database_path("bioCHP_inputs.toml"));
   bioCHP.vct_sp("fuel_def", fuel_def);
   bioCHP.vct_fp("Yj", Yj);
   bioCHP.vct_fp("YH2Oj", YH2Oj);

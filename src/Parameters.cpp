@@ -51,10 +51,12 @@ object::object(std::string type, std::string def) {
     get_parameters(p, type, def, get_database_path("Equipment_database.toml"));
   }
   if (type == "consumable") {
-    get_parameters(p, type, def, get_database_path("Consumables_database.toml"));
+    get_parameters(p, type, def,
+                   get_database_path("Consumables_database.toml"));
   }
   if (type == "solid_residue") {
-    get_parameters(p, type, def, get_database_path("Consumables_database.toml"));
+    get_parameters(p, type, def,
+                   get_database_path("Consumables_database.toml"));
   }
 }
 
@@ -269,12 +271,12 @@ void get_parameters(std::vector<parameter> &par, std::string sys_type,
 
   auto sys_tbl = tbl[sys_type].as_table();
   auto sys_def_arr = sys_tbl->at(sys_def).as_array();
-  for (const auto& biochp_elem : *sys_def_arr) {
+  for (const auto &biochp_elem : *sys_def_arr) {
     auto biochp_tbl = biochp_elem.as_table();
     auto items = biochp_tbl->at("item").as_array();
-    for (const auto& item_elem : *items) {
+    for (const auto &item_elem : *items) {
       auto item_tbl = item_elem.as_table();
-      
+
       parameter p;
       p.sys_type = sys_type;
       p.sys_def = sys_def;
@@ -286,7 +288,7 @@ void get_parameters(std::vector<parameter> &par, std::string sys_type,
 
       auto vals = item_tbl->at("values").as_array();
 
-      for (const auto& val : *vals) {
+      for (const auto &val : *vals) {
         if (p.data_type == "str")
           p.str.push_back(val.value_or(""));
         else
@@ -381,7 +383,6 @@ std::vector<std::string> sp_vct(std::vector<parameter> &par,
   return vct;
 }
 
-
 void val_p(std::vector<parameter> &par, std::string data_def,
            std::string sys_type, std::string sys_def, std::string data_id,
            double val) {
@@ -431,7 +432,6 @@ void str_p(std::vector<parameter> &par, std::string data_def,
     par.push_back(p);
   }
 }
-
 
 std::vector<double> fp_vct(std::vector<parameter> &par, std::string sys_type,
                            std::string sys_def, std::string data_id) {
