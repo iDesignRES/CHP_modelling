@@ -271,7 +271,7 @@ void species::get_species_data_(std::string spc_type) {
       // Optional fields
       if (auto rho = mol_table["rho_m"].value<double>()) P.rho = *rho;
       if (auto hf = mol_table["hf"].value<double>()) P.hf = *hf;
-      if (auto hf = mol_table["hf"].value<double>()) P.hf = *hf / P.MW;
+      if (auto hf = mol_table["hf_n"].value<double>()) P.hf = *hf / P.MW;
       if (auto cp = mol_table["cp_m"].value<double>()) P.cp = *cp;
       if (auto cp = mol_table["cp_n"].value<double>()) P.cp = *cp / P.MW;
       if (auto s = mol_table["s_m"].value<double>()) P.s = *s;
