@@ -31,10 +31,9 @@ std::string get_database_path(std::string sub_path) {
   if (pos != std::string::npos) {
     db_file_path =
         current_file_path.substr(0, pos + 1) + "Database/" + sub_path;
-  } else {
-    db_file_path = "";
-  }
-  return db_file_path;
+    return db_file_path;
+  } else
+    throw std::runtime_error("Failed to determine current file path.");
 }
 
 toml::table get_toml_table(std::string file) {

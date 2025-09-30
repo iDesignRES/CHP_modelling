@@ -7,6 +7,10 @@
 
 #include "utils.h"
 
+#include <mutex>
+
+std::once_flag warn_flag;
+
 parameter::parameter(std::string line) {
   std::stringstream sst(line);
   sst >> data_def;
@@ -269,13 +273,9 @@ void get_parameters(std::vector<parameter> &par, std::string sys_type,
                     std::string sys_def, std::string input_file) {
   toml::table tbl = get_toml_table(input_file);
 
-  auto sys_tbl = tbl[sys_type].as_table();
-  auto sys_def_arr = sys_tbl->at(sys_def).as_array();
-  for (const auto &biochp_elem : *sys_def_arr) {
-    auto biochp_tbl = biochp_elem.as_table();
-    auto items = biochp_tbl->at("item").as_array();
-    for (const auto &item_elem : *items) {
-      auto item_tbl = item_elem.as_table();
+  if (auto items = tbl[sys_type][sys_def].as_array()) {
+    for (const auto &item : *items) {
+      auto item_tbl = item.as_table();
 
       parameter p;
       p.sys_type = sys_type;
@@ -296,6 +296,17 @@ void get_parameters(std::vector<parameter> &par, std::string sys_type,
       }
       par.push_back(p);
     }
+    std::string txt = par.back().data_def;
+    parameter p;
+    p = parameter();
+    p.str.clear();
+    p.vct.clear();
+    p.sys_type = sys_type;
+    p.sys_def = sys_def;
+    p.data_def = txt;
+    par.push_back(p);
+    std::call_once(warn_flag,
+                   [] { std::cout << "Redundantly added empty parameter.\n"; });
   }
 }
 

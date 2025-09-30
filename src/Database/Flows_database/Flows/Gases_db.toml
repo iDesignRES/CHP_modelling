@@ -1,0 +1,66 @@
+[flow.flue_gas]
+class = "ideal_gas"
+prop_data = "NIST"
+
+[flow.flue_gas.molecules]
+O2 = {}
+N2 = {}
+Ar = {}
+H2O = {}
+H2 = {}
+CO = {}
+CO2 = {}
+SO2 = {}
+NO2 = {}
+
+[flow.flue_gas.atoms]
+O = {}
+N = {}
+Ar = {}
+H = {}
+C = {}
+S = {}
+
+[flow.dry_air]
+class = "ideal_gas"
+prop_data = "NIST"
+
+[flow.dry_air.molecules]
+N2 = {X = 0.7812}
+Ar = {X = 0.0092}
+O2 = {X = 0.2096}
+
+[flow.dry_air.atoms]
+O = {}
+N = {}
+Ar = {}
+
+[flow.air]
+class = "ideal_gas"
+prop_data = "NIST"
+
+[flow.air.molecules]
+N2 = {X = 0.7812}
+Ar = {X = 0.0092}
+O2 = {X = 0.2096}
+
+[flow.air.atoms]
+O = {}
+N = {}
+Ar = {}
+
+[flow.wet_air]
+class = "ideal_gas"
+prop_data = "NIST"
+
+[flow.wet_air.molecules]
+N2 = {X = 0.7812}
+Ar = {X = 0.0092}
+O2 = {X = 0.2096}
+H2O = {X = 0.0}
+
+[flow.wet_air.atoms]
+O = {}
+H = {}
+N = {}
+Ar = {}

@@ -7,7 +7,7 @@
 #include "../src/bioCHP.h"
 
 int main() {
-  std::vector<std::string> fuel_def = {"spruce_chips", "furu_T&B"};
+  std::vector<std::string> fuel_def = {"spruce_chips", "furu_TandB"};
   std::vector<double> Yj = {0.5, 0.5};
   std::vector<double> YH2Oj = {0.3, 0.6};
   double W_el = 300.0000;
@@ -22,13 +22,17 @@ int main() {
   double C_op;
   double C_op_var;
 
-  if (bioCHP_plant(fuel_def, Yj, YH2Oj, W_el, Qk, Tk_in, Tk_out, Mj, Q_prod,
-                   W_el_prod, C_inv, C_op, C_op_var)) {
-    std::cout << "No errors" << std::endl;
-
-  } else {
-    std::cout << "error" << std::endl;
+  try {
+    if (bioCHP_plant(fuel_def, Yj, YH2Oj, W_el, Qk, Tk_in, Tk_out, Mj, Q_prod,
+                     W_el_prod, C_inv, C_op, C_op_var)) {
+      std::cout << "bioCHP PLANT calculation successful" << std::endl;
+      return 1;
+    } else {
+      std::cout << "bioCHP PLANT calculation failed" << std::endl;
+      return 0;
+    }
+  } catch (const std::runtime_error& e) {
+    std::cout << "Error: " << e.what() << std::endl;
+    return 0;
   }
-
-  return 0;
 }

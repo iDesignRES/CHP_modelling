@@ -1,55 +1,55 @@
 [molecules.O2]
-composition = { O = 2 }
+composition = "O2"
 MW = 0.032
 Hf = 0.0
 cp_n = 7.02
 
 [molecules.N2]
-composition = { N = 2 }
+composition = "N2"
 MW = 0.028
 Hf = 0.0
 cp_n = 6.96
 
 [molecules.H2]
-composition = { H = 2 }
+composition = "H2"
 MW = 0.002
 Hf = 0.0
 cp_n = 6.89
 LHV = 120.971
 
 [molecules.H2O]
-composition = { H = 2, O = 1 }
+composition = "H2O"
 MW = 0.018
 Hf = -241800.0
 cp_n = 8.03
 
 [molecules.CO]
-composition = { C = 1, O = 1 }
+composition = "CO"
 MW = 0.028
 Hf = -110500.0
 cp_n = 6.97
 LHV = 10.112
 
 [molecules.CO2]
-composition = { C = 1, O = 2 }
+composition = "CO2"
 MW = 0.044
 Hf = -393500.0
 cp_n = 8.88
 
 [molecules.SO2]
-composition = { S = 1, O = 2 }
+composition = "SO2"
 MW = 0.064
 Hf = 0.0
 cp_n = 0.0
 
 [molecules.NO2]
-composition = { N = 1, O = 2 }
+composition = "NO2"
 MW = 0.046
 Hf = 0.0
 cp_n = 0.0
 
 [molecules.Ar]
-composition = { Ar = 1 }
+composition = "Ar"
 MW = 0.039948
 Hf = 0.0
 cp_n = 6.96
