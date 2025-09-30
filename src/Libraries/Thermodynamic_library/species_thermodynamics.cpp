@@ -5,7 +5,7 @@
 
 double shomate(std::string property, double tK, double A, double B, double C,
                double D, double E, double F, double G, double Hf298) {
-  // properties
+  // properties claculations according NIST database
   // cp = heat capacity (J/mol*K) = A + B * t + C * t2 + D * t3 + E / t2
   // h - H°298.15 = standard enthalpy (kJ/mol) = A*t + B*t2/2 + C*t3/3 + D*t4/4
   // - E/t + F - Hf298 s = standard entropy (J/mol*K) = A * Ln(t) + B * t + C *
@@ -31,6 +31,7 @@ double shomate(std::string property, double tK, double A, double B, double C,
 
 double thermodynamic_property(std::string species, std::string property,
                               double TK) {
+  //A,B,C,D,E,F,G,Hf298 constant coefficients obtained from NIST database
   if (TK <= 0) {
     throw std::invalid_argument("Temperature must be positive.");
   }

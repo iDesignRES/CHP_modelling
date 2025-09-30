@@ -89,13 +89,13 @@ void solid_fuel_boiler(std::vector<flow> &fuel, std::vector<flow> &comb_air,
 
     ba[n].F.M =
         fuel[n].F.M * (1.0 - fuel[n].k[H2O].Y) * (fuel[n].k[ash].Y * f_ba);
-    ba[n].P.cp = 1.25;  // kJ/kg*k
+    ba[n].P.cp = 1.25;  // kJ/kg*k, assumed value
     ba[n].F.Ht =
         ba[n].F.M * (ba[n].P.cp * (T_ba - 25.0) * 1.0e3 + yC_ba * 34.1 * 1.0e6);
 
     fa[n].F.M = fuel[n].F.M * (1.0 - fuel[n].k[H2O].Y) * fuel[n].k[ash].Y *
                 (1.0 - f_ba);
-    fa[n].P.cp = 1.25;  // kJ/kg*k
+    fa[n].P.cp = 1.25;  // kJ/kg*k, assumed value
     fa[n].F.Ht = fa[n].F.M * fa[n].P.cp * (T_fa - 25.0);
   }
 

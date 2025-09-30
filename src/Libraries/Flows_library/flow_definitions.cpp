@@ -459,6 +459,7 @@ void flow::print_flow() {
   std::cout << "def: " << def << std::endl;
   std::cout << "cls: " << cls << std::endl;
   std::cout << "prop_data: " << prop_data << std::endl;
+  std::cout << "molec_def: " << molec_def << std::endl;
   std::cout << "M: " << F.M << std::endl;
   std::cout << "T: " << F.T << std::endl;
   std::cout << "P: " << F.P << std::endl;
@@ -469,8 +470,10 @@ void flow::print_flow() {
   std::cout << "rho: " << P.rho << std::endl;
   std::cout << "h: " << P.h << std::endl;
   std::cout << "ht: " << P.ht << std::endl;
+  std::cout << "hf: " << P.hf << std::endl;
   std::cout << "s: " << P.s << std::endl;
   std::cout << "H : " << F.H << std::endl;
+  std::cout << "Hf : " << F.Hf << std::endl;
   std::cout << "Ht : " << F.Ht << std::endl;
   std::cout << "-------------------- " << std::endl;
   if (i.size() == 0) {

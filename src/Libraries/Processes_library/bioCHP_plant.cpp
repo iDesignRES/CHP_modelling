@@ -71,7 +71,8 @@ void bioCHP_plant_model(object &bioCHP) {
 
     double W_el = bioCHP.fp("W_el");
 
-    double Hf = W_el / 0.2 + sum_Qk / 0.9;
+    //initial assumtion of 20% and 90% electric and thermal conversion efficiency	
+    double Hf = W_el / 0.2 + sum_Qk / 0.9; 
 
     double W_el_prod = 0.0;
 

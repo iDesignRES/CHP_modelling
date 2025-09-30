@@ -75,6 +75,7 @@ void flow::calculate_solid_fuel() {
     i.push_back(species("O", YO));
   }
 
+  // kC, kH, kO, kS, kN, kH2O, kA coefficients for Milne's formulae (from Phyllis database)  
   kC = 34.1;
   kH = 102;
   kO = -9.85;
@@ -129,6 +130,7 @@ void flow::calculate_solid_fuel() {
   F.Ht = F.M * P.ht;
   P.hf = P.LHV * 1e6;
   F.Hf = F.M * P.hf;
+  P.h = P.ht + P.hf;
   F.H = F.Ht + F.Hf;
 }
 
@@ -197,6 +199,62 @@ void flow::calculate_flow_composition() {
       P.MW += j[n].X * j[n].P.MW;
     }
   }
+
+    if (i.size() == 1) {
+    i[0].Y = 1.0;
+    i[0].X = 1.0;
+  }
+
+  if (i.size() > 1) {
+    sum_Y = 0.0;
+    for (std::size_t n = 0; n < i.size(); n++) {
+      sum_Y += i[n].Y;
+    }
+    sum_X = 0.0;
+    for (std::size_t n = 0; n < i.size(); n++) {
+      sum_X += i[n].X;
+    }
+    if (molec_def != "Y" && sum_Y > 0.0) {
+      molec_def = "Y";
+    }
+    if (molec_def != "X" && sum_Y == 0.0 && sum_X > 1e-6) {
+      molec_def = "X";
+    }
+
+    if (molec_def == "Y") {
+      sum_Y_MW = 0.0;
+      for (std::size_t n = 0; n < i.size(); n++) {
+        if (i[n].Y > 0 && i[n].P.MW > 0) {
+          sum_Y_MW += i[n].Y / i[n].P.MW;
+        }
+      }
+      for (std::size_t n = 0; n < i.size(); n++) {
+        if (i[n].Y > 0 && i[n].P.MW > 0 && sum_Y_MW > 0) {
+          i[n].X = (i[n].Y / i[n].P.MW) / sum_Y_MW;
+        }
+        if (i[n].Y == 0) {
+          i[n].X = 0;
+        }
+      }
+    } else if (molec_def == "X") {
+      sum_X_MW = 0.0;
+      for (std::size_t n = 0; n < i.size(); n++) {
+        if (i[n].X > 0 && i[n].P.MW > 0) {
+          sum_X_MW += i[n].X * i[n].P.MW;
+        }
+      }
+      for (std::size_t n = 0; n < i.size(); n++) {
+        if (i[n].X > 0 && i[n].P.MW > 0 && sum_X_MW > 0) {
+          i[n].Y = (i[n].X * i[n].P.MW) / sum_X_MW;
+        }
+        if (i[n].X == 0) {
+          i[n].Y = 0;
+        }
+      }
+    }
+
+  }
+
 }
 
 /**
@@ -250,6 +308,10 @@ void flow::calculate_species_properties(std::string state_def) {
     j[n].P.s = thermodynamic_property(j[n].id, "s", j[n].F.T + 273.15);
     if (j[n].P.s == -1.0) {
       j[n].P.s = 0.0;
+    }
+
+    if (j[n].P.cp > 0.0) {
+      j[n].P.ht = j[n].P.cp * (j[n].F.T - 25.0);
     }
 
     j[n].P.cp = j[n].P.cp / j[n].P.MW;

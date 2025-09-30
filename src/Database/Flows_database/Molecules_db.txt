@@ -1,0 +1,47 @@
+
+Species_id O2
+Composition: O2
+inputs 1
+MW 32e-3
+
+Species_id N2    
+Composition: N2
+inputs 1
+MW 28e-3
+
+Species_id H2
+Composition: H2   
+inputs 2
+MW 2e-3
+LHV 120.971
+
+Species_id H2O
+Composition: H2O      
+inputs 1
+MW 18e-3
+
+Species_id CO
+Composition: CO
+inputs 2
+MW 28e-3
+LHV 10.112
+
+Species_id CO2       
+Composition: CO2
+inputs 1
+MW 44e-3
+
+Species_id SO2
+Composition: SO2
+inputs 1
+MW 64e-3
+
+Species_id NO2
+Composition: NO2
+inputs 1
+MW       46e-3
+
+Species_id Ar
+Composition: Ar     
+inputs 1
+MW      39.948e-3

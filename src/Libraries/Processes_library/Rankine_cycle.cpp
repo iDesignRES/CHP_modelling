@@ -17,7 +17,7 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
   ST.Pi = in.F.P;
   in.calculate_flow_properties("PT");
 
-  const double eff_el = 0.9;
+  const double eff_el = 0.9; // assumed value
 
   double s_out, s_in = sPTSupSteam(ST.Pi, ST.Ti);
   double hs_out, h_out, h_calc, h_in = hPTSupSteam(ST.Pi, ST.Ti);
@@ -148,10 +148,10 @@ void district_heating(object &par) {
   if (par.vctp("Qk").size() > 0) {
     for (std::size_t nk = 0; nk < par.vctp("Qk").size(); nk++) {
       dh_in.F.T = par.vctp("Tk_in")[nk];
-      dh_in.F.P = 1.01325;
+      dh_in.F.P = 1.01325; // assumed atmospheric pressure
       dh_in.P.h = hTWater(dh_in.F.T);
       dh_out.F.T = par.vctp("Tk_out")[nk];
-      dh_out.F.P = 1.01325;
+      dh_out.F.P = 1.01325; // assumed atmospheric pressure
       dh_out.P.h = hTWater(dh_out.F.T);
 
       dh_in.F.M = par.vctp("Qk")[nk] / (dh_out.P.h - dh_in.P.h);

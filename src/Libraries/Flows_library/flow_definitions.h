@@ -25,10 +25,10 @@
  */
 struct properties {
  public:
-  double LHV = 0.0, LHV_dry, HHV = 0.0, HHV_dry;
-  double cp, rho, MW;
-  double hf, ht, h;
-  double s;
+  double LHV = 0.0, LHV_dry = 0.0, HHV = 0.0, HHV_dry = 0.0;
+  double cp = 0.0, rho = 0.0, MW = 0.0;
+  double hf = 0.0, ht = 0.0, h = 0.0;
+  double s = 0.0;
   double Tsat, q, hVap;
   double k, visc;
 };
@@ -48,9 +48,9 @@ struct properties {
  */
 struct flow_parameters {
  public:
-  double P, T;
-  double M, N, VN, V;
-  double H, Ht, Hf;
+  double P = 0.0, T = 0.0;
+  double M = 0.0, N = 0.0, VN = 0.0, V = 0.0;
+  double H = 0.0, Ht = 0.0, Hf = 0.0;
 };
 
 /**
@@ -66,7 +66,7 @@ struct flow_parameters {
 struct species {
  public:
   std::string id, def, formula;
-  double Y, X;
+  double Y = 0.0, X = 0.0;
   std::vector<double> val;
   properties P;
   flow_parameters F;

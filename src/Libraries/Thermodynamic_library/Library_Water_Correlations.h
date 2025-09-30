@@ -84,24 +84,24 @@ double HTSteam(double T);
 
 /**
  * @brief Specific volume [m3/kg] of water
- * @param T = Temerature (deg.C)
+ * @param T = Temperature (deg.C)
  */
 double vTWater(double T);
 
 /**
  * @brief Specific volume [m3/kg] of steam
- * @param T = Temerature (deg.C)
+ * @param T = Temperature (deg.C)
  */
 double vTSteam(double T);
 
 /**
  * @brief Vaporization heat [kJ/kg] of water
- * @param T = Temerature (deg.C)
+ * @param T = Temperature (deg.C)
  */
 double HVapH2O(double T);
 
 /**
  * @brief Specific heat [kJ/kg K] of water
- * @param T = Temerature (deg.C)
+ * @param T = Temperature (deg.C)
  */
 double CpWater(double T);
