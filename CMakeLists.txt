@@ -19,7 +19,9 @@ target_compile_options(bioCHP_library PRIVATE)
 if(MSVC)
     add_compile_options(/W4) # Enable all warnings for MSVC, do not treat as errors
 else()
-    add_compile_options(-Wall -Wextra -Wpedantic) # GCC/Clang: all warnings, extra, pedantic, treat as errors
+    set(SANITIZER_FLAGS -fsanitize=address -fsanitize=undefined -g -O0)
+    add_compile_options(-Wall -Wextra -Wpedantic ${SANITIZER_FLAGS})
+    add_link_options(${SANITIZER_FLAGS})
 endif()
 
 set_target_properties(bioCHP_library PROPERTIES
