@@ -20,8 +20,8 @@ jobs:
             generator: Ninja
           - os: windows-latest
             build_type: Release
-            cc: clang
-            cxx: clang++
+            cc: cl
+            cxx: cl
             generator: Ninja
 
     steps:
