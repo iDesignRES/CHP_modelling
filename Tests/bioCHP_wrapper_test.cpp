@@ -64,7 +64,7 @@ int main(int argc, char *argv[]) {
       expected_C_op = 45.731257;
       expected_C_op_var = 40.567947;
       break;
-    case 2:
+    default:
       fuel_def[0] = "spruce_stem";
       fuel_def[1] = "birch_stem";
       fuel_def[2] = "spruce_TandB";
