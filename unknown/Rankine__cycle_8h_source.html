@@ -112,9 +112,9 @@ $(document).ready(function(){initNavTree('Rankine__cycle_8h_source.html',''); in
 <div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="structsteam__turbine__parameters.html">   19</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structsteam__turbine__parameters.html">steam_turbine_parameters</a> {</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>  std::string id;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  <span class="keywordtype">double</span> Mi, Pi, Ti, Po, mu_isent, W;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  std::vector&lt;double&gt; Pext, Mext;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>  std::string <span class="keywordtype">id</span> = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  <span class="keywordtype">double</span> Mi = 0.0, Pi = 0.0, Ti = 0.0, Po = 0.0, mu_isent = 0.0, W = 0.0;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  std::vector&lt;double&gt; Pext = {}, Mext = {};</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  <span class="keywordtype">void</span> assign_parameter_values(std::string, std::string,</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>                               std::vector&lt;parameter&gt; &amp;);</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>};</div>
@@ -129,7 +129,7 @@ $(document).ready(function(){initNavTree('Rankine__cycle_8h_source.html',''); in
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keywordtype">void</span> district_heating(<span class="keywordtype">object</span> &amp;par);</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="keywordtype">void</span> rankine_cycle(<span class="keywordtype">object</span> &amp;par);</div>
-<div class="ttc" id="astructflow_html"><div class="ttname"><a href="structflow.html">flow</a></div><div class="ttdoc">Structure to define the parameters of one flow.</div><div class="ttdef"><b>Definition</b> flow_definitions.h:127</div></div>
+<div class="ttc" id="astructflow_html"><div class="ttname"><a href="structflow.html">flow</a></div><div class="ttdoc">Structure to define the parameters of one flow.</div><div class="ttdef"><b>Definition</b> flow_definitions.h:128</div></div>
 <div class="ttc" id="astructsteam__turbine__parameters_html"><div class="ttname"><a href="structsteam__turbine__parameters.html">steam_turbine_parameters</a></div><div class="ttdoc">Structure with steam turbine parameters.</div><div class="ttdef"><b>Definition</b> Rankine_cycle.h:19</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
