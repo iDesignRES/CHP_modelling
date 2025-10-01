@@ -54,15 +54,15 @@ int main(int argc, char *argv[]) {
       Tk_out_len = 2;
 
       Mj_len = 4;
-      expected_Mj[0] = 2.55886;
-      expected_Mj[1] = 5.11772;
-      expected_Mj[2] = 7.67659;
-      expected_Mj[3] = 10.2354;
+      expected_Mj[0] = 2.55675;
+      expected_Mj[1] = 5.1135;
+      expected_Mj[2] = 7.67026;
+      expected_Mj[3] = 10.227;
       expected_Q_prod = 70.0;
       expected_W_el_prod = 100.0;
-      expected_C_inv = 243.176757;
-      expected_C_op = 45.768077;
-      expected_C_op_var = 40.601427;
+      expected_C_inv = 243.019565;
+      expected_C_op = 45.731257;
+      expected_C_op_var = 40.567947;
       break;
     case 2:
       fuel_def[0] = "spruce_stem";
@@ -92,15 +92,15 @@ int main(int argc, char *argv[]) {
       Tk_out_len = 2;
 
       Mj_len = 4;
-      expected_Mj[0] = 2.55886;
-      expected_Mj[1] = 7.67659;
-      expected_Mj[2] = 10.2354;
-      expected_Mj[3] = 5.11772;
+      expected_Mj[0] = 2.55675;
+      expected_Mj[1] = 7.67026;
+      expected_Mj[2] = 10.227;
+      expected_Mj[3] = 5.1135;
       expected_Q_prod = 70.0;
       expected_W_el_prod = 100.0;
-      expected_C_inv = 243.176757;
-      expected_C_op = 45.768077;
-      expected_C_op_var = 40.601427;
+      expected_C_inv = 243.019565;
+      expected_C_op = 45.731257;
+      expected_C_op_var = 40.567947;
       break;
   }
 

@@ -14,6 +14,17 @@ void calculate_fuel_combustion_properties(flow fuel, object &prop) {
   std::size_t ash = index_species(fuel.k, "ash");
 
   if (fuel.prop_data == "solid_fuel") {
+    std::string missing;
+    if (C == static_cast<std::size_t>(-1)) missing += "C ";
+    if (H == static_cast<std::size_t>(-1)) missing += "H ";
+    if (O == static_cast<std::size_t>(-1)) missing += "O ";
+    if (H2O == static_cast<std::size_t>(-1)) missing += "H2O ";
+    if (ash == static_cast<std::size_t>(-1)) missing += "ash ";
+    if (!missing.empty()) {
+      throw std::runtime_error(
+        "Error in fuel definition as following species are not present: " + missing);
+    }
+
     prop.fval_p("n_H", (fuel.i[H].Y / 1) / (fuel.i[C].Y / 12));
     prop.fval_p("n_O", (fuel.i[O].Y / 16) / (fuel.i[C].Y / 12));
     prop.fval_p("W_CHxOy",
@@ -51,7 +62,7 @@ void solid_fuel_boiler(std::vector<flow> &fuel, std::vector<flow> &comb_air,
 
   for (std::size_t n = 0; n < fuel.size(); n++) {
     std::size_t H2O = index_species(fuel[n].k, "H2O");
-    std::size_t ash = index_species(fuel[n].k, "ASH");
+    std::size_t ash = index_species(fuel[n].k, "ash");
 
     std::size_t O2g = index_species(fg[n].j, "O2");
     std::size_t N2g = index_species(fg[n].j, "N2");

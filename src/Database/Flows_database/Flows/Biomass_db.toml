@@ -13,7 +13,7 @@ Cl = {Y = 0.00002}
 [flow.SE_pellets_arbacore_spruce_stem.proximate]
 VOL = {Y = 0.802}
 FC = {Y = 0.196}
-ASH = {Y = 0.0002}
+ash = {Y = 0.0002}
 H2O = {Y = 0.034}
 
 [flow.SE_pellets_arbacore_spruce_stem.properties]
@@ -36,7 +36,7 @@ Cl = {Y = 0.0}
 [flow.spruce_chips.proximate]
 VOL = {Y = 0.39985}
 FC = {Y = 0.09825}
-ASH = {Y = 0.0019}
+ash = {Y = 0.0019}
 H2O = {Y = 0.05}
 
 [flow.spruce_chips.properties]
@@ -59,7 +59,7 @@ Cl = {Y = 0.0}
 [flow.spruce_stem.proximate]
 VOL = {Y = 0.7243}
 FC = {Y = 0.2727}
-ASH = {Y = 0.003}
+ash = {Y = 0.003}
 H2O = {Y = 0.5}
 
 [flow.spruce_stem.properties]
@@ -82,7 +82,7 @@ Cl = {Y = 0.0}
 [flow.spruce_bark.proximate]
 VOL = {Y = 0.7062}
 FC = {Y = 0.2685}
-ASH = {Y = 0.0253}
+ash = {Y = 0.0253}
 H2O = {Y = 0.5}
 
 [flow.spruce_bark.properties]
@@ -105,7 +105,7 @@ Cl = {Y = 0.0}
 [flow.spruce_TandB.proximate]
 VOL = {Y = 0.6982}
 FC = {Y = 0.2449}
-ASH = {Y = 0.0569}
+ash = {Y = 0.0569}
 H2O = {Y = 0.5}
 
 [flow.spruce_TandB.properties]
@@ -128,7 +128,7 @@ Cl = {Y = 0.0}
 [flow.birch_stem.proximate]
 VOL = {Y = 0.8943}
 FC = {Y = 0.1035}
-ASH = {Y = 0.0022}
+ash = {Y = 0.0022}
 H2O = {Y = 0.5}
 
 [flow.birch_stem.properties]

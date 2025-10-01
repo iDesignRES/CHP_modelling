@@ -20,13 +20,13 @@ int main() {
   std::vector<double> Tk_out = {};
   
   std::vector<double> Mj, expected_Mj;
-  expected_Mj.push_back(30.2162);
-  expected_Mj.push_back(30.2162);
+  expected_Mj.push_back(30.200224);
+  expected_Mj.push_back(30.200224);
   double Q_prod, expected_Q_prod = 0.000000;
   double W_el_prod, expected_W_el_prod = 300.000000;
-  double C_inv, expected_C_inv = 442.342070;
-  double C_op, expected_C_op = 94.845639;
-  double C_op_var, expected_C_op_var = 85.447428;
+  double C_inv, expected_C_inv = 442.146359;
+  double C_op, expected_C_op = 94.796324;
+  double C_op_var, expected_C_op_var = 85.402271;
 
   if (bioCHP_plant(fuel_def, Yj, YH2Oj, W_el, Qk, Tk_in, Tk_out, Mj, Q_prod,
                    W_el_prod, C_inv, C_op, C_op_var)) {
