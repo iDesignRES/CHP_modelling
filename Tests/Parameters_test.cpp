@@ -7,8 +7,34 @@
 #include "../src/bioCHP.h"
 #include "../src/utils.h"
 
+parameter construct_parameter(std::string line) {
+  parameter p;
+  std::stringstream sst(line);
+  sst >> p.data_def;
+  sst >> p.sys_type;
+  sst >> p.sys_def;
+  sst >> p.data_id;
+  sst >> p.data_type;
+  if (p.data_type == "str") {
+    std::string txt;
+    while (sst >> txt) {
+      p.str.push_back(txt);
+    }
+  }
+  if (p.data_type == "num") {
+    double val;
+    while (sst >> val) {
+      p.vct.push_back(val);
+    }
+  }
+
+  p.pos = 0;
+  return p;
+}
+
+
 int main() {
-  parameter p("prop plant bioCHP_PLANT T_stm num 450.0");
+  parameter p = construct_parameter("prop plant bioCHP_PLANT T_stm num 450.0");
   print_parameter(p);
 
   std::vector<std::string> fuel_def = {"spruce_chips", "spruce_T&B"};

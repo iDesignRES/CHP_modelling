@@ -11,29 +11,6 @@
 
 std::once_flag warn_flag;
 
-parameter::parameter(std::string line) {
-  std::stringstream sst(line);
-  sst >> data_def;
-  sst >> sys_type;
-  sst >> sys_def;
-  sst >> data_id;
-  sst >> data_type;
-  if (data_type == "str") {
-    std::string txt;
-    while (sst >> txt) {
-      str.push_back(txt);
-    }
-  }
-  if (data_type == "num") {
-    double val;
-    while (sst >> val) {
-      vct.push_back(val);
-    }
-  }
-
-  pos = 0;
-}
-
 /**
  * @brief Object initializing functions
  *

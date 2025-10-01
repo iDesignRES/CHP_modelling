@@ -15,7 +15,6 @@ struct parameter {
   std::size_t pos;
   std::vector<std::string> str;
   std::vector<double> vct;
-  parameter(std::string line);
   parameter(){};
 };
 
