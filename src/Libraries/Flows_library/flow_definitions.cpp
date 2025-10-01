@@ -238,9 +238,6 @@ void species::get_species_data_(std::string spc_type) {
   P = properties();
   F = flow_parameters();
   std::string txt, line_txt, symb;
-  int n;
-  double num;
-  bool input;
 
   std::ifstream db;
 
