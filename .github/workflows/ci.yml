@@ -20,9 +20,7 @@ jobs:
             generator: Ninja
           - os: windows-latest
             build_type: Release
-            cc: cl
-            cxx: cl
-            generator: Ninja
+            generator: Ninja   # MSVC will be detected automatically
 
     steps:
       - uses: actions/checkout@v4
@@ -34,14 +32,18 @@ jobs:
         shell: bash
         run: echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
 
+      # Setup MSVC environment on Windows
+      - name: Setup MSVC (Windows)
+        if: runner.os == 'Windows'
+        uses: microsoft/setup-msbuild@v2
+
       - name: Configure CMake
         run: >
           cmake -G "${{ matrix.generator }}"
           -B ${{ steps.strings.outputs.build-output-dir }}
           -S ${{ github.workspace }}
-          -DCMAKE_C_COMPILER=${{ matrix.cc }}
-          -DCMAKE_CXX_COMPILER=${{ matrix.cxx }}
           -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+          ${{ runner.os == 'Linux' && format('-DCMAKE_C_COMPILER={0} -DCMAKE_CXX_COMPILER={1}', matrix.cc, matrix.cxx) || '' }}
 
       - name: Build
         run: cmake --build ${{ steps.strings.outputs.build-output-dir }}
