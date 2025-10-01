@@ -29,8 +29,8 @@ struct properties {
   double cp = 0.0, rho = 0.0, MW = 0.0;
   double hf = 0.0, ht = 0.0, h = 0.0;
   double s = 0.0;
-  double Tsat, q, hVap;
-  double k, visc;
+  double Tsat = 0.0, q = 0.0, hVap = 0.0;
+  double k = 0.0, visc = 0.0;
 };
 
 /**
@@ -65,12 +65,12 @@ struct flow_parameters {
  */
 struct species {
  public:
-  std::string id, def, formula;
+  std::string id = "", def = "", formula = "";
   double Y = 0.0, X = 0.0;
   std::vector<double> val;
   properties P;
   flow_parameters F;
-  species(){};
+  species() {}
   species(std::string sid);
   species(std::string sid, double sY);
   species(std::string sid, double val, std::string def);
@@ -94,11 +94,12 @@ std::size_t index_species(std::vector<species> &spc, std::string spc_id);
  */
 struct phase {
  public:
-  std::string id;
-  double C, Y, X, phi;
+  std::string id = "";
+  double C = 0.0, Y = 0.0, X = 0.0, phi = 0.0;
   properties P;
   flow_parameters F;
   std::vector<species> i, j, k;
+  phase() {}
 };
 
 /**
@@ -126,16 +127,16 @@ struct phase {
  */
 struct flow {
  public:
-  std::string id, def, cls;
-  std::string prop_data, flow_db;
+  std::string id = "", def = "", cls = "";
+  std::string prop_data = "", flow_db = "";
   std::vector<species> i, j, k, l;  // i=atoms,j=molec,k=prox,l=const
-  std::string atom_def, molec_def, prox_def;
+  std::string atom_def = "", molec_def = "", prox_def = "";
   properties P;
   flow_parameters F;
   phase ph[3];
   flow(std::string flw_def);
   flow(std::string flw_def, std::string flw_id);
-  flow(){};
+  flow() {}
   void get_flow_data(std::string);
   void initialize_species(std::vector<species> &);
   void get_flow_species(std::vector<species> &, std::string);

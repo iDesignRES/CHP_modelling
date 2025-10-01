@@ -583,6 +583,4 @@ double HVapH2O(double T) { return HTSteam(T) - hTWater(T); }
  *
  * @param T = Temperature (deg.C)
  */
-double CpWater(double T) {
-  return hTWater(T + 1.0) - hTWater(T); 
-}
+double CpWater(double T) { return hTWater(T + 1.0) - hTWater(T); }

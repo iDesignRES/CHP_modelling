@@ -22,7 +22,8 @@ void calculate_fuel_combustion_properties(flow fuel, object &prop) {
     if (ash == static_cast<std::size_t>(-1)) missing += "ash ";
     if (!missing.empty()) {
       throw std::runtime_error(
-        "Error in fuel definition as following species are not present: " + missing);
+          "Error in fuel definition as following species are not present: " +
+          missing);
     }
 
     prop.fval_p("n_H", (fuel.i[H].Y / 1) / (fuel.i[C].Y / 12));

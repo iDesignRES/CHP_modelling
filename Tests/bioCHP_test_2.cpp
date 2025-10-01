@@ -18,7 +18,7 @@ int main() {
   std::vector<double> Qk = {};
   std::vector<double> Tk_in = {};
   std::vector<double> Tk_out = {};
-  
+
   std::vector<double> Mj, expected_Mj;
   expected_Mj.push_back(30.200224);
   expected_Mj.push_back(30.200224);

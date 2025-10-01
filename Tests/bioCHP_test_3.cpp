@@ -19,9 +19,9 @@ int main() {
   std::vector<double> Tk_in = {70.0, 70.0};
   std::vector<double> Tk_out = {90.0, 90.0};
 
- std::vector<double> Mj, expected_Mj;
+  std::vector<double> Mj, expected_Mj;
   expected_Mj.push_back(29.584839);
- expected_Mj.push_back(29.584839);
+  expected_Mj.push_back(29.584839);
   double Q_prod, expected_Q_prod = 70.000000;
   double W_el_prod, expected_W_el_prod = 300.000000;
   double C_inv, expected_C_inv = 436.201622;

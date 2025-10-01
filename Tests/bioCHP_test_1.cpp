@@ -89,10 +89,10 @@ int main() {
     }
 
     return all_passed ? 0 : 1;
+  } else {
+    std::cout << "Running bioCHP_plant_test_1 failed on execution!"
+              << std::endl;
+    return 1;
   }
-    else {
-      std::cout << "Running bioCHP_plant_test_1 failed on execution!" << std::endl;
-      return 1;
-    }
   return 0;
 }

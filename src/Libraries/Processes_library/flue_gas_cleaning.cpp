@@ -13,9 +13,7 @@ void dry_scrubber_model(flow &in, flow &out, object &par) {
 
   par.c.push_back(object("consumable", "lime"));
   int lime = par.ic("consumable", "lime");
-  par.c[lime].fval_p(
-      "Q_annual",
-      par.fp("M_fuel") * 14.44 * 3.6 * 8000);  
+  par.c[lime].fval_p("Q_annual", par.fp("M_fuel") * 14.44 * 3.6 * 8000);
   // 14.44 kg / ton solid fuel, from Stubenvoll et al. 2002
   material_cost(par.c[lime]);
 

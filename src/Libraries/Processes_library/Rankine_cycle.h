@@ -18,9 +18,9 @@
  */
 struct steam_turbine_parameters {
  public:
-  std::string id;
-  double Mi, Pi, Ti, Po, mu_isent, W;
-  std::vector<double> Pext, Mext;
+  std::string id = "";
+  double Mi = 0.0, Pi = 0.0, Ti = 0.0, Po = 0.0, mu_isent = 0.0, W = 0.0;
+  std::vector<double> Pext = {}, Mext = {};
   void assign_parameter_values(std::string, std::string,
                                std::vector<parameter> &);
 };

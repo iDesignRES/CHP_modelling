@@ -7,10 +7,6 @@
 
 #include "../../utils.h"
 
-#include <mutex>
-
-std::once_flag warn_flag_valences;
-
 species::species(std::string sid) {
   id = sid;
   Y = 0.0;
@@ -26,6 +22,7 @@ species::species(std::string sid, double sY) {
 species::species(std::string sid, double val, std::string def) {
   id = sid;
   X = 0.0;
+  Y = 0.0;
   if (def == "Y") {
     Y = val;
   }
@@ -40,7 +37,7 @@ std::size_t index_species(std::vector<species>& spc, std::string spc_id) {
       return i;
     }
   }
-  // returns a negative number if species does not exist in the vector
+  // returns SIZE_MAX if species does not exist in the vector
   return static_cast<std::size_t>(-1);
 }
 
@@ -298,13 +295,9 @@ void species::get_species_data_(std::string spc_type) {
       if (auto mw = atom_table["atomic_weight"].value<double>()) P.MW = *mw;
 
       if (auto vals = atom_table["valences"].as_array()) {
-        // for (auto&& v : *vals) {
-        //   if (auto n = v.value<int>())
-        //     val.push_back(*n);
-        // }
-        std::call_once(warn_flag_valences, [] {
-          std::cout << "Redundantly added empty parameter.\n";
-        });
+        for (auto&& v : *vals) {
+          if (auto n = v.value<int>()) val.push_back(*n);
+        }
       }
     } catch (const toml::parse_error& err) {
       throw std::runtime_error(std::string("TOML parse error: ") + err.what());

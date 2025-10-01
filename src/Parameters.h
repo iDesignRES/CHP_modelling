@@ -10,12 +10,11 @@
  */
 struct parameter {
  public:
-  std::string sys_type, sys_def;
-  std::string data_def, data_id, data_type, data_info;
-  std::size_t pos;
+  std::string sys_type = "", sys_def = "";
+  std::string data_def = "", data_id = "", data_type = "", data_info = "";
+  std::size_t pos = 0;
   std::vector<std::string> str;
   std::vector<double> vct;
-  parameter(){};
 };
 
 /**
@@ -24,12 +23,12 @@ struct parameter {
  */
 struct object {
  public:
-  std::string sys_type, sys_def, sys_file;
+  std::string sys_type = "", sys_def = "", sys_file = "";
   std::vector<object> c;
   std::vector<parameter> p;
   object(std::string type, std::string def, std::string file);
   object(std::string type, std::string def);
-  object();
+  object() {}
   int ic(std::string type, std::string def);
   int ip(std::string symb);
   bool bp(std::string symb);

@@ -32,7 +32,6 @@ parameter construct_parameter(std::string line) {
   return p;
 }
 
-
 int main() {
   parameter p = construct_parameter("prop plant bioCHP_PLANT T_stm num 450.0");
   print_parameter(p);

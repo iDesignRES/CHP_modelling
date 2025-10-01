@@ -41,6 +41,7 @@ toml::table get_toml_table(std::string file) {
   try {
     return toml::parse_file(file);
   } catch (const toml::parse_error& err) {
-    throw std::runtime_error(std::string("Parsing failed:\n") + err.what());
+    throw std::runtime_error("Parsing failed when opening: " + file + "\n" +
+                             err.what());
   }
 }

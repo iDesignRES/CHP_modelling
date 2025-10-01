@@ -7,10 +7,6 @@
 
 #include "utils.h"
 
-#include <mutex>
-
-std::once_flag warn_flag;
-
 /**
  * @brief Object initializing functions
  *
@@ -28,17 +24,14 @@ object::object(std::string type, std::string def, std::string file) {
 object::object(std::string type, std::string def) {
   sys_type = type;
   sys_def = def;
-  if (type == "equipment") {
-    get_parameters(p, type, def, get_database_path("Equipment_database.toml"));
-  }
-  if (type == "consumable") {
-    get_parameters(p, type, def,
-                   get_database_path("Consumables_database.toml"));
-  }
-  if (type == "solid_residue") {
-    get_parameters(p, type, def,
-                   get_database_path("Consumables_database.toml"));
-  }
+  std::string file = "";
+  if (type == "equipment")
+    file = get_database_path("Equipment_database.toml");
+  else if (type == "consumable" || type == "solid_residue")
+    file = get_database_path("Consumables_database.toml");
+
+  sys_file = file;
+  if (!file.empty()) get_parameters(p, type, def, file);
 }
 
 /**
@@ -273,17 +266,6 @@ void get_parameters(std::vector<parameter> &par, std::string sys_type,
       }
       par.push_back(p);
     }
-    std::string txt = par.back().data_def;
-    parameter p;
-    p = parameter();
-    p.str.clear();
-    p.vct.clear();
-    p.sys_type = sys_type;
-    p.sys_def = sys_def;
-    p.data_def = txt;
-    par.push_back(p);
-    std::call_once(warn_flag,
-                   [] { std::cout << "Redundantly added empty parameter.\n"; });
   }
 }
 

@@ -75,7 +75,8 @@ void flow::calculate_solid_fuel() {
     i.push_back(species("O", YO));
   }
 
-  // kC, kH, kO, kS, kN, kH2O, kA coefficients for Milne's formulae (from Phyllis database)  
+  // kC, kH, kO, kS, kN, kH2O, kA coefficients for Milne's formulae (from
+  // Phyllis database)
   kC = 34.1;
   kH = 102;
   kO = -9.85;
@@ -200,7 +201,7 @@ void flow::calculate_flow_composition() {
     }
   }
 
-    if (i.size() == 1) {
+  if (i.size() == 1) {
     i[0].Y = 1.0;
     i[0].X = 1.0;
   }
@@ -252,9 +253,7 @@ void flow::calculate_flow_composition() {
         }
       }
     }
-
   }
-
 }
 
 /**
