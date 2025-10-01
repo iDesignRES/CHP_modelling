@@ -18,6 +18,9 @@ target_compile_options(bioCHP_library PRIVATE)
 
 if(MSVC)
     add_compile_options(/W4) # Enable all warnings for MSVC, do not treat as errors
+elseif(WIN32)
+    # MinGW on Windows – disable sanitizers
+    add_compile_options(-Wall -Wextra -Wpedantic)
 else()
     set(SANITIZER_FLAGS -fsanitize=address -fsanitize=undefined -g -O0)
     add_compile_options(-Wall -Wextra -Wpedantic ${SANITIZER_FLAGS})
