@@ -28,7 +28,6 @@ parameter construct_parameter(std::string line) {
     }
   }
 
-  p.pos = 0;
   return p;
 }
 

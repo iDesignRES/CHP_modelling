@@ -254,7 +254,6 @@ void get_parameters(std::vector<parameter> &par, std::string sys_type,
       p.data_id = item_tbl->at("data_id").value_or("");
       p.data_type = item_tbl->at("data_type").value_or("");
       p.data_info = item_tbl->at("data_info").value_or("");
-      p.pos = 0;
 
       auto vals = item_tbl->at("values").as_array();
 
@@ -373,7 +372,6 @@ void val_p(std::vector<parameter> &par, std::string data_def,
     p.data_id = data_id;
     p.data_type = "num";
     p.vct.push_back(val);
-    p.pos = 0;
     par.push_back(p);
   }
 }
@@ -398,7 +396,6 @@ void str_p(std::vector<parameter> &par, std::string data_def,
     p.data_id = data_id;
     p.data_type = "str";
     p.str.push_back(val);
-    p.pos = 0;
     par.push_back(p);
   }
 }
@@ -442,7 +439,6 @@ void fvct_p(std::vector<parameter> &par, std::string data_def,
     p.sys_def = sys_def;
     p.data_id = data_id;
     p.data_type = "num";
-    p.pos = 0;
     for (std::size_t n = 0; n < val.size(); n++) {
       p.vct.push_back(val[n]);
     }
@@ -472,7 +468,6 @@ void svct_p(std::vector<parameter> &par, std::string data_def,
     p.sys_def = sys_def;
     p.data_id = data_id;
     p.data_type = "str";
-    p.pos = 0;
     for (std::size_t n = 0; n < val.size(); n++) {
       p.str.push_back(val[n]);
     }
