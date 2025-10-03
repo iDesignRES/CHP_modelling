@@ -6,11 +6,16 @@
 #include "Parameters.h"
 
 /**
+ * @struct equipment
  * @brief Structure to equipment parameters
- * @param def = definying name in the database
- * @param Cpi = Installed cost
- * @param W_el = Electric load
- * @param C_maint = Maintenance cost
+ * @var equipment::def
+ * Defining name in the database
+ * @var equipment::Cpi
+ * Installed cost
+ * @var equipment::W_el
+ * Electric load
+ * @var equipment::C_maint
+ * Maintenance cost
  */
 struct equipment {
  public:
@@ -19,12 +24,18 @@ struct equipment {
 };
 
 /**
+ * @struct material
  * @brief Structure to define material consumables parameters
- * @param type = type of material (consumable, product)
- * @param def = definying name in the database
- * @param Q_annual = Annual quantity
- * @param price = unit price
- * @param C_annual = Annual cost
+ * @var material::type
+ * Type of material (consumable, product)
+ * @var material::def
+ * Defining name in the database
+ * @var material::Q_annual
+ * Annual quantity
+ * @var material::price
+ * Unit price
+ * @var material::C_annual
+ * Annual cost
  */
 struct material {
  public:

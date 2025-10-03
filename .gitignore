@@ -1,6 +1,6 @@
 # Build directories
 /build/
 /dev/
-/docs/build/
+/docs/html/
 *.o
 /Test/Output*

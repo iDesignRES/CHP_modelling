@@ -4,24 +4,40 @@
 #include <vector>
 
 /**
+ * @struct properties
  * @brief Structure to define flow or species properties
- *
- * @param "LHV" = Low Heating Value (MJ/kg)
- * @param "LHV_dry" = Low Heating Value dry basis (MJ/kg)
- * @param "HHV" = High Heating Value (MJ/kg)
- * @param "HHV_dry" = High Heating Value dry basis (MJ/kg)
- * @param "cp" = specific molar heat at constant pressure (J/kg K)
- * @param "rho" = density (kg/m3)
- * @param "MW" = molecular weight (kg/mol)
- * @param "h" = specific enthalpy (J/kg)
- * @param "hf" = specific formation enthalpy (J/kg)
- * @param "ht" = specific thermal enthalpy (J/kg)
- * @param "s" = specific entropy (J/kgK)
- * @param "Tsat" = saturation temperature (deg.C)
- * @param "q" = vapor compostion (kg/kg)
- * @param "k" = thermal conductivity (W/m*K)
- * @param "visc" = viscosity (Pa*s)
- * @param "hVap" = vaporization heat (J/kg)
+ * @var properties::LHV
+ * Low Heating Value (MJ/kg)
+ * @var properties::LHV_dry
+ * Low Heating Value dry basis (MJ/kg)
+ * @var properties::HHV
+ * High Heating Value (MJ/kg)
+ * @var properties::HHV_dry
+ * High Heating Value dry basis (MJ/kg)
+ * @var properties::cp
+ * Specific molar heat at constant pressure (J/kg K)
+ * @var properties::rho
+ * Density (kg/m3)
+ * @var properties::MW
+ * Molecular weight (kg/mol)
+ * @var properties::h
+ * Specific enthalpy (J/kg)
+ * @var properties::hf
+ * Specific formation enthalpy (J/kg)
+ * @var properties::ht
+ * Specific thermal enthalpy (J/kg)
+ * @var properties::s
+ * Specific entropy (J/kgK)
+ * @var properties::Tsat
+ * Saturation temperature (deg.C)
+ * @var properties::q
+ * Vapor composition (kg/kg)
+ * @var properties::k
+ * Thermal conductivity (W/m*K)
+ * @var properties::visc
+ * Viscosity (Pa*s)
+ * @var properties::hVap
+ * Vaporization heat (J/kg)
  */
 struct properties {
  public:
@@ -34,17 +50,26 @@ struct properties {
 };
 
 /**
+ * @struct flow_parameters
  * @brief Structure to define flow parameters
- *
- * @param "P" = pressure (bar)
- * @param "T" = temperature (deg.C)
- * @param "M" = mass flow rate (kg/s)
- * @param "N" = molar flow rate (mol/s)
- * @param "VN" = standard volumetric flow rate (Nm3/s)
- * @param "V" = volumetric flow rate (m3/s)
- * @param "H" = Enthalpy flow (J/s)
- * @param "Hf" = Formation enthalpy flow (J/s)
- * @param "Ht" = Thermal enthalpy flow (J/s)
+ * @var flow_parameters::P
+ * Pressure (bar)
+ * @var flow_parameters::T
+ * Temperature (deg.C)
+ * @var flow_parameters::M
+ * Mass flow rate (kg/s)
+ * @var flow_parameters::N
+ * Molar flow rate (mol/s)
+ * @var flow_parameters::VN
+ * Standard volumetric flow rate (Nm3/s)
+ * @var flow_parameters::V
+ * Volumetric flow rate (m3/s)
+ * @var flow_parameters::H
+ * Enthalpy flow (J/s)
+ * @var flow_parameters::Hf
+ * Formation enthalpy flow (J/s)
+ * @var flow_parameters::Ht
+ * Thermal enthalpy flow (J/s)
  */
 struct flow_parameters {
  public:
@@ -54,14 +79,24 @@ struct flow_parameters {
 };
 
 /**
+ * @struct species
  * @brief Structure to define species parameters
- *
- * @param string "id" = name: Ex. vapor
- * @param string "def" = definition in database: Ex. water
- * @param string "formula" = chemical formula: Ex. H2O
- * @param "Y" = mass fraction (kg/kg)
- * @param "X" = molar fraction (mol/mol)
- * @param "val" = valences for atoms
+ * @var species::id
+ * Name of the species (e.g., vapor)
+ * @var species::def
+ * Definition in database (e.g., water)
+ * @var species::formula
+ * Chemical formula (e.g., H2O)
+ * @var species::Y
+ * Mass fraction (kg/kg)
+ * @var species::X
+ * Molar fraction (mol/mol)
+ * @var species::val
+ * Valences for atoms
+ * @var species::P
+ * Properties of the species
+ * @var species::F
+ * Flow parameters of the species
  */
 struct species {
  public:
@@ -82,15 +117,28 @@ struct species {
 std::size_t index_species(std::vector<species> &spc, std::string spc_id);
 
 /**
+ * @struct phase
  * @brief Structure to define the parameters of one flow phase
- *
- * @param "Y" = mass fraction (kg/kg)
- * @param "X" = molar fraction (mol/mol)
- * @param "C" = molar concentration (mol/l)
- * @param "phi" = volume fraction (m3/m3)
- * @param "i" = atoms vector
- * @param "j" = molecules vector
- * @param "k" = proximate composition vector
+ * @var phase::id
+ * Phase identifier
+ * @var phase::C
+ * Molar concentration (mol/l)
+ * @var phase::Y
+ * Mass fraction (kg/kg)
+ * @var phase::X
+ * Molar fraction (mol/mol)
+ * @var phase::phi
+ * Volume fraction (m3/m3)
+ * @var phase::P
+ * Properties of the phase
+ * @var phase::F
+ * Flow parameters of the phase
+ * @var phase::i
+ * Atoms vector
+ * @var phase::j
+ * Molecules vector
+ * @var phase::k
+ * Proximate composition vector
  */
 struct phase {
  public:
@@ -103,27 +151,38 @@ struct phase {
 };
 
 /**
+ * @struct flow
  * @brief Structure to define the parameters of one flow
- *
- * @param string "id" = name: Ex. wood
- * @param string "def" = definition in database: Ex. spruce_chips
- * @param string "cls" = flow class: Ex. hardwood
- * @param string "prop_data" = type of properties: Ex. solid_fuel
- * @param string "flow_db" = file with flow data in database
- * @param "Y" = mass fraction (kg/kg)
- * @param "X" = molar fraction (mol/mol)
- * @param "C" = molar concentration (mol/l)
- * @param "phi" = volume fraction (m3/m3)
- * @param "i" = atoms vector
- * @param "j" = molecules vector
- * @param "k" = proximate composition vector
- * @param "ph[3]" = phase vector: 1.solid, 2.liquid, 3.gas
- * @param string "atom_def" = type of atomic composition: "Y" mass fraction, "X"
- * mol fraction
- * @param string "molec_def" = type of molecular composition: "Y" mass fraction,
- * "X" mol fraction
- * @param string "prox_def" = type of proximate composition: "Y" mass fraction,
- * "X" mol fraction
+ * @var flow::id
+ * Name of the flow (e.g., wood)
+ * @var flow::def
+ * Definition in database (e.g., spruce_chips)
+ * @var flow::cls
+ * Flow class (e.g., hardwood)
+ * @var flow::prop_data
+ * Type of properties (e.g., solid_fuel)
+ * @var flow::flow_db
+ * File with flow data in database
+ * @var flow::i
+ * Atoms vector
+ * @var flow::j
+ * Molecules vector
+ * @var flow::k
+ * Proximate composition vector
+ * @var flow::l
+ * Constituent vector
+ * @var flow::atom_def
+ * Type of atomic composition ("Y" mass fraction, "X" mol fraction)
+ * @var flow::molec_def
+ * Type of molecular composition ("Y" mass fraction, "X" mol fraction)
+ * @var flow::prox_def
+ * Type of proximate composition ("Y" mass fraction, "X" mol fraction)
+ * @var flow::P
+ * Properties of the flow
+ * @var flow::F
+ * Flow parameters
+ * @var flow::ph
+ * Phase vector: 0=solid, 1=liquid, 2=gas
  */
 struct flow {
  public:
