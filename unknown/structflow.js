@@ -7,5 +7,20 @@ var structflow =
     [ "calculate_solid_fuel", "structflow.html#af547bab0b5c03516afd2b2893e4d6fe0", null ],
     [ "calculate_species_properties", "structflow.html#a32d11a13a50bb42f0ca32fafddfde920", null ],
     [ "interpret_molecules", "structflow.html#a9c5361a97d13a063d1a0d58ed7738eed", null ],
-    [ "print_flow", "structflow.html#ad63046af6a4425315e2466e9a0982b3c", null ]
+    [ "print_flow", "structflow.html#ad63046af6a4425315e2466e9a0982b3c", null ],
+    [ "atom_def", "structflow.html#a44866b53825daff896277064c3ee5726", null ],
+    [ "cls", "structflow.html#a2c580f311a8e066dcc985de9a61e834d", null ],
+    [ "def", "structflow.html#a8079055fddf9c6c605b6852259a06763", null ],
+    [ "F", "structflow.html#a674c547379fc87580ff30bc17d19da07", null ],
+    [ "flow_db", "structflow.html#ad44d7a4340f50ff618d4111c57d71bb6", null ],
+    [ "i", "structflow.html#accc13bed651af1af1c6beecb1a342d44", null ],
+    [ "id", "structflow.html#a1507258bbf1718b918ee4408a81463a4", null ],
+    [ "j", "structflow.html#a7bc5ef0e3aa675355e594be4dde55bca", null ],
+    [ "k", "structflow.html#a5c520729ce3dc8105928d1771824d104", null ],
+    [ "l", "structflow.html#ac32123999b040b8fc36decca17f1ee96", null ],
+    [ "molec_def", "structflow.html#a8bca8c27da16accb71fa0a05ff8f07b6", null ],
+    [ "P", "structflow.html#a81b9983fd4f827610cbdc261a3a0b063", null ],
+    [ "ph", "structflow.html#a9ddbcab172a4324c224faa4858d81b59", null ],
+    [ "prop_data", "structflow.html#a87b789458903f35463fab80f0d2dbb54", null ],
+    [ "prox_def", "structflow.html#a9f5f7eb87054b7a91bd807b3e5df9740", null ]
 ];
