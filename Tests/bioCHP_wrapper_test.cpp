@@ -1,14 +1,10 @@
-#include <cmath>    // for fabs
 #include <iomanip>  // for setprecision
 #include <iostream>
 #include <string>
 #include <vector>
 
 #include "../src/bioCHP_wrapper.h"
-
-bool approxEqual(double a, double b, double tol = 1e-4) {
-  return std::fabs(a - b) < tol;
-}
+#include "test_utils.h"
 
 int main(int argc, char *argv[]) {
   if (argc != 2) {
@@ -22,8 +18,12 @@ int main(int argc, char *argv[]) {
   int fuel_count, Yj_len, YH2Oj_len, Qk_len, Tk_in_len, Tk_out_len, Mj_len;
   double Yj[4], YH2Oj[4], Qk[2], Tk_in[2], Tk_out[2], Mj[4];
   double W_el, Q_prod, W_el_prod, C_inv, C_op, C_op_var;
-  double expected_Mj[4], expected_Q_prod, expected_W_el_prod, expected_C_inv,
-      expected_C_op, expected_C_op_var;
+  double expected_Mj[4];
+  double expected_Q_prod = 70.0;
+  double expected_W_el_prod = 100.0;
+  double expected_C_inv = 243.019565;
+  double expected_C_op = 45.731257;
+  double expected_C_op_var = 40.567947;
 
   switch (test) {
     case 1:
@@ -58,11 +58,6 @@ int main(int argc, char *argv[]) {
       expected_Mj[1] = 5.1135;
       expected_Mj[2] = 7.67026;
       expected_Mj[3] = 10.227;
-      expected_Q_prod = 70.0;
-      expected_W_el_prod = 100.0;
-      expected_C_inv = 243.019565;
-      expected_C_op = 45.731257;
-      expected_C_op_var = 40.567947;
       break;
     default:
       fuel_def[0] = "spruce_stem";
@@ -96,76 +91,65 @@ int main(int argc, char *argv[]) {
       expected_Mj[1] = 7.67026;
       expected_Mj[2] = 10.227;
       expected_Mj[3] = 5.1135;
-      expected_Q_prod = 70.0;
-      expected_W_el_prod = 100.0;
-      expected_C_inv = 243.019565;
-      expected_C_op = 45.731257;
-      expected_C_op_var = 40.567947;
       break;
   }
 
-  if (bioCHP_plant_c(fuel_def, fuel_count, Yj, Yj_len, YH2Oj, YH2Oj_len, W_el,
-                     Qk, Qk_len, Tk_in, Tk_in_len, Tk_out, Tk_out_len, Mj,
-                     Mj_len, &Q_prod, &W_el_prod, &C_inv, &C_op, &C_op_var)) {
-    bool all_passed = true;
+  bioCHP_plant_c(fuel_def, fuel_count, Yj, Yj_len, YH2Oj, YH2Oj_len, W_el, Qk,
+                 Qk_len, Tk_in, Tk_in_len, Tk_out, Tk_out_len, Mj, Mj_len,
+                 &Q_prod, &W_el_prod, &C_inv, &C_op, &C_op_var);
+  bool all_passed = true;
 
-    for (int nj = 0; nj < Mj_len; nj++) {
-      std::cout << "M_" << fuel_def[nj] << " = " << Mj[nj] << std::endl;
-      if (!approxEqual(Mj[nj], expected_Mj[nj])) {
-        all_passed = false;
-        std::cout << "Mj[" << nj << "] failed: expected " << expected_Mj[nj]
-                  << ", got " << Mj[nj] << std::endl;
-      }
-    }
-
-    std::cout << std::fixed << std::setprecision(6);  // Set higher precision
-    std::cout << "Q_prod (MW) = " << Q_prod << std::endl;
-    std::cout << "W_el_prod (MW) = " << W_el_prod << std::endl;
-    std::cout << "C_inv (M$) = " << C_inv << std::endl;
-    std::cout << "C_op (M$) = " << C_op << std::endl;
-    std::cout << "C_op_var (M$) = " << C_op_var << std::endl;
-
-    if (!approxEqual(Q_prod, expected_Q_prod)) {
+  for (int nj = 0; nj < Mj_len; nj++) {
+    std::cout << "M_" << fuel_def[nj] << " = " << Mj[nj] << std::endl;
+    if (!approxEqual(Mj[nj], expected_Mj[nj])) {
       all_passed = false;
-      std::cout << "Q_prod failed: expected " << expected_Q_prod << ", got "
-                << Q_prod << std::endl;
+      std::cout << "Mj[" << nj << "] failed: expected " << expected_Mj[nj]
+                << ", got " << Mj[nj] << std::endl;
     }
-
-    if (!approxEqual(W_el_prod, expected_W_el_prod)) {
-      all_passed = false;
-      std::cout << "W_el_prod failed: expected " << expected_W_el_prod
-                << ", got " << W_el_prod << std::endl;
-    }
-
-    if (!approxEqual(C_inv, expected_C_inv)) {
-      all_passed = false;
-      std::cout << "C_inv failed: expected " << expected_C_inv << ", got "
-                << C_inv << std::endl;
-    }
-
-    if (!approxEqual(C_op, expected_C_op)) {
-      all_passed = false;
-      std::cout << "C_op failed: expected " << expected_C_op << ", got " << C_op
-                << std::endl;
-    }
-
-    if (!approxEqual(C_op_var, expected_C_op_var)) {
-      all_passed = false;
-      std::cout << "C_op_var failed: expected " << expected_C_op_var << ", got "
-                << C_op_var << std::endl;
-    }
-
-    if (all_passed) {
-      std::cout << "All tests pass!" << std::endl;
-    } else {
-      std::cout << "Some tests failed!" << std::endl;
-    }
-
-    return all_passed ? 0 : 1;
-  } else {
-    std::cout << "Running bioCHP_plant_c failed on execution!" << std::endl;
-    return 1;
   }
 
-  return 0;
+  std::cout << std::fixed << std::setprecision(6);  // Set higher precision
+  std::cout << "Q_prod (MW) = " << Q_prod << std::endl;
+  std::cout << "W_el_prod (MW) = " << W_el_prod << std::endl;
+  std::cout << "C_inv (M$) = " << C_inv << std::endl;
+  std::cout << "C_op (M$) = " << C_op << std::endl;
+  std::cout << "C_op_var (M$) = " << C_op_var << std::endl;
+
+  if (!approxEqual(Q_prod, expected_Q_prod)) {
+    all_passed = false;
+    std::cout << "Q_prod failed: expected " << expected_Q_prod << ", got "
+              << Q_prod << std::endl;
+  }
+
+  if (!approxEqual(W_el_prod, expected_W_el_prod)) {
+    all_passed = false;
+    std::cout << "W_el_prod failed: expected " << expected_W_el_prod << ", got "
+              << W_el_prod << std::endl;
+  }
+
+  if (!approxEqual(C_inv, expected_C_inv)) {
+    all_passed = false;
+    std::cout << "C_inv failed: expected " << expected_C_inv << ", got "
+              << C_inv << std::endl;
+  }
+
+  if (!approxEqual(C_op, expected_C_op)) {
+    all_passed = false;
+    std::cout << "C_op failed: expected " << expected_C_op << ", got " << C_op
+              << std::endl;
+  }
+
+  if (!approxEqual(C_op_var, expected_C_op_var)) {
+    all_passed = false;
+    std::cout << "C_op_var failed: expected " << expected_C_op_var << ", got "
+              << C_op_var << std::endl;
+  }
+
+  if (all_passed) {
+    std::cout << "All tests pass!" << std::endl;
+  } else {
+    std::cout << "Some tests failed!" << std::endl;
+  }
+
+  return all_passed ? 0 : 1;
 }

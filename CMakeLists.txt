@@ -12,9 +12,9 @@ set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 file(GLOB SRC_FILES src/*.cpp src/Libraries/*/*.cpp)
 
 # Add shared library
-add_library(bioCHP_library SHARED ${SRC_FILES})
-target_include_directories(bioCHP_library PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/tomlplusplus/include)
-target_compile_options(bioCHP_library PRIVATE)
+add_library(bioCHP_wrapper SHARED ${SRC_FILES})
+target_include_directories(bioCHP_wrapper PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/tomlplusplus/include)
+target_compile_options(bioCHP_wrapper PRIVATE)
 
 if(MSVC)
     add_compile_options(/W4) # Enable all warnings for MSVC, do not treat as errors
@@ -22,12 +22,12 @@ elseif(WIN32)
     # MinGW on Windows – disable sanitizers
     add_compile_options(-Wall -Wextra -Wpedantic)
 else()
-    set(SANITIZER_FLAGS -fsanitize=address -fsanitize=undefined -g -O0)
+    set(SANITIZER_FLAGS -fsanitize=address -fsanitize=undefined -g)
     add_compile_options(-Wall -Wextra -Wpedantic ${SANITIZER_FLAGS})
     add_link_options(${SANITIZER_FLAGS})
 endif()
 
-set_target_properties(bioCHP_library PROPERTIES
+set_target_properties(bioCHP_wrapper PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
     ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
 )
@@ -36,7 +36,7 @@ enable_testing()
 # --- Helper: add a test executable + one or more ctest entries
 function(add_chp_test target src)
   add_executable(${target} ${src})
-  target_link_libraries(${target} PRIVATE bioCHP_library)
+  target_link_libraries(${target} PRIVATE bioCHP_wrapper)
 
   if(ARGN) # optional arguments -> multiple test cases for same binary
     foreach(arg IN LISTS ARGN)
@@ -55,14 +55,5 @@ endfunction()
 add_chp_test(test_parameters     Tests/Parameters_test.cpp)
 add_chp_test(test_thermodynamics Tests/Thermodynamics_test.cpp)
 add_chp_test(test_flows          Tests/Flows_test.cpp)
-add_chp_test(test_bioCHP_0-1     Tests/bioCHP_test_0-1.cpp)
-add_chp_test(test_bioCHP_0-2     Tests/bioCHP_test_0-2.cpp)
-add_chp_test(test_bioCHP_0-3     Tests/bioCHP_test_0-3.cpp)
-add_chp_test(test_bioCHP_0-4     Tests/bioCHP_test_0-4.cpp)
-add_chp_test(test_bioCHP_0-5     Tests/bioCHP_test_0-5.cpp)
-add_chp_test(test_bioCHP_1       Tests/bioCHP_test_1.cpp)
-add_chp_test(test_bioCHP_2       Tests/bioCHP_test_2.cpp)
-add_chp_test(test_bioCHP_3       Tests/bioCHP_test_3.cpp)
-add_chp_test(test_bioCHP_4_1     Tests/bioCHP_test_4-1.cpp)
-add_chp_test(test_bioCHP_4_2     Tests/bioCHP_test_4-2.cpp)
 add_chp_test(test_bioCHP_4       Tests/bioCHP_wrapper_test.cpp 1 2)
+add_chp_test(test_bioCHP         Tests/test_bioCHP.cpp)

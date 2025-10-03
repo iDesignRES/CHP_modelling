@@ -3,72 +3,51 @@
 #include <iostream>
 
 #include "Libraries/Processes_library/bioCHP_plant.h"
-#include "Parameters.h"
 #include "utils.h"
 
-bool bioCHP_plant(std::vector<std::string> fuel_def, std::vector<double> Yj,
-                  std::vector<double> YH2Oj, double W_el,
-                  std::vector<double> Qk, std::vector<double> Tk_in,
-                  std::vector<double> Tk_out, std::vector<double> &Mj,
-                  double &Q_prod, double &W_el_prod, double &C_inv,
-                  double &C_op, double &C_op_var) {
+object bioCHP_plant(std::vector<std::string> fuel_def, std::vector<double> Yj,
+                    std::vector<double> YH2Oj, double W_el,
+                    std::vector<double> Qk, std::vector<double> Tk_in,
+                    std::vector<double> Tk_out) {
   // Check specificatins of feedstock
-  if (fuel_def.size() != Yj.size()) {
-    std::cout << "number of specifications for Yj and fuel_def re different"
-              << std::endl;
-    return false;
-  }
+  if (fuel_def.size() != Yj.size())
+    throw std::runtime_error(
+        "number of specifications for Yj and fuel_def are different");
 
   // Check that all feedstock exist in the database
   for (std::size_t nf = 0; nf < fuel_def.size(); nf++) {
-    if (!find_flow(fuel_def[nf])) {
-      std::cout << "feedstock " + fuel_def[nf] + " not found in the database "
-                << std::endl;
-      for (std::size_t nff = 0; nff < fuel_def.size(); nff++) {
-        Mj.push_back(0.0);
-      }
-      Q_prod = 0.0;
-      W_el_prod = 0.0;
-      C_inv = 0.0;
-      C_op = 0.0;
-      C_op_var = 0.0;
-      return false;
-    }
+    if (!find_flow(fuel_def[nf]))
+      throw std::runtime_error("feedstock " + fuel_def[nf] +
+                               " not found in the database");
   }
 
   // Check specificatins of heat demands
-  if (Qk.size() != Tk_in.size()) {
-    std::cout << "number of specifications for Tk_in and Qk are different"
-              << std::endl;
-    return false;
-  }
-  if (Qk.size() != Tk_out.size()) {
-    std::cout << "number of specifications for Tk_out and Qk are different"
-              << std::endl;
-    return false;
-  }
-  if (Tk_in.size() != Tk_out.size()) {
-    std::cout << "number of specifications for Tk_in and Tk_out are different"
-              << std::endl;
-    return false;
-  }
+  if (Qk.size() != Tk_in.size())
+    throw std::runtime_error(
+        "number of specifications for Tk_in and Qk are different");
+
+  if (Qk.size() != Tk_out.size())
+    throw std::runtime_error(
+        "number of specifications for Tk_out and Qk are different");
+
+  if (Tk_in.size() != Tk_out.size())
+    throw std::runtime_error(
+        "number of specifications for Tk_in and Tk_out are different");
+
   for (std::size_t nk = 0; nk < Tk_in.size(); nk++) {
-    if (Tk_in[nk] > Tk_out[nk]) {
-      std::cout << "return temperature of heat demand no. " << nk
-                << " is higher than supply temperature" << std::endl;
-      return false;
-    }
+    if (Tk_in[nk] > Tk_out[nk])
+      throw std::runtime_error("return temperature of heat demand no. " +
+                               std::to_string(nk) +
+                               " is higher than supply temperature");
   }
 
   // Check that there is sufficient heat available from Rankine cycle
   double sum_Qk = 0.0;
-  for (std::size_t nk = 0; nk < Qk.size(); nk++) {
-    sum_Qk = sum_Qk + Qk[nk];
-  }
+  for (std::size_t nk = 0; nk < Qk.size(); nk++) sum_Qk = sum_Qk + Qk[nk];
+
   if (sum_Qk > 0.5 * (W_el / 0.2)) {
-    std::cout << "there is not sufficient heat available from Rankine cycle to "
-                 "supply the "
-                 "specifiy heat demand"
+    std::cout << "There is not sufficient heat available from Rankine cycle to "
+                 "supply the specified heat demand"
               << std::endl;
     std::cout << "Reducing proportionally the heat demands" << std::endl;
     for (std::size_t nk = 0; nk < Qk.size(); nk++) {
@@ -88,15 +67,89 @@ bool bioCHP_plant(std::vector<std::string> fuel_def, std::vector<double> Yj,
 
   bioCHP_plant_model(bioCHP);
 
+  return bioCHP;
+}
+
+object bioCHP_plant(const toml::table& tbl) {
+  const auto& inputs = tbl["inputs"].as_table();
+
+  // Parse fuel_def
+  std::vector<std::string> fuel_def;
+  for (const auto& v : *inputs->at("fuel_def").as_array()) {
+    fuel_def.push_back(v.value<std::string>().value());
+  }
+
+  // Parse Yj
+  std::vector<double> Yj;
+  for (const auto& v : *inputs->at("Yj").as_array()) {
+    Yj.push_back(v.value<double>().value());
+  }
+
+  // Parse YH2Oj
+  std::vector<double> YH2Oj;
+  for (const auto& v : *inputs->at("YH2Oj").as_array()) {
+    YH2Oj.push_back(v.value<double>().value());
+  }
+
+  // Parse W_el
+  double W_el = inputs->at("W_el").value<double>().value();
+
+  // Parse Qk
+  std::vector<double> Qk;
+  for (const auto& v : *inputs->at("Qk").as_array()) {
+    Qk.push_back(v.value<double>().value());
+  }
+
+  // Parse Tk_in
+  std::vector<double> Tk_in;
+  for (const auto& v : *inputs->at("Tk_in").as_array()) {
+    Tk_in.push_back(v.value<double>().value());
+  }
+
+  // Parse Tk_out
+  std::vector<double> Tk_out;
+  for (const auto& v : *inputs->at("Tk_out").as_array()) {
+    Tk_out.push_back(v.value<double>().value());
+  }
+
+  return bioCHP_plant(fuel_def, Yj, YH2Oj, W_el, Qk, Tk_in, Tk_out);
+}
+
+object bioCHP_plant(const std::string& input_file) {
+  return bioCHP_plant(get_toml_table(input_file));
+}
+
+void extract_outputs(object bioCHP, double* Q_prod, double* W_el_prod,
+                     double* C_inv, double* C_op, double* C_op_var,
+                     std::vector<double>& Mj) {
+  if (Q_prod) *Q_prod = bioCHP.fp("Heat_production_(MW)");
+  if (W_el_prod) *W_el_prod = bioCHP.fp("Electricity_production_(MW)");
+  if (C_inv) *C_inv = bioCHP.fp("C_inv") * 1e-6;
+  if (C_op) *C_op = bioCHP.fp("C_op") * 1e-6;
+  if (C_op_var) *C_op_var = bioCHP.fp("C_op_var") * 1e-6;
   Mj = bioCHP.vctp("Mj");
-  Q_prod = bioCHP.fp("Heat_production_(MW)");
-  W_el_prod = bioCHP.fp("Electricity_production_(MW)");
-  C_inv = bioCHP.fp("C_inv") * 1e-6;
-  C_inv = bioCHP.fp("C_inv") * 1e-6;
-  C_op = bioCHP.fp("C_op") * 1e-6;
-  C_op_var = bioCHP.fp("C_op_var") * 1e-6;
+}
 
-  export_output_parameters(bioCHP, "Output-bioCHP_project");
+int main(int argc, char* argv[]) {
+  if (argc < 2) {
+    std::cerr << "Usage: " << argv[0] << " <input_file.toml> [output_file.txt]"
+              << std::endl;
+    return 1;
+  }
 
-  return true;
+  std::string output_file = "Output-bioCHP_project.txt";
+  if (argc >= 3) {
+    output_file = argv[2];
+  }
+
+  try {
+    object bioCHP = bioCHP_plant(argv[1]);
+    export_output_parameters(bioCHP, output_file);
+    std::cout << "Results exported to " << output_file << std::endl;
+  } catch (const std::exception& e) {
+    std::cerr << "Error: " << e.what() << std::endl;
+    return 1;
+  }
+
+  return 0;
 }

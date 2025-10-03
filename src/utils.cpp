@@ -37,7 +37,6 @@ std::string get_database_path(std::string sub_path) {
 }
 
 toml::table get_toml_table(std::string file) {
-  toml::table tbl;
   try {
     return toml::parse_file(file);
   } catch (const toml::parse_error& err) {
