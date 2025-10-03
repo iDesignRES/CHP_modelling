@@ -107,14 +107,22 @@ $(document).ready(function(){initNavTree('bioCHP_8h_source.html',''); initResiza
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keywordtype">bool</span> bioCHP_plant(std::vector&lt;std::string&gt; fuel_def, std::vector&lt;double&gt; Yj,</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>                  std::vector&lt;double&gt; YH2Oj, <span class="keywordtype">double</span> W_el,</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>                  std::vector&lt;double&gt; Qk, std::vector&lt;double&gt; Tk_in,</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>                  std::vector&lt;double&gt; Tk_out, std::vector&lt;double&gt; &amp;Mj,</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                  <span class="keywordtype">double</span> &amp;Q_prod, <span class="keywordtype">double</span> &amp;W_el_prod, <span class="keywordtype">double</span> &amp;C_inv,</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>                  <span class="keywordtype">double</span> &amp;C_op, <span class="keywordtype">double</span> &amp;C_op_var);</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;toml++/toml.hpp&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;Parameters.h&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keywordtype">object</span> bioCHP_plant(std::vector&lt;std::string&gt; fuel_def, std::vector&lt;double&gt; Yj,</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>                    std::vector&lt;double&gt; YH2Oj, <span class="keywordtype">double</span> W_el,</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                    std::vector&lt;double&gt; Qk, std::vector&lt;double&gt; Tk_in,</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>                    std::vector&lt;double&gt; Tk_out);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keywordtype">object</span> bioCHP_plant(<span class="keyword">const</span> toml::table&amp; tbl);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="keywordtype">object</span> bioCHP_plant(<span class="keyword">const</span> std::string&amp; input_file);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="keywordtype">void</span> extract_outputs(<span class="keywordtype">object</span> bioCHP, <span class="keywordtype">double</span>* Q_prod, <span class="keywordtype">double</span>* W_el_prod,</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                     <span class="keywordtype">double</span>* C_inv, <span class="keywordtype">double</span>* C_op, <span class="keywordtype">double</span>* C_op_var,</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>                     std::vector&lt;double&gt;&amp; Mj);</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
