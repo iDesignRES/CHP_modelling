@@ -28,12 +28,6 @@ Detailed description of the model can be found at \ref detailed_model_documentat
 - The combustion of biomass assumes a constant excess-air ratio of 1.2.  
 - The steam turbine power outputs are calculated assuming constant isentropic efficiencies for each stage. 
 
-
-## Usage
-
-The bioCHP plant model can be tested through separate C++ files located in the [`Tests`]tests directory.
-The tests are minimum working examples highlighting the main functionalities of the model.
-
 ## Model tests description
 
 This repository contains separately c++ files bioCHP_function_test_[number].cpp:
@@ -56,16 +50,18 @@ This repository contains separately c++ files bioCHP_function_test_[number].cpp:
    sudo apt install g++ cmake
    ```
 
-2. **Build and run the tests**:
+2. **Build and run minimal viable case**:
    Create a build directory and compile:
    ```bash
-   cd Test
+   git clone --recurse-submodules https://github.com/iDesignRES/CHP_modelling.git
+   cd CHP_modelling
    mkdir build
    cd build
    cmake ..
    make
-   ctest --verbose
+   ./bioCHP ../docs/example/bioCHP_input.toml output.txt
    ```
+   This example takes the input parameters in `../docs/example/bioCHP_input.toml` and prints outputs to `output.txt`.
 
 ## Project Funding
 

@@ -31,9 +31,15 @@ set_target_properties(bioCHP_wrapper PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
     ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
 )
+
+# Add executable for main program
+add_executable(bioCHP src/bioCHP.cpp)
+target_link_libraries(bioCHP PRIVATE bioCHP_wrapper)
+target_include_directories(bioCHP PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/tomlplusplus/include)
+
 enable_testing()
 
-# --- Helper: add a test executable + one or more ctest entries
+# Add helper function
 function(add_chp_test target src)
   add_executable(${target} ${src})
   target_link_libraries(${target} PRIVATE bioCHP_wrapper)
@@ -51,7 +57,7 @@ function(add_chp_test target src)
   endif()
 endfunction()
 
-# --- List your tests succinctly
+# Add tests
 add_chp_test(test_parameters     Tests/Parameters_test.cpp)
 add_chp_test(test_thermodynamics Tests/Thermodynamics_test.cpp)
 add_chp_test(test_flows          Tests/Flows_test.cpp)
