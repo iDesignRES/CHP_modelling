@@ -142,17 +142,29 @@ Model tests description</h1>
 <h1><a class="anchor" id="autotoc_md5"></a>
 Quick start - Linux Setup</h1>
 <ol type="1">
-<li><b>Install Dependencies</b>: Ensure you have <code>g++</code> and CMake installed. You can install them using: <div class="fragment"><div class="line">sudo apt update</div>
-<div class="line">sudo apt install g++ cmake</div>
+<li><p class="startli"><b>Install Dependencies</b>:</p>
+<p class="startli">Ensure you have <code>g++</code>, <code>CMake</code>, and <code>Conan</code> installed. <br  />
+ You can install them with:</p>
+<div class="fragment"><div class="line">sudo apt update</div>
+<div class="line">sudo apt install -y g++ cmake python3-pip</div>
+<div class="line">pip install conan</div>
+<div class="line">conan profile detect</div>
 </div><!-- fragment --></li>
-<li><b>Build and run minimal viable case</b>: Create a build directory and compile: <div class="fragment"><div class="line">git clone --recurse-submodules https://github.com/iDesignRES/CHP_modelling.git</div>
+<li><p class="startli"><b>Build and run minimal viable case</b>:</p>
+<p class="startli">Create a build directory and compile:</p>
+<div class="fragment"><div class="line">git clone https://github.com/iDesignRES/CHP_modelling.git</div>
 <div class="line">cd CHP_modelling</div>
-<div class="line">mkdir build</div>
-<div class="line">cd build</div>
-<div class="line">cmake ..</div>
-<div class="line">make</div>
+<div class="line">mkdir build &amp;&amp; cd build</div>
+<div class="line"> </div>
+<div class="line"># Install external dependencies (via Conan)</div>
+<div class="line">conan install .. --output-folder=. --build=missing</div>
+<div class="line"> </div>
+<div class="line"># Configure and build the project</div>
+<div class="line">cmake .. -DCMAKE_BUILD_TYPE=Release</div>
+<div class="line">cmake --build . -j$(nproc)</div>
 <div class="line">./bioCHP ../docs/example/bioCHP_input.toml output.txt</div>
-</div><!-- fragment --> This example takes the input parameters in <code>../docs/example/bioCHP_input.toml</code> and prints outputs to <code>output.txt</code>.</li>
+</div><!-- fragment --><p class="startli">This example takes the input parameters in <code>../docs/example/bioCHP_input.toml</code> and prints outputs to <code>output.txt</code>.</p>
+</li>
 </ol>
 <h1><a class="anchor" id="autotoc_md6"></a>
 Project Funding</h1>
