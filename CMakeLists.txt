@@ -19,6 +19,7 @@ file(GLOB SRC_FILES src/*.cpp src/Libraries/*/*.cpp)
 
 # Add shared library
 add_library(bioCHP_wrapper SHARED ${SRC_FILES})
+list(APPEND CMAKE_PREFIX_PATH "${CMAKE_BINARY_DIR}")
 find_package(tomlplusplus REQUIRED)
 target_link_libraries(bioCHP_wrapper PRIVATE tomlplusplus::tomlplusplus)
 target_compile_options(bioCHP_wrapper PRIVATE)
