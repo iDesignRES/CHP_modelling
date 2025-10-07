@@ -77,35 +77,50 @@ Make sure you have `g++`, `CMake`, and `Conan` installed.
 
 ### Build and run minimal viable case
 
-   Create a build directory and compile:
-   
+Create a build directory and compile:
+
+```bash
+git clone https://github.com/iDesignRES/CHP_modelling.git
+cd CHP_modelling
+mkdir build && cd build
+```
+
+Install external dependencies (via Conan):
+
+```bash
+conan install .. --output-folder=. --build=missing -s compiler.cppstd=17 -s arch=x86_64
+```
+
+Configure and build the project:
+
+```bash
+cmake .. -DCMAKE_TOOLCHAIN_FILE="${PWD}/conan_toolchain.cmake" -DCMAKE_BUILD_TYPE=Release
+cmake --build . --config Release
+```
+
+You can now run the created `bioCHP` program:
+
+1. On Linux
+
    ```bash
-   git clone https://github.com/iDesignRES/CHP_modelling.git
-   cd CHP_modelling
-   mkdir build && cd build
+   ./bioCHP ../docs/example/bioCHP_input.toml output.txt
    ```
 
-   Install external dependencies (via Conan):
+2. On Windows
 
-   ```bash
-   conan install .. --output-folder=. --build=missing -s compiler.cppstd=17 -s arch=x86_64
-   ```
-
-   Configure and build the project:
-
-   ```bash
-   cmake .. -DCMAKE_TOOLCHAIN_FILE="${PWD}/conan_toolchain.cmake" -DCMAKE_BUILD_TYPE=Release
-   cmake --build . --config Release
+   ```powershell
    ./Release/bioCHP ../docs/example/bioCHP_input.toml output.txt
    ```
 
-   This example takes the input parameters in `../docs/example/bioCHP_input.toml` and prints outputs to `output.txt`.
+This example takes the input parameters in `../docs/example/bioCHP_input.toml` and prints outputs to `output.txt`.
 
-   Following the above comands, the tests can be run with
+### Run tests
 
-   ```bash
-   ctest -C Release
-   ```
+Following the above comands, the tests can be run with
+
+```bash
+ctest -C Release
+```
 
 ## Project Funding
 
