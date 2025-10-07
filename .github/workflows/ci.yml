@@ -42,7 +42,7 @@ jobs:
 
       - name: Conan install
         run: |
-          conan install . --output-folder=${{ steps.strings.outputs.build-output-dir }} --build=missing
+          conan install . --output-folder=${{ steps.strings.outputs.build-output-dir }} --build=missing -s compiler.cppstd=17
 
       - name: Configure CMake
         run: >
