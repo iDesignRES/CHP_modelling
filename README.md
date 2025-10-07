@@ -44,23 +44,35 @@ This repository contains separately c++ files bioCHP_function_test_[number].cpp:
 ## Quick start - Linux Setup
 
 1. **Install Dependencies**:
-   Ensure you have `g++` and CMake installed. You can install them using:
+
+   Ensure you have `g++`, `CMake`, and `Conan` installed.  
+   You can install them with:
+
    ```bash
    sudo apt update
-   sudo apt install g++ cmake
+   sudo apt install -y g++ cmake python3-pip
+   pip install conan
+   conan profile detect
    ```
 
 2. **Build and run minimal viable case**:
+
    Create a build directory and compile:
+   
    ```bash
-   git clone --recurse-submodules https://github.com/iDesignRES/CHP_modelling.git
+   git clone https://github.com/iDesignRES/CHP_modelling.git
    cd CHP_modelling
-   mkdir build
-   cd build
-   cmake ..
-   make
+   mkdir build && cd build
+
+   # Install external dependencies (via Conan)
+   conan install .. --output-folder=. --build=missing
+
+   # Configure and build the project
+   cmake .. -DCMAKE_BUILD_TYPE=Release
+   cmake --build . -j$(nproc)
    ./bioCHP ../docs/example/bioCHP_input.toml output.txt
    ```
+
    This example takes the input parameters in `../docs/example/bioCHP_input.toml` and prints outputs to `output.txt`.
 
 ## Project Funding

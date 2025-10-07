@@ -24,8 +24,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: true  # Fetch the submodules
+
+      - name: Install Conan
+        run: |
+          python3 -m pip install conan
+          conan profile detect
 
       - name: Set reusable strings
         id: strings
@@ -37,16 +40,23 @@ jobs:
         if: runner.os == 'Windows'
         uses: microsoft/setup-msbuild@v2
 
+      - name: Conan install
+        run: |
+          conan install . \
+            --output-folder=${{ steps.strings.outputs.build-output-dir }} \
+            --build=missing
+
       - name: Configure CMake
         run: >
           cmake -G "${{ matrix.generator }}"
           -B ${{ steps.strings.outputs.build-output-dir }}
           -S ${{ github.workspace }}
           -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+          -DCMAKE_TOOLCHAIN_FILE=${{ steps.strings.outputs.build-output-dir }}/conan_toolchain.cmake
           ${{ runner.os == 'Linux' && format('-DCMAKE_C_COMPILER={0} -DCMAKE_CXX_COMPILER={1}', matrix.cc, matrix.cxx) || '' }}
 
       - name: Build
-        run: cmake --build ${{ steps.strings.outputs.build-output-dir }}
+        run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --parallel
 
       - name: Test
         working-directory: ${{ steps.strings.outputs.build-output-dir }}

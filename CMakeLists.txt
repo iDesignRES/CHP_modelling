@@ -3,6 +3,9 @@ cmake_minimum_required(VERSION 3.10)
 # Set the project name
 project(CHP_model)
 
+# Conan integration
+include(${CMAKE_BINARY_DIR}/conan_toolchain.cmake)
+
 # Specify the C++ standard
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
@@ -13,7 +16,8 @@ file(GLOB SRC_FILES src/*.cpp src/Libraries/*/*.cpp)
 
 # Add shared library
 add_library(bioCHP_wrapper SHARED ${SRC_FILES})
-target_include_directories(bioCHP_wrapper PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/tomlplusplus/include)
+find_package(tomlplusplus REQUIRED)
+target_link_libraries(bioCHP_wrapper PRIVATE tomlplusplus::tomlplusplus)
 target_compile_options(bioCHP_wrapper PRIVATE)
 
 if(MSVC)
@@ -34,8 +38,7 @@ set_target_properties(bioCHP_wrapper PROPERTIES
 
 # Add executable for main program
 add_executable(bioCHP src/bioCHP.cpp)
-target_link_libraries(bioCHP PRIVATE bioCHP_wrapper)
-target_include_directories(bioCHP PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/tomlplusplus/include)
+target_link_libraries(bioCHP PRIVATE bioCHP_wrapper tomlplusplus::tomlplusplus)
 
 enable_testing()
 
@@ -48,12 +51,12 @@ function(add_chp_test target src)
     foreach(arg IN LISTS ARGN)
       add_test(NAME ${target}-${arg}
                COMMAND $<TARGET_FILE:${target}> ${arg})
-      target_include_directories(${target} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/tomlplusplus/include)
+      target_link_libraries(${target} PRIVATE tomlplusplus::tomlplusplus)
     endforeach()
   else()
     add_test(NAME ${target}
              COMMAND $<TARGET_FILE:${target}>)
-    target_include_directories(${target} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/tomlplusplus/include)
+    target_link_libraries(${target} PRIVATE tomlplusplus::tomlplusplus)
   endif()
 endfunction()
 
