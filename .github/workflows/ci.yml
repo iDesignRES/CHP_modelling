@@ -20,7 +20,7 @@ jobs:
             generator: Ninja
           - os: windows-latest
             build_type: Release
-            generator: "Visual Studio 17 2022"
+            generator: Ninja
 
     steps:
       - uses: actions/checkout@v4
@@ -50,15 +50,15 @@ jobs:
           -B ${{ steps.strings.outputs.build-output-dir }}
           -S ${{ github.workspace }}
           -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
-          -DCMAKE_TOOLCHAIN_FILE=${{ steps.strings.outputs.build-output-dir }}/conan_toolchain.cmake
+          -DCMAKE_TOOLCHAIN_FILE="${{ steps.strings.outputs.build-output-dir }}/conan_toolchain.cmake"
           ${{ runner.os == 'Linux' && format('-DCMAKE_C_COMPILER={0} -DCMAKE_CXX_COMPILER={1}', matrix.cc, matrix.cxx) || '' }}
 
       - name: Build
-        run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --parallel
+        run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }} --parallel
 
       - name: Test
         working-directory: ${{ steps.strings.outputs.build-output-dir }}
-        run: ctest --output-on-failure
+        run: ctest --output-on-failure -C ${{ matrix.build_type }}
 
       - name: Show LastTest.log (Linux)
         if: always() && runner.os != 'Windows'

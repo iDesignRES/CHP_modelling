@@ -41,9 +41,11 @@ This repository contains separately c++ files bioCHP_function_test_[number].cpp:
  - bioCHP_function_test_4-[1,2].cpp: bioCHP plant using four biomass feedstock with specified electric power production and several heat demands
  - bioCHP_wrapper_test.cpp: bioCHP plant using four biomass feedstock with specified electric power production and several heat 
 
-## Quick start - Linux Setup
+## Quick start - Linux and Windows Setup
 
-1. **Install Dependencies**:
+1.a **Linux Setup**
+
+   **Install Dependencies**:
 
    Ensure you have `g++`, `CMake`, and `Conan` installed.  
    You can install them with:
@@ -55,6 +57,29 @@ This repository contains separately c++ files bioCHP_function_test_[number].cpp:
    conan profile detect
    ```
 
+1.b **Windows Setup (PowerShell)**
+
+   **Install Dependencies**:
+
+   Make sure you have python installed (e.g. from \href{Microsoft store}{https://apps.microsoft.com/detail/9nrwmjp3717k?hl=en-US&gl=NO})
+
+   Open PowerShell as Administrator and run:
+
+   ```powershell
+   winget install -e --id Kitware.CMake
+   winget install -e --id Git.Git
+   winget install --id Python.Python.3.11 --source winget --scope user --override "PrependPath=1"
+   ```
+
+   Restart the PowerShell and run
+
+   ```powershell
+   pip install conan
+   conan profile detect
+   ```
+
+   Ensure you have a C++ compiler (e.g., Visual Studio Build Tools) and optionally install Ninja for faster builds:
+
 2. **Build and run minimal viable case**:
 
    Create a build directory and compile:
@@ -65,15 +90,21 @@ This repository contains separately c++ files bioCHP_function_test_[number].cpp:
    mkdir build && cd build
 
    # Install external dependencies (via Conan)
-   conan install .. --output-folder=. --build=missing
+   conan install .. --output-folder=. --build=missing -s compiler.cppstd=17 -s arch=x86_64
 
    # Configure and build the project
-   cmake .. -DCMAKE_BUILD_TYPE=Release
-   cmake --build . -j$(nproc)
-   ./bioCHP ../docs/example/bioCHP_input.toml output.txt
+   cmake .. -DCMAKE_TOOLCHAIN_FILE="${PWD}/conan_toolchain.cmake" -DCMAKE_BUILD_TYPE=Release
+   cmake --build . --config Release
+   ./Release/bioCHP ../docs/example/bioCHP_input.toml output.txt
    ```
 
    This example takes the input parameters in `../docs/example/bioCHP_input.toml` and prints outputs to `output.txt`.
+
+   Following the above comands, the tests can be run with
+
+   ```bash
+   ctest -C Release
+   ```
 
 ## Project Funding
 

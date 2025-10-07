@@ -14,7 +14,7 @@ bool test_bioCHP(const std::string& input_file) {
   object bioCHP;
   try {
     bioCHP = bioCHP_plant(tbl);
-  } catch (const std::exception& e) {
+    } catch (const std::exception&) {
     if (tbl.contains("expected")) {
       throw;
     } else {
