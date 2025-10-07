@@ -1,7 +1,10 @@
 cmake_minimum_required(VERSION 3.10)
+if(POLICY CMP0091)
+  cmake_policy(SET CMP0091 NEW)
+endif()
 
 # Set the project name
-project(CHP_model)
+project(CHP_model LANGUAGES CXX)
 
 # Conan integration
 include(${CMAKE_BINARY_DIR}/conan_toolchain.cmake)
