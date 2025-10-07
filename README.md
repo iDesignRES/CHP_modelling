@@ -31,56 +31,51 @@ Detailed description of the model can be found at \ref detailed_model_documentat
 ## Model tests description
 
 This repository contains separately c++ files bioCHP_function_test_[number].cpp:
- - Parameters_test.cpp: Parameters functionalities
- - Thermodynamics_test.cpp: Thermodynamics using NIST database and water-thermodynamics correlations
- - Flows_test.cpp: Flows functionalities
- - bioCHP_test_0-[1-5].cpp: errors in specifying the input parameters of the bioCHP plant
- - bioCHP_function_test_1.cpp: bioCHP plant using a single biomass feedstock with specified electric power production and no heat demands
- - bioCHP_function_test_2.cpp: bioCHP plant using two biomass feedstock with specified electric power production and no heat demands
- - bioCHP_function_test_3.cpp: bioCHP plant using two biomass feedstock with specified electric power production and several heat demands
- - bioCHP_function_test_4-[1,2].cpp: bioCHP plant using four biomass feedstock with specified electric power production and several heat demands
- - bioCHP_wrapper_test.cpp: bioCHP plant using four biomass feedstock with specified electric power production and several heat 
+- Parameters_test.cpp: Parameters functionalities
+- Thermodynamics_test.cpp: Thermodynamics using NIST database and water-thermodynamics correlations
+- Flows_test.cpp: Flows functionalities
+- bioCHP_test_0-[1-5].cpp: errors in specifying the input parameters of the bioCHP plant
+- bioCHP_function_test_1.cpp: bioCHP plant using a single biomass feedstock with specified electric power production and no heat demands
+- bioCHP_function_test_2.cpp: bioCHP plant using two biomass feedstock with specified electric power production and no heat demands
+- bioCHP_function_test_3.cpp: bioCHP plant using two biomass feedstock with specified electric power production and several heat demands
+- bioCHP_function_test_4-[1,2].cpp: bioCHP plant using four biomass feedstock with specified electric power production and several heat demands
+- bioCHP_wrapper_test.cpp: bioCHP plant using four biomass feedstock with specified electric power production and several heat 
 
 ## Quick start - Linux and Windows Setup
 
-1.a **Linux Setup**
+### Install dependencies
 
-   **Install Dependencies**:
+Make sure you have `g++`, `CMake`, and `Conan` installed. 
 
-   Ensure you have `g++`, `CMake`, and `Conan` installed.  
-   You can install them with:
+1. **Linux setup**
 
-   ```bash
-   sudo apt update
-   sudo apt install -y g++ cmake python3-pip
-   pip install conan
-   conan profile detect
-   ```
+    You can install dependencies with:
 
-1.b **Windows Setup (PowerShell)**
+    ```bash
+    sudo apt update
+    sudo apt install -y g++ cmake python3-pip
+    pip install conan
+    conan profile detect
+    ```
+    
+2. **Windows setup (PowerShell)**
 
-   **Install Dependencies**:
+    Open PowerShell as Administrator and run:
 
-   Make sure you have python installed (e.g. from \href{Microsoft store}{https://apps.microsoft.com/detail/9nrwmjp3717k?hl=en-US&gl=NO})
+    ```powershell
+    winget install -e --id Kitware.CMake
+    winget install -e --id Git.Git
+    winget install --id Python.Python.3.11 --source winget --scope user --override "PrependPath=1"
+    ```
 
-   Open PowerShell as Administrator and run:
+    Restart the PowerShell and run
 
-   ```powershell
-   winget install -e --id Kitware.CMake
-   winget install -e --id Git.Git
-   winget install --id Python.Python.3.11 --source winget --scope user --override "PrependPath=1"
-   ```
+    ```powershell
+    pip install conan
+    conan profile detect
+    ```
 
-   Restart the PowerShell and run
-
-   ```powershell
-   pip install conan
-   conan profile detect
-   ```
-
-   Ensure you have a C++ compiler (e.g., Visual Studio Build Tools) and optionally install Ninja for faster builds:
-
-2. **Build and run minimal viable case**:
+### Build and run minimal viable case
 
    Create a build directory and compile:
    
@@ -88,11 +83,17 @@ This repository contains separately c++ files bioCHP_function_test_[number].cpp:
    git clone https://github.com/iDesignRES/CHP_modelling.git
    cd CHP_modelling
    mkdir build && cd build
+   ```
 
-   # Install external dependencies (via Conan)
+   Install external dependencies (via Conan):
+
+   ```bash
    conan install .. --output-folder=. --build=missing -s compiler.cppstd=17 -s arch=x86_64
+   ```
 
-   # Configure and build the project
+   Configure and build the project:
+
+   ```bash
    cmake .. -DCMAKE_TOOLCHAIN_FILE="${PWD}/conan_toolchain.cmake" -DCMAKE_BUILD_TYPE=Release
    cmake --build . --config Release
    ./Release/bioCHP ../docs/example/bioCHP_input.toml output.txt
