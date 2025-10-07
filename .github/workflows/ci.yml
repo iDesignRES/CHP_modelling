@@ -42,9 +42,7 @@ jobs:
 
       - name: Conan install
         run: |
-          conan install . \
-            --output-folder=${{ steps.strings.outputs.build-output-dir }} \
-            --build=missing
+          conan install . --output-folder=${{ steps.strings.outputs.build-output-dir }} --build=missing
 
       - name: Configure CMake
         run: >
