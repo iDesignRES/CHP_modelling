@@ -9,9 +9,10 @@ var searchData=
   ['calculate_5fflow_5fproperties_6',['calculate_flow_properties',['../structflow.html#ae0b2742cf5f56414da3e706fa6656d37',1,'flow']]],
   ['calculate_5fsolid_5ffuel_7',['calculate_solid_fuel',['../structflow.html#af547bab0b5c03516afd2b2893e4d6fe0',1,'flow']]],
   ['calculate_5fspecies_5fproperties_8',['calculate_species_properties',['../structflow.html#a32d11a13a50bb42f0ca32fafddfde920',1,'flow']]],
-  ['cls_9',['cls',['../structflow.html#a2c580f311a8e066dcc985de9a61e834d',1,'flow']]],
-  ['core_20assumptions_10',['Core assumptions',['../index.html#autotoc_md3',1,'']]],
-  ['cp_11',['cp',['../structproperties.html#ac937ab82137dae1512d91cf84ad7c477',1,'properties']]],
-  ['cpi_12',['Cpi',['../structequipment.html#a72e51212571b09c9434a06cee644270d',1,'equipment']]],
-  ['credits_13',['CREDITS',['../md_src_2CREDITS.html',1,'']]]
+  ['case_9',['Build and run minimal viable case',['../index.html#autotoc_md7',1,'']]],
+  ['cls_10',['cls',['../structflow.html#a2c580f311a8e066dcc985de9a61e834d',1,'flow']]],
+  ['core_20assumptions_11',['Core assumptions',['../index.html#autotoc_md3',1,'']]],
+  ['cp_12',['cp',['../structproperties.html#ac937ab82137dae1512d91cf84ad7c477',1,'properties']]],
+  ['cpi_13',['Cpi',['../structequipment.html#a72e51212571b09c9434a06cee644270d',1,'equipment']]],
+  ['credits_14',['CREDITS',['../md_src_2CREDITS.html',1,'']]]
 ];
