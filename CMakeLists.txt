@@ -3,15 +3,15 @@ if(POLICY CMP0091)
   cmake_policy(SET CMP0091 NEW)
 endif()
 
-# Set the project name
-project(CHP_model LANGUAGES CXX)
-
 # Conan integration
 include(${CMAKE_BINARY_DIR}/conan_toolchain.cmake)
 
+# Set the project name
+project(CHP_model LANGUAGES CXX)
+
 # Specify the C++ standard
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
 # Collect all source files needed for the shared library
