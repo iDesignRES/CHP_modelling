@@ -20,7 +20,7 @@ jobs:
             generator: Ninja
           - os: windows-latest
             build_type: Release
-            generator: Ninja
+            generator: "Visual Studio 17 2022"
 
     steps:
       - uses: actions/checkout@v4
