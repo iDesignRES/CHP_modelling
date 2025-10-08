@@ -37,9 +37,9 @@ double thermodynamic_property(std::string species, std::string property,
   }
 
   double tK = TK / 1000.0;
+  double A, B, C, D, E, F, G, Hf298;
 
   if (species == "CO2") {
-    double A, B, C, D, E, F, G, Hf298;
     if (tK <= 1.2) {
       A = 24.99735;
       B = 55.18696;
@@ -59,9 +59,7 @@ double thermodynamic_property(std::string species, std::string property,
       G = 263.6125;
       Hf298 = -393.5224;
     }
-    return shomate(property, tK, A, B, C, D, E, F, G, Hf298);
   } else if (species == "CO") {
-    double A, B, C, D, E, F, G, Hf298;
     if (tK <= 1.3) {
       A = 25.56759;
       B = 6.09613;
@@ -81,9 +79,7 @@ double thermodynamic_property(std::string species, std::string property,
       G = 231.712;
       Hf298 = -110.5271;
     }
-    return shomate(property, tK, A, B, C, D, E, F, G, Hf298);
   } else if (species == "H2O") {
-    double A, B, C, D, E, F, G, Hf298;
     if (tK <= 1.7) {
       A = 30.092;
       B = 6.832514;
@@ -103,9 +99,7 @@ double thermodynamic_property(std::string species, std::string property,
       G = 219.7809;
       Hf298 = -241.8264;
     }
-    return shomate(property, tK, A, B, C, D, E, F, G, Hf298);
   } else if (species == "H2") {
-    double A, B, C, D, E, F, G, Hf298;
     if (tK <= 1.5) {
       A = 33.1078;
       B = -11.508;
@@ -125,9 +119,7 @@ double thermodynamic_property(std::string species, std::string property,
       G = 162.093;
       Hf298 = 0.0;
     }
-    return shomate(property, tK, A, B, C, D, E, F, G, Hf298);
   } else if (species == "CH4") {
-    double A, B, C, D, E, F, G, Hf298;
     if (tK <= 1.3) {
       A = -0.703029;
       B = 108.4773;
@@ -147,9 +139,7 @@ double thermodynamic_property(std::string species, std::string property,
       G = 224.4143;
       Hf298 = -74.8731;
     }
-    return shomate(property, tK, A, B, C, D, E, F, G, Hf298);
   } else if (species == "N2") {
-    double A, B, C, D, E, F, G, Hf298;
     A = 26.092;
     B = 8.218801;
     C = -1.976141;
@@ -158,9 +148,7 @@ double thermodynamic_property(std::string species, std::string property,
     F = -7.98923;
     G = 221.02;
     Hf298 = 0.0;
-    return shomate(property, tK, A, B, C, D, E, F, G, Hf298);
   } else if (species == "O2") {
-    double A, B, C, D, E, F, G, Hf298;
     A = 29.659;
     B = 6.137261;
     C = -1.186521;
@@ -169,9 +157,7 @@ double thermodynamic_property(std::string species, std::string property,
     F = -9.861391;
     G = 237.948;
     Hf298 = 0.0;
-    return shomate(property, tK, A, B, C, D, E, F, G, Hf298);
   } else if (species == "SO2") {
-    double A, B, C, D, E, F, G, Hf298;
     if (tK <= 1.2) {
       A = 21.43049;
       B = 74.35094;
@@ -191,9 +177,7 @@ double thermodynamic_property(std::string species, std::string property,
       G = 302.7798;
       Hf298 = -296.8422;
     }
-    return shomate(property, tK, A, B, C, D, E, F, G, Hf298);
   } else if (species == "SO3") {
-    double A, B, C, D, E, F, G, Hf298;
     if (tK <= 1.2) {
       A = 24.02503;
       B = 119.4607;
@@ -213,9 +197,7 @@ double thermodynamic_property(std::string species, std::string property,
       G = 330.9264;
       Hf298 = -395.7654;
     }
-    return shomate(property, tK, A, B, C, D, E, F, G, Hf298);
   } else if (species == "HCl") {
-    double A, B, C, D, E, F, G, Hf298;
     if (tK <= 1.2) {
       A = 32.12392;
       B = -13.45805;
@@ -235,9 +217,7 @@ double thermodynamic_property(std::string species, std::string property,
       G = 218.2768;
       Hf298 = -92.31201;
     }
-    return shomate(property, tK, A, B, C, D, E, F, G, Hf298);
   } else if (species == "Cl2") {
-    double A, B, C, D, E, F, G, Hf298;
     if (tK <= 1.0) {
       A = 33.0506;
       B = 12.2294;
@@ -266,9 +246,7 @@ double thermodynamic_property(std::string species, std::string property,
       G = 264.786;
       Hf298 = 0.0;
     }
-    return shomate(property, tK, A, B, C, D, E, F, G, Hf298);
   } else if (species == "NH3") {
-    double A, B, C, D, E, F, G, Hf298;
     if (tK <= 1.4) {
       A = 19.99563;
       B = 49.77119;
@@ -288,9 +266,7 @@ double thermodynamic_property(std::string species, std::string property,
       G = 223.8022;
       Hf298 = -45.89806;
     }
-    return shomate(property, tK, A, B, C, D, E, F, G, Hf298);
   } else if (species == "NO2") {
-    double A, B, C, D, E, F, G, Hf298;
     if (tK <= 1.2) {
       A = 16.10857;
       B = 75.89525;
@@ -310,9 +286,7 @@ double thermodynamic_property(std::string species, std::string property,
       G = 290.5056;
       Hf298 = 33.09502;
     }
-    return shomate(property, tK, A, B, C, D, E, F, G, Hf298);
   } else if (species == "N2O4") {
-    double A, B, C, D, E, F, G, Hf298;
     if (tK <= 1.0) {
       A = 34.05274;
       B = 191.9845;
@@ -332,9 +306,7 @@ double thermodynamic_property(std::string species, std::string property,
       G = 417.0444;
       Hf298 = 9.078988;
     }
-    return shomate(property, tK, A, B, C, D, E, F, G, Hf298);
   } else if (species == "Ar") {
-    double A, B, C, D, E, F, G, Hf298;
     A = 20.78600;
     B = 2.825911e-7;
     C = -1.464191e-7;
@@ -343,8 +315,8 @@ double thermodynamic_property(std::string species, std::string property,
     F = -6.197350;
     G = 179.9990;
     Hf298 = 0.000000;
-    return shomate(property, tK, A, B, C, D, E, F, G, Hf298);
   } else {
     throw std::invalid_argument("Unknown species: " + species);
   }
+  return shomate(property, tK, A, B, C, D, E, F, G, Hf298);
 }

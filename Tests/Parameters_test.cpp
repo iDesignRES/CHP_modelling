@@ -60,8 +60,6 @@ int main() {
 
   object CHP("plant", "CHP");
   transfer_parameter("Qk", bioCHP, CHP);
-  str_p(CHP.p, "prop", "plant", "CHP", "land", "Norway");
-  CHP.sval_p("city", "Trondheim");
   print_parameters(CHP);
 
   return 0;

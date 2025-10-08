@@ -107,7 +107,19 @@ double object::fp(std::string symb) {
  * @return vector with numerical values
  */
 std::vector<double> object::vctp(std::string symb) {
-  return fp_vct(p, sys_type, sys_def, symb);
+  bool found = false;
+  std::vector<double> vct;
+  for (std::size_t np = 0; np < p.size(); np++) {
+    if (p[np].sys_type == sys_type && p[np].sys_def == sys_def &&
+        p[np].data_id == symb) {
+      for (std::size_t n = 0; n < p[np].vct.size(); n++) {
+        vct.push_back(p[np].vct[n]);
+      }
+      found = true;
+      return vct;
+    }
+  }
+  return vct;
 }
 
 /**
@@ -133,7 +145,19 @@ std::string object::sp(std::string symb) {
  * @return value of the parameter as double vector
  */
 std::vector<std::string> object::svct(std::string symb) {
-  return sp_vct(p, sys_type, sys_def, symb);
+  bool found = false;
+  std::vector<std::string> vct;
+  for (std::size_t np = 0; np < p.size(); np++) {
+    if (p[np].sys_type == sys_type && p[np].sys_def == sys_def &&
+        p[np].data_id == symb) {
+      for (std::size_t n = 0; n < p[np].str.size(); n++) {
+        vct.push_back(p[np].str[n]);
+      }
+      found = true;
+      return vct;
+    }
+  }
+  return vct;
 }
 
 /**
@@ -145,19 +169,25 @@ std::vector<std::string> object::svct(std::string symb) {
  *
  */
 void object::fval_p(std::string symb, double val, std::string data_def) {
-  val_p(p, data_def, sys_type, sys_def, symb, val);
-}
-
-/**
- * @brief object function to populate a vector of parameters with a input string
- * parameter
- *
- * @param symb parameter name to populate
- * @param val string value
- *
- */
-void object::sval_p(std::string symb, std::string val) {
-  str_p(p, "prop", sys_type, sys_def, symb, val);
+  bool found = false;
+  for (std::size_t np = 0; np < p.size(); np++) {
+    if (p[np].sys_type == sys_type && p[np].sys_def == sys_def &&
+        p[np].data_id == symb) {
+      p[np].vct.push_back(val);
+      p[np].pos = p[np].str.size() - 1;
+      found = true;
+    }
+  }
+  if (found == false) {
+    parameter p_new;
+    p_new.data_def = data_def;
+    p_new.sys_type = sys_type;
+    p_new.sys_def = sys_def;
+    p_new.data_id = symb;
+    p_new.data_type = "num";
+    p_new.vct.push_back(val);
+    p.push_back(p_new);
+  }
 }
 
 /**
@@ -168,7 +198,30 @@ void object::sval_p(std::string symb, std::string val) {
  * @param vct vector with numerical values
  */
 void object::vct_fp(std::string symb, std::vector<double> vct) {
-  fvct_p(p, "prop", sys_type, sys_def, symb, vct);
+  bool found = false;
+  for (std::size_t np = 0; np < p.size(); np++) {
+    if (p[np].sys_type == sys_type && p[np].sys_def == sys_def &&
+        p[np].data_id == symb) {
+      p[np].vct.clear();
+      for (std::size_t n = 0; n < vct.size(); n++) {
+        p[np].vct.push_back(vct[n]);
+      }
+      p[np].pos = 0;
+      found = true;
+    }
+  }
+  if (found == false) {
+    parameter p_new;
+    p_new.data_def = "prop";
+    p_new.sys_type = sys_type;
+    p_new.sys_def = sys_def;
+    p_new.data_id = symb;
+    p_new.data_type = "num";
+    for (std::size_t n = 0; n < vct.size(); n++) {
+      p_new.vct.push_back(vct[n]);
+    }
+    p.push_back(p_new);
+  }
 }
 
 /**
@@ -179,7 +232,30 @@ void object::vct_fp(std::string symb, std::vector<double> vct) {
  * @param vct vector with string values
  */
 void object::vct_sp(std::string symb, std::vector<std::string> vct) {
-  svct_p(p, "prop", sys_type, sys_def, symb, vct);
+  bool found = false;
+  for (std::size_t np = 0; np < p.size(); np++) {
+    if (p[np].sys_type == sys_type && p[np].sys_def == sys_def &&
+        p[np].data_id == symb) {
+      p[np].str.clear();
+      for (std::size_t n = 0; n < vct.size(); n++) {
+        p[np].str.push_back(vct[n]);
+      }
+      p[np].pos = 0;
+      found = true;
+    }
+  }
+  if (found == false) {
+    parameter p_new;
+    p_new.data_def = "prop";
+    p_new.sys_type = sys_type;
+    p_new.sys_def = sys_def;
+    p_new.data_id = symb;
+    p_new.data_type = "str";
+    for (std::size_t n = 0; n < vct.size(); n++) {
+      p_new.str.push_back(vct[n]);
+    }
+    p.push_back(p_new);
+  }
 }
 
 std::string get_str_parameter(std::vector<parameter> &par, std::string sys_type,
@@ -311,51 +387,6 @@ void print_parameters(object &obj) {
   }
 }
 
-std::vector<std::string> sp_vct(std::vector<parameter> &par,
-                                std::string sys_type, std::string sys_def,
-                                std::string data_id) {
-  bool found = false;
-  std::vector<std::string> vct;
-  for (std::size_t np = 0; np < par.size(); np++) {
-    if (par[np].sys_type == sys_type && par[np].sys_def == sys_def &&
-        par[np].data_id == data_id) {
-      for (std::size_t n = 0; n < par[np].str.size(); n++) {
-        vct.push_back(par[np].str[n]);
-      }
-      found = true;
-      return vct;
-    }
-  }
-  if (found == false) {
-    return vct;
-  }
-  return vct;
-}
-
-void val_p(std::vector<parameter> &par, std::string data_def,
-           std::string sys_type, std::string sys_def, std::string data_id,
-           double val) {
-  bool found = false;
-  for (std::size_t np = 0; np < par.size(); np++) {
-    if (par[np].sys_type == sys_type && par[np].sys_def == sys_def &&
-        par[np].data_id == data_id) {
-      par[np].vct.push_back(val);
-      par[np].pos = par[np].str.size() - 1;
-      found = true;
-    }
-  }
-  if (found == false) {
-    parameter p;
-    p.data_def = data_def;
-    p.sys_type = sys_type;
-    p.sys_def = sys_def;
-    p.data_id = data_id;
-    p.data_type = "num";
-    p.vct.push_back(val);
-    par.push_back(p);
-  }
-}
-
 void str_p(std::vector<parameter> &par, std::string data_def,
            std::string sys_type, std::string sys_def, std::string data_id,
            std::string val) {
@@ -376,81 +407,6 @@ void str_p(std::vector<parameter> &par, std::string data_def,
     p.data_id = data_id;
     p.data_type = "str";
     p.str.push_back(val);
-    par.push_back(p);
-  }
-}
-
-std::vector<double> fp_vct(std::vector<parameter> &par, std::string sys_type,
-                           std::string sys_def, std::string data_id) {
-  bool found = false;
-  std::vector<double> vct;
-  for (std::size_t np = 0; np < par.size(); np++) {
-    if (par[np].sys_type == sys_type && par[np].sys_def == sys_def &&
-        par[np].data_id == data_id) {
-      for (std::size_t n = 0; n < par[np].vct.size(); n++) {
-        vct.push_back(par[np].vct[n]);
-      }
-      found = true;
-      return vct;
-    }
-  }
-  return vct;
-}
-
-void fvct_p(std::vector<parameter> &par, std::string data_def,
-            std::string sys_type, std::string sys_def, std::string data_id,
-            std::vector<double> val) {
-  bool found = false;
-  for (std::size_t np = 0; np < par.size(); np++) {
-    if (par[np].sys_type == sys_type && par[np].sys_def == sys_def &&
-        par[np].data_id == data_id) {
-      par[np].vct.clear();
-      for (std::size_t n = 0; n < val.size(); n++) {
-        par[np].vct.push_back(val[n]);
-      }
-      par[np].pos = 0;
-      found = true;
-    }
-  }
-  if (found == false) {
-    parameter p;
-    p.data_def = data_def;
-    p.sys_type = sys_type;
-    p.sys_def = sys_def;
-    p.data_id = data_id;
-    p.data_type = "num";
-    for (std::size_t n = 0; n < val.size(); n++) {
-      p.vct.push_back(val[n]);
-    }
-    par.push_back(p);
-  }
-}
-
-void svct_p(std::vector<parameter> &par, std::string data_def,
-            std::string sys_type, std::string sys_def, std::string data_id,
-            std::vector<std::string> val) {
-  bool found = false;
-  for (std::size_t np = 0; np < par.size(); np++) {
-    if (par[np].sys_type == sys_type && par[np].sys_def == sys_def &&
-        par[np].data_id == data_id) {
-      par[np].str.clear();
-      for (std::size_t n = 0; n < val.size(); n++) {
-        par[np].str.push_back(val[n]);
-      }
-      par[np].pos = 0;
-      found = true;
-    }
-  }
-  if (found == false) {
-    parameter p;
-    p.data_def = data_def;
-    p.sys_type = sys_type;
-    p.sys_def = sys_def;
-    p.data_id = data_id;
-    p.data_type = "str";
-    for (std::size_t n = 0; n < val.size(); n++) {
-      p.str.push_back(val[n]);
-    }
     par.push_back(p);
   }
 }

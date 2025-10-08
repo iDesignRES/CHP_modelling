@@ -65,7 +65,6 @@ struct object {
   std::string sp(std::string symb);
   std::vector<std::string> svct(std::string symb);
   void fval_p(std::string symb, double val, std::string data_def = "prop");
-  void sval_p(std::string symb, std::string val);
   void vct_fp(std::string symb, std::vector<double> vct);
   void vct_sp(std::string symb, std::vector<std::string> vct);
 };
@@ -130,33 +129,6 @@ void print_parameter(parameter &p);
 void print_parameters(object &obj);
 
 /**
- * @brief function to get the numerical vector of a parameter
- *
- * @param sys_type system type of the parameter to look for
- * @param sys_def system name of the parameter to look for
- * @param data_id parameter name to get
- * @param par vector of parameters to look for
- */
-std::vector<std::string> sp_vct(std::vector<parameter> &par,
-                                std::string sys_type, std::string sys_def,
-                                std::string data_id);
-
-/**
- * @brief function to populate a vector of parameters with a input numerical
- * parameter
- *
- * @param par existing vector of parameters
- * @param sys_type system type of the parameter to look for
- * @param sys_def system name of the parameter to look for
- * @param data_type type of parameter: numerical or string
- * @param data_id parameter name to populate
- *
- */
-void val_p(std::vector<parameter> &par, std::string data_def,
-           std::string sys_type, std::string sys_def, std::string data_id,
-           double val);
-
-/**
  * @brief function to populate a vector of parameters with a input string
  * parameter
  *
@@ -170,49 +142,6 @@ void val_p(std::vector<parameter> &par, std::string data_def,
 void str_p(std::vector<parameter> &par, std::string data_def,
            std::string sys_type, std::string sys_def, std::string data_id,
            std::string val);
-
-/**
- * @brief function to get a numerical vector of a parameter
- *
- * @param par existing vector of parameters
- * @param sys_type system type of the parameter to look for
- * @param sys_def system name of the parameter to look for
- * @param data_id parameter name to get
- *
- * @return vector with numerical values
- */
-std::vector<double> fp_vct(std::vector<parameter> &par, std::string sys_type,
-                           std::string sys_def, std::string data_id);
-
-/**
- * @brief function to populate a vector of parameters with an input numerical
- * vector parameter
- *
- * @param par existing vector of parameters
- * @param sys_type system type of the parameter to look for
- * @param sys_def system name of the parameter to look for
- * @param data_type type of parameter: numerical or string
- * @param data_id parameter name to populate
- * @param val vector with numerical values
- */
-void fvct_p(std::vector<parameter> &par, std::string data_def,
-            std::string sys_type, std::string sys_def, std::string data_id,
-            std::vector<double> val);
-
-/**
- * @brief function to populate a vector of parameters with an input string
- * vector parameter
- *
- * @param par existing vector of parameters
- * @param sys_type system type of the parameter to look for
- * @param sys_def system name of the parameter to look for
- * @param data_type type of parameter: numerical or string
- * @param data_id parameter name to populate
- * @param val vector with string values
- */
-void svct_p(std::vector<parameter> &par, std::string data_def,
-            std::string sys_type, std::string sys_def, std::string data_id,
-            std::vector<std::string> val);
 
 /**
  * @brief function to transfer a parameter between objects
