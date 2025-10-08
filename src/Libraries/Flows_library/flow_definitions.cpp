@@ -280,7 +280,7 @@ void species::get_species_data_(std::string spc_type) {
   if (spc_type == "molecule") {
     try {
       toml::table tbl =
-          get_toml_table(get_database_path("Flows_database/Molecules_db.toml"));
+          get_toml_table(get_database_path("molecules.toml"));
 
       auto mol_table = tbl["molecules"][id];
       if (!mol_table) throw std::runtime_error("Molecule " + id + " not found");
@@ -318,7 +318,7 @@ void species::get_species_data_(std::string spc_type) {
   } else if (spc_type == "atom") {
     try {
       toml::table tbl =
-          get_toml_table(get_database_path("Flows_database/atoms_db.toml"));
+          get_toml_table(get_database_path("atoms.toml"));
 
       auto atom_table = tbl["atoms"][id];
       if (!atom_table) {
@@ -345,12 +345,11 @@ void species::get_species_data_(std::string spc_type) {
  * @param input string specifying the same of the flow
  */
 void flow::get_flow_composition(std::vector<species>& spc, std::string input) {
-  std::string file_path = get_database_path(flow_db);
-  toml::table tbl = get_toml_table(file_path);
+  toml::table tbl = get_toml_table(flow_db);
 
   auto flow_tbl = tbl["flow"][def];
   if (!flow_tbl || !flow_tbl.is_table())
-    throw std::runtime_error("flow def " + def + " not found in " + file_path);
+    throw std::runtime_error("flow def " + def + " not found in " + flow_db);
 
   auto section_node = flow_tbl[input];
   if (!section_node || !section_node.is_table()) return;
@@ -403,8 +402,7 @@ void flow::get_flow_composition(std::vector<species>& spc, std::string input) {
  */
 void flow::get_flow_properties() {
   try {
-    std::string file_path = get_database_path(flow_db);
-    toml::table tbl = get_toml_table(file_path);
+    toml::table tbl = get_toml_table(flow_db);
 
     auto props = tbl["flow"][def]["properties"];
     if (!props || !props.is_table()) return;
@@ -439,46 +437,27 @@ void flow::get_flow_properties() {
 void flow::get_flow_data(std::string input_def) {
   def = input_def;
 
-  std::string file_path = get_database_path("Flows_database/Flow_list.toml");
-  toml::table tbl = get_toml_table(file_path);
+  flow_db = get_database_path("flows.toml");
+  toml::table tbl = get_toml_table(flow_db);
 
-  auto flow_group = tbl["flow"][input_def];
-  if (!flow_group || !flow_group.is_table())
-    throw std::runtime_error("Flow " + input_def + " not found in " +
-                             file_path);
-
-  if (auto cls_val = flow_group["cls"].value<std::string>())
+  if (auto cls_val = tbl["flow"][input_def]["class"].value<std::string>())
     cls = *cls_val;
   else
-    throw std::runtime_error("cls missing for " + input_def);
+    throw std::runtime_error("class missing for " + input_def);
 
-  if (auto db_val = flow_group["flow_db"].value<std::string>())
-    flow_db = *db_val;
+  auto flow_tbl = tbl["flow"][input_def];
+  if (!flow_tbl || !flow_tbl.is_table())
+    throw std::runtime_error(input_def + " not found in " + flow_db);
+
+  if (auto v = flow_tbl["class"].value<std::string>())
+    cls = *v;
   else
-    throw std::runtime_error("flow_db missing for " + input_def);
+    throw std::runtime_error("Flow_cls missing for " + input_def);
 
-  try {
-    file_path = get_database_path(flow_db);
-    tbl = get_toml_table(file_path);
-
-    auto flow_tbl = tbl["flow"][input_def];
-    if (!flow_tbl || !flow_tbl.is_table())
-      throw std::runtime_error(input_def + " not found in " + file_path);
-
-    if (auto v = flow_tbl["class"].value<std::string>())
-      cls = *v;
-    else
-      throw std::runtime_error("Flow_cls missing for " + input_def);
-
-    if (auto v = flow_tbl["prop_data"].value<std::string>())
-      prop_data = *v;
-    else
-      throw std::runtime_error("prop_data missing for " + input_def);
-
-  } catch (const toml::parse_error& err) {
-    throw std::runtime_error("TOML parse error in " + file_path + ": " +
-                             std::string(err.description()));
-  }
+  if (auto v = flow_tbl["prop_data"].value<std::string>())
+    prop_data = *v;
+  else
+    throw std::runtime_error("prop_data missing for " + input_def);
 
   if (prop_data != "IDEAL_GAS") {
     get_flow_composition(j, "molecules");
@@ -554,41 +533,4 @@ void flow::print_flow() {
     }
   }
   std::cout << "-------------------- " << std::endl;
-}
-
-bool find_flow(std::string input_def) {
-  std::string file_path = get_database_path("Flows_database/Flow_list.toml");
-  toml::table tbl = get_toml_table(file_path);
-
-  auto flow_group = tbl["flow"][input_def];
-  if (!flow_group || !flow_group.is_table())
-    throw std::runtime_error(input_def + " not found in " + file_path);
-
-  if (!flow_group["cls"].value<std::string>())
-    throw std::runtime_error("cls missing for flow " + input_def + " in " +
-                             file_path);
-
-  std::string flow_db;
-  if (auto v = flow_group["flow_db"].value<std::string>())
-    flow_db = *v;
-  else
-    throw std::runtime_error("flow_db missing for flow " + input_def + " in " +
-                             file_path);
-
-  try {
-    file_path = get_database_path(flow_db);
-    toml::table tbl = get_toml_table(file_path);
-
-    auto flow_tbl = tbl["flow"][input_def];
-    if (!flow_tbl || !flow_tbl.is_table())
-      throw std::runtime_error(input_def + " not found in " + file_path);
-
-    return true;
-
-  } catch (const toml::parse_error& err) {
-    throw std::runtime_error("TOML parse error in " + file_path + ": " +
-                             std::string(err.description()));
-  }
-
-  return false;
 }

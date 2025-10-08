@@ -1,0 +1,306 @@
+# Biomass fuels
+[flow.SE_pellets_arbacore_spruce_stem]
+class = "SE-pellets_hardwood"
+prop_data = "solid_fuel"
+
+    [flow.SE_pellets_arbacore_spruce_stem.atoms]
+    C = {Y = 0.523}
+    H = {Y = 0.062}
+    O = {Y = 0.4139}
+    N = {Y = 0.001}
+    S = {Y = 0.0001}
+    Cl = {Y = 0.00002}
+
+    [flow.SE_pellets_arbacore_spruce_stem.proximate]
+    VOL = {Y = 0.802}
+    FC = {Y = 0.196}
+    ash = {Y = 0.0002}
+    H2O = {Y = 0.034}
+
+    [flow.SE_pellets_arbacore_spruce_stem.properties]
+    LHV = 20.9
+    rho_m = 400.0
+    cp_m = 1200.0
+
+[flow.spruce_chips]
+class = "hardwood"
+prop_data = "solid_fuel"
+
+    [flow.spruce_chips.atoms]
+    C = {Y = 0.4878}
+    H = {Y = 0.0627}
+    O = {Y = 0.448}
+    N = {Y = 0.0013}
+    S = {Y = 0.0001}
+    Cl = {Y = 0.0}
+
+    [flow.spruce_chips.proximate]
+    VOL = {Y = 0.39985}
+    FC = {Y = 0.09825}
+    ash = {Y = 0.0019}
+    H2O = {Y = 0.05}
+
+    [flow.spruce_chips.properties]
+    HHV = 20.13
+    rho_m = 400.0
+    cp_m = 1200.0
+
+[flow.spruce_stem]
+class = "hardwood"
+prop_data = "solid_fuel"
+
+    [flow.spruce_stem.atoms]
+    C = {Y = 0.4738}
+    H = {Y = 0.064}
+    O = {Y = 0.461}
+    N = {Y = 0.0009}
+    S = {Y = 0.0001}
+    Cl = {Y = 0.0}
+
+    [flow.spruce_stem.proximate]
+    VOL = {Y = 0.7243}
+    FC = {Y = 0.2727}
+    ash = {Y = 0.003}
+    H2O = {Y = 0.5}
+
+    [flow.spruce_stem.properties]
+    HHV = 19.9
+    rho_m = 400.0
+    cp_m = 1200.0
+
+[flow.spruce_bark]
+class = "hardwood"
+prop_data = "solid_fuel"
+
+    [flow.spruce_bark.atoms]
+    C = {Y = 0.4909}
+    H = {Y = 0.0606}
+    O = {Y = 0.4438}
+    N = {Y = 0.0045}
+    S = {Y = 0.0002}
+    Cl = {Y = 0.0}
+
+    [flow.spruce_bark.proximate]
+    VOL = {Y = 0.7062}
+    FC = {Y = 0.2685}
+    ash = {Y = 0.0253}
+    H2O = {Y = 0.5}
+
+    [flow.spruce_bark.properties]
+    HHV = 20.25
+    rho_m = 400.0
+    cp_m = 1200.0
+
+[flow.spruce_TandB]
+class = "hardwood"
+prop_data = "solid_fuel"
+
+    [flow.spruce_TandB.atoms]
+    C = {Y = 0.5153}
+    H = {Y = 0.0651}
+    O = {Y = 0.415}
+    N = {Y = 0.0044}
+    S = {Y = 0.0002}
+    Cl = {Y = 0.0}
+
+    [flow.spruce_TandB.proximate]
+    VOL = {Y = 0.6982}
+    FC = {Y = 0.2449}
+    ash = {Y = 0.0569}
+    H2O = {Y = 0.5}
+
+    [flow.spruce_TandB.properties]
+    HHV = 19.94
+    rho_m = 400.0
+    cp_m = 1200.0
+
+[flow.birch_stem]
+class = "woody_biomass"
+prop_data = "solid_fuel"
+
+    [flow.birch_stem.atoms]
+    C = {Y = 0.4862}
+    H = {Y = 0.0634}
+    O = {Y = 0.449}
+    N = {Y = 0.0009}
+    S = {Y = 0.0005}
+    Cl = {Y = 0.0}
+
+    [flow.birch_stem.proximate]
+    VOL = {Y = 0.8943}
+    FC = {Y = 0.1035}
+    ash = {Y = 0.0022}
+    H2O = {Y = 0.5}
+
+    [flow.birch_stem.properties]
+    HHV = 18.42
+    rho_m = 400.0
+    cp_m = 1200.0
+
+# Ash
+[flow.ash]
+class = "ash"
+prop_data = "ash"
+
+    [flow.ash.atoms]
+    C = {}
+    H = {}
+    O = {}
+    N = {}
+    S = {}
+    P = {}
+    K = {}
+    Cl = {}
+    Ca = {}
+    Al = {}
+    Fe = {}
+    Mg = {}
+    Mn = {}
+    Na = {}
+    Si = {}
+    Ti = {}
+    Zn = {}
+    Hg = {}
+    Pb = {}
+    Cd = {}
+    Cr = {}
+    Cu = {}
+    Ni = {}
+    As = {}
+
+    [flow.ash.molecules]
+    # n_data = 0 → empty
+
+    [flow.ash.proximate]
+    DM = {}
+    H2O = {}
+    ash = {}
+    INORG = {}
+    ORG = {}
+    INORG-O = {}
+    ORG-O = {}
+    INORG-S = {}
+    ORG-S = {}
+    INORG-N = {}
+    ORG-N = {}
+
+    [flow.ash.properties]
+    rho_m = 400.0
+    cp_m = 1200.0
+
+[flow.flue_gas]
+class = "ideal_gas"
+prop_data = "NIST"
+
+    [flow.flue_gas.molecules]
+    O2 = {}
+    N2 = {}
+    Ar = {}
+    H2O = {}
+    H2 = {}
+    CO = {}
+    CO2 = {}
+    SO2 = {}
+    NO2 = {}
+
+    [flow.flue_gas.atoms]
+    O = {}
+    N = {}
+    Ar = {}
+    H = {}
+    C = {}
+    S = {}
+
+[flow.dry_air]
+class = "ideal_gas"
+prop_data = "NIST"
+
+    [flow.dry_air.molecules]
+    N2 = {X = 0.7812}
+    Ar = {X = 0.0092}
+    O2 = {X = 0.2096}
+
+    [flow.dry_air.atoms]
+    O = {}
+    N = {}
+    Ar = {}
+
+[flow.air]
+class = "ideal_gas"
+prop_data = "NIST"
+
+    [flow.air.molecules]
+    N2 = {X = 0.7812}
+    Ar = {X = 0.0092}
+    O2 = {X = 0.2096}
+
+    [flow.air.atoms]
+    O = {}
+    N = {}
+    Ar = {}
+
+[flow.wet_air]
+class = "ideal_gas"
+prop_data = "NIST"
+
+    [flow.wet_air.molecules]
+    N2 = {X = 0.7812}
+    Ar = {X = 0.0092}
+    O2 = {X = 0.2096}
+    H2O = {X = 0.0}
+
+    [flow.wet_air.atoms]
+    O = {}
+    H = {}
+    N = {}
+    Ar = {}
+
+[flow.water]
+class = "water"
+prop_data = "water_correlations"
+
+    [flow.water.molecules]
+    H2O = {Y = 1.0}
+
+    [flow.water.atoms]
+    H = {X = 2.0}
+    O = {X = 1.0}
+
+    [flow.water.properties]
+    HHV = -2.5
+    rho_m = 1000.0
+    cp_m = 1000.0
+
+
+[flow.steam]
+class = "water"
+prop_data = "water_correlations"
+
+    [flow.steam.molecules]
+    H2O = {Y = 1.0}
+
+    [flow.steam.atoms]
+    H = {X = 2.0}
+    O = {X = 1.0}
+
+    [flow.steam.properties]
+    HHV = -2.5
+    rho_m = 1000.0
+    cp_m = 1000.0
+
+
+[flow.H2O]
+class = "water"
+prop_data = "water_correlations"
+
+    [flow.H2O.molecules]
+    H2O = {Y = 1.0}
+
+    [flow.H2O.atoms]
+    H = {X = 2.0}
+    O = {X = 1.0}
+
+    [flow.H2O.properties]
+    HHV = -2.5
+    rho_m = 1000.0
+    cp_m = 1000.0

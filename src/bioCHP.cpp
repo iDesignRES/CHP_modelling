@@ -14,13 +14,6 @@ object bioCHP_plant(std::vector<std::string> fuel_def, std::vector<double> Yj,
     throw std::runtime_error(
         "number of specifications for Yj and fuel_def are different");
 
-  // Check that all feedstock exist in the database
-  for (std::size_t nf = 0; nf < fuel_def.size(); nf++) {
-    if (!find_flow(fuel_def[nf]))
-      throw std::runtime_error("feedstock " + fuel_def[nf] +
-                               " not found in the database");
-  }
-
   // Check specificatins of heat demands
   if (Qk.size() != Tk_in.size())
     throw std::runtime_error(

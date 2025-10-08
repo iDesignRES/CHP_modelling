@@ -28,7 +28,7 @@ object::object(std::string type, std::string def, std::string file) {
 object::object(std::string type, std::string def) {
   sys_type = type;
   sys_def = def;
-  sys_file = get_database_path("cost_database.toml");
+  sys_file = get_database_path("costs.toml");
 
   if (!sys_file.empty()) get_parameters(p, type, def, sys_file);
 }

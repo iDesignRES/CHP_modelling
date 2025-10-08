@@ -1,7 +1,5 @@
 # Build directories
 /build/
-/dev/
 /docs/html/
 *.o
-/Test/Output*
 CMakeUserPresets.json

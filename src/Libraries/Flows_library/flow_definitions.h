@@ -207,11 +207,3 @@ struct flow {
   void calculate_solid_fuel();
   void print_flow();
 };
-
-/**
- * @brief Boolean function to find out if a flow exists in the database
- *
- * @param input_def string with the name of the flow in the database
- * @return true if found, false otherwise
- */
-bool find_flow(std::string input_def);
