@@ -1,29 +1,6 @@
 #include "utils.h"
 #include <iostream>
 
-std::vector<std::string> divide_string(std::string str, char c) {
-  std::vector<std::string> list;
-  std::vector<char> cstr(str.begin(), str.end());
-  std::string element = "";
-  int l = 0;
-  while (l < str.length()) {
-    if (cstr[l] != c) {
-      element = element + cstr[l];
-    }
-    if (cstr[l] == c) {
-      list.push_back(element);
-      element = "";
-    }
-    if (l == str.length() - 1) {
-      list.push_back(element);
-      break;
-    }
-    l = l + 1;
-  }
-  cstr.clear();
-  return list;
-}
-
 std::string get_database_path(std::string sub_path) {
   std::string current_file_path = __FILE__;
   std::string db_file_path;

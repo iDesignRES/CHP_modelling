@@ -97,7 +97,7 @@ void equipment_list(std::vector<equipment> &list, object &par) {
       eq.W_el = par.c[n].fp("W_el");
       eq.C_maint = par.c[n].fp("Cpi") * par.c[n].fp("f_maint");
       list.push_back(eq);
-      par.fval_p("output-electric_load_" + par.c[n].sys_def,
+      par.fval_p("electric_load_" + par.c[n].sys_def,
                  par.c[n].fp("W_el"));
     }
     if (par.c[n].c.size() > 0) {
@@ -153,37 +153,37 @@ void capex(object &par) {
 
   par.fval_p("W_el(kW)", W_el);
 
-  par.fval_p("output-electric_load", W_el);
-  par.fval_p("output-C_eq", C_eq);
-  par.fval_p("output-C_piping", C_eq * par.fp("f_piping"));
-  par.fval_p("output-C_el", C_eq * par.fp("f_el"));
-  par.fval_p("output-C_I&C", C_eq * par.fp("f_I&C"));
-  par.fval_p("output-C_pi", par.fp("C_eq") + par.fp("C_piping") +
+  par.fval_p("electric_load", W_el);
+  par.fval_p("C_eq", C_eq);
+  par.fval_p("C_piping", C_eq * par.fp("f_piping"));
+  par.fval_p("C_el", C_eq * par.fp("f_el"));
+  par.fval_p("C_I&C", C_eq * par.fp("f_I&C"));
+  par.fval_p("C_pi", par.fp("C_eq") + par.fp("C_piping") +
                                 par.fp("C_el") + par.fp("C_I&C"));
-  par.fval_p("output-C_land", par.fp("C_pi") * par.fp("f_land"));
-  par.fval_p("output-C_site", par.fp("C_pi") * par.fp("f_site"));
-  par.fval_p("output-C_build", par.fp("C_pi") * par.fp("f_build"));
-  par.fval_p("output-C_com", par.fp("C_pi") * par.fp("f_com"));
-  par.fval_p("output-C_eng", (par.fp("C_pi") + par.fp("C_site") +
+  par.fval_p("C_land", par.fp("C_pi") * par.fp("f_land"));
+  par.fval_p("C_site", par.fp("C_pi") * par.fp("f_site"));
+  par.fval_p("C_build", par.fp("C_pi") * par.fp("f_build"));
+  par.fval_p("C_com", par.fp("C_pi") * par.fp("f_com"));
+  par.fval_p("C_eng", (par.fp("C_pi") + par.fp("C_site") +
                               par.fp("C_build") + par.fp("C_com")) *
                                  par.fp("f_eng"));
-  par.fval_p("output-C_dev",
+  par.fval_p("C_dev",
              (par.fp("C_pi") + par.fp("C_land") + par.fp("C_site") +
               par.fp("C_build") + par.fp("C_com") + par.fp("C_eng")) *
                  par.fp("f_dev"));
-  par.fval_p("output-C_cont",
+  par.fval_p("C_cont",
              (par.fp("C_pi") + par.fp("C_land") + par.fp("C_site") +
               par.fp("C_build") + par.fp("C_com") + par.fp("C_eng") +
               par.fp("C_dev")) *
                  par.fp("f_cont"));
-  par.fval_p("output-C_inv", par.fp("C_pi") + par.fp("C_land") +
+  par.fval_p("C_inv", par.fp("C_pi") + par.fp("C_land") +
                                  par.fp("C_site") + par.fp("C_build") +
                                  par.fp("C_com") + par.fp("C_eng") +
                                  par.fp("C_dev") + par.fp("C_cont"));
-  par.fval_p("output-C_eq_maint", par.fp("C_eq") * 0.02);
-  par.fval_p("output-C_piping_maint", par.fp("C_piping") * 0.02);
-  par.fval_p("output-C_el_maint", par.fp("C_el") * 0.02);
-  par.fval_p("output-C_I&C_maint", par.fp("C_I&C") * 0.02);
+  par.fval_p("C_eq_maint", par.fp("C_eq") * 0.02);
+  par.fval_p("C_piping_maint", par.fp("C_piping") * 0.02);
+  par.fval_p("C_el_maint", par.fp("C_el") * 0.02);
+  par.fval_p("C_I&C_maint", par.fp("C_I&C") * 0.02);
   print_capex(par);
 }
 
@@ -223,24 +223,24 @@ void opex(object &par) {
     C_op_mat = C_op_mat + m[n].C_annual;
   }
 
-  par.fval_p("output-C_op_mat", C_op_mat);
+  par.fval_p("C_op_mat", C_op_mat, "output");
 
-  par.fval_p("output-C_op_el",
-             par.fp("W_el(kW)") * par.fp("price_electricity") * 8000);
+  par.fval_p("C_op_el",
+             par.fp("W_el(kW)") * par.fp("price_electricity") * 8000, "output");
 
-  par.fval_p("output-C_op_maint",
+  par.fval_p("C_op_maint",
              par.fp("C_eq_maint") + par.fp("C_piping_maint") +
-                 par.fp("C_el_maint") + par.fp("C_I&C_maint"));
+                 par.fp("C_el_maint") + par.fp("C_I&C_maint"), "output");
 
-  par.fval_p("output-C_op_ins", par.fp("C_pi") * par.fp("f_ins"));
+  par.fval_p("C_op_ins", par.fp("C_pi") * par.fp("f_ins"), "output");
 
-  par.fval_p("output-C_op_adm", par.fp("C_pi") * par.fp("f_adm"));
+  par.fval_p("C_op_adm", par.fp("C_pi") * par.fp("f_adm"), "output");
 
-  par.fval_p("output-C_op", par.fp("C_op_mat") + par.fp("C_op_el") +
+  par.fval_p("C_op", par.fp("C_op_mat") + par.fp("C_op_el") +
                                 par.fp("C_op_maint") + par.fp("C_op_ins") +
-                                par.fp("C_op_adm"));
+                                par.fp("C_op_adm"), "output");
 
-  par.fval_p("output-C_op_var", par.fp("C_op_mat") + par.fp("C_op_el"));
+  par.fval_p("C_op_var", par.fp("C_op_mat") + par.fp("C_op_el"), "output");
   print_opex(par, m);
 }
 

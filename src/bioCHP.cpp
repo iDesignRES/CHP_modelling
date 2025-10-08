@@ -43,7 +43,7 @@ object bioCHP_plant(std::vector<std::string> fuel_def, std::vector<double> Yj,
 
   // Check that there is sufficient heat available from Rankine cycle
   double sum_Qk = 0.0;
-  for (std::size_t nk = 0; nk < Qk.size(); nk++) sum_Qk = sum_Qk + Qk[nk];
+  for (std::size_t nk = 0; nk < Qk.size(); nk++) sum_Qk += Qk[nk];
 
   if (sum_Qk > 0.5 * (W_el / 0.2)) {
     std::cout << "There is not sufficient heat available from Rankine cycle to "
@@ -51,7 +51,7 @@ object bioCHP_plant(std::vector<std::string> fuel_def, std::vector<double> Yj,
               << std::endl;
     std::cout << "Reducing proportionally the heat demands" << std::endl;
     for (std::size_t nk = 0; nk < Qk.size(); nk++) {
-      Qk[nk] = Qk[nk] * (0.5 * (W_el / 0.2)) / sum_Qk;
+      Qk[nk] *= (0.5 * (W_el / 0.2)) / sum_Qk;
     }
   }
 

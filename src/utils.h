@@ -5,21 +5,6 @@
 #include <vector>
 
 /**
- * @brief Splits a string into a vector of substrings based on a delimiter
- * character.
- *
- * This function takes an input string and divides it into substrings wherever
- * the specified delimiter character occurs. The resulting substrings are
- * returned in a vector.
- *
- * @param str The input string to be divided.
- * @param c The delimiter character used to split the string.
- * @return std::vector<std::string> A vector containing the substrings resulting
- * from the split.
- */
-std::vector<std::string> divide_string(std::string str, char c);
-
-/**
  * @brief Constructs the full path to a database file located in the "Database"
  * directory
  *

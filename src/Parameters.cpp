@@ -144,14 +144,8 @@ std::vector<std::string> object::svct(std::string symb) {
  * @param val numerical value
  *
  */
-void object::fval_p(std::string symb, double val) {
-  if (divide_string(symb, '-').size() == 1) {
-    val_p(p, "prop", sys_type, sys_def, symb, val);
-  }
-  if (divide_string(symb, '-').size() == 2) {
-    val_p(p, divide_string(symb, '-')[0], sys_type, sys_def,
-          divide_string(symb, '-')[1], val);
-  }
+void object::fval_p(std::string symb, double val, std::string data_def) {
+  val_p(p, data_def, sys_type, sys_def, symb, val);
 }
 
 /**
@@ -163,13 +157,7 @@ void object::fval_p(std::string symb, double val) {
  *
  */
 void object::sval_p(std::string symb, std::string val) {
-  if (divide_string(symb, '-').size() == 1) {
-    str_p(p, "prop", sys_type, sys_def, symb, val);
-  }
-  if (divide_string(symb, '-').size() == 2) {
-    str_p(p, divide_string(symb, '-')[0], sys_type, sys_def,
-          divide_string(symb, '-')[1], val);
-  }
+  str_p(p, "prop", sys_type, sys_def, symb, val);
 }
 
 /**
@@ -180,13 +168,7 @@ void object::sval_p(std::string symb, std::string val) {
  * @param vct vector with numerical values
  */
 void object::vct_fp(std::string symb, std::vector<double> vct) {
-  if (divide_string(symb, '-').size() == 1) {
-    fvct_p(p, "prop", sys_type, sys_def, symb, vct);
-  }
-  if (divide_string(symb, '-').size() == 2) {
-    fvct_p(p, divide_string(symb, '-')[0], sys_type, sys_def,
-           divide_string(symb, '-')[1], vct);
-  }
+  fvct_p(p, "prop", sys_type, sys_def, symb, vct);
 }
 
 /**
@@ -197,13 +179,7 @@ void object::vct_fp(std::string symb, std::vector<double> vct) {
  * @param vct vector with string values
  */
 void object::vct_sp(std::string symb, std::vector<std::string> vct) {
-  if (divide_string(symb, '-').size() == 1) {
-    svct_p(p, "prop", sys_type, sys_def, symb, vct);
-  }
-  if (divide_string(symb, '-').size() == 2) {
-    svct_p(p, divide_string(symb, '-')[0], sys_type, sys_def,
-           divide_string(symb, '-')[1], vct);
-  }
+  svct_p(p, "prop", sys_type, sys_def, symb, vct);
 }
 
 std::string get_str_parameter(std::vector<parameter> &par, std::string sys_type,

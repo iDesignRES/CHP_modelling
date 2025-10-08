@@ -64,7 +64,7 @@ struct object {
   std::vector<double> vctp(std::string symb);
   std::string sp(std::string symb);
   std::vector<std::string> svct(std::string symb);
-  void fval_p(std::string symb, double val);
+  void fval_p(std::string symb, double val, std::string data_def = "prop");
   void sval_p(std::string symb, std::string val);
   void vct_fp(std::string symb, std::vector<double> vct);
   void vct_sp(std::string symb, std::vector<std::string> vct);
