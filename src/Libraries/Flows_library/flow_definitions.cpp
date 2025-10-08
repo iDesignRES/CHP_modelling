@@ -7,18 +7,35 @@
 
 #include "../../utils.h"
 
+/**
+ * @brief function to create species from id
+ * @param sid string with the identification name of the species in the database
+ */
 species::species(std::string sid) {
   id = sid;
   Y = 0.0;
   X = 0.0;
 }
 
+/**
+ * @brief function to create species from id and mass fraction Y
+ * @param sid string with the identification name of the species in the database
+ * @param sY double with the species mass fraction
+ */
 species::species(std::string sid, double sY) {
   id = sid;
   Y = sY;
   X = 0.0;
 }
 
+/**
+ * @brief function to create species from id and specified concentration
+ *
+ * @param sid string with the identification name of the species in the database
+ * @param def string with the type of concentration
+ * def = "Y" as mass fraction, "X" as mole fraction
+ * @param val double with concentration value
+ */
 species::species(std::string sid, double val, std::string def) {
   id = sid;
   X = 0.0;
@@ -41,6 +58,11 @@ std::size_t index_species(std::vector<species>& spc, std::string spc_id) {
   return static_cast<std::size_t>(-1);
 }
 
+/**
+ * @brief function to create a flow from def
+ *
+ * @param flw_def string with the definition of the flow in the database
+ */
 flow::flow(std::string flw_def) {
   def = flw_def;
   F = flow_parameters();
@@ -53,6 +75,12 @@ flow::flow(std::string flw_def) {
   }
 }
 
+/**
+ * @brief function to create a flow id and def
+ *
+ * @param flw_id string with the identification name of the flow
+ * @param flw_def string with the definition of the flow in the database
+ */
 flow::flow(std::string flw_id, std::string flw_def) {
   id = flw_id;
   def = flw_def;
@@ -221,6 +249,9 @@ void flow::interpret_molecules() {
   }
 }
 
+/**
+ * @brief function to initialize species parameters
+ */
 void flow::initialize_species(std::vector<species>& spc) {
   size_t n_spc = spc.size();
   if (n_spc > 0)
@@ -234,6 +265,11 @@ void flow::initialize_species(std::vector<species>& spc) {
     }
 }
 
+/**
+ * @brief function to import the data for a species
+ *
+ * @param spc_type = "molecule" or "atom"
+ */
 void species::get_species_data_(std::string spc_type) {
   P = properties();
   F = flow_parameters();
@@ -302,6 +338,12 @@ void species::get_species_data_(std::string spc_type) {
   }
 }
 
+/**
+ * @brief function to import the composition data of a flow from the database
+ *
+ * @param spc vector of species
+ * @param input string specifying the same of the flow
+ */
 void flow::get_flow_composition(std::vector<species>& spc, std::string input) {
   std::string file_path = get_database_path(flow_db);
   toml::table tbl = get_toml_table(file_path);
@@ -355,6 +397,10 @@ void flow::get_flow_composition(std::vector<species>& spc, std::string input) {
   }
 }
 
+/**
+ * @brief function to import the properties of a flow from the database
+ *
+ */
 void flow::get_flow_properties() {
   try {
     std::string file_path = get_database_path(flow_db);
@@ -384,6 +430,12 @@ void flow::get_flow_properties() {
   }
 }
 
+/**
+ * @brief function to import all data of a flow from the database
+ *
+ * @param input_def string specifying the name definition of the flow in the
+ * database
+ */
 void flow::get_flow_data(std::string input_def) {
   def = input_def;
 

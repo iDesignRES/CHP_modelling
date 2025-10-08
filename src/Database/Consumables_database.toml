@@ -14,21 +14,6 @@
     data_info = ""
     values = [0.31]
 
-    # SE_pellets_arbacore_spruce_stem
-    [[consumable.SE_pellets_arbacore_spruce_stem]]
-    data_def = "input"
-    data_id = "unit"
-    data_type = "str"
-    data_info = ""
-    values = ["kg"]
-
-    [[consumable.SE_pellets_arbacore_spruce_stem]]
-    data_def = "input"
-    data_id = "price"
-    data_type = "num"
-    data_info = ""
-    values = [50.0]
-
     # spruce_chips
     [[consumable.spruce_chips]]
     data_def = "input"

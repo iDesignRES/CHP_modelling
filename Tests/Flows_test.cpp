@@ -15,7 +15,7 @@ int main() {
     f[nf].F.M = 1.0;
     f[nf].F.T = 25.0;
     f[nf].F.P = 1.01325;
-    f[nf].calculate_flow("PT");
+    f[nf].calculate_flow();
     f[nf].print_flow();
   }
   f1.initialize_species(f1.i);

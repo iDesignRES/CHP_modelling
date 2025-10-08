@@ -109,9 +109,9 @@ struct species {
   species(std::string sid);
   species(std::string sid, double sY);
   species(std::string sid, double val, std::string def);
-  void calculate_refprop(std::string);
+  //void calculate_refprop(std::string);
   void get_species_data_(std::string);
-  void calculate_thermodynamic_properties();
+  //void calculate_thermodynamic_properties();
 };
 
 std::size_t index_species(std::vector<species> &spc, std::string spc_id);
@@ -198,25 +198,25 @@ struct flow {
   flow() {}
   void get_flow_data(std::string);
   void initialize_species(std::vector<species> &);
-  void get_flow_species(std::vector<species> &, std::string);
+  //void get_flow_species(std::vector<species> &, std::string);
   void get_flow_composition(std::vector<species> &, std::string);
   void get_flow_properties();
-  void get_flow_chemistry();
+  //void get_flow_chemistry();
   void interpret_molecules();
-  void mix_flows(flow &, flow &);
-  void flows_database(std::string);
-  void get_species_data();
-  void get_species_MW();
-  void define_flow_prop_data();
-  void calculate_flow(std::string);
+  //void mix_flows(flow &, flow &);
+  //void flows_database(std::string);
+  //void get_species_data_();
+  //void get_species_MW();
+  //void define_flow_prop_data();
+  void calculate_flow();
   void calculate_flow_composition();
-  void calculate_flow_properties(std::string);
-  void calculate_species_properties(std::string);
+  void calculate_flow_properties();
+  void calculate_species_properties();
   void calculate_flow_parameters();
   void calculate_solid_fuel();
-  void calculate_properties();
-  void calculate_thermodynamic_properties();
-  void calculate_MW();
+  //void calculate_properties();
+  //void calculate_thermodynamic_properties();
+  //void calculate_MW();
   void print_flow();
 };
 

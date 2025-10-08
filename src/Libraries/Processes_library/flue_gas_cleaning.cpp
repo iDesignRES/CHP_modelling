@@ -9,7 +9,7 @@
 void dry_scrubber_model(flow &in, flow &out, object &par) {
   in.F.T = par.fp("T_op");
   in.F.P = par.fp("P_op");
-  in.calculate_flow("PT");
+  in.calculate_flow();
 
   par.c.push_back(object("consumable", "lime"));
   int lime = par.ic("consumable", "lime");

@@ -33,7 +33,7 @@ void mix_same_type_flows(flow &f1, flow &f2, flow &f) {
  * @brief General function to calculate a flow
  *
  */
-void flow::calculate_flow(std::string state_def) {
+void flow::calculate_flow() {
   if (prop_data == "solid_fuel") {
     calculate_solid_fuel();
   }
@@ -41,7 +41,7 @@ void flow::calculate_flow(std::string state_def) {
   if (prop_data != "solid_fuel") {
     calculate_flow_composition();
     if (molec_def == "Y" || molec_def == "X") {
-      calculate_flow_properties(state_def);
+      calculate_flow_properties();
     }
     calculate_flow_parameters();
   }
@@ -259,11 +259,10 @@ void flow::calculate_flow_composition() {
 /**
  * @brief Function to calculate flow properties
  *
- * @param state_def definition of thermodynamic state variables
  */
-void flow::calculate_flow_properties(std::string state_def) {
+void flow::calculate_flow_properties() {
   if (prop_data == "NIST") {
-    calculate_species_properties(state_def);
+    calculate_species_properties();
 
     P.cp = 0.0;
     P.h = 0.0;
@@ -282,9 +281,8 @@ void flow::calculate_flow_properties(std::string state_def) {
 /**
  * @brief Function to calculate species properties
  *
- * @param state_def definition of thermodynamic state variables
  */
-void flow::calculate_species_properties(std::string state_def) {
+void flow::calculate_species_properties() {
   for (std::size_t n = 0; n < j.size(); n++) {
     j[n].F.T = F.T;
     j[n].F.P = F.P;

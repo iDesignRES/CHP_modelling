@@ -9,7 +9,6 @@
 
 /**
  * @brief Object initializing functions
- *
  * @param type string defining the type of object
  * @param def string defining the name of object
  * @param file string defining the name of the file with object's data
@@ -21,6 +20,11 @@ object::object(std::string type, std::string def, std::string file) {
   get_parameters(p, type, def, file);
 }
 
+/**
+ * @brief Object initializing function
+ * @param type string defining the type of object
+ * @param def string defining the name of object
+ */
 object::object(std::string type, std::string def) {
   sys_type = type;
   sys_def = def;

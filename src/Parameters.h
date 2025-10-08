@@ -5,8 +5,26 @@
 #include <vector>
 
 /**
+ * @struct parameter
  * @brief Structure defining a parameter
- *
+ * @var parameter::sys_type
+ * Type of system where parameter is defined (e.g., plant)
+ * @var parameter::sys_def
+ * Defined name of system where parameter is defined (e.g., bioCHP)
+ * @var parameter::data_def
+ * Defined type of parameter (e.g., input, prop, output)
+ * @var parameter::data_id
+ * Identification name of parameter (e.g., W_el, Q, C_pi)
+ * @var parameter::data_type
+ * Type of parameter value ("num" = numerical, "str" = string)
+ * @var parameter::data_info
+ * String with information about parameter (e.g. a reference)
+ * @var parameter::str
+ * vector of string specifications
+ * @var parameter::vct
+ * vector of numerical specifications
+ * @var parameter::pos
+ * actual position in vct
  */
 struct parameter {
  public:
@@ -18,8 +36,18 @@ struct parameter {
 };
 
 /**
+ * @struct object
  * @brief Structure defining a object
- *
+ * @var object::sys_type
+ * Type of system (e.g., plant)
+ * @var object::sys_def
+ * Name of system where parameter is defined (e.g., bioCHP)
+ * @var object::sys_file
+ * Name of file where parameter is found
+ * @var object::c
+ * Vector of object components
+ * @var object::p
+ * Vector of parameters defining the object
  */
 struct object {
  public:

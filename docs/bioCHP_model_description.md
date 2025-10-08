@@ -61,13 +61,21 @@ The capacity of the bioCHP plant is defined in terms of the total power output f
 The model considers two sold residues, i.e., bottom ash from the boiler and residue from flue gas cleaning containing fly ash and consumed lime.
 
 Important features of the model include:
-
 - The feedstock is defined as a mixture of several types of *Biomass* resources.
 - Multiple heat demands are specified by thermal power, temperature, and pressure for **district heating** (each through a heat exchanger) or as **direct steam export**.
 
 The module is implemented as a nonlinear C++ model linked to `EnergyModelsX` through a function that calculates both the **costs** (Investment, total and variable operating expenses) and the required **mass flow rate of each feedstock** as outputs, based on the specified *electric power production*, *heat demands* (thermal power capacity and return/supply temperatures) and **moisture content of each biomass feedstock** as inputs. 
 
 This sampling routine allows a tight integration of the model within the `EnergyModelsX` framework.
+
+Important functionalities of the module include:
+
+- **Flows** are implemented as the so-called `flow` structure, defined in `src/Flows/Flow_definitions.h`, which contain identifying strings, atomic and molecular composition, material and energy flow rates, and physical and thermodynamic properties. 
+- **Atomic and molecular species** are also implemented as the so-called `species` structure, defined in `src/Flows/Flow_definitions.h`, which contains identifying strings and physical or thermodynamic properties.       
+-	**Physical systems** such as equipment, systems or plants are defined as so-called `objects`. Objects are implemented as a structure, defined in `src/Parameters.h`, containing identifying strings and a set (vector) of specifying `parameters` for the object. Each `parameter` is also implemented as a structure, defined in `src/Parameters.h`, containing identifying strings, two vectors with numerical or string values of the parameter, and a integer pointing to a position inside the vectors. Each object can contain also other components as objects.
+- **Consumables and utilities** as also implemented as objects.        
+- **Processes** as implemented through functions. Inputs to each function can be flows and an object (with input parameters) representing the physical system where the process takes place. Output from the process function can be calculated output flows and calculated output parameters within the representing object. 
+-	The **cost module** `src/Cost.cpp` evaluates CAPEX of a physical system and variable OPEX of a consumable or utility using their representing object as input. 
 
 \section back-bio_CHP-par Parameters
 
@@ -250,7 +258,7 @@ Using the calculated value for \f$ \dot{H}_F \f$, other material and energy flow
 
 \subsection back-bio_CHP-math-CAPEX CAPEX
 
-The installed cost of equipment \f$ k \f$ is calculated from
+The installed cost of equipment \f$ k \f$ is calculated from [1]
 
 \f[
 C_{eq,k} = C_{P,k}^B \left(\frac{S_k}{S_k^B}\right)^{n_k} \left(\frac{I}{I_B}\right) f_{inst,k},
@@ -260,13 +268,13 @@ where \f$ C_{P,k}^B \f$ is the purchase cost for a base-case equipment size \f$ 
 
 The following equipment cost parameters are used:
 
-| Equipment                         | `S_k^B` | `C_{P,k}^B` (M\$) | `f_{inst,k}` | `n_k` | Base year |
-|-----------------------------------|--------:|------------------:|-------------:|------:|----------:|
-| Biomass storage and preparation   | 25 t/h  | 5.4               | 2.1          | 0.5   | 2007      |
-| Biomass boiler                    | 25 t/h  | 7.9               | 2.1          | 0.7   | 2007      |
-| Flue gas cleaning                 | 67 t/h  | 0.18              | 2.7          | 0.7   | 2007      |
-| Steam turbines and condenser      | 1500 MW | 40.5              | 1.3          | 0.7   | 2006      |
-| Heat Exchanger (heat export)      | 100 m²  | 0.086             | 2.8          | 0.71  | 2012      |
+| Equipment                         | `S_k^B` | `C_{P,k}^B` (M\$) | `f_{inst,k}` | `n_k` | Base year | ref. |
+|-----------------------------------|--------:|------------------:|-------------:|------:|----------:|-----:|
+| Biomass storage and preparation   | 25 t/h  | 5.4               | 2.1          | 0.5   | 2007      | [2]  |
+| Biomass boiler                    | 25 t/h  | 7.9               | 2.1          | 0.7   | 2007      | [2]  |
+| Flue gas cleaning                 | 67 t/h  | 0.18              | 2.7          | 0.7   | 2007      | [3]  |
+| Steam turbines and condenser      | 1500 MW | 40.5              | 1.3          | 0.7   | 2006      | [4]  |
+| Heat Exchanger (heat export)      | 100 m²  | 0.086             | 2.8          | 0.71  | 2008      | [1]  |
 
 The total equipment cost is then given by
 
@@ -274,13 +282,13 @@ The total equipment cost is then given by
 C_{eq} = \sum_k C_{eq,k}
 \f]
 
-The total capital expenditures (CAPEX) is evaluated in terms of the total permanent investment \f$ C_{inv} \f$ from:
+The total capital expenditures (CAPEX) is evaluated in terms of the total permanent investment \f$ C_{inv} \f$ adapting the factoral Method by Peters et al. [5] from :
 
 \f[
 C_{inv} = \sum_k C_{eq,k}\,(1+f_{pip}+f_{el}+f_{I\&C})\Big[(1+f_{site}+f_{building})+f_{com}\Big](1+f_{cont,k}+f_{eng,k})(1+f_{dev})
 \f]
 
-where \f$ C_{eq,k} \f$ denotes the installed cost of equipment and the \f$ f_i \f$ are cost parameters defined as follows:
+where \f$ C_{eq,k} \f$ denotes the installed cost of equipment and the \f$ f_i \f$ are cost parameters defined [6] as follows:
 - \f$ f_{pip} = 0.065 \f$ for interconnecting piping between equipment,
 - \f$ f_{el} = 0.05 \f$ for the plant electric system,
 - \f$ f_{I\&C} = 0.05 \f$ for the instrumentation and control system,
@@ -387,4 +395,37 @@ Here, the subscript \f$ k \f$ denotes the personnel categories and the parameter
 
 \note Number of employees:
 The number of employees depends on the size of the plant. The chosen distinction is based on the mass flow of biomass into the plant \f$ \dot{M}_F \f$, with a change in staffing when the flow exceeds 10 t/h.
+
+\section input_data Input data
+
+All input data used by the bioCHP plant modules is implenented using TOML format [ref] within the 'src/Database' Directory. Values for all physical properties are defined in SI units.      
+
+The model includes the following input data:
+
+1. Input parameters for the bioCHP plant and subcomponents
+2. Flows data, including flow class and prop_data
+3. Molecules data, including composition (chemical formula) and molecular weight (kg/mol)   
+4. Atoms data, including atomic weight (kg/mol)
+4. Capital cost data, including parameters
+
+
+\section references References
+
+[] https://toml.io/en/
+
+[1] Woods, D. R., Rules of Thumb. Rules of Thumb in Engineering Practice. Wiley-VCH: 2008
+
+[2] Tomberlin, G. (2014). Wood Pellet-Fired Biomass Boiler Project at the Ketchikan Federal Building. National Renewable Energy Laboratory (NREL). https://doi.org/10.2172/1171779
+
+[3] J. Stubenvoll, S. Böhmer and I. Szednyj, "State of the Art for Waste Incineration Plants," Federal Ministry of Agriculture and Forestry, Environment and Water Management, Vienna 2002. ISBN 3-902 338-13-X 
+
+[4] M. C. Woods, P. J. Capicotto, J. L. Haslbeck, N. J. Kuehn, M. Matuszewski, L. L. Pinkerton, M. D. Rutkowski, R. L.
+Schoff, V. Vaysman, Cost and Performance Baseline for Fossil Energy Plants. Volume 1: Bituminous coal and natural
+gas to electricity. Report DOE/NETL-2007/1281, 2007. URL: https://www.nrc.gov/docs/ML1217/ML12170A423.pdf.
+
+[5] Peters, M. S.; Timmerhaus, K. D.; West, R. E.; Timmerhaus, K.; West, R., Plant design and economics for chemical engineers, Vol. 4.. 5th ed., McGraw-Hill New York: 2003,
+
+[6] Ereev, S..; Patel, M. Recommended methodology and tool for cost estimates at micro level for new technologies. Utrecht, October 2011.
+http://www.prosuite.org/c/document_library/get_file?uuid=0efb1401-9854-4b92-8741-b0955c387cfa&groupId=12772
+
 

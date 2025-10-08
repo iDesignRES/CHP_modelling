@@ -4,17 +4,26 @@
 #include "../Flows_library/flow_definitions.h"
 
 /**
+ * @struct steam_turbine_parameters
  * @brief Structure with steam turbine parameters
- *
- * @param "id" = string, identifying name
- * @param "Mi" = input steam mass flow rate (kg/s)
- * @param "Pi" = input steam pressure (bar)
- * @param "Ti" = input steam temperature (deg.C)
- * @param "Po" = output steam pressure (bar)
- * @param "mu_isent" = isentropic efficiency (-)
- * @param "W" = output mechanical power (MW)
- * @param "Pext" = vector with extractions pressure (bar)
- * @param "Mext" = vector with extractions flows (kg/s)
+ * @var steam_turbine_parameters::id
+ * String, identifying name
+ * @var steam_turbine_parameters::Mi 
+ * input steam mass flow rate (kg/s)
+ * @var steam_turbine_parameters::Pi
+ * input steam pressure (bar)
+ * @var steam_turbine_parameters::Ti
+ * input steam temperature (deg.C)
+ * @var steam_turbine_parameters::Po
+ * output steam pressure (bar)
+ * @var steam_turbine_parameters::mu_isent
+ * isentropic efficiency (-)
+ * @var steam_turbine_parameters::W
+ * output mechanical power (MW)
+ * @var steam_turbine_parameters::Pext
+ * vector with extractions pressure (bar)
+ * @var steam_turbine_parameters::Mext
+ * vector with extractions flows (kg/s)
  */
 struct steam_turbine_parameters {
  public:

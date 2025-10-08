@@ -5,6 +5,13 @@
 #include "../../Cost.h"
 #include "../Thermodynamic_library/Library_Water_Correlations.h"
 
+/**
+ * @brief function to create steam turbine parameters
+ *
+ * @param sys_type = type of system
+ * @param sys_def = Name of system
+ * @param &par = vector of parameters
+ */
 void steam_turbine_parameters::assign_parameter_values(
     std::string sys_type, std::string sys_def, std::vector<parameter> &par) {
   Po = get_num_parameter(par, sys_type, sys_def, "Po");
@@ -15,7 +22,7 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
   ST.Mi = in.F.M;
   ST.Ti = in.F.T;
   ST.Pi = in.F.P;
-  in.calculate_flow_properties("PT");
+  in.calculate_flow_properties();
 
   const double eff_el = 0.9;  // assumed value
 
@@ -228,11 +235,11 @@ void rankine_cycle(object &par) {
   sat_cond = flow("sat_cond", "water");
   sat_cond.F.T = Tsat - 5.0;
   sat_cond.F.P = par.fp("P_stm");
-  sat_cond.calculate_flow_properties("PT");
+  sat_cond.calculate_flow_properties();
   sat_stm = flow("sat_stm", "water");
   sat_stm.F.P = par.fp("P_stm");
   sat_stm.F.T = Tsat + 5.0;
-  sat_stm.calculate_flow_properties("PT");
+  sat_stm.calculate_flow_properties();
 
   steam = flow("steam", "water");
   steam.F.P = par.fp("P_stm");
