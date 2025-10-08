@@ -1,5 +1,3 @@
-#include <iomanip>  // for setprecision
-
 #include <cstddef>
 #include <iostream>
 

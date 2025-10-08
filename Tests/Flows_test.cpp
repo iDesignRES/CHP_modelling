@@ -1,5 +1,4 @@
 #include <cstddef>
-#include <iomanip>  // for setprecision
 #include <iostream>
 #include <string>
 #include <vector>
@@ -19,12 +18,6 @@ int main() {
     f[nf].print_flow();
   }
   f1.initialize_species(f1.i);
-
-  /*flow f4, f5;
-  f4.mix_flows(f[0],f[1]);
-  f4.print_flow();
-  f5.mix_flows(f[0],f[2]);
-  f5.print_flow();*/
 
   return 0;
 }
