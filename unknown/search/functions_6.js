@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['sp_0',['sp',['../structobject.html#a19129b16b121b3b67b88285eae8d6ab6',1,'object']]],
-  ['sval_5fp_1',['sval_p',['../structobject.html#afcec4fb9634fa680487fb6c78e61342d',1,'object']]],
-  ['svct_2',['svct',['../structobject.html#a800ed888078dadacfc731545aa85dfb7',1,'object']]]
+  ['object_0',['object',['../structobject.html#a9cbc7406ac6078e10743daf3619d0288',1,'object::object(std::string type, std::string def, std::string file)'],['../structobject.html#a4ae6df05076ec7566d15034068248f21',1,'object::object(std::string type, std::string def)']]]
 ];

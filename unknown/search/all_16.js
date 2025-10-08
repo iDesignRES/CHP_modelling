@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['y_0',['y',['../structspecies.html#aa42301f1e051df0c44b38567a8ba7411',1,'species::Y'],['../structphase.html#aad95d77854f686be459b8f595a3a7d70',1,'phase::Y']]]
+  ['x_0',['x',['../structspecies.html#a50b42f308364ca62cca1f60a9deb479b',1,'species::X'],['../structphase.html#ab5a303c6af737a1b293f5c527625b826',1,'phase::X']]]
 ];

@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['x_0',['x',['../structspecies.html#a50b42f308364ca62cca1f60a9deb479b',1,'species::X'],['../structphase.html#ab5a303c6af737a1b293f5c527625b826',1,'phase::X']]]
+  ['w_0',['W',['../structsteam__turbine__parameters.html#aa727f41bcadc16774996435a623c869e',1,'steam_turbine_parameters']]],
+  ['w_5fel_1',['W_el',['../structequipment.html#ab98189fa7767093fdfe4ffc36d09fcf5',1,'equipment']]],
+  ['windows_20setup_2',['Quick start - Linux and Windows Setup',['../index.html#autotoc_md5',1,'']]]
 ];

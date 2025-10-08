@@ -5,9 +5,9 @@ var annotated_dup =
     [ "flow_parameters", "structflow__parameters.html", "structflow__parameters" ],
     [ "material", "structmaterial.html", "structmaterial" ],
     [ "object", "structobject.html", "structobject" ],
-    [ "parameter", "structparameter.html", null ],
+    [ "parameter", "structparameter.html", "structparameter" ],
     [ "phase", "structphase.html", "structphase" ],
     [ "properties", "structproperties.html", "structproperties" ],
     [ "species", "structspecies.html", "structspecies" ],
-    [ "steam_turbine_parameters", "structsteam__turbine__parameters.html", null ]
+    [ "steam_turbine_parameters", "structsteam__turbine__parameters.html", "structsteam__turbine__parameters" ]
 ];

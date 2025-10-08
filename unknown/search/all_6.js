@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['h_0',['h',['../structflow__parameters.html#ad77ad51e14e53133a2e936e08a1bc9cc',1,'flow_parameters::H'],['../structproperties.html#a453f59bfb8c034c468d0cd2166aba7bb',1,'properties::h']]],
-  ['hf_1',['hf',['../structproperties.html#a590f12b926fc94e8e62b3434188db775',1,'properties::hf'],['../structflow__parameters.html#ae47a1d002b31d538df382c06c11d7f5b',1,'flow_parameters::Hf']]],
-  ['hhv_2',['HHV',['../structproperties.html#afdb55529e7663bc13f9bfd02bfbea2da',1,'properties']]],
-  ['hhv_5fdry_3',['HHV_dry',['../structproperties.html#a6596e6b4aa92dc3bc4a8b3c8b09d574b',1,'properties']]],
-  ['ht_4',['ht',['../structproperties.html#acfccfae28a0dbfa89829c8696322feaa',1,'properties::ht'],['../structflow__parameters.html#a3c48a3043f5941a6eccda92d8b79332d',1,'flow_parameters::Ht']]],
-  ['hvap_5',['hVap',['../structproperties.html#abbaa67e189a7144ebc5906f997909b68',1,'properties']]]
+  ['get_5fflow_5fcomposition_0',['get_flow_composition',['../structflow.html#ac6ec3ebb9a36023c82faeb7f9287d882',1,'flow']]],
+  ['get_5fflow_5fdata_1',['get_flow_data',['../structflow.html#a5eba2033cbc12f0e850104c1d8653d76',1,'flow']]],
+  ['get_5fflow_5fproperties_2',['get_flow_properties',['../structflow.html#afcbe5fbc14c5a6222146c26a9b3e3010',1,'flow']]],
+  ['get_5fspecies_5fdata_5f_3',['get_species_data_',['../structspecies.html#a7e22f577963ca1b3d60cdf2cd084c9dd',1,'species']]]
 ];

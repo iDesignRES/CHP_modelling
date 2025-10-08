@@ -1,6 +1,7 @@
 var structobject =
 [
     [ "object", "structobject.html#a9cbc7406ac6078e10743daf3619d0288", null ],
+    [ "object", "structobject.html#a4ae6df05076ec7566d15034068248f21", null ],
     [ "bp", "structobject.html#a8147ea9de454ab6a18ca9067da806c73", null ],
     [ "fp", "structobject.html#a2199ce9303705a3becfda5d6b59b6f68", null ],
     [ "fval_p", "structobject.html#a3848271264252c101c840602b9c995c1", null ],
@@ -11,5 +12,10 @@ var structobject =
     [ "svct", "structobject.html#a800ed888078dadacfc731545aa85dfb7", null ],
     [ "vct_fp", "structobject.html#ae7e7d9025bc4e97bc54df88661dd6dee", null ],
     [ "vct_sp", "structobject.html#a5c32dc86b9c1f4fb84345d91c926f98a", null ],
-    [ "vctp", "structobject.html#a43cc6be247e29bd104ed6c1469da556f", null ]
+    [ "vctp", "structobject.html#a43cc6be247e29bd104ed6c1469da556f", null ],
+    [ "c", "structobject.html#a11ffd7414dc8f25dda249c4eae7eaa5f", null ],
+    [ "p", "structobject.html#ad291d5873da1e65843294f90d7218937", null ],
+    [ "sys_def", "structobject.html#ae3e8a164a0420676f8050664a6205a77", null ],
+    [ "sys_file", "structobject.html#ac941438fe23300714ff9111849cc88b1", null ],
+    [ "sys_type", "structobject.html#a6bafb6682b1b98e58bc4d1375912c535", null ]
 ];

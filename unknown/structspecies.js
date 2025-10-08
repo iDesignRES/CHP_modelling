@@ -1,5 +1,9 @@
 var structspecies =
 [
+    [ "species", "structspecies.html#a77f4e6f011f2550f8cafb279eb8cf1be", null ],
+    [ "species", "structspecies.html#aa05c4a26b287cac6e1ba6b6577661125", null ],
+    [ "species", "structspecies.html#af09e1e6251469d2ae662f88e4cc28349", null ],
+    [ "get_species_data_", "structspecies.html#a7e22f577963ca1b3d60cdf2cd084c9dd", null ],
     [ "def", "structspecies.html#aa5b563f2cc0e3aa8bd0891e108838476", null ],
     [ "F", "structspecies.html#a56338b2da9e20e6327fe9ee328d308fa", null ],
     [ "formula", "structspecies.html#a00c9bc1cff1f961106cbbd2613cb2e71", null ],
