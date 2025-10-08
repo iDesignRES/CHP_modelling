@@ -262,3 +262,110 @@
     data_type = "num"
     data_info = ""
     values = [1.35]
+
+[consumable]
+    # lime
+    [[consumable.lime]]
+    data_def = "input"
+    data_id = "unit"
+    data_type = "str"
+    data_info = ""
+    values = ["kg"]
+
+    [[consumable.lime]]
+    data_def = "input"
+    data_id = "price"
+    data_type = "num"
+    data_info = ""
+    values = [0.31]
+
+    # spruce_chips
+    [[consumable.spruce_chips]]
+    data_def = "input"
+    data_id = "unit"
+    data_type = "str"
+    data_info = ""
+    values = ["kg"]
+
+    [[consumable.spruce_chips]]
+    data_def = "input"
+    data_id = "price"
+    data_type = "num"
+    data_info = ""
+    values = [50.0]
+
+    # spruce_stem
+    [[consumable.spruce_stem]]
+    data_def = "input"
+    data_id = "unit"
+    data_type = "str"
+    data_info = ""
+    values = ["kg"]
+
+    [[consumable.spruce_stem]]
+    data_def = "input"
+    data_id = "price"
+    data_type = "num"
+    data_info = ""
+    values = [70.0]
+
+    # spruce_TandB
+    [[consumable.spruce_TandB]]
+    data_def = "input"
+    data_id = "unit"
+    data_type = "str"
+    data_info = ""
+    values = ["kg"]
+
+    [[consumable.spruce_TandB]]
+    data_def = "input"
+    data_id = "price"
+    data_type = "num"
+    data_info = ""
+    values = [30.0]
+
+    # spruce_bark
+    [[consumable.spruce_bark]]
+    data_def = "input"
+    data_id = "unit"
+    data_type = "str"
+    data_info = ""
+    values = ["kg"]
+
+    [[consumable.spruce_bark]]
+    data_def = "input"
+    data_id = "price"
+    data_type = "num"
+    data_info = ""
+    values = [30.0]
+
+    # birch_stem
+    [[consumable.birch_stem]]
+    data_def = "input"
+    data_id = "unit"
+    data_type = "str"
+    data_info = ""
+    values = ["kg"]
+
+    [[consumable.birch_stem]]
+    data_def = "input"
+    data_id = "price"
+    data_type = "num"
+    data_info = ""
+    values = [70.0]
+
+[solid_residue]
+    # scrubber_cake
+    [[solid_residue.scrubber_cake]]
+    data_def = "input"
+    data_id = "unit"
+    data_type = "str"
+    data_info = ""
+    values = ["kg"]
+
+    [[solid_residue.scrubber_cake]]
+    data_def = "input"
+    data_id = "price"
+    data_type = "num"
+    data_info = ""
+    values = [0.0706]

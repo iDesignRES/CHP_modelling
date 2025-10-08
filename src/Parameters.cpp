@@ -28,14 +28,9 @@ object::object(std::string type, std::string def, std::string file) {
 object::object(std::string type, std::string def) {
   sys_type = type;
   sys_def = def;
-  std::string file = "";
-  if (type == "equipment")
-    file = get_database_path("Equipment_database.toml");
-  else if (type == "consumable" || type == "solid_residue")
-    file = get_database_path("Consumables_database.toml");
+  sys_file = get_database_path("cost_database.toml");
 
-  sys_file = file;
-  if (!file.empty()) get_parameters(p, type, def, file);
+  if (!sys_file.empty()) get_parameters(p, type, def, sys_file);
 }
 
 /**
