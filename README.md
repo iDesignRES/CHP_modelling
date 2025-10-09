@@ -122,27 +122,6 @@ Following the above comands, the tests can be run with
 ctest -C Release
 ```
 
-### Debugging
-
-For the Debug compilation option (instead of Release) you need to install with
-
-```bash
-conan install .. --output-folder=. --build=missing -s build_type=Debug -s compiler.cppstd=17 -s arch=x86_64
-```
-
-before you compile and build the project using
-
-```bash
-cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_TOOLCHAIN_FILE="${PWD}/conan_toolchain.cmake"
-cmake --build . --config Debug
-```
-
-which then enables testing through
-
-```bash
-ctest -C Debug
-```
-
 ## Project Funding
 
 The development of `bioCHP_plant` was funded by the European Union’s Horizon Europe research and innovation programme in the project [iDesignRES](https://idesignres.eu/) under grant agreement [101095849](https://doi.org/10.3030/101095849).
