@@ -122,10 +122,8 @@ void flow::interpret_molecules() {
           pos1 += 2;
         }
         if (molec_ID[pos1] == '+' || molec_ID[pos1] == '-') {
-          if (molec_ID[pos1 + 1] >= '1' && molec_ID[pos1 + 1] <= '9')
-            break;
-          if (pos1 == j[n].formula.length() - 1)
-            break;
+          if (molec_ID[pos1 + 1] >= '1' && molec_ID[pos1 + 1] <= '9') break;
+          if (pos1 == j[n].formula.length() - 1) break;
         }
 
         // finding a match in the atoms list
