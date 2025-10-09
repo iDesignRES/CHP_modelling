@@ -140,6 +140,7 @@ std::vector<std::string> object::svct(std::string symb) {
  *
  * @param symb parameter name to populate
  * @param val numerical value
+ * @param data_def type of parameter (e.g., input, prop, output)
  *
  */
 void object::fval_p(std::string symb, double val, std::string data_def) {
