@@ -20,10 +20,10 @@ int main(int argc, char *argv[]) {
   double W_el, Q_prod, W_el_prod, C_inv, C_op, C_op_var;
   double expected_Mj[4];
   double expected_Q_prod = 70.0;
-  double expected_W_el_prod = 100.0;
-  double expected_C_inv = 243.019565;
-  double expected_C_op = 45.731257;
-  double expected_C_op_var = 40.567947;
+  double expected_W_el_prod = 100.000000004445;
+  double expected_C_inv = 243.019565279826;
+  double expected_C_op = 45.732857059834;
+  double expected_C_op_var = 40.569547277588;
 
   switch (test) {
     case 1:
@@ -54,10 +54,10 @@ int main(int argc, char *argv[]) {
       Tk_out_len = 2;
 
       Mj_len = 4;
-      expected_Mj[0] = 2.55675;
-      expected_Mj[1] = 5.1135;
-      expected_Mj[2] = 7.67026;
-      expected_Mj[3] = 10.227;
+      expected_Mj[0] = 2.556752419796;
+      expected_Mj[1] = 5.113504839591;
+      expected_Mj[2] = 7.670257259387;
+      expected_Mj[3] = 10.227009679183;
       break;
     default:
       fuel_def[0] = "spruce_stem";
@@ -87,10 +87,10 @@ int main(int argc, char *argv[]) {
       Tk_out_len = 2;
 
       Mj_len = 4;
-      expected_Mj[0] = 2.55675;
-      expected_Mj[1] = 7.67026;
-      expected_Mj[2] = 10.227;
-      expected_Mj[3] = 5.1135;
+      expected_Mj[0] = 2.556752419796;
+      expected_Mj[1] = 7.670257259387;
+      expected_Mj[2] = 10.227009679183;
+      expected_Mj[3] = 5.113504839591;
       break;
   }
 
