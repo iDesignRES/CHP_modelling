@@ -129,21 +129,6 @@ void print_parameter(parameter &p);
 void print_parameters(object &obj);
 
 /**
- * @brief function to populate a vector of parameters with a input string
- * parameter
- *
- * @param par existing vector of parameters
- * @param sys_type system type of the parameter to look for
- * @param sys_def system name of the parameter to look for
- * @param data_type type of parameter: numerical or string
- * @param data_id parameter name to populate
- *
- */
-void str_p(std::vector<parameter> &par, std::string data_def,
-           std::string sys_type, std::string sys_def, std::string data_id,
-           std::string val);
-
-/**
  * @brief function to transfer a parameter between objects
  *
  * @param symb parameter name to populate

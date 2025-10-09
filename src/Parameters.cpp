@@ -372,30 +372,6 @@ void print_parameters(object &obj) {
   }
 }
 
-void str_p(std::vector<parameter> &par, std::string data_def,
-           std::string sys_type, std::string sys_def, std::string data_id,
-           std::string val) {
-  bool found = false;
-  for (std::size_t np = 0; np < par.size(); np++) {
-    if (par[np].sys_type == sys_type && par[np].sys_def == sys_def &&
-        par[np].data_id == data_id) {
-      par[np].str.push_back(val);
-      par[np].pos = par[np].str.size() - 1;
-      found = true;
-    }
-  }
-  if (found == false) {
-    parameter p;
-    p.data_def = data_def;
-    p.sys_type = sys_type;
-    p.sys_def = sys_def;
-    p.data_id = data_id;
-    p.data_type = "str";
-    p.str.push_back(val);
-    par.push_back(p);
-  }
-}
-
 void transfer_parameter(std::string symb, object from, object &to) {
   to.p.push_back(from.p[from.ip(symb)]);
 }
