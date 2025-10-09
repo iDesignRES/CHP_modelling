@@ -1,4 +1,27 @@
 var searchData=
 [
-  ['k_0',['k',['../structproperties.html#ad4a06a78f9b151383b72491a20a5c688',1,'properties::k'],['../structphase.html#a66dc8b9b92abac0eb12099b7de7585f1',1,'phase::k'],['../structflow.html#a5c520729ce3dc8105928d1771824d104',1,'flow::k']]]
+  ['c_0',['c',['../structphase.html#ab5643aea6a3d7c1d016e4b0328c1c857',1,'phase::C'],['../structobject.html#a11ffd7414dc8f25dda249c4eae7eaa5f',1,'object::c']]],
+  ['c_5fannual_1',['C_annual',['../structmaterial.html#a3cee06498726fea4d9b09ad4965c7ae9',1,'material']]],
+  ['c_5fmaint_2',['C_maint',['../structequipment.html#adce856bee601433cd29a1f46bf807a0d',1,'equipment']]],
+  ['calculate_5fflow_3',['calculate_flow',['../structflow.html#a99894f9fbac8ddd83345749123b08fa5',1,'flow']]],
+  ['calculate_5fflow_5fcomposition_4',['calculate_flow_composition',['../structflow.html#a9ebf1550fe17187ec021f30809a65730',1,'flow']]],
+  ['calculate_5fflow_5fparameters_5',['calculate_flow_parameters',['../structflow.html#a44fdd76dc1f237c4daf08be5125eabcb',1,'flow']]],
+  ['calculate_5fflow_5fproperties_6',['calculate_flow_properties',['../structflow.html#a0bedb67b7d81fde367a4caf0d109dba2',1,'flow']]],
+  ['calculate_5fsolid_5ffuel_7',['calculate_solid_fuel',['../structflow.html#af547bab0b5c03516afd2b2893e4d6fe0',1,'flow']]],
+  ['calculate_5fspecies_5fproperties_8',['calculate_species_properties',['../structflow.html#ab9626c48dc519e568f8cea3a99b8a8f9',1,'flow']]],
+  ['capex_9',['CAPEX',['../detailed_model_documentation.html#back-bio_CHP-math-CAPEX',1,'']]],
+  ['case_10',['Build and run minimal viable case',['../index.html#autotoc_md7',1,'']]],
+  ['changes_11',['Step 4: Make Changes',['../md_docs_2contribute.html#autotoc_md19',1,'']]],
+  ['checkout_20a_20new_20branch_12',['Step 3: Checkout a New Branch',['../md_docs_2contribute.html#autotoc_md18',1,'']]],
+  ['chp_5fmodelling_13',['Contribute to CHP_modelling',['../md_docs_2contribute.html',1,'']]],
+  ['cls_14',['cls',['../structflow.html#a2c580f311a8e066dcc985de9a61e834d',1,'flow']]],
+  ['contribute_20to_20chp_5fmodelling_15',['Contribute to CHP_modelling',['../md_docs_2contribute.html',1,'']]],
+  ['core_20assumptions_16',['Core assumptions',['../index.html#autotoc_md3',1,'']]],
+  ['coverage_20reccomended_20if_20altered_17',['Step 6: Tests coverage (reccomended if altered)',['../md_docs_2contribute.html#autotoc_md21',1,'']]],
+  ['cp_18',['cp',['../structproperties.html#ac937ab82137dae1512d91cf84ad7c477',1,'properties']]],
+  ['cpi_19',['Cpi',['../structequipment.html#a72e51212571b09c9434a06cee644270d',1,'equipment']]],
+  ['create_20a_20pull_20request_20',['Step 8: Create a Pull Request',['../md_docs_2contribute.html#autotoc_md23',1,'']]],
+  ['create_20an_20issue_21',['Step 1: Create an Issue',['../md_docs_2contribute.html#autotoc_md16',1,'']]],
+  ['creating_20an_20issue_22',['Creating an Issue',['../md_docs_2contribute.html#autotoc_md14',1,'']]],
+  ['credits_23',['CREDITS',['../md_src_2CREDITS.html',1,'']]]
 ];

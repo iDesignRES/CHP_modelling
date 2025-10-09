@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['object_0',['object',['../structobject.html',1,'object'],['../structobject.html#a9cbc7406ac6078e10743daf3619d0288',1,'object::object(std::string type, std::string def, std::string file)'],['../structobject.html#a4ae6df05076ec7566d15034068248f21',1,'object::object(std::string type, std::string def)']]],
-  ['of_20the_20model_1',['Purpose of the model',['../index.html#autotoc_md1',1,'']]]
+  ['get_5fflow_5fcomposition_0',['get_flow_composition',['../structflow.html#ac6ec3ebb9a36023c82faeb7f9287d882',1,'flow']]],
+  ['get_5fflow_5fdata_1',['get_flow_data',['../structflow.html#a5eba2033cbc12f0e850104c1d8653d76',1,'flow']]],
+  ['get_5fflow_5fproperties_2',['get_flow_properties',['../structflow.html#afcbe5fbc14c5a6222146c26a9b3e3010',1,'flow']]],
+  ['get_5fspecies_5fdata_5f_3',['get_species_data_',['../structspecies.html#a7e22f577963ca1b3d60cdf2cd084c9dd',1,'species']]]
 ];

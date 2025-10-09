@@ -1,4 +1,10 @@
 var searchData=
 [
-  ['j_0',['j',['../structphase.html#aeb4a39b276f863e5792b8c81be386903',1,'phase::j'],['../structflow.html#a7bc5ef0e3aa675355e594be4dde55bca',1,'flow::j']]]
+  ['biochp_20plant_20model_0',['bioCHP plant model',['../index.html',1,'']]],
+  ['biochp_20plant_20module_1',['BioCHP plant module',['../detailed_model_documentation.html#back-bio_CHP',1,'']]],
+  ['bp_2',['bp',['../structobject.html#a8147ea9de454ab6a18ca9067da806c73',1,'object']]],
+  ['branch_3',['Step 3: Checkout a New Branch',['../md_docs_2contribute.html#autotoc_md18',1,'']]],
+  ['bug_20report_4',['File a Bug Report',['../md_docs_2contribute.html#autotoc_md12',1,'']]],
+  ['build_20and_20run_20minimal_20viable_20case_5',['Build and run minimal viable case',['../index.html#autotoc_md7',1,'']]],
+  ['build_20documentation_20reccomended_20if_20altered_6',['Step 7: Build documentation (reccomended if altered)',['../md_docs_2contribute.html#autotoc_md22',1,'']]]
 ];

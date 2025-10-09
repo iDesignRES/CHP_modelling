@@ -27,6 +27,39 @@ var NAVTREE =
   [ "CHP_modelling", "index.html", [
     [ "bioCHP plant model", "index.html", "index" ],
     [ "CREDITS", "md_src_2CREDITS.html", null ],
+    [ "Detailed Model Documentation", "detailed_model_documentation.html", [
+      [ "BioCHP plant module", "detailed_model_documentation.html#back-bio_CHP", null ],
+      [ "Parameters", "detailed_model_documentation.html#back-bio_CHP-par", [
+        [ "Inputs", "detailed_model_documentation.html#back-bio_CHP-par-inp", null ]
+      ] ],
+      [ "Outputs (standard)", "detailed_model_documentation.html#back-bio_CHP-par-out_stand", [
+        [ "Internal", "detailed_model_documentation.html#back-bio_CHP-par-int", null ]
+      ] ],
+      [ "Mathematical formulation", "detailed_model_documentation.html#back-bio_CHP-math", [
+        [ "Mass and energy flows (nominal steady state operation)", "detailed_model_documentation.html#back-bio_CHP-math-balances", null ],
+        [ "CAPEX", "detailed_model_documentation.html#back-bio_CHP-math-CAPEX", null ],
+        [ "OPEX", "detailed_model_documentation.html#back-bio_CHP-math-OPEX", null ]
+      ] ],
+      [ "Input data", "detailed_model_documentation.html#input_data", null ],
+      [ "References", "detailed_model_documentation.html#references", null ]
+    ] ],
+    [ "Contribute to CHP_modelling", "md_docs_2contribute.html", [
+      [ "Overview", "md_docs_2contribute.html#autotoc_md11", null ],
+      [ "File a Bug Report", "md_docs_2contribute.html#autotoc_md12", null ],
+      [ "Feature Requests", "md_docs_2contribute.html#autotoc_md13", [
+        [ "Creating an Issue", "md_docs_2contribute.html#autotoc_md14", null ],
+        [ "Incorporate Feature Requests Through a Fork", "md_docs_2contribute.html#autotoc_md15", [
+          [ "Step 1: Create an Issue", "md_docs_2contribute.html#autotoc_md16", null ],
+          [ "Step 2: Fork the Repository", "md_docs_2contribute.html#autotoc_md17", null ],
+          [ "Step 3: Checkout a New Branch", "md_docs_2contribute.html#autotoc_md18", null ],
+          [ "Step 4: Make Changes", "md_docs_2contribute.html#autotoc_md19", null ],
+          [ "Step 5: Debugging (reccomended)", "md_docs_2contribute.html#autotoc_md20", null ],
+          [ "Step 6: Tests coverage (reccomended if altered)", "md_docs_2contribute.html#autotoc_md21", null ],
+          [ "Step 7: Build documentation (reccomended if altered)", "md_docs_2contribute.html#autotoc_md22", null ],
+          [ "Step 8: Create a Pull Request", "md_docs_2contribute.html#autotoc_md23", null ]
+        ] ]
+      ] ]
+    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],

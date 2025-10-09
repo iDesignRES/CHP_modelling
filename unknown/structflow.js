@@ -11,7 +11,6 @@ var structflow =
     [ "get_flow_composition", "structflow.html#ac6ec3ebb9a36023c82faeb7f9287d882", null ],
     [ "get_flow_data", "structflow.html#a5eba2033cbc12f0e850104c1d8653d76", null ],
     [ "get_flow_properties", "structflow.html#afcbe5fbc14c5a6222146c26a9b3e3010", null ],
-    [ "initialize_species", "structflow.html#acdadb329295e6c95011a78c5573d8a26", null ],
     [ "interpret_molecules", "structflow.html#a9c5361a97d13a063d1a0d58ed7738eed", null ],
     [ "print_flow", "structflow.html#ad63046af6a4425315e2466e9a0982b3c", null ],
     [ "atom_def", "structflow.html#a44866b53825daff896277064c3ee5726", null ],

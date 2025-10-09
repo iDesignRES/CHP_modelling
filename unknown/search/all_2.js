@@ -1,18 +1,4 @@
 var searchData=
 [
-  ['c_0',['c',['../structobject.html#a11ffd7414dc8f25dda249c4eae7eaa5f',1,'object::c'],['../structphase.html#ab5643aea6a3d7c1d016e4b0328c1c857',1,'phase::C']]],
-  ['c_5fannual_1',['C_annual',['../structmaterial.html#a3cee06498726fea4d9b09ad4965c7ae9',1,'material']]],
-  ['c_5fmaint_2',['C_maint',['../structequipment.html#adce856bee601433cd29a1f46bf807a0d',1,'equipment']]],
-  ['calculate_5fflow_3',['calculate_flow',['../structflow.html#a99894f9fbac8ddd83345749123b08fa5',1,'flow']]],
-  ['calculate_5fflow_5fcomposition_4',['calculate_flow_composition',['../structflow.html#a9ebf1550fe17187ec021f30809a65730',1,'flow']]],
-  ['calculate_5fflow_5fparameters_5',['calculate_flow_parameters',['../structflow.html#a44fdd76dc1f237c4daf08be5125eabcb',1,'flow']]],
-  ['calculate_5fflow_5fproperties_6',['calculate_flow_properties',['../structflow.html#a0bedb67b7d81fde367a4caf0d109dba2',1,'flow']]],
-  ['calculate_5fsolid_5ffuel_7',['calculate_solid_fuel',['../structflow.html#af547bab0b5c03516afd2b2893e4d6fe0',1,'flow']]],
-  ['calculate_5fspecies_5fproperties_8',['calculate_species_properties',['../structflow.html#ab9626c48dc519e568f8cea3a99b8a8f9',1,'flow']]],
-  ['case_9',['Build and run minimal viable case',['../index.html#autotoc_md7',1,'']]],
-  ['cls_10',['cls',['../structflow.html#a2c580f311a8e066dcc985de9a61e834d',1,'flow']]],
-  ['core_20assumptions_11',['Core assumptions',['../index.html#autotoc_md3',1,'']]],
-  ['cp_12',['cp',['../structproperties.html#ac937ab82137dae1512d91cf84ad7c477',1,'properties']]],
-  ['cpi_13',['Cpi',['../structequipment.html#a72e51212571b09c9434a06cee644270d',1,'equipment']]],
-  ['credits_14',['CREDITS',['../md_src_2CREDITS.html',1,'']]]
+  ['3_3a_20checkout_20a_20new_20branch_0',['Step 3: Checkout a New Branch',['../md_docs_2contribute.html#autotoc_md18',1,'']]]
 ];
