@@ -12,10 +12,11 @@
  * @param sys_def = Name of system
  * @param &par = vector of parameters
  */
-void steam_turbine_parameters::assign_parameter_values(
-    std::string sys_type, std::string sys_def, std::vector<parameter> &par) {
-  Po = get_num_parameter(par, sys_type, sys_def, "Po");
-  mu_isent = get_num_parameter(par, sys_type, sys_def, "mu_isent");
+void steam_turbine_parameters::assign_parameter_values(std::string sys_type,
+                                                       std::string sys_def,
+                                                       object par) {
+  Po = get_num_parameter(par.p, sys_type, sys_def, "Po");
+  mu_isent = get_num_parameter(par.p, sys_type, sys_def, "mu_isent");
 }
 
 void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
@@ -85,7 +86,7 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
 
 void steam_turbine_model(flow &in, flow &out, object &par) {
   steam_turbine_parameters ST;
-  ST.assign_parameter_values("process", "Rankine_cycle", par.p);
+  ST.assign_parameter_values("process", "Rankine_cycle", par);
 
   flow out_n("water");
 

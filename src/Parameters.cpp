@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <limits>  // for numeric_limits
 #include <sstream>
 #include <toml++/toml.hpp>
 
@@ -99,7 +100,6 @@ double object::fp(std::string symb) {
  * @return vector with numerical values
  */
 std::vector<double> object::vctp(std::string symb) {
-  bool found = false;
   std::vector<double> vct;
   for (std::size_t np = 0; np < p.size(); np++) {
     if (p[np].sys_type == sys_type && p[np].sys_def == sys_def &&
@@ -107,7 +107,6 @@ std::vector<double> object::vctp(std::string symb) {
       for (std::size_t n = 0; n < p[np].vct.size(); n++) {
         vct.push_back(p[np].vct[n]);
       }
-      found = true;
       return vct;
     }
   }
@@ -137,7 +136,6 @@ std::string object::sp(std::string symb) {
  * @return value of the parameter as double vector
  */
 std::vector<std::string> object::svct(std::string symb) {
-  bool found = false;
   std::vector<std::string> vct;
   for (std::size_t np = 0; np < p.size(); np++) {
     if (p[np].sys_type == sys_type && p[np].sys_def == sys_def &&
@@ -145,7 +143,6 @@ std::vector<std::string> object::svct(std::string symb) {
       for (std::size_t n = 0; n < p[np].str.size(); n++) {
         vct.push_back(p[np].str[n]);
       }
-      found = true;
       return vct;
     }
   }
@@ -277,9 +274,7 @@ double get_num_parameter(std::vector<parameter> &par, std::string sys_type,
       return val;
     }
   }
-  throw std::out_of_range("Parameter with data_id " + data_id +
-                          " not found for sys_type " + sys_type +
-                          " and sys_def " + sys_def + ".");
+  return std::numeric_limits<double>::quiet_NaN();
 }
 
 void get_parameters(std::vector<parameter> &par, std::string sys_type,

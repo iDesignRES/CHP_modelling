@@ -195,7 +195,6 @@ struct flow {
   flow(std::string flw_def, std::string flw_id);
   flow() {}
   void get_flow_data(std::string);
-  void initialize_species(std::vector<species> &);
   void get_flow_composition(std::vector<species> &, std::string);
   void get_flow_properties();
   void interpret_molecules();

@@ -250,22 +250,6 @@ void flow::interpret_molecules() {
 }
 
 /**
- * @brief function to initialize species parameters
- */
-void flow::initialize_species(std::vector<species>& spc) {
-  size_t n_spc = spc.size();
-  if (n_spc > 0)
-    for (std::size_t ns = 0; ns < n_spc; ns++) {
-      {
-        spc[ns].Y = 0;
-        spc[ns].X = 0;
-        spc[ns].P = properties();
-        spc[ns].F = flow_parameters();
-      }
-    }
-}
-
-/**
  * @brief function to import the data for a species
  *
  * @param spc_type = "molecule" or "atom"

@@ -17,7 +17,6 @@ int main() {
     f[nf].calculate_flow();
     f[nf].print_flow();
   }
-  f1.initialize_species(f1.i);
 
   return 0;
 }

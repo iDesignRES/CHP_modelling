@@ -1,11 +1,11 @@
 #include <iomanip>  // for setprecision
 
+#include <cassert>
+#include <cmath>
 #include <cstddef>
 #include <iostream>
 #include <string>
 #include <vector>
-#include <cassert>
-#include <cmath>
 
 #include "../src/Libraries/Thermodynamic_library/Library_Water_Correlations.h"
 #include "../src/Libraries/Thermodynamic_library/species_thermodynamics.h"
@@ -22,8 +22,8 @@ int main() {
   std::vector<double> TK = {TK1, TK2, TK3};
   std::vector<std::string> p = {"cp", "h", "hf", "s"};
   std::vector<std::string> s = {"CO2", "CO",  "H2O", "H2",  "CH4",
-                  "N2",  "O2",  "SO2", "SO3", "HCl",
-                  "Cl2", "NH3", "NO2", "N2O4"};
+                                "N2",  "O2",  "SO2", "SO3", "HCl",
+                                "Cl2", "NH3", "NO2", "N2O4"};
 
   // clang-format off
   // Reference values from ctest output

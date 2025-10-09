@@ -94,21 +94,23 @@ void equipment_list(std::vector<equipment> &list, object &par) {
     if (par.c[n].sys_type == "equipment") {
       eq.def = par.sys_def + "-" + par.c[n].sys_def;
       eq.Cpi = par.c[n].fp("Cpi");
-      if (par.c[n].bp("W_el"))
-        eq.W_el = par.c[n].fp("W_el");
-      else
+      double W_el = par.c[n].fp("W_el");
+      if (std::isnan(W_el))
         eq.W_el = 0.0;
-
-      if (par.c[n].bp("f_maint"))
-        eq.C_maint = par.c[n].fp("Cpi") * par.c[n].fp("f_maint");
       else
+        eq.W_el = W_el;
+
+      double f_maint = par.c[n].fp("f_maint");
+      if (std::isnan(f_maint))
         eq.C_maint = 0.0;
+      else
+        eq.C_maint = par.c[n].fp("Cpi") * par.c[n].fp("f_maint");
 
       list.push_back(eq);
-      if (par.c[n].bp("W_el"))
-        par.fval_p("electric_load_" + par.c[n].sys_def, par.c[n].fp("W_el"));
-      else
+      if (std::isnan(W_el))
         par.fval_p("electric_load_" + par.c[n].sys_def, 0.0);
+      else
+        par.fval_p("electric_load_" + par.c[n].sys_def, W_el);
     }
     if (par.c[n].c.size() > 0) {
       equipment_list(list, par.c[n]);
