@@ -4,69 +4,128 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cassert>
+#include <cmath>
 
 #include "../src/Libraries/Thermodynamic_library/Library_Water_Correlations.h"
 #include "../src/Libraries/Thermodynamic_library/species_thermodynamics.h"
 #include "../src/Parameters.h"
 #include "../src/bioCHP.h"
+#include "test_utils.h"
 
 int main() {
-  std::cout << "NIST thermodynamics test" << std::endl;
-  double TK1 = 25.0 + 273.15, TK2 = 1500.0 + 273.15;
-  std::vector<double> P = {1.01325};
-  std::vector<double> TK = {TK1, TK2};
-  std::vector<std::string> p = {"cp", "h", "hf", "s"};
-  std::vector<std::string> u = {"J/mol*K", "J/mol", "J/mol", "J/mol*K"};
-  std::vector<std::string> s = {"CO2", "CO",  "H2O", "H2",  "CH4",
-                                "N2",  "O2",  "SO2", "SO3", "HCl",
-                                "Cl2", "NH3", "NO2", "N2O4"};
+  std::cout << std::fixed << std::setprecision(12);
 
-  for (std::size_t np = 0; np < P.size(); np++) {
-    for (std::size_t nt = 0; nt < TK.size(); nt++) {
-      std::cout << "P (bar-g) = " << P[np] << " , T (K) = " << TK[nt]
-                << std::endl;
-      for (std::size_t ns = 0; ns < s.size(); ns++) {
-        std::cout << "Species: " << s[ns] << std::endl;
-        for (std::size_t npr = 0; npr < p.size(); npr++) {
-          std::cout << '\t' << p[npr] << ", " << u[npr] << " = "
-                    << thermodynamic_property(s[ns], p[npr], TK[nt])
-                    << std::endl;
-        }
+  // NIST thermodynamics test
+  double TK1 = 25.0 + 273.15, TK2 = 1500.0 + 273.15, TK3 = 3001.0 + 273.15;
+  std::vector<double> P = {1.01325};
+  std::vector<double> TK = {TK1, TK2, TK3};
+  std::vector<std::string> p = {"cp", "h", "hf", "s"};
+  std::vector<std::string> s = {"CO2", "CO",  "H2O", "H2",  "CH4",
+                  "N2",  "O2",  "SO2", "SO3", "HCl",
+                  "Cl2", "NH3", "NO2", "N2O4"};
+
+  // clang-format off
+  // Reference values from ctest output
+  double refThermo[3][14][4] = {
+    {
+      //            cp,               h,                hf,                s
+      {37.129962495230, -0.002920243292, -393.522400000000, 213.787634137227}, // CO2, TK1
+      {29.148695460818,  0.003227077186, -110.527100000000, 197.662884087148}, // CO, TK1
+      {33.589849581021,  0.000526898893, -241.826400000000, 188.835269165575}, // H2O, TK1
+      {28.837153802910,  0.000089356830,    0.000000000000, 130.680138217897}, // H2, TK1
+      {35.648441862085,  0.001197111205,  -74.873100000000, 186.254701101367}, // CH4, TK1
+      {28.870847917280, -0.010777510344,    0.000000000000, 191.558623920373}, // N2, TK1
+      {28.914806249842, -0.019318905024,    0.000000000000, 205.069382107904}, // O2, TK1
+      {39.873583663126, -0.001244673369, -296.842200000000, 248.210402405740}, // SO2, TK1
+      {50.644467022952, -0.000946722475, -395.765400000000, 256.765725536099}, // SO3, TK1
+      {29.137147835505, -0.000419700578,  -92.312010000000, 186.900975369239}, // HCl, TK1
+      {33.946298506629, -0.000187661547,    0.000000000000, 223.078325278785}, // Cl2, TK1
+      {35.647102701475, -0.001284185660,  -45.898060000000, 192.770008361330}, // NH3, TK1
+      {36.974635080068,  0.000434050009,   33.095020000000, 240.035220451003}, // NO2, TK1
+      {77.253401862377, -0.000215771031,    9.078988000000, 304.375592667295}  // N2O4, TK1
+    },
+    {
+      //            cp,               h,                hf,                s
+      {59.607627719196,  77.834816181016, -393.522400000000, 302.074446037015}, // CO2, TK2
+      {35.839954072504,  48.563059200713, -110.527100000000, 254.373621266433}, // CO, TK2
+      {49.535254315835,  61.357751029607, -241.826400000000, 258.703475512049}, // H2O, TK2
+      {33.423198327617,  45.264630289366,    0.000000000000, 184.339683614329}, // H2, TK2
+      {91.505662091414, 102.520731180758,  -74.873100000000, 294.673044536015}, // CH4, TK2
+      {35.354127264137,  47.892299280178,    0.000000000000, 247.719917210593}, // N2, TK2
+      {37.274887139550,  50.532099525522,    0.000000000000, 264.165376326183}, // O2, TK2
+      {57.773873804516,  78.091383823311, -296.842200000000, 338.025699799208}, // SO2, TK2
+      {80.622502126174, 108.038917228632, -395.765400000000, 379.879182121980}, // SO3, TK2
+      {35.002944840412,  46.951754149652,  -92.312010000000, 242.000780249093}, // HCl, TK2
+      {38.191951933654,  54.821740790975,    0.000000000000, 288.421063430588}, // Cl2, TK2
+      {70.391694025793,  82.313055426471,  -45.898060000000, 282.905673560891}, // NH3, TK2
+      {55.997003488480,  74.506096131966,   33.095020000000, 325.020417981324}, // NO2, TK2
+      {127.988730651597,169.369637740424,    9.078988000000, 496.276815216918}  // N2O4, TK2
+    },
+    {
+      //            cp,               h,                hf,                s
+      {62.556918835708, 169.954466402516, -393.522400000000, 339.623650703275}, // CO2, TK3
+      {37.369285636014, 103.729525102789, -110.527100000000, 276.867387489686}, // CO, TK3
+      {56.519482711003, 141.938207562227, -241.826400000000, 291.412355261823}, // H2O, TK3
+      {37.673552292302,  98.982853527235,    0.000000000000, 206.158141937357}, // H2, TK3
+      {102.416217736412, 249.986548058874, -74.873100000000, 354.592024142645}, // CH4, TK3
+      {37.411756308042, 102.935018498823,    0.000000000000, 270.145431411124}, // N2, TK3
+      {40.375037811833, 109.079431244785,    0.000000000000, 287.990670930258}, // O2, TK3
+      {59.772973215524, 166.534161485971, -296.842200000000, 374.101653079722}, // SO2, TK3
+      {82.380581195289, 230.742658036188, -395.765400000000, 429.962133966296}, // SO3, TK3
+      {37.541783496587, 101.721002373543,  -92.312010000000, 264.300597109755}, // HCl, TK3
+      {40.579517052945, 113.743199873632,    0.000000000000, 312.420372289030}, // Cl2, TK3
+      {79.755837046787, 196.685319223411,  -45.898060000000, 329.346252324069}, // NH3, TK3
+      {57.524335085925, 160.017620019004,   33.095020000000, 359.913682806319}, // NO2, TK3
+      {131.510791110526,364.841094844088,    9.078988000000, 576.038323821113}  // N2O4, TK3
+    }
+  };
+  // clang-format on
+
+  for (std::size_t nt = 0; nt < TK.size(); nt++) {
+    for (std::size_t ns = 0; ns < s.size(); ns++) {
+      for (std::size_t npr = 0; npr < p.size(); npr++) {
+        double val = thermodynamic_property(s[ns], p[npr], TK[nt]);
+        assert(approxEqual(val, refThermo[nt][ns][npr]));
       }
     }
   }
 
-  std::cout << "Water thermodynamics correlations test" << std::endl;
-  P.push_back(15.0);
-  P.push_back(30.0);
-  P.push_back(50.0);
-  P.push_back(90.0);
-
+  // clang-format off
+  // Water thermodynamics correlations test
+  double refWater[6][17] = {
+    //      TSatWater,          hPWater,          hTWater,           HTSteam,       PSatWater,       hPTSupSteam,    sPhSupSteam,      TPhSupSteam,        hPSatSteam,    sPTSupSteam,        sPWater,     sPSatSteam,        sTWater,        vTWater,        vTSteam,           HVapH2O,        CpWater
+    {100.001218312658, 419.139026046839, 397.813873363225, 2668.235715870685,  0.845306238660, 2667.843768905667, 7.334947449786,  95.072236764279, 2675.928398355906, 7.323662084627, 1.306922311618, 7.354827904105, 1.250311510322, 0.001045818736, 1.981383012054, 2257.881568907818, 4.207346993048},
+    {164.955606235818, 697.024118964573, 675.170393766516, 2758.604478950204,  6.173217559745, 2751.116472841890, 6.677951613711, 158.635359237564, 2763.407443595053, 6.690286292213, 1.991958433816, 6.708373078871, 1.942151592819, 0.001111720458, 0.307649826587, 2066.756580347914, 4.350376168026},
+    {198.284619217102, 844.473455183740, 822.163697156045, 2787.426282704735, 13.481994971965, 2779.919502387425, 6.417186695063, 193.260658282203, 2791.832365371754, 6.414342450065, 2.314542191728, 6.444321980111, 2.267201921468, 0.001154749624, 0.146688573750, 1946.002375936507, 4.482520849393},
+    {233.838282039699,1008.291223362543, 984.886759627090, 2802.535503849938, 27.389339556870, 2785.206101603365, 6.149716511985, 228.242914496803, 2803.828165005993, 6.155866264907, 2.645539840236, 6.186551910371, 2.599564679404, 0.001211566537, 0.073541990875, 1794.620773562559, 4.691491121477},
+    {263.915785920525,1154.784700082421,1129.595357257251, 2797.720303818626, 46.121306477514, 2770.829078744654, 5.928402293994, 258.575821746937, 2794.049519827440, 5.934830988330, 2.920668939128, 5.973866350015, 2.874988297129, 0.001273212296, 0.043095017712, 1640.340281455857, 4.957789743743},
+    {303.307584224182,1364.052528809695,1335.146427086761, 2752.749057050502, 83.896222520683, 2728.929451644732, 5.653873637960, 301.957629184936, 2741.635655452590, 5.657025126563, 3.286553534301, 5.677821672309, 3.239339763091, 0.001388351384, 0.021852917906, 1379.419582554260, 5.564677543073}
+  };
+  // clang-format on
+  P = {1.01325, 7.0, 15.0, 30.0, 50.0, 90.0};
   for (std::size_t np = 0; np < P.size(); np++) {
-    std::cout << "P (bar-g) = " << P[np]
-              << " , T sat (deg.C) = " << TSatWater(P[np]) << std::endl;
     double Tsat = TSatWater(P[np]);
-    TK1 = TSatWater(P[np]) - 5.0, TK2 = TSatWater(P[np]) - 5.0;
-    std::cout << "hPWater[kJ/kg] = " << hPWater(P[np]) << std::endl;
-    std::cout << "hTWater[kJ/kg] = " << hTWater(TK1) << std::endl;
-    std::cout << "HTSteam[kJ/kg] = " << HTSteam(TK2) << std::endl;
-    std::cout << "PSatWater = " << PSatWater(TK1) << std::endl;
-    std::cout << "hPTSupSteam[kJ/kg] = " << hPTSupSteam(P[np], TK2)
-              << std::endl;
+    assert(approxEqual(Tsat, refWater[np][0]));
+    TK1 = Tsat - 5.0;
+    TK2 = Tsat - 5.0;
+    assert(approxEqual(hPWater(P[np]), refWater[np][1]));
+    assert(approxEqual(hTWater(TK1), refWater[np][2]));
+    assert(approxEqual(HTSteam(TK2), refWater[np][3]));
+    assert(approxEqual(PSatWater(TK1), refWater[np][4]));
+    assert(approxEqual(hPTSupSteam(P[np], TK2), refWater[np][5]));
     double h = hPTSupSteam(P[np], TK2);
-    std::cout << "sPhSupSteam[kJ/kg*K] = " << sPhSupSteam(P[np], h)
-              << std::endl;
-    std::cout << "TPhSupSteam = " << TPhSupSteam(P[np], h) << std::endl;
-    std::cout << "hPSatSteam[kJ/kg] = " << hPSatSteam(P[np]) << std::endl;
-    std::cout << "sPTSupSteam[kJ/kg*K] = " << sPTSupSteam(P[np], TK2)
-              << std::endl;
-    std::cout << "sPWater[kJ/kg*K] = " << sPWater(P[np]) << std::endl;
-    std::cout << "sPSatSteam[kJ/kg*K] = " << sPSatSteam(P[np]) << std::endl;
-    std::cout << "sTWater[kJ/kg*K] = " << sTWater(TK1) << std::endl;
-    std::cout << "vTWater[m3/kg] = " << vTWater(TK1) << std::endl;
-    std::cout << "vTSteam[m3/kg] = " << vTSteam(TK2) << std::endl;
-    std::cout << "HVapH2O[kJ/kg] = " << HVapH2O(Tsat) << std::endl;
-    std::cout << "CpWater[kJ/kg*K] = " << CpWater(TK1) << std::endl;
+    assert(approxEqual(sPhSupSteam(P[np], h), refWater[np][6]));
+    assert(approxEqual(TPhSupSteam(P[np], h), refWater[np][7]));
+    assert(approxEqual(hPSatSteam(P[np]), refWater[np][8]));
+    assert(approxEqual(sPTSupSteam(P[np], TK2), refWater[np][9]));
+    assert(approxEqual(sPWater(P[np]), refWater[np][10]));
+    assert(approxEqual(sPSatSteam(P[np]), refWater[np][11]));
+    assert(approxEqual(sTWater(TK1), refWater[np][12]));
+    assert(approxEqual(vTWater(TK1), refWater[np][13]));
+    assert(approxEqual(vTSteam(TK2), refWater[np][14]));
+    assert(approxEqual(HVapH2O(Tsat), refWater[np][15]));
+    assert(approxEqual(CpWater(TK1), refWater[np][16]));
   }
 
   return 0;
