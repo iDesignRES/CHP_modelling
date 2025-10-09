@@ -32,9 +32,7 @@ double shomate(std::string property, double tK, double A, double B, double C,
 double thermodynamic_property(std::string species, std::string property,
                               double TK) {
   // A,B,C,D,E,F,G,Hf298 constant coefficients obtained from NIST database
-  if (TK <= 0) {
-    throw std::invalid_argument("Temperature must be positive.");
-  }
+  if (TK <= 0) throw std::invalid_argument("Temperature must be positive.");
 
   double tK = TK / 1000.0;
   double A, B, C, D, E, F, G, Hf298;

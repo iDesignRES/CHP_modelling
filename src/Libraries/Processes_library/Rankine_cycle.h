@@ -8,7 +8,7 @@
  * @brief Structure with steam turbine parameters
  * @var steam_turbine_parameters::id
  * String, identifying name
- * @var steam_turbine_parameters::Mi 
+ * @var steam_turbine_parameters::Mi
  * input steam mass flow rate (kg/s)
  * @var steam_turbine_parameters::Pi
  * input steam pressure (bar)

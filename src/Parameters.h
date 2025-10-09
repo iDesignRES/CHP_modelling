@@ -57,8 +57,8 @@ struct object {
   object(std::string type, std::string def, std::string file);
   object(std::string type, std::string def);
   object() {}
-  int ic(std::string type, std::string def);
-  int ip(std::string symb);
+  std::size_t ic(std::string type, std::string def);
+  std::size_t ip(std::string symb);
   bool bp(std::string symb);
   double fp(std::string symb);
   std::vector<double> vctp(std::string symb);

@@ -30,8 +30,35 @@ elseif(WIN32)
     # MinGW on Windows – disable sanitizers
     add_compile_options(-Wall -Wextra -Wpedantic)
 else()
-    set(SANITIZER_FLAGS -fsanitize=address -fsanitize=undefined -g)
-    add_compile_options(-Wall -Wextra -Wpedantic ${SANITIZER_FLAGS})
+    set(WARNING_FLAGS
+        -Wall
+        -Wextra
+        -Wpedantic
+        -Wconversion
+        -Wsign-conversion
+        -Wshadow
+        -Wundef
+        -Wnon-virtual-dtor
+        -Wold-style-cast
+        -Wcast-align
+        -Wdouble-promotion
+        -Wnull-dereference
+        -Woverloaded-virtual
+        -Wfloat-equal
+        -Wuseless-cast
+        -Wlogical-op
+        -Wmissing-include-dirs
+    )
+
+    # Sanitizers and debug symbols
+    set(SANITIZER_FLAGS
+        -fsanitize=address
+        -fsanitize=undefined
+        -fsanitize=leak
+        -fno-omit-frame-pointer
+        -g3
+    )
+    add_compile_options(${WARNING_FLAGS} ${SANITIZER_FLAGS})
     add_link_options(${SANITIZER_FLAGS})
 endif()
 

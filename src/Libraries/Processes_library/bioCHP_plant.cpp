@@ -107,7 +107,7 @@ void bioCHP_plant_model(object &bioCHP) {
     feed[nf].F.M = bioCHP.vctp("Yj")[nf] * bioCHP.fp("M_fuel");
     feed[nf].F.Hf = feed[nf].F.M * feed[nf].P.LHV;
     bioCHP.c.push_back(object("consumable", feed[nf].def));
-    int f = bioCHP.ic("consumable", feed[nf].def);
+    std::size_t f = bioCHP.ic("consumable", feed[nf].def);
     bioCHP.c[f].fval_p("Q_annual", feed[nf].F.M * 3.6 * 8000);
     material_cost(bioCHP.c[f]);
   }
@@ -162,10 +162,12 @@ void bioCHP_plant_model(object &bioCHP) {
     bioCHP.fval_p("Hfj", feed[nf].F.Hf, "output");
   }
 
-  bioCHP.fval_p("Biomass_mass_input_(t/h)", bioCHP.fp("M_fuel") * 3.6, "output");
+  bioCHP.fval_p("Biomass_mass_input_(t/h)", bioCHP.fp("M_fuel") * 3.6,
+                "output");
   bioCHP.fval_p("Biomass_energy_input_(MW)", bioCHP.fp("Hf"), "output");
   bioCHP.fval_p("Heat_production_(MW)", sum_Qk, "output");
-  bioCHP.fval_p("Electricity_production_(MW)", rankine.fp("W_el"), "output");
+  if (rankine.bp("W_el"))
+    bioCHP.fval_p("Electricity_production_(MW)", rankine.fp("W_el"), "output");
 
   cost(bioCHP);
 }

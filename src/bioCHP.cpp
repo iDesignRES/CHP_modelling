@@ -64,44 +64,42 @@ object bioCHP_plant(std::vector<std::string> fuel_def, std::vector<double> Yj,
 }
 
 object bioCHP_plant(const toml::table& tbl) {
-  const auto& inputs = tbl["inputs"].as_table();
-
   // Parse fuel_def
   std::vector<std::string> fuel_def;
-  for (const auto& v : *inputs->at("fuel_def").as_array()) {
+  for (const auto& v : *tbl["inputs"]["fuel_def"].as_array()) {
     fuel_def.push_back(v.value<std::string>().value());
   }
 
   // Parse Yj
   std::vector<double> Yj;
-  for (const auto& v : *inputs->at("Yj").as_array()) {
+  for (const auto& v : *tbl["inputs"]["Yj"].as_array()) {
     Yj.push_back(v.value<double>().value());
   }
 
   // Parse YH2Oj
   std::vector<double> YH2Oj;
-  for (const auto& v : *inputs->at("YH2Oj").as_array()) {
+  for (const auto& v : *tbl["inputs"]["YH2Oj"].as_array()) {
     YH2Oj.push_back(v.value<double>().value());
   }
 
   // Parse W_el
-  double W_el = inputs->at("W_el").value<double>().value();
+  double W_el = tbl["inputs"]["W_el"].value<double>().value();
 
   // Parse Qk
   std::vector<double> Qk;
-  for (const auto& v : *inputs->at("Qk").as_array()) {
+  for (const auto& v : *tbl["inputs"]["Qk"].as_array()) {
     Qk.push_back(v.value<double>().value());
   }
 
   // Parse Tk_in
   std::vector<double> Tk_in;
-  for (const auto& v : *inputs->at("Tk_in").as_array()) {
+  for (const auto& v : *tbl["inputs"]["Tk_in"].as_array()) {
     Tk_in.push_back(v.value<double>().value());
   }
 
   // Parse Tk_out
   std::vector<double> Tk_out;
-  for (const auto& v : *inputs->at("Tk_out").as_array()) {
+  for (const auto& v : *tbl["inputs"]["Tk_out"].as_array()) {
     Tk_out.push_back(v.value<double>().value());
   }
 
@@ -130,19 +128,12 @@ int main(int argc, char* argv[]) {
     return 1;
   }
 
-  std::string output_file = "Output-bioCHP_project.txt";
-  if (argc >= 3) {
-    output_file = argv[2];
-  }
+  std::string output_file = "output.txt";
+  if (argc >= 3) output_file = argv[2];
 
-  try {
-    object bioCHP = bioCHP_plant(argv[1]);
-    export_output_parameters(bioCHP, output_file);
-    std::cout << "Results exported to " << output_file << std::endl;
-  } catch (const std::exception& e) {
-    std::cerr << "Error: " << e.what() << std::endl;
-    return 1;
-  }
+  object bioCHP = bioCHP_plant(argv[1]);
+  export_output_parameters(bioCHP, output_file);
+  std::cout << "Results exported to " << output_file << std::endl;
 
   return 0;
 }

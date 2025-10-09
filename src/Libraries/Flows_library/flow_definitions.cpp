@@ -279,8 +279,7 @@ void species::get_species_data_(std::string spc_type) {
 
   if (spc_type == "molecule") {
     try {
-      toml::table tbl =
-          get_toml_table(get_database_path("molecules.toml"));
+      toml::table tbl = get_toml_table(get_database_path("molecules.toml"));
 
       auto mol_table = tbl["molecules"][id];
       if (!mol_table) throw std::runtime_error("Molecule " + id + " not found");
@@ -317,8 +316,7 @@ void species::get_species_data_(std::string spc_type) {
     }
   } else if (spc_type == "atom") {
     try {
-      toml::table tbl =
-          get_toml_table(get_database_path("atoms.toml"));
+      toml::table tbl = get_toml_table(get_database_path("atoms.toml"));
 
       auto atom_table = tbl["atoms"][id];
       if (!atom_table) {

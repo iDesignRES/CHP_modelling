@@ -30,7 +30,8 @@ object::object(std::string type, std::string def) {
   sys_def = def;
   sys_file = get_database_path("costs.toml");
 
-  if (!sys_file.empty()) get_parameters(p, type, def, sys_file);
+  if (type == "consumable" || type == "solid_residue" || type == "equipment")
+    get_parameters(p, type, def, sys_file);
 }
 
 /**
@@ -41,13 +42,12 @@ object::object(std::string type, std::string def) {
  *
  * @return index of the sub-object
  */
-int object::ic(std::string type, std::string def) {
+std::size_t object::ic(std::string type, std::string def) {
   for (std::size_t n = 0; n < c.size(); n++) {
-    if (c[n].sys_type == type && c[n].sys_def == def) {
-      return static_cast<int>(n);
-    }
+    if (c[n].sys_type == type && c[n].sys_def == def) return n;
   }
-  return -1;
+  throw std::out_of_range("Sub-object of type " + type + " and definition " +
+                          def + " not found.");
 }
 
 /**
@@ -57,13 +57,12 @@ int object::ic(std::string type, std::string def) {
  *
  * @return index of the parameter
  */
-int object::ip(std::string symb) {
-  for (std::size_t np = 0; np < p.size(); np++) {
-    if (p[np].data_id == symb) {
-      return static_cast<int>(np);
-    }
+std::size_t object::ip(std::string symb) {
+  for (std::size_t n = 0; n < p.size(); n++) {
+    if (p[n].data_id == symb) return n;
   }
-  return -1;
+  throw std::out_of_range("Parameter with specified symbol " + symb +
+                          " not found.");
 }
 
 /**
@@ -74,10 +73,8 @@ int object::ip(std::string symb) {
  * @return true if it exists, false otherwise
  */
 bool object::bp(std::string symb) {
-  for (std::size_t np = 0; np < p.size(); np++) {
-    if (p[np].data_id == symb) {
-      return true;
-    }
+  for (std::size_t n = 0; n < p.size(); n++) {
+    if (p[n].data_id == symb) return true;
   }
   return false;
 }
@@ -255,7 +252,6 @@ void object::vct_sp(std::string symb, std::vector<std::string> vct) {
 
 std::string get_str_parameter(std::vector<parameter> &par, std::string sys_type,
                               std::string sys_def, std::string data_id) {
-  bool found = false;
   for (std::size_t np = 0; np < par.size(); np++) {
     if (par[np].sys_type == sys_type && par[np].sys_def == sys_def &&
         par[np].data_id == data_id) {
@@ -263,31 +259,27 @@ std::string get_str_parameter(std::vector<parameter> &par, std::string sys_type,
       if (par[np].pos < par[np].str.size() - 1) {
         par[np].pos = par[np].pos + 1;
       }
-      found = true;
       return val;
     }
   }
-  if (found == false) {
-    return "null";
-  }
-  return "null";
+  throw std::out_of_range("Parameter with data_id " + data_id +
+                          " not found for sys_type " + sys_type +
+                          " and sys_def " + sys_def + ".");
 }
 
 double get_num_parameter(std::vector<parameter> &par, std::string sys_type,
                          std::string sys_def, std::string data_id) {
-  bool found = false;
   for (std::size_t np = 0; np < par.size(); np++) {
     if (par[np].sys_type == sys_type && par[np].sys_def == sys_def &&
         par[np].data_id == data_id) {
       double val = par[np].vct[par[np].pos];
-      if (par[np].pos < par[np].vct.size() - 1) {
-        par[np].pos = par[np].pos + 1;
-      }
-      found = true;
+      if (par[np].pos < par[np].vct.size() - 1) par[np].pos++;
       return val;
     }
   }
-  return -1;
+  throw std::out_of_range("Parameter with data_id " + data_id +
+                          " not found for sys_type " + sys_type +
+                          " and sys_def " + sys_def + ".");
 }
 
 void get_parameters(std::vector<parameter> &par, std::string sys_type,
@@ -316,6 +308,9 @@ void get_parameters(std::vector<parameter> &par, std::string sys_type,
       }
       par.push_back(p);
     }
+  } else {
+    throw std::runtime_error("No parameters found for sys_type " + sys_type +
+                             " and sys_def " + sys_def + " in " + input_file);
   }
 }
 

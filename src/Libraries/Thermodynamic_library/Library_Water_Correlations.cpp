@@ -539,11 +539,6 @@ double HTSteam(double T) {
                   0.5);
 }
 
-/**
- * @brief Specific volume [m3/kg] of water
- *
- * @param T = Temperature (deg.C)
- */
 double vTWater(double T) {
   double A, B, C, D, E;
   A = -0.0014778;
@@ -557,11 +552,6 @@ double vTWater(double T) {
                           E);
 }
 
-/**
- * @brief Specific volume [m3/kg] of steam
- *
- * @param T = Temperature (deg.C)
- */
 double vTSteam(double T) {
   double A, B, C, D, E, f;
 
@@ -578,9 +568,4 @@ double vTSteam(double T) {
 
 double HVapH2O(double T) { return HTSteam(T) - hTWater(T); }
 
-/**
- * @brief Specific heat [kJ/kg K] of water
- *
- * @param T = Temperature (deg.C)
- */
 double CpWater(double T) { return hTWater(T + 1.0) - hTWater(T); }
