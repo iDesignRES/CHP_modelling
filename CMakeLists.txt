@@ -92,7 +92,7 @@ function(add_chp_test target src)
 endfunction()
 
 # Add tests
-add_chp_test(test_parameters     Tests/Parameters_test.cpp)
+add_chp_test(test_parameters     Tests/test_print_functionality.cpp)
 add_chp_test(test_thermodynamics Tests/Thermodynamics_test.cpp)
 add_chp_test(test_flows          Tests/Flows_test.cpp)
 add_chp_test(test_bioCHP_4       Tests/bioCHP_wrapper_test.cpp 1 2)

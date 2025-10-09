@@ -52,21 +52,6 @@ std::size_t object::ic(std::string type, std::string def) {
 }
 
 /**
- * @brief object function to get the index of parameter within the object
- *
- * @param symb name of the parameter to look for
- *
- * @return index of the parameter
- */
-std::size_t object::ip(std::string symb) {
-  for (std::size_t n = 0; n < p.size(); n++) {
-    if (p[n].data_id == symb) return n;
-  }
-  throw std::out_of_range("Parameter with specified symbol " + symb +
-                          " not found.");
-}
-
-/**
  * @brief object function to find out if a parameter within the object exists
  *
  * @param symb name of the parameter to look for
@@ -334,44 +319,4 @@ void export_output_parameters(object &obj, std::string file) {
   }
 
   output_parameters.close();
-}
-
-void print_parameter(parameter &p) {
-  std::cout << p.data_id << " " << p.data_type;
-
-  if (p.data_type == "str") {
-    for (std::size_t ns = 0; ns < p.str.size(); ns++) {
-      std::cout << " " << p.str[ns];
-    }
-    std::cout << std::endl;
-  }
-
-  if (p.data_type == "num") {
-    for (std::size_t ns = 0; ns < p.vct.size(); ns++) {
-      std::cout << " " << p.vct[ns];
-    }
-    std::cout << std::endl;
-  }
-}
-
-void print_parameters(object &obj) {
-  std::cout << " -------------------------------------- " << std::endl;
-  std::cout << obj.sys_type << " " << obj.sys_def
-            << " parameters: " << std::endl;
-  std::cout << " -------------------------------------- " << std::endl;
-
-  for (std::size_t np = 0; np < obj.p.size(); np++) {
-    print_parameter(obj.p[np]);
-  }
-  std::cout << " -------------------------------------- " << std::endl;
-
-  if (obj.c.size() > 0) {
-    for (std::size_t nc = 0; nc < obj.c.size(); nc++) {
-      print_parameters(obj.c[nc]);
-    }
-  }
-}
-
-void transfer_parameter(std::string symb, object from, object &to) {
-  to.p.push_back(from.p[from.ip(symb)]);
 }

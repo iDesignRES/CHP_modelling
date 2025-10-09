@@ -58,7 +58,6 @@ struct object {
   object(std::string type, std::string def);
   object() {}
   std::size_t ic(std::string type, std::string def);
-  std::size_t ip(std::string symb);
   bool bp(std::string symb);
   double fp(std::string symb);
   std::vector<double> vctp(std::string symb);
@@ -127,12 +126,3 @@ void print_parameter(parameter &p);
  * @param obj object with the parameters to print out
  */
 void print_parameters(object &obj);
-
-/**
- * @brief function to transfer a parameter between objects
- *
- * @param symb parameter name to populate
- * @param from object to transfer from
- * @param to object to transfer to
- */
-void transfer_parameter(std::string symb, object from, object &to);
