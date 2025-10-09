@@ -62,8 +62,7 @@ double cecpi(int year_input) {
       return 668.0;
   }
   throw std::invalid_argument("CECPI value for year " +
-                              std::to_string(year_input) +
-                              " not available");
+                              std::to_string(year_input) + " not available");
 }
 
 double I_cecpi(int year_ref, int year) { return cecpi(year) / cecpi(year_ref); }
