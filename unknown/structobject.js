@@ -6,7 +6,6 @@ var structobject =
     [ "fp", "structobject.html#a2199ce9303705a3becfda5d6b59b6f68", null ],
     [ "fval_p", "structobject.html#ac6fd3c21d9d0facc127b9bd9857b62fc", null ],
     [ "ic", "structobject.html#a6c0b7b3b710568da69ab4971be2184af", null ],
-    [ "ip", "structobject.html#adf0af28b4a16b32b848462ee02790c4c", null ],
     [ "sp", "structobject.html#a19129b16b121b3b67b88285eae8d6ab6", null ],
     [ "svct", "structobject.html#a800ed888078dadacfc731545aa85dfb7", null ],
     [ "vct_fp", "structobject.html#ae7e7d9025bc4e97bc54df88661dd6dee", null ],
