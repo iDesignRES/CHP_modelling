@@ -1,6 +1,5 @@
-#include <iomanip>  // for setprecision
+#include <cassert>
 #include <iostream>
-#include <string>
 #include <vector>
 
 #include "../src/bioCHP_wrapper.h"
@@ -97,58 +96,18 @@ int main(int argc, char *argv[]) {
   bioCHP_plant_c(fuel_def, fuel_count, Yj, Yj_len, YH2Oj, YH2Oj_len, W_el, Qk,
                  Qk_len, Tk_in, Tk_in_len, Tk_out, Tk_out_len, Mj, Mj_len,
                  &Q_prod, &W_el_prod, &C_inv, &C_op, &C_op_var);
-  bool all_passed = true;
 
-  std::cout << std::fixed << std::setprecision(12);  // Set higher precision
-  for (int nj = 0; nj < Mj_len; nj++) {
-    std::cout << "Mj[" << nj << "] = " << Mj[nj];
-    if (!approxEqual(Mj[nj], expected_Mj[nj])) {
-      all_passed = false;
-      std::cout << " failed: expected " << expected_Mj[nj];
-    }
-    std::cout << std::endl;
-  }
+  for (int nj = 0; nj < Mj_len; nj++)
+    assert(approxEqual(Mj[nj], expected_Mj[nj]) ||
+           mismatch("Mj[" + std::to_string(nj) + "]", Mj[nj]));
 
-  std::cout << "Q_prod = " << Q_prod;
-  if (!approxEqual(Q_prod, expected_Q_prod)) {
-    all_passed = false;
-    std::cout << " failed: expected " << expected_Q_prod;
-  }
-  std::cout << std::endl;
+  assert(approxEqual(Q_prod, expected_Q_prod) || mismatch("Q_prod", Q_prod));
+  assert(approxEqual(W_el_prod, expected_W_el_prod) ||
+         mismatch("W_el_prod", W_el_prod));
+  assert(approxEqual(C_inv, expected_C_inv) || mismatch("C_inv", C_inv));
+  assert(approxEqual(C_op, expected_C_op) || mismatch("C_op", C_op));
+  assert(approxEqual(C_op_var, expected_C_op_var) ||
+         mismatch("C_op_var", C_op_var));
 
-  std::cout << "W_el_prod = " << W_el_prod;
-  if (!approxEqual(W_el_prod, expected_W_el_prod)) {
-    all_passed = false;
-    std::cout << " failed: expected " << expected_W_el_prod;
-  }
-  std::cout << std::endl;
-
-  std::cout << "C_inv = " << C_inv;
-  if (!approxEqual(C_inv, expected_C_inv)) {
-    all_passed = false;
-    std::cout << " failed: expected " << expected_C_inv;
-  }
-  std::cout << std::endl;
-
-  std::cout << "C_op = " << C_op;
-  if (!approxEqual(C_op, expected_C_op)) {
-    all_passed = false;
-    std::cout << " failed: expected " << expected_C_op;
-  }
-  std::cout << std::endl;
-
-  std::cout << "C_op_var = " << C_op_var;
-  if (!approxEqual(C_op_var, expected_C_op_var)) {
-    all_passed = false;
-    std::cout << " failed: expected " << expected_C_op_var;
-  }
-  std::cout << std::endl;
-
-  if (all_passed) {
-    std::cout << "All tests pass!" << std::endl;
-  } else {
-    std::cout << "Some tests failed!" << std::endl;
-  }
-
-  return all_passed ? 0 : 1;
+  return 0;
 }
