@@ -3,3 +3,6 @@
 /docs/html/
 *.o
 CMakeUserPresets.json
+
+# VSCode settings 
+.vscode/settings.json
