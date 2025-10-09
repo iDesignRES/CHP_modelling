@@ -7,7 +7,8 @@ var index =
     [ "Quick start - Linux and Windows Setup", "index.html#autotoc_md5", [
       [ "Install dependencies", "index.html#autotoc_md6", null ],
       [ "Build and run minimal viable case", "index.html#autotoc_md7", null ],
-      [ "Run tests", "index.html#autotoc_md8", null ]
+      [ "Run tests", "index.html#autotoc_md8", null ],
+      [ "Debugging", "index.html#autotoc_md9", null ]
     ] ],
-    [ "Project Funding", "index.html#autotoc_md9", null ]
+    [ "Project Funding", "index.html#autotoc_md10", null ]
 ];

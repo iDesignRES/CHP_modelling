@@ -187,7 +187,16 @@ Build and run minimal viable case</h2>
 Run tests</h2>
 <p>Following the above comands, the tests can be run with</p>
 <div class="fragment"><div class="line">ctest -C Release</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md9"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md9"></a>
+Debugging</h2>
+<p>For the Debug compilation option (instead of Release) you need to install with</p>
+<div class="fragment"><div class="line">conan install .. --output-folder=. --build=missing -s build_type=Debug -s compiler.cppstd=17 -s arch=x86_64</div>
+</div><!-- fragment --><p>before you compile and build the project using</p>
+<div class="fragment"><div class="line">cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_TOOLCHAIN_FILE=&quot;${PWD}/conan_toolchain.cmake&quot;</div>
+<div class="line">cmake --build . --config Debug</div>
+</div><!-- fragment --><p>which then enables testing through</p>
+<div class="fragment"><div class="line">ctest -C Debug</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md10"></a>
 Project Funding</h1>
 <p>The development of <code>bioCHP_plant</code> was funded by the European Union’s Horizon Europe research and innovation programme in the project <a href="https://idesignres.eu/">iDesignRES</a> under grant agreement <a href="https://doi.org/10.3030/101095849">101095849</a>. </p>
 </div></div><!-- PageDoc -->
