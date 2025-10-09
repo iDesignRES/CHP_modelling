@@ -117,21 +117,15 @@ void flow::interpret_molecules() {
       pos1 = 0;
       pos2 = 0;
       while (pos1 < j[n].formula.length()) {
-        if (molec_ID[pos1] == 'T' &&
+        if ((molec_ID[pos1] == 'T' || molec_ID[pos1] == 'S') &&
             (molec_ID[pos1 + 1] == 'X' || molec_ID[pos1 + 1] == '-')) {
-          pos1 = pos1 + 2;
+          pos1 += 2;
         }
-        if (molec_ID[pos1] == 'S' &&
-            (molec_ID[pos1 + 1] == 'X' || molec_ID[pos1 + 1] == '-')) {
-          pos1 = pos1 + 2;
-        }
-        if ((molec_ID[pos1] == '+' || molec_ID[pos1] == '-') &&
-            (molec_ID[pos1 + 1] >= '1' && molec_ID[pos1 + 1] <= '9')) {
-          break;
-        }
-        if ((molec_ID[pos1] == '+' || molec_ID[pos1] == '-') &&
-            pos1 == j[n].formula.length() - 1) {
-          break;
+        if (molec_ID[pos1] == '+' || molec_ID[pos1] == '-') {
+          if (molec_ID[pos1 + 1] >= '1' && molec_ID[pos1 + 1] <= '9')
+            break;
+          if (pos1 == j[n].formula.length() - 1)
+            break;
         }
 
         // finding a match in the atoms list

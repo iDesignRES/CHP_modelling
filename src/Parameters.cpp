@@ -152,7 +152,7 @@ void object::fval_p(std::string symb, double val, std::string data_def) {
       found = true;
     }
   }
-  if (found == false) {
+  if (!found) {
     parameter p_new;
     p_new.data_def = data_def;
     p_new.sys_type = sys_type;
@@ -184,7 +184,7 @@ void object::vct_fp(std::string symb, std::vector<double> vct) {
       found = true;
     }
   }
-  if (found == false) {
+  if (!found) {
     parameter p_new;
     p_new.data_def = "prop";
     p_new.sys_type = sys_type;
@@ -218,7 +218,7 @@ void object::vct_sp(std::string symb, std::vector<std::string> vct) {
       found = true;
     }
   }
-  if (found == false) {
+  if (!found) {
     parameter p_new;
     p_new.data_def = "prop";
     p_new.sys_type = sys_type;
@@ -238,9 +238,7 @@ std::string get_str_parameter(std::vector<parameter> &par, std::string sys_type,
     if (par[np].sys_type == sys_type && par[np].sys_def == sys_def &&
         par[np].data_id == data_id) {
       std::string val = par[np].str[par[np].pos];
-      if (par[np].pos < par[np].str.size() - 1) {
-        par[np].pos = par[np].pos + 1;
-      }
+      if (par[np].pos < par[np].str.size() - 1) par[np].pos++;
       return val;
     }
   }
@@ -256,6 +254,7 @@ double get_num_parameter(std::vector<parameter> &par, std::string sys_type,
         par[np].data_id == data_id) {
       double val = par[np].vct[par[np].pos];
       if (par[np].pos < par[np].vct.size() - 1) par[np].pos++;
+
       return val;
     }
   }
@@ -303,15 +302,13 @@ void export_output_parameters(object &obj, std::string file) {
                         << obj.p[np].data_id << " " << obj.p[np].data_type;
 
       if (obj.p[np].data_type == "str") {
-        for (std::size_t ns = 0; ns < obj.p[np].str.size(); ns++) {
+        for (std::size_t ns = 0; ns < obj.p[np].str.size(); ns++)
           output_parameters << " " << obj.p[np].str[ns];
-        }
       }
 
       if (obj.p[np].data_type == "num") {
-        for (std::size_t ns = 0; ns < obj.p[np].vct.size(); ns++) {
+        for (std::size_t ns = 0; ns < obj.p[np].vct.size(); ns++)
           output_parameters << " " << obj.p[np].vct[ns];
-        }
       }
 
       output_parameters << std::endl;
