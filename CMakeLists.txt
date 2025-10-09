@@ -97,3 +97,18 @@ add_chp_test(test_thermodynamics Tests/Thermodynamics_test.cpp)
 add_chp_test(test_flows          Tests/Flows_test.cpp)
 add_chp_test(test_bioCHP_4       Tests/bioCHP_wrapper_test.cpp 1 2)
 add_chp_test(test_bioCHP         Tests/test_bioCHP.cpp)
+add_chp_test(test_cost           Tests/test_cost.cpp)
+
+# Test running the main program with an input file and checking output
+add_test(
+  NAME RunBioCHP_CheckOutput
+  COMMAND bioCHP ${CMAKE_CURRENT_SOURCE_DIR}/docs/example/bioCHP_input.toml ${CMAKE_CURRENT_BINARY_DIR}/output.txt
+)
+
+# Compare result to expected output
+add_test(
+  NAME CompareOutput
+  COMMAND ${CMAKE_COMMAND} -E compare_files
+          ${CMAKE_CURRENT_BINARY_DIR}/output.txt
+          ${CMAKE_CURRENT_SOURCE_DIR}/Tests/expected_output.txt
+)
