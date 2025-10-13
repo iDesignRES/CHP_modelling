@@ -118,24 +118,11 @@ BioCHP plant module</h1>
 <li>The feedstock is defined as a mixture of several types of <em>Biomass</em> resources.</li>
 <li>Multiple heat demands are specified by thermal power, temperature, and pressure for <b>district heating</b> (each through a heat exchanger) or as <b>direct steam export</b>.</li>
 </ul>
-<p>The module is implemented as a nonlinear C++ model linked to <code>EnergyModelsX</code> through a function that calculates both the <b>costs</b> (Investment, total and variable operating expenses) and the required <b>mass flow rate of each feedstock</b> as outputs, based on the specified <em>electric power production</em>, <em>heat demands</em> (thermal power capacity and return/supply temperatures) and <b>moisture content of each biomass feedstock</b> as inputs.</p>
-<p>This sampling routine allows a tight integration of the model within the <code>EnergyModelsX</code> framework.</p>
-<p>Important functionalities of the module include:</p>
-<ul>
-<li><b>Flows</b> are implemented as the so-called <code>flow</code> structure, defined in <code>src/Flows/Flow_definitions.h</code>, which contain identifying strings, atomic and molecular composition, material and energy flow rates, and physical and thermodynamic properties.</li>
-<li><b>Atomic and molecular species</b> are also implemented as the so-called <code>species</code> structure, defined in <code>src/Flows/Flow_definitions.h</code>, which contains identifying strings and physical or thermodynamic properties. <br  />
-</li>
-<li><b>Physical systems</b> such as equipment, systems or plants are defined as so-called <code>objects</code>. Objects are implemented as a structure, defined in <code><a class="el" href="Parameters_8h_source.html">src/Parameters.h</a></code>, containing identifying strings and a set (vector) of specifying <code>parameters</code> for the object. Each <code>parameter</code> is also implemented as a structure, defined in <code><a class="el" href="Parameters_8h_source.html">src/Parameters.h</a></code>, containing identifying strings, two vectors with numerical or string values of the parameter, and a integer pointing to a position inside the vectors. Each object can contain also other components as objects.</li>
-<li><b>Consumables and utilities</b> as also implemented as objects. <br  />
-</li>
-<li><b>Processes</b> as implemented through functions. Inputs to each function can be flows and an object (with input parameters) representing the physical system where the process takes place. Output from the process function can be calculated output flows and calculated output parameters within the representing object.</li>
-<li>The <b>cost module</b> <code>src/Cost.cpp</code> evaluates CAPEX of a physical system and variable OPEX of a consumable or utility using their representing object as input.</li>
-</ul>
 <h1><a class="anchor" id="back-bio_CHP-par"></a>
 Parameters</h1>
 <p>The parameters of the BioCHP plant model can be differentiated into external inputs and internal parameters as defined below.</p>
 <h2><a class="anchor" id="back-bio_CHP-par-inp"></a>
-Inputs</h2>
+Inputs to the bioCHP model</h2>
 <p>The first relevant input category is related to the biomass used in the CHP plant. The biomass is included in the module through a combination of strings. It is hence necessary to use the strings specified within the module. The following input is required for the biomass feed:</p>
 <ul>
 <li>none (<code>fuel_def</code> in the model as <code>vector[string]</code>): The type of biomass. Multiple biomass types can be provided to the module, e.g., <code>spruce_bark</code>. <br  />
@@ -304,43 +291,28 @@ C_{eq,k} = C_{P,k}^B \left(\frac{S_k}{S_k^B}\right)^{n_k} \left(\frac{I}{I_B}\ri
 \]
 </p>
 <p>where \( C_{P,k}^B \) is the purchase cost for a base-case equipment size \( S_k^B \) in the reference year, \( S_k \) is the actual equipment size, \( n_k \) is the equipment scale factor, and \( f_{inst,k} \) is the installation factor. The ratio \( I/I_B \) is the price index ratio between the actual year and the reference year (e.g. using the Chemical Engineering Plant Cost Index).</p>
-<p>The following equipment cost parameters are used:</p>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Equipment   </th><th class="markdownTableHeadRight"><code>S_k^B</code>   </th><th class="markdownTableHeadRight"><code>C_{P,k}^B</code> (M$)   </th><th class="markdownTableHeadRight"><code>f_{inst,k}</code>   </th><th class="markdownTableHeadRight"><code>n_k</code>   </th><th class="markdownTableHeadRight">Base year   </th><th class="markdownTableHeadRight">ref.    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Biomass storage and preparation   </td><td class="markdownTableBodyRight">25 t/h   </td><td class="markdownTableBodyRight">5.4   </td><td class="markdownTableBodyRight">2.1   </td><td class="markdownTableBodyRight">0.5   </td><td class="markdownTableBodyRight">2007   </td><td class="markdownTableBodyRight">[2]    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Biomass boiler   </td><td class="markdownTableBodyRight">25 t/h   </td><td class="markdownTableBodyRight">7.9   </td><td class="markdownTableBodyRight">2.1   </td><td class="markdownTableBodyRight">0.7   </td><td class="markdownTableBodyRight">2007   </td><td class="markdownTableBodyRight">[2]    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Flue gas cleaning   </td><td class="markdownTableBodyRight">67 t/h   </td><td class="markdownTableBodyRight">0.18   </td><td class="markdownTableBodyRight">2.7   </td><td class="markdownTableBodyRight">0.7   </td><td class="markdownTableBodyRight">2007   </td><td class="markdownTableBodyRight">[3]    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Steam turbines and condenser   </td><td class="markdownTableBodyRight">1500 MW   </td><td class="markdownTableBodyRight">40.5   </td><td class="markdownTableBodyRight">1.3   </td><td class="markdownTableBodyRight">0.7   </td><td class="markdownTableBodyRight">2006   </td><td class="markdownTableBodyRight">[4]    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Heat Exchanger (heat export)   </td><td class="markdownTableBodyRight">100 m²   </td><td class="markdownTableBodyRight">0.086   </td><td class="markdownTableBodyRight">2.8   </td><td class="markdownTableBodyRight">0.71   </td><td class="markdownTableBodyRight">2008   </td><td class="markdownTableBodyRight">[1]   </td></tr>
-</table>
 <p>The total equipment cost is then given by</p>
 <p class="formulaDsp">
 \[
 C_{eq} = \sum_k C_{eq,k}
 \]
 </p>
-<p>The total capital expenditures (CAPEX) is evaluated in terms of the total permanent investment \( C_{inv} \) adapting the factoral Method by Peters et al. [5] from :</p>
+<p>The total capital expenditures (CAPEX) is evaluated in terms of the total permanent investment \( C_{inv} \) adapting the factoral Method by Peters et al. [2] from :</p>
 <p class="formulaDsp">
 \[
 C_{inv} = \sum_k C_{eq,k}\,(1+f_{pip}+f_{el}+f_{I\&amp;C})\Big[(1+f_{site}+f_{building})+f_{com}\Big](1+f_{cont,k}+f_{eng,k})(1+f_{dev})
 \]
 </p>
-<p>where \( C_{eq,k} \) denotes the installed cost of equipment and the \( f_i \) are cost parameters defined [6] as follows:</p><ul>
-<li>\( f_{pip} = 0.065 \) for interconnecting piping between equipment,</li>
-<li>\( f_{el} = 0.05 \) for the plant electric system,</li>
-<li>\( f_{I\&amp;C} = 0.05 \) for the instrumentation and control system,</li>
-<li>\( f_{site} = 0.17 \) for land and site preparation,</li>
-<li>\( f_{building} = 0.20 \) for construction of buildings,</li>
-<li>\( f_{com} = 0.10 \) for commissioning,</li>
-<li>\( f_{dev} = 0.02 \) for project development and licenses,</li>
-<li>\( f_{eng,k} = 0.15 \) for engineering, and</li>
-<li>\( f_{cont,k} = 0.20 \) for contingency.</li>
+<p>where \( C_{eq,k} \) denotes the installed cost of equipment and the \( f_i \) are cost parameters defined [3] as follows:</p><ul>
+<li>\( f_{pip} \) for interconnecting piping between equipment,</li>
+<li>\( f_{el} \) for the plant electric system,</li>
+<li>\( f_{I\&amp;C} \) for the instrumentation and control system,</li>
+<li>\( f_{site} \) for land and site preparation,</li>
+<li>\( f_{building} \) for construction of buildings,</li>
+<li>\( f_{com} \) for commissioning,</li>
+<li>\( f_{dev} \) for project development and licenses,</li>
+<li>\( f_{eng,k} \) for engineering, and</li>
+<li>\( f_{cont,k} \) for contingency.</li>
 </ul>
 <h2><a class="anchor" id="back-bio_CHP-math-OPEX"></a>
 OPEX</h2>
@@ -352,61 +324,48 @@ C_{op} = C_{op,d} + C_{op,f},
 </p>
 <p>where:</p>
 <ul>
-<li>\( C_{op,d} \) denotes the variable operating cost, proportional to the annual operating time \( t_{op} \), including the<ul>
-<li>supply of biomass (unit price: 100 $/t),</li>
-<li>purchase of lime (unit cost: 0.25 $/kg),</li>
-<li>disposal of flue gas cleaning solid residue (unit cost: 40.0 $/t), and</li>
-<li>disposal of bottom ash (unit cost: 20.0 $/t).</li>
-</ul>
-</li>
-<li>\( C_{op,f} \) denotes the fixed operating costs required for keeping the BioCHP plant in operation, including:<ul>
-<li>Maintenance cost:</li>
-</ul>
-</li>
-</ul>
-<p class="formulaDsp">
-\[
+<li>\( C_{op,d} $ denotes the variable operating cost calculated from \) C_{op,d} = \sum_j Q_j p_j \(, with the subscript \) j \( denoting feedstock, consumables and residues, \) Q_j \( is the annual production quantity proportional to the annual operating time \) t_{op} \(, and \) p_j \( is the unit price.  including the
+
+- \) C_{op,f} \( denotes the fixed operating costs required for keeping the BioCHP plant in operation, including:
+  - Maintenance cost:
+
+    \f[
     C_{maint} = 0.05\, C_{eq}
-    \]
-</p>
-<ul>
-<li>Insurance:</li>
-</ul>
-<p class="formulaDsp">
-\[
+    \f]
+
+  - Insurance:
+
+    \f[
     C_{ins} = 0.01\, C_{inv}
-    \]
-</p>
-<ul>
-<li>Administration and site services:</li>
-</ul>
-<p class="formulaDsp">
-\[
+    \f]
+
+  - Administration and site services:
+
+    \f[
     C_{adm} = 0.03\, C_{inv}
-    \]
-</p>
-<ul>
-<li>Labor cost:</li>
-</ul>
-<p class="formulaDsp">
-\[
+    \f]
+
+  - Labor cost:
+
+    \f[
     C_{labor} = \sum_k N_k^{labor}\, c_{b,k}^{labor}\,\Big[1+f_{oh,k}^{labor}\Big]
-    \]
-</p>
-<p>Here, the subscript \( k \) denotes the personnel categories and the parameters are defined as follows:</p>
-<p>1) Plant manager:</p>
-<p class="formulaDsp">
-\[
+    \f]
+
+Here, the subscript \) k \( denotes the personnel categories and the parameters are defined as follows:
+
+1) Plant manager:
+
+\f[
 \begin{aligned}
   c_{b,k}^{labor} &amp; = 162~k\$/year \\
   N_k^{labor} &amp; = 1 \\
   f_{oh,k}^{labor} &amp; = 0.0 \\
 \end{aligned}
-\]
-</p>
-<p>2) O&amp;M manager:</p>
-<p class="formulaDsp">
-\[
+\f]
+
+2) O\&amp;M manager:
+
+\f[
 \begin{aligned}
   c_{b,k}^{labor} &amp; = 96~k\$/year \\
   N_k^{labor} &amp; =
@@ -416,11 +375,11 @@ C_{op} = C_{op,d} + C_{op,f},
     \end{cases} \\
   f_{oh,k}^{labor} &amp; = 1.2 \\
 \end{aligned}
-\]
-</p>
-<p>3) O&amp;M engineer:</p>
-<p class="formulaDsp">
-\[
+\f]
+
+3) O\&amp;M engineer:
+
+\f[
 \begin{aligned}
   c_{b,k}^{labor} &amp; = 88~k\$/year \\
   N_k^{labor} &amp; =
@@ -430,11 +389,11 @@ C_{op} = C_{op,d} + C_{op,f},
     \end{cases} \\
   f_{oh,k}^{labor} &amp; = 1.2 \\
 \end{aligned}
-\]
-</p>
-<p>4) Shift operator:</p>
-<p class="formulaDsp">
-\[
+\f]
+
+4) Shift operator:
+
+\f[
 \begin{aligned}
   c_{b,k}^{labor} &amp; = 37~k\$/year \\
   N_k^{labor} &amp; =
@@ -444,33 +403,15 @@ C_{op} = C_{op,d} + C_{op,f},
     \end{cases} \\
   f_{oh,k}^{labor} &amp; = 1.3 \\
 \end{aligned}
-\]
-</p>
-<dl class="section note"><dt>Note</dt><dd>Number of employees: The number of employees depends on the size of the plant. The chosen distinction is based on the mass flow of biomass into the plant \( \dot{M}_F \), with a change in staffing when the flow exceeds 10 t/h.</dd></dl>
-<h1><a class="anchor" id="input_data"></a>
-Input data</h1>
-<p>All input data used by the bioCHP plant modules is implenented using TOML format [ref] within the 'src/Database' Directory. Values for all physical properties are defined in SI units. <br  />
-</p>
-<p>The model includes the following input data:</p>
-<ol type="1">
-<li>Input parameters for the bioCHP plant and subcomponents</li>
-<li>Flows data, including flow class and prop_data</li>
-<li>Molecules data, including composition (chemical formula) and molecular weight (kg/mol) <br  />
+\f]
+
+\note Number of employees:
+The number of employees depends on the size of the plant. The chosen distinction is based on the mass flow of biomass into the plant \) <div class="dotgraph">
+<div class="caption">
+{M} _F \f$, with a change in staffing when the flow exceeds 10 t/h.</div>
+</div>
 </li>
-<li>Atoms data, including atomic weight (kg/mol)</li>
-</ol>
-<ol type="1">
-<li>Capital cost data, including parameters</li>
-</ol>
-<h1><a class="anchor" id="references"></a>
-References</h1>
-<p>[] <a href="https://toml.io/en/">https://toml.io/en/</a></p>
-<p>[1] Woods, D. R., Rules of Thumb. Rules of Thumb in Engineering Practice. Wiley-VCH: 2008</p>
-<p>[2] Tomberlin, G. (2014). Wood Pellet-Fired Biomass Boiler Project at the Ketchikan Federal Building. National Renewable Energy Laboratory (NREL). <a href="https://doi.org/10.2172/1171779">https://doi.org/10.2172/1171779</a></p>
-<p>[3] J. Stubenvoll, S. Böhmer and I. Szednyj, "State of the Art for Waste Incineration Plants," Federal Ministry of Agriculture and Forestry, Environment and Water Management, Vienna 2002. ISBN 3-902 338-13-X</p>
-<p>[4] M. C. Woods, P. J. Capicotto, J. L. Haslbeck, N. J. Kuehn, M. Matuszewski, L. L. Pinkerton, M. D. Rutkowski, R. L. Schoff, V. Vaysman, Cost and Performance Baseline for Fossil Energy Plants. Volume 1: Bituminous coal and natural gas to electricity. Report DOE/NETL-2007/1281, 2007. URL: <a href="https://www.nrc.gov/docs/ML1217/ML12170A423.pdf">https://www.nrc.gov/docs/ML1217/ML12170A423.pdf</a>.</p>
-<p>[5] Peters, M. S.; Timmerhaus, K. D.; West, R. E.; Timmerhaus, K.; West, R., Plant design and economics for chemical engineers, Vol. 4.. 5th ed., McGraw-Hill New York: 2003,</p>
-<p>[6] Ereev, S..; Patel, M. Recommended methodology and tool for cost estimates at micro level for new technologies. Utrecht, October 2011. <a href="http://www.prosuite.org/c/document_library/get_file?uuid=0efb1401-9854-4b92-8741-b0955c387cfa&groupId=12772">http://www.prosuite.org/c/document_library/get_file?uuid=0efb1401-9854-4b92-8741-b0955c387cfa&amp;groupId=12772</a> </p>
+</ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

@@ -8,7 +8,7 @@ var searchData=
   ['mext_5',['Mext',['../structsteam__turbine__parameters.html#ae84dee62ee7809510273479808d7ad20',1,'steam_turbine_parameters']]],
   ['mi_6',['Mi',['../structsteam__turbine__parameters.html#a445ad322cca0365418eec50b4c49ca09',1,'steam_turbine_parameters']]],
   ['minimal_20viable_20case_7',['Build and run minimal viable case',['../index.html#autotoc_md7',1,'']]],
-  ['model_8',['model',['../index.html',1,'bioCHP plant model'],['../index.html#autotoc_md1',1,'Purpose of the model']]],
+  ['model_8',['model',['../index.html',1,'bioCHP plant model'],['../detailed_model_documentation.html#back-bio_CHP-par-inp',1,'Inputs to the bioCHP model'],['../index.html#autotoc_md1',1,'Purpose of the model']]],
   ['model_20design_20philosophy_9',['Model design philosophy',['../index.html#autotoc_md2',1,'']]],
   ['model_20documentation_10',['Detailed Model Documentation',['../detailed_model_documentation.html',1,'']]],
   ['model_20tests_20description_11',['Model tests description',['../index.html#autotoc_md4',1,'']]],

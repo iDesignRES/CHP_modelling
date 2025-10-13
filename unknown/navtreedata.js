@@ -30,7 +30,7 @@ var NAVTREE =
     [ "Detailed Model Documentation", "detailed_model_documentation.html", [
       [ "BioCHP plant module", "detailed_model_documentation.html#back-bio_CHP", null ],
       [ "Parameters", "detailed_model_documentation.html#back-bio_CHP-par", [
-        [ "Inputs", "detailed_model_documentation.html#back-bio_CHP-par-inp", null ]
+        [ "Inputs to the bioCHP model", "detailed_model_documentation.html#back-bio_CHP-par-inp", null ]
       ] ],
       [ "Outputs (standard)", "detailed_model_documentation.html#back-bio_CHP-par-out_stand", [
         [ "Internal", "detailed_model_documentation.html#back-bio_CHP-par-int", null ]
@@ -39,9 +39,7 @@ var NAVTREE =
         [ "Mass and energy flows (nominal steady state operation)", "detailed_model_documentation.html#back-bio_CHP-math-balances", null ],
         [ "CAPEX", "detailed_model_documentation.html#back-bio_CHP-math-CAPEX", null ],
         [ "OPEX", "detailed_model_documentation.html#back-bio_CHP-math-OPEX", null ]
-      ] ],
-      [ "Input data", "detailed_model_documentation.html#input_data", null ],
-      [ "References", "detailed_model_documentation.html#references", null ]
+      ] ]
     ] ],
     [ "Contribute to CHP_modelling", "md_docs_2contribute.html", [
       [ "Overview", "md_docs_2contribute.html#autotoc_md11", null ],
