@@ -64,24 +64,11 @@ Important features of the model include:
 - The feedstock is defined as a mixture of several types of *Biomass* resources.
 - Multiple heat demands are specified by thermal power, temperature, and pressure for **district heating** (each through a heat exchanger) or as **direct steam export**.
 
-The module is implemented as a nonlinear C++ model linked to `EnergyModelsX` through a function that calculates both the **costs** (Investment, total and variable operating expenses) and the required **mass flow rate of each feedstock** as outputs, based on the specified *electric power production*, *heat demands* (thermal power capacity and return/supply temperatures) and **moisture content of each biomass feedstock** as inputs. 
-
-This sampling routine allows a tight integration of the model within the `EnergyModelsX` framework.
-
-Important functionalities of the module include:
-
-- **Flows** are implemented as the so-called `flow` structure, defined in `src/Flows/Flow_definitions.h`, which contain identifying strings, atomic and molecular composition, material and energy flow rates, and physical and thermodynamic properties. 
-- **Atomic and molecular species** are also implemented as the so-called `species` structure, defined in `src/Flows/Flow_definitions.h`, which contains identifying strings and physical or thermodynamic properties.       
--	**Physical systems** such as equipment, systems or plants are defined as so-called `objects`. Objects are implemented as a structure, defined in `src/Parameters.h`, containing identifying strings and a set (vector) of specifying `parameters` for the object. Each `parameter` is also implemented as a structure, defined in `src/Parameters.h`, containing identifying strings, two vectors with numerical or string values of the parameter, and a integer pointing to a position inside the vectors. Each object can contain also other components as objects.
-- **Consumables and utilities** as also implemented as objects.        
-- **Processes** as implemented through functions. Inputs to each function can be flows and an object (with input parameters) representing the physical system where the process takes place. Output from the process function can be calculated output flows and calculated output parameters within the representing object. 
--	The **cost module** `src/Cost.cpp` evaluates CAPEX of a physical system and variable OPEX of a consumable or utility using their representing object as input. 
-
 \section back-bio_CHP-par Parameters
 
 The parameters of the BioCHP plant model can be differentiated into external inputs and internal parameters as defined below.
 
-\subsection back-bio_CHP-par-inp Inputs
+\subsection back-bio_CHP-par-inp Inputs to the bioCHP model
 
 The first relevant input category is related to the biomass used in the CHP plant.
 The biomass is included in the module through a combination of strings.
@@ -266,38 +253,28 @@ C_{eq,k} = C_{P,k}^B \left(\frac{S_k}{S_k^B}\right)^{n_k} \left(\frac{I}{I_B}\ri
 
 where \f$ C_{P,k}^B \f$ is the purchase cost for a base-case equipment size \f$ S_k^B \f$ in the reference year, \f$ S_k \f$ is the actual equipment size, \f$ n_k \f$ is the equipment scale factor, and \f$ f_{inst,k} \f$ is the installation factor. The ratio \f$ I/I_B \f$ is the price index ratio between the actual year and the reference year (e.g. using the Chemical Engineering Plant Cost Index).
 
-The following equipment cost parameters are used:
-
-| Equipment                         | `S_k^B` | `C_{P,k}^B` (M\$) | `f_{inst,k}` | `n_k` | Base year | ref. |
-|-----------------------------------|--------:|------------------:|-------------:|------:|----------:|-----:|
-| Biomass storage and preparation   | 25 t/h  | 5.4               | 2.1          | 0.5   | 2007      | [2]  |
-| Biomass boiler                    | 25 t/h  | 7.9               | 2.1          | 0.7   | 2007      | [2]  |
-| Flue gas cleaning                 | 67 t/h  | 0.18              | 2.7          | 0.7   | 2007      | [3]  |
-| Steam turbines and condenser      | 1500 MW | 40.5              | 1.3          | 0.7   | 2006      | [4]  |
-| Heat Exchanger (heat export)      | 100 m²  | 0.086             | 2.8          | 0.71  | 2008      | [1]  |
-
 The total equipment cost is then given by
 
 \f[
 C_{eq} = \sum_k C_{eq,k}
 \f]
 
-The total capital expenditures (CAPEX) is evaluated in terms of the total permanent investment \f$ C_{inv} \f$ adapting the factoral Method by Peters et al. [5] from :
+The total capital expenditures (CAPEX) is evaluated in terms of the total permanent investment \f$ C_{inv} \f$ adapting the factoral Method by Peters et al. [2] from :
 
 \f[
 C_{inv} = \sum_k C_{eq,k}\,(1+f_{pip}+f_{el}+f_{I\&C})\Big[(1+f_{site}+f_{building})+f_{com}\Big](1+f_{cont,k}+f_{eng,k})(1+f_{dev})
 \f]
 
-where \f$ C_{eq,k} \f$ denotes the installed cost of equipment and the \f$ f_i \f$ are cost parameters defined [6] as follows:
-- \f$ f_{pip} = 0.065 \f$ for interconnecting piping between equipment,
-- \f$ f_{el} = 0.05 \f$ for the plant electric system,
-- \f$ f_{I\&C} = 0.05 \f$ for the instrumentation and control system,
-- \f$ f_{site} = 0.17 \f$ for land and site preparation,
-- \f$ f_{building} = 0.20 \f$ for construction of buildings,
-- \f$ f_{com} = 0.10 \f$ for commissioning,
-- \f$ f_{dev} = 0.02 \f$ for project development and licenses,
-- \f$ f_{eng,k} = 0.15 \f$ for engineering, and
-- \f$ f_{cont,k} = 0.20 \f$ for contingency.
+where \f$ C_{eq,k} \f$ denotes the installed cost of equipment and the \f$ f_i \f$ are cost parameters defined [3] as follows:
+- \f$ f_{pip} \f$ for interconnecting piping between equipment,
+- \f$ f_{el} \f$ for the plant electric system,
+- \f$ f_{I\&C} \f$ for the instrumentation and control system,
+- \f$ f_{site} \f$ for land and site preparation,
+- \f$ f_{building} \f$ for construction of buildings,
+- \f$ f_{com} \f$ for commissioning,
+- \f$ f_{dev} \f$ for project development and licenses,
+- \f$ f_{eng,k} \f$ for engineering, and
+- \f$ f_{cont,k} \f$ for contingency.
 
 \subsection back-bio_CHP-math-OPEX OPEX
 
@@ -309,11 +286,8 @@ C_{op} = C_{op,d} + C_{op,f},
 
 where:
 
-- \f$ C_{op,d} \f$ denotes the variable operating cost, proportional to the annual operating time \f$ t_{op} \f$, including the
-  - supply of biomass (unit price: 100 \$/t),
-  - purchase of lime (unit cost: 0.25 \$/kg),
-  - disposal of flue gas cleaning solid residue (unit cost: 40.0 \$/t), and
-  - disposal of bottom ash (unit cost: 20.0 \$/t).
+- \f$ C_{op,d} $ denotes the variable operating cost calculated from \f$ C_{op,d} = \sum_j Q_j p_j \f$, with the subscript \f$ j \f$ denoting feedstock, consumables and residues, \f$ Q_j \f$ is the annual production quantity proportional to the annual operating time \f$ t_{op} \f$, and \f$ p_j \f$ is the unit price.  including the
+
 - \f$ C_{op,f} \f$ denotes the fixed operating costs required for keeping the BioCHP plant in operation, including:
   - Maintenance cost:
 
@@ -396,36 +370,139 @@ Here, the subscript \f$ k \f$ denotes the personnel categories and the parameter
 \note Number of employees:
 The number of employees depends on the size of the plant. The chosen distinction is based on the mass flow of biomass into the plant \f$ \dot{M}_F \f$, with a change in staffing when the flow exceeds 10 t/h.
 
-\section input_data Input data
+\section Module implementation and database
 
-All input data used by the bioCHP plant modules is implenented using TOML format [ref] within the 'src/Database' Directory. Values for all physical properties are defined in SI units.      
+The module is implemented as a nonlinear C++ model linked to `EnergyModelsX` through a function that calculates both the **costs** (Investment, total and variable operating expenses) and the required **mass flow rate of each feedstock** as outputs, based on the specified *electric power production*, *heat demands* (thermal power capacity and return/supply temperatures) and **moisture content of each biomass feedstock** as inputs. This sampling routine allows a tight integration of the model within the `EnergyModelsX` framework.
 
-The model includes the following input data:
+Important features and functionalities of the module include:
 
-1. Input parameters for the bioCHP plant and subcomponents
-2. Flows data, including flow class and prop_data
-3. Molecules data, including composition (chemical formula) and molecular weight (kg/mol)   
-4. Atoms data, including atomic weight (kg/mol)
-4. Capital cost data, including parameters
+- **Flows** are implemented as the so-called `flow` structure, defined in `src/Flows/Flow_definitions.h`, which contain identifying strings, atomic and molecular composition, material and energy flow rates, and physical and thermodynamic properties. Flows are created by importing their data from a database located in the `src/Database/flows.toml` folder.  
+- **Atomic and molecular species** are also implemented as the so-called `species` structure, defined in `src/Flows/Flow_definitions.h`, which contains identifying strings and physical or thermodynamic properties. Atomic and molecular species are created by importing their data from `src/Database/atoms.toml` and `src/Database/molecules.toml`, respectively. 
+- **Thermodynamic properties** are calculated using the library located in `src/Library/Thermodynamic_library/`. Molecular gas species (O2, N2, Ar, CO, CO2, H2, CH4, SO2, SO3, HCl, Cl2, NH3) using the NIST correlaltions [8] in `src/Library/Thermodynamic_library/species_thermodynamics.h`. Solid biomass properties are constant and user defined, except for heating values which are evaluated by correlations [9]. Liquid water and steam through specific correlations in `src/Library/Thermodynamic_library/Water_correlations.h`.                
+-	**Physical systems** such as equipment, systems or plants are defined as so-called `objects`. Objects are implemented as a structure, defined in `src/Parameters.h`, containing identifying strings and a set (vector) of specifying `parameters` for the object. Each `parameter` is also implemented as a structure, defined in `src/Parameters.h`, containing identifying strings, two vectors with numerical or string values of the parameter, and a integer pointing to a position inside the vectors. Each object can contain also other components as objects.
+- **Consumables, residues, effluents and utilities** as also implemented as objects.        
+- **Processes** are implemented through functions. Inputs to each function can be flows and an object (with input parameters) representing the physical system where the process takes place. Output from the process function can be calculated output flows and calculated output parameters within the representing object. 
+-	The **cost module** `src/Cost.cpp` evaluates CAPEX of a physical system and variable OPEX of a consumable or utility using their representing object as input. 
+- Values for all physical properties are defined in SI units.      
+
+All **input data** used by the bioCHP plant module is implenented using **TOML format** [7] within the `src/Database` Directory. 
+
+- Input parameters for the bioCHP plant, in `src/Databse/bioCHP_inputs.toml`:
+
+| Parameter                | symbol | value | unit | ref. |
+|-------------------------:|-------:|------:|-----:|-----:|
+| Boiler steam temperature | T_stm  | 450   | deg. C  | assumed  |
+| Boiler steam pressure    | P_stm  | 100.0 | bar-g | assumed |
+| Electricity price       | price_electricity | 0.1 | euro/kwh | assumed |
+| equipment cost factor, piping | f_piping | 0.065 | - | [3] |
+| equipment cost factor, electrical system | f_el | 0.05 | - | [3] |
+| equipment cost factor, instrumentation&control | f_I&C | 0.05 | - | [3] |
+| capital cost factor, land | f_land | 0.12 | - | [3] |
+| capital cost factor, site | f_site | 0.05 | - | [3] |
+| capital cost factor, building | f_build | 0.2 | - | [3] |
+| capital cost factor, engineering | f_eng | 0.1 | - | [3] |
+| capital cost factor, development | f_dev | 0.02 | - | [3] |
+| capital cost factor, commissioning | f_com | 0.1 | - | [3] |
+| capital cost factor, contigency | f_cont | 0.15 | - | [3] |
+| capital cost factor, insurance | f_ins | 0.01 | - | [3] |
+| capital cost factor, administration | f_adm | 0.01 | - | [3] |
+
+- Input parameters for the biomass boiler, in `src/Databse/bioCHP_inputs.toml`:
+
+| Parameter                | symbol | value | unit | ref. |
+|-------------------------:|-------:|------:|-----:|-----:|
+| Excess combustion air  | lambda  | 1.2   | -  | assumed  |
+| Combustion chamber pressure  | P_bar  | 1.01325 | bar-g | assumed |
+| Combustion air temperature  | T_ox | 25.0 | deg. C | assumed |
+| Flue gas temperature, boiler outlet | T_g | 140 | deg. C | assumed |
+| Heat loss to powe output ratio | q_loss | 0.05 | - | assumed |
+| Carbon content in bottom ash | yC_ba | 0.03 | - | assumed |
+| Temperature bottom ash | T_ba | 1000.0 | - | assumed |
+| Temperature fly ash | T_fa | 1000.0 | - | assumed |
+| Fraction of ash as bottom ash | f_ba | 0.1 | - | assumed |
+
+- Input parameters for the flue gas cleaning, in `src/Databse/bioCHP_inputs.toml`:
+
+| Parameter                | symbol | value | unit | ref. |
+|-------------------------:|-------:|------:|-----:|-----:|
+| SO2 emission limit  | SO2  | 50   | mg/Nm3  | assumed  |
+| HCl emission limit  | HCl  | 10   | mg/Nm3  | assumed  |
+| PM emission limit  | PM  | 50   | mg/Nm3  | assumed  |
+| Operatonal temperature | T_op | 140 | deg. C | assumed |
+| Operatonal temperature | P_op | 1.01325 | bar-a | assumed |
+
+- Input parameters for the Rankine cycle, in `src/Databse/bioCHP_inputs.toml`:
+
+| Parameter                | symbol | value | unit | ref. |
+|-------------------------:|-------:|------:|-----:|-----:|
+| Outlet pressure steam turbines | Po  | 0.032   | bar-a  | assumed  |
+| Isentropic efficiency steam turbines  | mu_isent  | 0.65   | -  | assumed  |
+| Condenser temperature | T_cond | 25.0 | deg. C | assumed |
+| Condenser pressure | P_cond | 1.01325 | bar-a | assumed |
+
+- Biomass feedstock data, atomic and proximate composition, in `src/Databse/flows.toml`
+
+| biomass feedstock                | ref. |
+|------------------------------|-----:|
+| spruce chips supply          | [9]  |
+| spruce stem supply           | [9]  |
+| spruce TandB supply          | [9]  |
+| spruce bark supply           | [9]  |
+| birch stem supply            | [9]  |
+
+- Molecules data, including composition (chemical formula) and molecular weight (kg/mol) from NIST database [8], in `src/Databse/molecules.toml`   
+
+- Atoms data, including atomic weight (kg/mol) and valences, in `src/Databse/atoms.toml`
+
+- Specific equipment cost data, in `src/Databse/cost.toml`:
+
+| Equipment                         | `S_k^B` | `C_{P,k}^B` (M\$) | `f_{inst,k}` | `n_k` | Base year | ref. |
+|-----------------------------------|--------:|------------------:|-------------:|------:|----------:|-----:|
+| Biomass storage and preparation   | 25 t/h  | 5.4               | 2.1          | 0.5   | 2007      | [4]  |
+| Biomass boiler                    | 25 t/h  | 7.9               | 2.1          | 0.7   | 2007      | [4]  |
+| Flue gas cleaning                 | 67 t/h  | 0.18              | 2.7          | 0.7   | 2007      | [5]  |
+| Steam turbines and condenser      | 1500 MW | 40.5              | 1.3          | 0.7   | 2006      | [6]  |
+| Heat Exchanger (heat export)      | 100 m²  | 0.086             | 2.8          | 0.71  | 2008      | [1]  |
+
+- Unit prices used to calculate direct operating costs, in `src/Databse/Cost.toml`:
+
+| Variable cost                | Unit price `p_j` | ref. |
+|------------------------------|-----------------:|-----:|
+| spruce chips supply          | 50 \$/t          | assumed  |
+| spruce stem supply           | 70 \$/t          | assumed  |
+| spruce TandB supply          | 30 \$/t          | assumed  |
+| spruce bark supply           | 30 \$/t          | assumed  |
+| birch stem supply            | 70 \$/t          | assumed  |
+| Lime supply                  | 0.31 \$/kg       | [11]  |
+| Scrubber cake disposal       | 40 \$/kg         | [11]  |
+| Bottom ash disposal          | 20 \$/kg         | [11]  |
 
 
 \section references References
 
-[] https://toml.io/en/
-
 [1] Woods, D. R., Rules of Thumb. Rules of Thumb in Engineering Practice. Wiley-VCH: 2008
 
-[2] Tomberlin, G. (2014). Wood Pellet-Fired Biomass Boiler Project at the Ketchikan Federal Building. National Renewable Energy Laboratory (NREL). https://doi.org/10.2172/1171779
+[2] Peters, M. S.; Timmerhaus, K. D.; West, R. E.; Timmerhaus, K.; West, R., Plant design and economics for chemical engineers, Vol. 4.. 5th ed., McGraw-Hill New York: 2003,
 
-[3] J. Stubenvoll, S. Böhmer and I. Szednyj, "State of the Art for Waste Incineration Plants," Federal Ministry of Agriculture and Forestry, Environment and Water Management, Vienna 2002. ISBN 3-902 338-13-X 
+[3] Ereev, S..; Patel, M. Recommended methodology and tool for cost estimates at micro level for new technologies. Utrecht, October 2011.
+http://www.prosuite.org/c/document_library/get_file?uuid=0efb1401-9854-4b92-8741-b0955c387cfa&groupId=12772
 
-[4] M. C. Woods, P. J. Capicotto, J. L. Haslbeck, N. J. Kuehn, M. Matuszewski, L. L. Pinkerton, M. D. Rutkowski, R. L.
+[4] Tomberlin, G. (2014). Wood Pellet-Fired Biomass Boiler Project at the Ketchikan Federal Building. National Renewable Energy Laboratory (NREL). https://doi.org/10.2172/1171779
+
+[5] J. Stubenvoll, S. Böhmer and I. Szednyj, "State of the Art for Waste Incineration Plants," Federal Ministry of Agriculture and Forestry, Environment and Water Management, Vienna 2002. ISBN 3-902 338-13-X 
+
+[6] M. C. Woods, P. J. Capicotto, J. L. Haslbeck, N. J. Kuehn, M. Matuszewski, L. L. Pinkerton, M. D. Rutkowski, R. L.
 Schoff, V. Vaysman, Cost and Performance Baseline for Fossil Energy Plants. Volume 1: Bituminous coal and natural
 gas to electricity. Report DOE/NETL-2007/1281, 2007. URL: https://www.nrc.gov/docs/ML1217/ML12170A423.pdf.
 
-[5] Peters, M. S.; Timmerhaus, K. D.; West, R. E.; Timmerhaus, K.; West, R., Plant design and economics for chemical engineers, Vol. 4.. 5th ed., McGraw-Hill New York: 2003,
+[7] https://toml.io/en/
 
-[6] Ereev, S..; Patel, M. Recommended methodology and tool for cost estimates at micro level for new technologies. Utrecht, October 2011.
-http://www.prosuite.org/c/document_library/get_file?uuid=0efb1401-9854-4b92-8741-b0955c387cfa&groupId=12772
+[8] DOI: https://doi.org/10.18434/T4D303
+
+[9] Phyllis2, database for (treated) biomass, algae, feedstocks for biogas production and biochar. https://phyllis.nl/
+
+[10] Changdong Sheng, J.L.T. Azevedo, "Estimating the higher heating value of biomass fuels from basic analysis data, Biomass and Bioenergy," Vol. 28, Issue 5, 2005, pp. 499-507. https://doi.org/10.1016/j.biombioe.2004.11.008.
+
+[11] G. Del Alamo, Rajesh S. Kempegowda, Øyvind Skreiberg, and Roger Khalil, Energy & Fuels 2017 31 (6), 6089-6108. DOI: 10.1021/acs.energyfuels.7b00273
 
 

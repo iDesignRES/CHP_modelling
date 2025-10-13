@@ -5,6 +5,12 @@
 #include <iostream>
 
 double cecpi(int year_input) {
+  if (year_input < 1994) {
+    return 268.1;
+  }
+  if (year_input > 2020) {
+    return 668.0;
+  }
   switch (year_input) {
     case 1994:
       return 268.1;
@@ -75,15 +81,21 @@ void equipment_cost(object &par) {
   double n = par.fp("n");
   double Cpi = f_inst * Cpb * std::pow(S / Sb, n) *
                I_cecpi(std::stoi(par.sp("base_year")), 2020);
-
-  par.fval_p("Cpi", Cpi);
+  if (std::isnan(Cpi))
+    par.fval_p("Cpi", 0.0);
+  else
+    par.fval_p("Cpi", Cpi);
 }
 
 void material_cost(object &par) {
   double Q_annual = par.fp("Q_annual");
   double price = par.fp("price");
   double C_annual = Q_annual * price;
-  par.fval_p("C_annual", C_annual);
+
+  if (std::isnan(C_annual))
+    par.fval_p("C_annual", 0.0);
+  else
+    par.fval_p("C_annual", C_annual);
 }
 
 void equipment_list(std::vector<equipment> &list, object &par) {
@@ -121,9 +133,23 @@ void material_list(std::string type, std::vector<material> &list, object &par) {
   for (std::size_t n = 0; n < par.c.size(); n++) {
     if (par.c[n].sys_type == type) {
       m.def = par.sys_def + "-" + par.c[n].sys_def;
-      m.Q_annual = par.c[n].fp("Q_annual");
-      m.price = par.c[n].fp("price");
-      m.C_annual = par.c[n].fp("C_annual");
+      if (par.c[n].bp("Q_annual")) {
+        m.Q_annual = par.c[n].fp("Q_annual");
+      } else if (!par.c[n].bp("Q_annual")) {
+        m.Q_annual = 0.0;
+      }
+
+      if (par.c[n].bp("price")) {
+        m.price = par.c[n].fp("price");
+      } else if (!par.c[n].bp("price")) {
+        m.price = 0.0;
+      }
+
+      if (par.c[n].bp("C_annual")) {
+        m.C_annual = par.c[n].fp("C_annual");
+      } else if (!par.c[n].bp("C_annual")) {
+        m.C_annual = 0.0;
+      }
       list.push_back(m);
     }
     if (par.c[n].c.size() > 0) {
@@ -196,7 +222,7 @@ void capex(object &par) {
 
 void print_opex(object &par, std::vector<material> &m) {
   std::cout << "-------------------------" << std::endl;
-  std::cout << " Operational costs (M$ / year): " << par.fp("C_op")
+  std::cout << " Operational costs (M$ / year): " << par.fp("C_op") * 1e-6
             << std::endl;
   std::cout << "-------------------------" << std::endl;
   std::cout << "Materials = " << par.fp("C_op_mat") * 1e-6 << std::endl;

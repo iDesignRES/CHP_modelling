@@ -8,7 +8,7 @@
  * @param tK = Temperatre (K) / 1000.0
  * @param property, string specifying a property
  *	"cp" = specific molar heat at constant pressure
- *	"h" = specific molar enthalpy
+ *	"h" = specific molar enthalpy difference (relative to 298 K)
  *	"s" = specific molar entropy
  * @param A,B,C,D,E,F,G constants of the Shomate function
  * @param Hf298 specific molar formation enthalpy
@@ -22,7 +22,7 @@ double shomate(std::string property, double tK, double A, double B, double C,
  * @param species, string specifying the name of the species
  * @param property, string specifying a property
  *	"cp" = specific molar heat at constant pressure
- *	"h" = specific molar enthalpy
+ *	"h" = specific molar enthalpy difference (relative to 298 K)
  *	"s" = specific molar entropy
  * @param TK Temperature (K)
  */
