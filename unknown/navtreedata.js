@@ -39,7 +39,9 @@ var NAVTREE =
         [ "Mass and energy flows (nominal steady state operation)", "detailed_model_documentation.html#back-bio_CHP-math-balances", null ],
         [ "CAPEX", "detailed_model_documentation.html#back-bio_CHP-math-CAPEX", null ],
         [ "OPEX", "detailed_model_documentation.html#back-bio_CHP-math-OPEX", null ]
-      ] ]
+      ] ],
+      [ "implementation and database", "detailed_model_documentation.html#Module", null ],
+      [ "References", "detailed_model_documentation.html#references", null ]
     ] ],
     [ "Contribute to CHP_modelling", "md_docs_2contribute.html", [
       [ "Overview", "md_docs_2contribute.html#autotoc_md11", null ],
@@ -57,6 +59,17 @@ var NAVTREE =
           [ "Step 8: Create a Pull Request", "md_docs_2contribute.html#autotoc_md23", null ]
         ] ]
       ] ]
+    ] ],
+    [ "Example Application: Minimum Viable bioCHP Case", "md_docs_2example_2example.html", [
+      [ "1. Overview", "md_docs_2example_2example.html#autotoc_md26", null ],
+      [ "2. Example Description", "md_docs_2example_2example.html#autotoc_md28", null ],
+      [ "3. Model Inputs", "md_docs_2example_2example.html#autotoc_md30", [
+        [ "(a) Biomass Feedstock Inputs", "md_docs_2example_2example.html#autotoc_md31", null ],
+        [ "(b) Plant Operation and Demand Inputs", "md_docs_2example_2example.html#autotoc_md33", null ]
+      ] ],
+      [ "4. Model Outputs", "md_docs_2example_2example.html#autotoc_md35", null ],
+      [ "6. Example Interpretation", "md_docs_2example_2example.html#autotoc_md37", null ],
+      [ "7. Customization", "md_docs_2example_2example.html#autotoc_md39", null ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],

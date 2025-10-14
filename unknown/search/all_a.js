@@ -10,7 +10,7 @@ var searchData=
   ['calculate_5fsolid_5ffuel_7',['calculate_solid_fuel',['../structflow.html#af547bab0b5c03516afd2b2893e4d6fe0',1,'flow']]],
   ['calculate_5fspecies_5fproperties_8',['calculate_species_properties',['../structflow.html#ab9626c48dc519e568f8cea3a99b8a8f9',1,'flow']]],
   ['capex_9',['CAPEX',['../detailed_model_documentation.html#back-bio_CHP-math-CAPEX',1,'']]],
-  ['case_10',['Build and run minimal viable case',['../index.html#autotoc_md7',1,'']]],
+  ['case_10',['case',['../index.html#autotoc_md7',1,'Build and run minimal viable case'],['../md_docs_2example_2example.html',1,'Example Application: Minimum Viable bioCHP Case']]],
   ['changes_11',['Step 4: Make Changes',['../md_docs_2contribute.html#autotoc_md19',1,'']]],
   ['checkout_20a_20new_20branch_12',['Step 3: Checkout a New Branch',['../md_docs_2contribute.html#autotoc_md18',1,'']]],
   ['chp_5fmodelling_13',['Contribute to CHP_modelling',['../md_docs_2contribute.html',1,'']]],
@@ -23,5 +23,6 @@ var searchData=
   ['create_20a_20pull_20request_20',['Step 8: Create a Pull Request',['../md_docs_2contribute.html#autotoc_md23',1,'']]],
   ['create_20an_20issue_21',['Step 1: Create an Issue',['../md_docs_2contribute.html#autotoc_md16',1,'']]],
   ['creating_20an_20issue_22',['Creating an Issue',['../md_docs_2contribute.html#autotoc_md14',1,'']]],
-  ['credits_23',['CREDITS',['../md_src_2CREDITS.html',1,'']]]
+  ['credits_23',['CREDITS',['../md_src_2CREDITS.html',1,'']]],
+  ['customization_24',['7. Customization',['../md_docs_2example_2example.html#autotoc_md39',1,'']]]
 ];
