@@ -27,7 +27,7 @@ int main() {
 
   // clang-format off
   // Reference values from ctest output
-  double refThermo[3][14][4] = {
+  [[maybe_unused]] double refThermo[3][14][4] = {
     {
       //            cp,               h,                hf,                s
       {37.129962495230, -0.002920243292, -393.522400000000, 213.787634137227}, // CO2, TK1
@@ -85,7 +85,8 @@ int main() {
   for (std::size_t nt = 0; nt < TK.size(); nt++) {
     for (std::size_t ns = 0; ns < s.size(); ns++) {
       for (std::size_t npr = 0; npr < p.size(); npr++) {
-        double val = thermodynamic_property(s[ns], p[npr], TK[nt]);
+        [[maybe_unused]] double val =
+            thermodynamic_property(s[ns], p[npr], TK[nt]);
         assert(approxEqual(val, refThermo[nt][ns][npr]));
       }
     }
@@ -93,7 +94,7 @@ int main() {
 
   // clang-format off
   // Water thermodynamics correlations test
-  double refWater[6][17] = {
+  [[maybe_unused]] double refWater[6][17] = {
     //      TSatWater,          hPWater,          hTWater,           HTSteam,       PSatWater,       hPTSupSteam,    sPhSupSteam,      TPhSupSteam,        hPSatSteam,    sPTSupSteam,        sPWater,     sPSatSteam,        sTWater,        vTWater,        vTSteam,           HVapH2O,        CpWater
     {100.001218312658, 419.139026046839, 397.813873363225, 2668.235715870685,  0.845306238660, 2667.843768905667, 7.334947449786,  95.072236764279, 2675.928398355906, 7.323662084627, 1.306922311618, 7.354827904105, 1.250311510322, 0.001045818736, 1.981383012054, 2257.881568907818, 4.207346993048},
     {164.955606235818, 697.024118964573, 675.170393766516, 2758.604478950204,  6.173217559745, 2751.116472841890, 6.677951613711, 158.635359237564, 2763.407443595053, 6.690286292213, 1.991958433816, 6.708373078871, 1.942151592819, 0.001111720458, 0.307649826587, 2066.756580347914, 4.350376168026},
@@ -114,7 +115,7 @@ int main() {
     assert(approxEqual(HTSteam(TK2), refWater[np][3]));
     assert(approxEqual(PSatWater(TK1), refWater[np][4]));
     assert(approxEqual(hPTSupSteam(P[np], TK2), refWater[np][5]));
-    double h = hPTSupSteam(P[np], TK2);
+    [[maybe_unused]] double h = hPTSupSteam(P[np], TK2);
     assert(approxEqual(sPhSupSteam(P[np], h), refWater[np][6]));
     assert(approxEqual(TPhSupSteam(P[np], h), refWater[np][7]));
     assert(approxEqual(hPSatSteam(P[np]), refWater[np][8]));

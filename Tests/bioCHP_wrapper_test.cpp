@@ -17,12 +17,12 @@ int main(int argc, char *argv[]) {
   int fuel_count, Yj_len, YH2Oj_len, Qk_len, Tk_in_len, Tk_out_len, Mj_len;
   double Yj[4], YH2Oj[4], Qk[2], Tk_in[2], Tk_out[2], Mj[4];
   double W_el, Q_prod, W_el_prod, C_inv, C_op, C_op_var;
-  double expected_Mj[4];
-  double expected_Q_prod = 70.0;
-  double expected_W_el_prod = 100.000000004445;
-  double expected_C_inv = 243.019565279826;
-  double expected_C_op = 45.732857059834;
-  double expected_C_op_var = 40.569547277588;
+  [[maybe_unused]] double expected_Mj[4];
+  [[maybe_unused]] double expected_Q_prod = 70.0;
+  [[maybe_unused]] double expected_W_el_prod = 100.000000004445;
+  [[maybe_unused]] double expected_C_inv = 243.019565279826;
+  [[maybe_unused]] double expected_C_op = 45.732857059834;
+  [[maybe_unused]] double expected_C_op_var = 40.569547277588;
 
   switch (test) {
     case 1:

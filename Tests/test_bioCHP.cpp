@@ -34,12 +34,16 @@ void test_bioCHP(const std::string& input_file) {
   for (const auto& val : *expected["Mj"].as_array())
     expected_Mj.push_back(val.value<double>().value_or(0.0));
 
-  double expected_Q_prod = expected["Q_prod"].value<double>().value_or(0.0);
-  double expected_W_el_prod =
+  [[maybe_unused]] double expected_Q_prod =
+      expected["Q_prod"].value<double>().value_or(0.0);
+  [[maybe_unused]] double expected_W_el_prod =
       expected["W_el_prod"].value<double>().value_or(0.0);
-  double expected_C_inv = expected["C_inv"].value<double>().value_or(0.0);
-  double expected_C_op = expected["C_op"].value<double>().value_or(0.0);
-  double expected_C_op_var = expected["C_op_var"].value<double>().value_or(0.0);
+  [[maybe_unused]] double expected_C_inv =
+      expected["C_inv"].value<double>().value_or(0.0);
+  [[maybe_unused]] double expected_C_op =
+      expected["C_op"].value<double>().value_or(0.0);
+  [[maybe_unused]] double expected_C_op_var =
+      expected["C_op_var"].value<double>().value_or(0.0);
 
   for (std::size_t nj = 0; nj < Mj.size(); nj++)
     assert(approxEqual(Mj[nj], expected_Mj[nj]) ||
