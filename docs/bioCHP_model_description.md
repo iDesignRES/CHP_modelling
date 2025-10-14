@@ -286,7 +286,7 @@ C_{op} = C_{op,d} + C_{op,f},
 
 where:
 
-- \f$ C_{op,d} $ denotes the variable operating cost calculated from \f$ C_{op,d} = \sum_j Q_j p_j \f$, with the subscript \f$ j \f$ denoting feedstock, consumables and residues, \f$ Q_j \f$ is the annual production quantity proportional to the annual operating time \f$ t_{op} \f$, and \f$ p_j \f$ is the unit price.  including the
+- \f$ C_{op,d} \f$ denotes the variable operating cost calculated from \f$ C_{op,d} = \sum_j Q_j p_j \f$, with the subscript \f$ j \f$ denoting feedstock, consumables and residues, \f$ Q_j \f$ is the annual production quantity proportional to the annual operating time \f$ t_{op} \f$, and \f$ p_j \f$ is the unit price.  including the
 
 - \f$ C_{op,f} \f$ denotes the fixed operating costs required for keeping the BioCHP plant in operation, including:
   - Maintenance cost:
