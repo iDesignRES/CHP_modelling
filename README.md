@@ -41,6 +41,7 @@ This repository contains separately c++ files bioCHP_function_test_[number].cpp:
 - bioCHP_function_test_4-[1,2].cpp: bioCHP plant using four biomass feedstock with specified electric power production and several heat demands
 - bioCHP_wrapper_test.cpp: bioCHP plant using four biomass feedstock with specified electric power production and several heat 
 
+<a name="quickstart"></a>
 ## Quick start - Linux and Windows Setup
 
 ### Install dependencies
