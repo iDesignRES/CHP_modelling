@@ -27,3 +27,9 @@ std::string get_database_path(std::string sub_path);
  * @throws std::runtime_error if parsing fails, with the error message.
  */
 toml::table get_toml_table(std::string file);
+
+/**
+ * @brief Prints a separation line to the standard output for better readability
+ * in console logs.
+ */
+void print_separation_line();

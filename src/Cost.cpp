@@ -3,6 +3,7 @@
 #include <cmath>
 #include <cstddef>
 #include <iostream>
+#include "utils.h"
 
 double cecpi(int year_input) {
   if (year_input < 1994) {
@@ -159,9 +160,9 @@ void material_list(std::string type, std::vector<material> &list, object &par) {
 }
 
 void print_capex(object &par) {
-  std::cout << "-------------------------" << std::endl;
+  print_separation_line();
   std::cout << " Capital costs (M$): " << par.fp("C_inv") * 1e-6 << std::endl;
-  std::cout << "------------------" << std::endl;
+  print_separation_line();
   std::cout << "C_eq = " << par.fp("C_eq") * 1e-6 << std::endl;
   std::cout << "C_piping = " << par.fp("C_piping") * 1e-6 << std::endl;
   std::cout << "C_el = " << par.fp("C_el") * 1e-6 << std::endl;
@@ -173,7 +174,7 @@ void print_capex(object &par) {
   std::cout << "C_eng = " << par.fp("C_eng") * 1e-6 << std::endl;
   std::cout << "C_dev = " << par.fp("C_dev") * 1e-6 << std::endl;
   std::cout << "C_cont = " << par.fp("C_cont") * 1e-6 << std::endl;
-  std::cout << "------------------" << std::endl;
+  print_separation_line();
 }
 
 void capex(object &par) {
@@ -221,10 +222,10 @@ void capex(object &par) {
 }
 
 void print_opex(object &par, std::vector<material> &m) {
-  std::cout << "-------------------------" << std::endl;
+  print_separation_line();
   std::cout << " Operational costs (M$ / year): " << par.fp("C_op") * 1e-6
             << std::endl;
-  std::cout << "-------------------------" << std::endl;
+  print_separation_line();
   std::cout << "Materials = " << par.fp("C_op_mat") * 1e-6 << std::endl;
   for (std::size_t n = 0; n < m.size(); n++) {
     std::cout << '\t' << m[n].def << ": " << m[n].C_annual * 1e-6 << std::endl;
@@ -243,7 +244,7 @@ void print_opex(object &par, std::vector<material> &m) {
   std::cout << "Insurance and taxes = " << par.fp("C_op_ins") * 1e-6
             << std::endl;
   std::cout << "Administration = " << par.fp("C_op_adm") * 1e-6 << std::endl;
-  std::cout << "------------------" << std::endl;
+  print_separation_line();
 }
 
 void opex(object &par) {

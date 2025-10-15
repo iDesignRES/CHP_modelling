@@ -9,6 +9,35 @@ object bioCHP_plant(std::vector<std::string> fuel_def, std::vector<double> Yj,
                     std::vector<double> YH2Oj, double W_el,
                     std::vector<double> Qk, std::vector<double> Tk_in,
                     std::vector<double> Tk_out) {
+
+  print_separation_line();
+  std::cout << "Input parameters:" << std::endl;
+  std::cout << "fuel_def: ";
+  for (const auto& fuel : fuel_def) std::cout << fuel << " ";
+  std::cout << std::endl;
+
+  std::cout << "Yj: ";
+  for (const auto& y : Yj) std::cout << y << " ";
+  std::cout << std::endl;
+
+  std::cout << "YH2Oj: ";
+  for (const auto& y : YH2Oj) std::cout << y << " ";
+  std::cout << std::endl;
+
+  std::cout << "W_el: " << W_el << std::endl;
+
+  std::cout << "Qk: ";
+  for (const auto& q : Qk) std::cout << q << " ";
+  std::cout << std::endl;
+
+  std::cout << "Tk_in: ";
+  for (const auto& t : Tk_in) std::cout << t << " ";
+  std::cout << std::endl;
+
+  std::cout << "Tk_out: ";
+  for (const auto& t : Tk_out) std::cout << t << " ";
+  std::cout << std::endl;
+
   // Check specificatins of feedstock
   if (fuel_def.size() != Yj.size())
     throw std::runtime_error(

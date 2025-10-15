@@ -21,3 +21,7 @@ toml::table get_toml_table(std::string file) {
                              err.what());
   }
 }
+
+void print_separation_line() {
+  std::cout << std::string(60, '-') << std::endl;
+}

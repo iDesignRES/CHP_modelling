@@ -36,6 +36,7 @@ void bioCHP_plant_model(object &bioCHP) {
   object scrubber("process", "flue_gas_cleaning",
                   get_database_path("bioCHP_inputs.toml"));
 
+  print_separation_line();
   std::cout << "Getting the feedstock data: " << std::endl;
 
   std::vector<flow> feed;
@@ -115,11 +116,11 @@ void bioCHP_plant_model(object &bioCHP) {
   boiler.fval_p("M_fuel", bioCHP.fp("M_fuel"));
   solid_fuel_boiler(feed, comb_air, flue_gas, bottom_ash, fly_ash, boiler);
 
-  std::cout << "-------------" << std::endl;
+  print_separation_line();
   std::cout << "Boiler: " << std::endl;
-  std::cout << "-------------" << std::endl;
+  print_separation_line();
   std::cout << "Mass balance" << std::endl;
-  std::cout << "------------" << std::endl;
+  print_separation_line();
   std::cout << "fuel M (kg/s): " << boiler.fp("M_fuel") << std::endl;
   for (std::size_t nf = 0; nf < feed.size(); nf++) {
     std::cout << '\t' << feed[nf].def << " (kg/s): " << feed[nf].F.M
@@ -130,9 +131,9 @@ void bioCHP_plant_model(object &bioCHP) {
   std::cout << "bottom ash M: " << bottom_ash.F.M << std::endl;
   std::cout << "fly ash M: " << fly_ash.F.M << std::endl;
 
-  std::cout << "-------------" << std::endl;
+  print_separation_line();
   std::cout << "energy balance" << std::endl;
-  std::cout << "-------------" << std::endl;
+  print_separation_line();
   std::cout << "Fuel Hf (MW): " << boiler.fp("Hf") << std::endl;
   for (std::size_t nf = 0; nf < feed.size(); nf++) {
     std::cout << '\t' << feed[nf].def << " (MW): " << feed[nf].F.Hf
@@ -144,7 +145,7 @@ void bioCHP_plant_model(object &bioCHP) {
   std::cout << "H_fg: (MW) " << flue_gas.F.Ht * 1.0e-6 << std::endl;
   std::cout << "H_ba: (MW) " << bottom_ash.F.Ht * 1.0e-6 << std::endl;
   std::cout << "H_fa: (MW) " << fly_ash.F.Ht * 1.0e-6 << std::endl;
-  std::cout << "-------------" << std::endl;
+  print_separation_line();
 
   rankine.fval_p("Q_stm", boiler.fp("Q_out"));
   rankine_cycle(rankine);
