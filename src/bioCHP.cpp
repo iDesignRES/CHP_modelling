@@ -9,7 +9,6 @@ object bioCHP_plant(std::vector<std::string> fuel_def, std::vector<double> Yj,
                     std::vector<double> YH2Oj, double W_el,
                     std::vector<double> Qk, std::vector<double> Tk_in,
                     std::vector<double> Tk_out) {
-
   print_separation_line();
   std::cout << "Input parameters:" << std::endl;
   std::cout << "fuel_def: ";
