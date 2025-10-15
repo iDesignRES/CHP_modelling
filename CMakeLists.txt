@@ -95,7 +95,7 @@ endfunction()
 add_chp_test(test_parameters     Tests/test_print_functionality.cpp)
 add_chp_test(test_thermodynamics Tests/Thermodynamics_test.cpp)
 add_chp_test(test_flows          Tests/Flows_test.cpp)
-add_chp_test(test_bioCHP_4       Tests/bioCHP_wrapper_test.cpp 1 2)
+add_chp_test(test_bioCHP_wrap    Tests/bioCHP_wrapper_test.cpp 1 2 3)
 add_chp_test(test_bioCHP         Tests/test_bioCHP.cpp)
 add_chp_test(test_cost           Tests/test_cost.cpp)
 

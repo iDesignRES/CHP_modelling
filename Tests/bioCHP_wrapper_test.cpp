@@ -58,6 +58,39 @@ int main(int argc, char *argv[]) {
       expected_Mj[2] = 7.670257259387;
       expected_Mj[3] = 10.227009679183;
       break;
+    case 2:
+      fuel_def[0] = "spruce_bark";
+      fuel_def[1] = "spruce_TandB";
+      fuel_def[2] = "spruce_stem";
+      fuel_def[3] = "birch_stem";
+      fuel_count = 4;
+      Yj[0] = 0.2;
+      Yj[1] = 0.4;
+      Yj[2] = 0.1;
+      Yj[3] = 0.3;
+      Yj_len = 4;
+      YH2Oj[0] = 0.5;
+      YH2Oj[1] = 0.45;
+      YH2Oj[2] = 0.4;
+      YH2Oj[3] = 0.35;
+      YH2Oj_len = 4;
+      W_el = 100.0;
+      Qk[0] = 30.0;
+      Qk[1] = 40.0;
+      Qk_len = 2;
+      Tk_in[0] = 50.0;
+      Tk_in[1] = 70.0;
+      Tk_in_len = 2;
+      Tk_out[0] = 80.0;
+      Tk_out[1] = 90.0;
+      Tk_out_len = 2;
+
+      Mj_len = 4;
+      expected_Mj[0] = 2.556752419796;
+      expected_Mj[1] = 5.113504839591;
+      expected_Mj[2] = 7.670257259387;
+      expected_Mj[3] = 10.227009679183;
+      break;
     default:
       fuel_def[0] = "spruce_stem";
       fuel_def[1] = "birch_stem";
