@@ -197,7 +197,7 @@ void district_heating(object &par) {
     }
 
     std::vector<double> Pb = Pb_ord, Mb = Mb_ord;
-    
+
     std::vector<std::size_t> merged;
     if (Pb_ord.size() > 1) {
       double Pmax = Pb_ord[0];
@@ -206,8 +206,7 @@ void district_heating(object &par) {
           Mb[nb - 1] += M_bleed[nb];
           Pb.erase(Pb.begin() + nb);
           Mb.erase(Mb.begin() + nb);
-        }
-        else if ((Pmax - Pb_ord[nb]) > 5.0) {
+        } else if ((Pmax - Pb_ord[nb]) > 5.0) {
           Pmax = Pb_ord[nb];
         }
       }
