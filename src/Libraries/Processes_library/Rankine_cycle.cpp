@@ -1,6 +1,7 @@
 #include "Rankine_cycle.h"
 
 #include <cstddef>
+#include <iostream>
 
 #include "../../Cost.h"
 #include "../Thermodynamic_library/Library_Water_Correlations.h"
@@ -203,7 +204,7 @@ void district_heating(object &par) {
       double Pmax = Pb_ord[0];
       for (std::size_t nb = 1; nb < Pb_ord.size(); nb++) {
         if ((Pmax - Pb_ord[nb]) < 5.0) {
-          Mb[nb - 1] += M_bleed[nb];
+          Mb[nb - 1] += Mb[nb];
           Pb.erase(Pb.begin() + nb);
           Mb.erase(Mb.begin() + nb);
         } else if ((Pmax - Pb_ord[nb]) > 5.0) {
