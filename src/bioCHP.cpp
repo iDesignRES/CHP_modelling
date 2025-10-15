@@ -38,29 +38,28 @@ object bioCHP_plant(std::vector<std::string> fuel_def, std::vector<double> Yj,
   std::cout << std::endl;
 
   // Check specificatins of feedstock
-  if (fuel_def.size() != Yj.size())
+  if (fuel_def.size() != Yj.size() || fuel_def.size() != YH2Oj.size())
     throw std::runtime_error(
-        "number of specifications for Yj and fuel_def are different");
+        "Number of specifications for fuel_def, Yj and YH2Oj are different");
 
   // Check specificatins of heat demands
-  if (Qk.size() != Tk_in.size())
+  if (Qk.size() != Tk_in.size() || Qk.size() != Tk_out.size())
     throw std::runtime_error(
-        "number of specifications for Tk_in and Qk are different");
+        "Number of specifications for Tk_in, Tk_out and Qk are different");
 
-  if (Qk.size() != Tk_out.size())
-    throw std::runtime_error(
-        "number of specifications for Tk_out and Qk are different");
-
-  if (Tk_in.size() != Tk_out.size())
-    throw std::runtime_error(
-        "number of specifications for Tk_in and Tk_out are different");
-
+  // Check that Tk_in < Tk_out
   for (std::size_t nk = 0; nk < Tk_in.size(); nk++) {
     if (Tk_in[nk] > Tk_out[nk])
       throw std::runtime_error("return temperature of heat demand no. " +
                                std::to_string(nk) +
                                " is higher than supply temperature");
   }
+
+  // Check that Yj sums to 1
+  double sum_Yj = 0.0;
+  for (const auto& y : Yj) sum_Yj += y;
+  if (std::abs(sum_Yj - 1.0) > 10 * std::numeric_limits<double>::epsilon())
+    throw std::runtime_error("Yj must sum to 1");
 
   // Check that there is sufficient heat available from Rankine cycle
   double sum_Qk = 0.0;
