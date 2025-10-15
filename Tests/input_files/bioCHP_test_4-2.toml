@@ -4,9 +4,9 @@ fuel_def = ["spruce_stem", "birch_stem", "spruce_TandB", "spruce_bark"]
 Yj = [0.1, 0.3, 0.4, 0.2]
 YH2Oj = [0.4, 0.35, 0.45, 0.5]
 W_el = 100.0
-Qk = [30.0, 40.0]
-Tk_in = [70.0, 50.0]
-Tk_out = [90.0, 80.0]
+Qk = [40.0, 30.0]
+Tk_in = [50.0, 70.0]
+Tk_out = [80.0, 90.0]
 
 # This section is optional and only used for testing
 [expected]

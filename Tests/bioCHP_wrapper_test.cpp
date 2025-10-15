@@ -75,8 +75,8 @@ int main(int argc, char *argv[]) {
       YH2Oj[3] = 0.35;
       YH2Oj_len = 4;
       W_el = 100.0;
-      Qk[0] = 30.0;
-      Qk[1] = 40.0;
+      Qk[0] = 40.0;
+      Qk[1] = 30.0;
       Qk_len = 2;
       Tk_in[0] = 50.0;
       Tk_in[1] = 70.0;

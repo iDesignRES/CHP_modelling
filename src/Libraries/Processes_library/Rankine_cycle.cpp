@@ -185,43 +185,36 @@ void district_heating(object &par) {
       M_bleed.push_back(hf_in.F.M);
     }
 
+    std::vector<double> Pb_ord = P_bleed, Mb_ord = M_bleed;
+
+    for (std::size_t i = 0; i < Pb_ord.size() - 1; ++i) {
+      for (std::size_t j = 0; j < Pb_ord.size() - i - 1; ++j) {
+        if (Pb_ord[j] < Pb_ord[j + 1]) {
+          std::swap(Pb_ord[j], Pb_ord[j + 1]);
+          std::swap(Mb_ord[j], Mb_ord[j + 1]);
+        }
+      }
+    }
+
+    std::vector<double> Pb = Pb_ord, Mb = Mb_ord;
+    
     std::vector<std::size_t> merged;
-    if (P_bleed.size() > 1) {
-      for (std::size_t nb = 1; nb < P_bleed.size(); nb++) {
-        if ((P_bleed[nb] - P_bleed[nb - 1]) < 5.0) {
-          merged.push_back(nb);
-          M_bleed[nb - 1] += M_bleed[nb];
+    if (Pb_ord.size() > 1) {
+      double Pmax = Pb_ord[0];
+      for (std::size_t nb = 1; nb < Pb_ord.size(); nb++) {
+        if ((Pmax - Pb_ord[nb]) < 5.0) {
+          Mb[nb - 1] += M_bleed[nb];
+          Pb.erase(Pb.begin() + nb);
+          Mb.erase(Mb.begin() + nb);
+        }
+        else if ((Pmax - Pb_ord[nb]) > 5.0) {
+          Pmax = Pb_ord[nb];
         }
       }
     }
 
-    if (merged.size() > 0) {
-      for (std::size_t n = 0; n < merged.size(); n++) {
-        P_bleed.erase(P_bleed.begin() + merged[n]);
-        M_bleed.erase(M_bleed.begin() + merged[n]);
-      }
-    }
-
-    std::vector<double> P_bleed_ord = P_bleed, M_bleed_ord;
-
-    for (std::size_t i = 0; i < P_bleed_ord.size() - 1; ++i) {
-      for (std::size_t j = 0; j < P_bleed_ord.size() - i - 1; ++j) {
-        if (P_bleed_ord[j] < P_bleed_ord[j + 1]) {
-          std::swap(P_bleed_ord[j], P_bleed_ord[j + 1]);
-        }
-      }
-    }
-
-    for (std::size_t nbo = 0; nbo < P_bleed_ord.size(); nbo++) {
-      for (std::size_t nb = 0; nb < P_bleed_ord.size(); nb++) {
-        if (P_bleed_ord[nbo] == P_bleed[nb]) {
-          M_bleed_ord.push_back(M_bleed[nb]);
-        }
-      }
-    }
-
-    par.vct_fp("P_bleed", P_bleed_ord);
-    par.vct_fp("M_bleed", M_bleed_ord);
+    par.vct_fp("P_bleed", Pb);
+    par.vct_fp("M_bleed", Mb);
   }
 }
 
