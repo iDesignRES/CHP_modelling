@@ -75,14 +75,14 @@ int main(int argc, char *argv[]) {
       YH2Oj[3] = 0.35;
       YH2Oj_len = 4;
       W_el = 100.0;
-      Qk[0] = 40.0;
-      Qk[1] = 30.0;
+      Qk[0] = 30.0;
+      Qk[1] = 40.0;
       Qk_len = 2;
-      Tk_in[0] = 50.0;
-      Tk_in[1] = 70.0;
+      Tk_in[0] = 70.0;
+      Tk_in[1] = 50.0;
       Tk_in_len = 2;
-      Tk_out[0] = 80.0;
-      Tk_out[1] = 90.0;
+      Tk_out[0] = 90.0;
+      Tk_out[1] = 80.0;
       Tk_out_len = 2;
 
       Mj_len = 4;
