@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['reccomended_0',['Step 5: Debugging (reccomended)',['../md_docs_2contribute.html#autotoc_md20',1,'']]],
-  ['reccomended_20if_20altered_1',['reccomended if altered',['../md_docs_2contribute.html#autotoc_md21',1,'Step 6: Tests coverage (reccomended if altered)'],['../md_docs_2contribute.html#autotoc_md22',1,'Step 7: Build documentation (reccomended if altered)']]],
-  ['references_2',['References',['../detailed_model_documentation.html#references',1,'']]],
+  ['rankine_20cycle_20model_0',['Rankine cycle model',['../md_docs_2bioCHP__model__description.html#back-bio_CHP-math-rankine_cycle',1,'']]],
+  ['reccomended_1',['Step 5: Debugging (reccomended)',['../md_docs_2contribute.html#autotoc_md20',1,'']]],
+  ['reccomended_20if_20altered_2',['reccomended if altered',['../md_docs_2contribute.html#autotoc_md21',1,'Step 6: Tests coverage (reccomended if altered)'],['../md_docs_2contribute.html#autotoc_md22',1,'Step 7: Build documentation (reccomended if altered)']]],
   ['report_3',['File a Bug Report',['../md_docs_2contribute.html#autotoc_md12',1,'']]],
   ['repository_4',['Step 2: Fork the Repository',['../md_docs_2contribute.html#autotoc_md17',1,'']]],
   ['request_5',['Step 8: Create a Pull Request',['../md_docs_2contribute.html#autotoc_md23',1,'']]],

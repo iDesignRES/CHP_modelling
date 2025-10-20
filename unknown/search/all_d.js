@@ -8,12 +8,12 @@ var searchData=
   ['flow_5',['flow',['../structflow.html',1,'flow'],['../structflow.html#a04969f264101bf1a9e7a2c71250951b5',1,'flow::flow(std::string flw_def)'],['../structflow.html#adf1e665759c0bbea8c19980b6025f8f0',1,'flow::flow(std::string flw_def, std::string flw_id)']]],
   ['flow_5fdb_6',['flow_db',['../structflow.html#ad44d7a4340f50ff618d4111c57d71bb6',1,'flow']]],
   ['flow_5fparameters_7',['flow_parameters',['../structflow__parameters.html',1,'']]],
-  ['flows_20nominal_20steady_20state_20operation_8',['Mass and energy flows (nominal steady state operation)',['../detailed_model_documentation.html#back-bio_CHP-math-balances',1,'']]],
-  ['fork_9',['Incorporate Feature Requests Through a Fork',['../md_docs_2contribute.html#autotoc_md15',1,'']]],
-  ['fork_20the_20repository_10',['Step 2: Fork the Repository',['../md_docs_2contribute.html#autotoc_md17',1,'']]],
-  ['formula_11',['formula',['../structspecies.html#a00c9bc1cff1f961106cbbd2613cb2e71',1,'species']]],
-  ['formulation_12',['Mathematical formulation',['../detailed_model_documentation.html#back-bio_CHP-math',1,'']]],
-  ['fp_13',['fp',['../structobject.html#a2199ce9303705a3becfda5d6b59b6f68',1,'object']]],
+  ['fork_8',['Incorporate Feature Requests Through a Fork',['../md_docs_2contribute.html#autotoc_md15',1,'']]],
+  ['fork_20the_20repository_9',['Step 2: Fork the Repository',['../md_docs_2contribute.html#autotoc_md17',1,'']]],
+  ['formula_10',['formula',['../structspecies.html#a00c9bc1cff1f961106cbbd2613cb2e71',1,'species']]],
+  ['fp_11',['fp',['../structobject.html#a2199ce9303705a3becfda5d6b59b6f68',1,'object']]],
+  ['fuel_20boiler_20model_12',['Solid fuel boiler model',['../md_docs_2bioCHP__model__description.html#back-bio_CHP-math-boiler',1,'']]],
+  ['fuel_20characterization_13',['Solid fuel characterization',['../md_docs_2bioCHP__model__description.html#back-bio_CHP-math-fuel',1,'']]],
   ['funding_14',['Project Funding',['../index.html#autotoc_md9',1,'']]],
   ['fval_5fp_15',['fval_p',['../structobject.html#ac6fd3c21d9d0facc127b9bd9857b62fc',1,'object']]]
 ];

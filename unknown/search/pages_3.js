@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['detailed_20model_20documentation_0',['Detailed Model Documentation',['../detailed_model_documentation.html',1,'']]],
-  ['documentation_1',['Detailed Model Documentation',['../detailed_model_documentation.html',1,'']]]
+  ['example_20application_3a_20minimum_20viable_20biochp_20case_0',['Example Application: Minimum Viable bioCHP Case',['../md_docs_2example_2example.html',1,'']]]
 ];

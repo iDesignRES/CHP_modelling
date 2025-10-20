@@ -4,13 +4,12 @@ var searchData=
   ['tests_1',['Run tests',['../index.html#autotoc_md8',1,'']]],
   ['tests_20coverage_20reccomended_20if_20altered_2',['Step 6: Tests coverage (reccomended if altered)',['../md_docs_2contribute.html#autotoc_md21',1,'']]],
   ['tests_20description_3',['Model tests description',['../index.html#autotoc_md4',1,'']]],
-  ['the_20biochp_20model_4',['Inputs to the bioCHP model',['../detailed_model_documentation.html#back-bio_CHP-par-inp',1,'']]],
+  ['the_20biochp_20model_4',['Mathematical description of the bioCHP model',['../md_docs_2bioCHP__model__description.html#back-bio_CHP-par-math',1,'']]],
   ['the_20model_5',['Purpose of the model',['../index.html#autotoc_md1',1,'']]],
   ['the_20repository_6',['Step 2: Fork the Repository',['../md_docs_2contribute.html#autotoc_md17',1,'']]],
   ['through_20a_20fork_7',['Incorporate Feature Requests Through a Fork',['../md_docs_2contribute.html#autotoc_md15',1,'']]],
   ['ti_8',['Ti',['../structsteam__turbine__parameters.html#add51387038f5242b0680b4897dc83c25',1,'steam_turbine_parameters']]],
   ['to_20chp_5fmodelling_9',['Contribute to CHP_modelling',['../md_docs_2contribute.html',1,'']]],
-  ['to_20the_20biochp_20model_10',['Inputs to the bioCHP model',['../detailed_model_documentation.html#back-bio_CHP-par-inp',1,'']]],
-  ['tsat_11',['Tsat',['../structproperties.html#a0ed10f7c23e4f9740154f9955b5a1705',1,'properties']]],
-  ['type_12',['type',['../structmaterial.html#a93204b40f5ccc987320a28b86ae102e6',1,'material']]]
+  ['tsat_10',['Tsat',['../structproperties.html#a0ed10f7c23e4f9740154f9955b5a1705',1,'properties']]],
+  ['type_11',['type',['../structmaterial.html#a93204b40f5ccc987320a28b86ae102e6',1,'material']]]
 ];
