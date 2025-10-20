@@ -25,17 +25,29 @@ void calculate_fuel_combustion_properties(flow fuel, object &prop) {
           "Error in fuel definition as following species are not present: " +
           missing);
     }
-
+    /* Solid fuel composition per unit ol of carbon as CH_xO_y; x = n_H, y = n_O
+     */
+    /* n_H and n_O are the molar ratio of hydrogen and oxygen relative to carbon
+     */
     prop.fval_p("n_H", (fuel.i[H].Y / 1) / (fuel.i[C].Y / 12));
     prop.fval_p("n_O", (fuel.i[O].Y / 16) / (fuel.i[C].Y / 12));
+    /* W_CHxOy molecular weight of CHxOy */
     prop.fval_p("W_CHxOy",
                 0.012 + prop.fp("n_H") * 0.001 + prop.fp("n_O") * 0.016);
+    /* Stoichiometric coefficients, considering a global combustion reaction
+       CHxOy + nu_O2 * (O2 + (79/21) N2) -> nu_CO2 * CO2 + nu_H2O * H2O  */
     prop.fval_p("nu_O2", 1 + prop.fp("n_H") / 4 - prop.fp("n_O") / 2);
     prop.fval_p("nu_CO2", 1.0);
     prop.fval_p("nu_H2O", prop.fp("n_H") / 2);
+
+    /* V_stoich is the stoichiometric combustion air flow rate (Nm3/s) */
     prop.fval_p("V_stoich",
                 fuel.F.M * (1 - fuel.k[H2O].Y) * (1 - fuel.k[ash].Y) *
                     (prop.fp("nu_O2") / 0.21) * (0.02241 / prop.fp("W_CHxOy")));
+    /* vn_CO2_m: stoichiometric normal flow rate of CO2 (Nm3) per unit mass (kg)
+     * of solid fuel*/
+    /* vn_H2O_m: stoichiometric normal flow rate of H2O (Nm3) per unit mass (kg)
+     * of solid fuel*/
     prop.fval_p("vn_CO2_m", (1 - fuel.k[H2O].Y) * prop.fp("nu_CO2") *
                                 (0.02241 / prop.fp("W_CHxOy")));
     prop.fval_p("vn_H2O_m", (1 - fuel.k[H2O].Y) * prop.fp("nu_H2O") *
@@ -47,6 +59,13 @@ void calculate_fuel_combustion_properties(flow fuel, object &prop) {
 void solid_fuel_boiler(std::vector<flow> &fuel, std::vector<flow> &comb_air,
                        flow &flue_gas, flow &bottom_ash, flow &fly_ash,
                        object &comb) {
+  /*Calculation of mass and energy balances for a solid fuel boiler
+    Solid fuel defined as a vector of biomass feedstock
+    Assumed linear contribution of each biomass feedstock
+    based on one global combustion reaction
+    CHxOy + nu_O2 * (O2 + (79/21) N2) -> nu_CO2 * CO2 + nu_H2O * H2O
+    with linear contribution of each biomass feedstock */
+
   std::vector<flow> air;
   std::vector<flow> fg;
   std::vector<flow> ba;
@@ -61,6 +80,10 @@ void solid_fuel_boiler(std::vector<flow> &fuel, std::vector<flow> &comb_air,
     }
   }
 
+  /* Calculation of mass and energy balances
+  as a linear contribution from combustion of each
+  biomass feedstock in the feed */
+
   for (std::size_t n = 0; n < fuel.size(); n++) {
     std::size_t H2O = index_species(fuel[n].k, "H2O");
     std::size_t ash = index_species(fuel[n].k, "ash");
@@ -73,11 +96,20 @@ void solid_fuel_boiler(std::vector<flow> &fuel, std::vector<flow> &comb_air,
     object comb_f("fuel", fuel[n].def);
     calculate_fuel_combustion_properties(fuel[n], comb_f);
 
+    /* Calculation of combustion air
+    based on stoichiometric air flow rate, using specified input
+    excess ratio (lambda)), temperature (T_ox) and pressure (P_bar) */
     air[n].F.VN = comb.fp("lambda") * comb_f.fp("V_stoich");
     air[n].F.T = comb.fp("T_ox");
     air[n].F.P = comb.fp("P_bar");
     air[n].molec_def = "X";
     air[n].calculate_flow();
+
+    /* Calculation of flue gas flow parameters and
+    O2, N2, CO2, H2O composition based on
+    mass, molecules and energy balances
+    using calculated stoiciometry and specified input
+    excess ratio (lambda)), temperature (T_g) and pressure (P_bar) */
 
     fg[n].F.T = comb.fp("T_g");
     fg[n].F.P = comb.fp("P_bar");
@@ -93,6 +125,12 @@ void solid_fuel_boiler(std::vector<flow> &fuel, std::vector<flow> &comb_air,
       fg[n].j[nj].X = fg[n].j[nj].F.VN / fg[n].F.VN;
     }
     fg[n].calculate_flow();
+
+    /* Calculation of bottom and fly ash flows using:
+     f_ba = fraction of total ash as bottom ash
+     yC_ba = Carbon content in bottom ash (as mass fraction on dry basis)
+     T_ba = temperature bottom ash at boiler outlet
+     T_fa = temperature fly ash at boiler outlet*/
 
     double f_ba = comb.fp("f_ba");
     double T_ba = comb.fp("T_ba");
@@ -110,6 +148,15 @@ void solid_fuel_boiler(std::vector<flow> &fuel, std::vector<flow> &comb_air,
     fa[n].P.cp = 1.25;  // kJ/kg*k, assumed value
     fa[n].F.Ht = fa[n].F.M * fa[n].P.cp * (T_fa - 25.0);
   }
+
+  /* Calculation of total input fuel energy,
+   combustion air, flue gas, bottom and fly ash flows as a
+   sum of contributions from all biomass feedstock combustion,
+   using:
+   f_ba = fraction of total ash as bottom ash
+   yC_ba = Carbon content in bottom ash (as mass fraction on dry basis)
+   T_ba = temperature bottom ash at boiler outlet
+   T_fa = temperature fly ash at boiler outlet */
 
   double comb_Hf = 0.0;
   for (std::size_t n = 0; n < fuel.size(); n++) {
@@ -134,9 +181,22 @@ void solid_fuel_boiler(std::vector<flow> &fuel, std::vector<flow> &comb_air,
   }
 
   comb.fval_p("Hf", comb_Hf);
+
+  /* Calculation of heat losses, as proportional to
+  flue gas enthalpy flow with the input parameter q_loss
+  as propertionality constant
+  */
+
   comb.fval_p("Q_loss", flue_gas.F.Ht * comb.fp("q_loss"));
+
+  /* Calculation of boiler heat output from energy balance*/
   comb.fval_p("Q_out", comb.fp("Hf") * 1.0e6 + comb_air[0].F.Ht -
                            flue_gas.F.Ht - bottom_ash.F.Ht - comb.fp("Q_loss"));
+
+  /* defining and specifying the equipment associated to the solid_fuel_boiler:
+      1. biomass_stoker_boiler_power
+      2. biomass_storage_and_feeding
+  */
 
   object boiler("equipment", "biomass_stoker_boiler_power");
   boiler.fval_p("S", comb.fp("M_fuel") * 3.6);

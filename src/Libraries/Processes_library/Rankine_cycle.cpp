@@ -21,20 +21,33 @@ void steam_turbine_parameters::assign_parameter_values(std::string sys_type,
 }
 
 void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
+  /* Calculation of single-stage steam turbine model, based on:
+    - Input steam flow, in
+    - Isentropic efficiency, ST.mu_isent
+    - Outlet pressure, ST.Po
+
+    Assumptions:
+    - Mechanical to electric conversion effieiency, eff_el = 0.9
+  */
+
   ST.Mi = in.F.M;
   ST.Ti = in.F.T;
   ST.Pi = in.F.P;
   in.calculate_flow_properties();
 
-  const double eff_el = 0.9;  // assumed value
+  const double eff_el = 0.9;
 
+  /* Calculation of inlet thermodynamic propoperties */
   double s_out, s_in = sPTSupSteam(ST.Pi, ST.Ti);
   double hs_out, h_out, h_calc, h_in = hPTSupSteam(ST.Pi, ST.Ti);
 
-  double T_out, Ts_out = TSatWater(ST.Po);  // initial guess
-  double ys_moisture = 0.0, y_moisture;     // Initial Guess
+  /* Initial guess for specific entropy and steam quality at outlet */
+  double T_out, Ts_out = TSatWater(ST.Po);
+  double ys_moisture = 0.0, y_moisture;
   double s_out_initial = sPTSupSteam(ST.Po, Ts_out);
 
+  /* Iterate with isentropic outlet temperature and steam quality
+  until reaching isentropic outlet conditions  */
   if (s_out_initial < s_in) {
     s_out = s_out_initial;
     while (s_out < s_in) {
@@ -73,6 +86,7 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
     }
   }
 
+  /* Updating inlet and outlet flow parameters */
   in.F.Ht = in.F.M * 1.0e3 * h_in;
 
   out.F.M = in.F.M;
@@ -82,19 +96,32 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
   out.P.ht = out.P.h;
   out.F.Ht = out.F.M * 1.0e3 * h_calc;
 
+  /* Calculation of power output in Watts */
   ST.W = eff_el * in.F.M * 1.0e3 * (h_in - h_calc);
 }
 
 void steam_turbine_model(flow &in, flow &out, object &par) {
+  /* Calculation of multi-stage steam turbine model
+    with multiple steam extractions (bleeds) specified by
+    double vectors P_bleed (pressure, bar-g) and
+    M_bleed (mass flow rate, kg/s)
+    Assumptions:
+    1. Isentropic efficiency constant and equal for all stages
+    */
+
+  /* Importing steam_turbine model parameters */
   steam_turbine_parameters ST;
   ST.assign_parameter_values("process", "Rankine_cycle", par);
 
-  flow out_n("water");
-
-  std::size_t N_bleed = par.vctp("P_bleed").size();
-
+  /* Initialize the total power output to zero*/
   double W = 0;
 
+  /* Creating intern flow representing
+  the outlet from each steam turbine stage */
+  flow out_n("water");
+
+  /* Calculate each steam turbine stage */
+  std::size_t N_bleed = par.vctp("P_bleed").size();
   if (N_bleed == 0) {
     steam_turbine(in, out, ST);
     par.fval_p("W_el", 1e-6 * ST.W);
@@ -128,14 +155,21 @@ void steam_turbine_model(flow &in, flow &out, object &par) {
         ST_n.mu_isent = ST.mu_isent;
         steam_turbine(out_n, out, ST_n);
       }
-      W = W + ST_n.W;
+      W = W + ST_n.W;  // Add power production from each stage
     }
 
+    /* Exporting total power output in MW*/
     par.fval_p("W_el", 1e-6 * W);
   }
 }
 
 void steam_condenser(flow &steam, flow &cond, object &par) {
+  /* Calculation of steam condenser model
+    specified by outlet pressure P_cond (bar-g) and
+    temperature T_cond (deg. C) conditions
+    Assumed isobaric
+  */
+
   cond = flow("cond", "water");
   cond.F.T = par.fp("T_cond");
   cond.F.P = par.fp("P_cond");
@@ -145,30 +179,52 @@ void steam_condenser(flow &steam, flow &cond, object &par) {
   cond.P.h = hTWater(cond.F.T);
   double Q_cond = steam.F.M * (steam.P.h - cond.P.h);
 
+  /* Exporting total thermal power output in MW*/
   par.fval_p("Q_cond", Q_cond * 1e-6);
 }
 
 void district_heating(object &par) {
+  /* Calculation steam extractions (bleeds)
+  required from steam turbine to meet heat demands
+  for distric heating
+    as
+    Inputs:
+    - Qk = Thermal capacity of each heat demand (MW)
+    - Tk_in = Return temperature (deg.C) of each heat demand (MW)
+    - Tk_out = Supply temperature (deg.C) of each heat demand (MW)
+    Outputs:
+    - Pb vector with steam extractions pressure (, )bar-g)
+    - Mb vector with steam extractions mass flow rate (kg/s)
+    Assumptions:
+    - All heat demands are assumed to be at atmospheric pressure
+  */
+
+  /* Calculation of bleeds for each heat demand:
+     - Pressure as saturated pressure at Tk_out + 25.0 deg. C
+     - Mass flow assuming complete steam condensation at saturation point
+     to equal Qk  */
   std::vector<double> P_bleed, M_bleed;
 
+  /* Create internal flows repreenting return and supply water to district
+   * heating for each Qk */
   flow dh_in("dh_in", "water");
   flow dh_out("dh_out", "water");
 
   if (par.vctp("Qk").size() > 0) {
     for (std::size_t nk = 0; nk < par.vctp("Qk").size(); nk++) {
+      /* Calculate return and supply district heating flows for each Qk */
       dh_in.F.T = par.vctp("Tk_in")[nk];
-      dh_in.F.P = 1.01325;  // assumed atmospheric pressure
+      dh_in.F.P = 1.01325;  // bar, atmospheric pressure
       dh_in.P.h = hTWater(dh_in.F.T);
       dh_out.F.T = par.vctp("Tk_out")[nk];
-      dh_out.F.P = 1.01325;  // assumed atmospheric pressure
+      dh_out.F.P = 1.01325;  // bar, atmospheric pressure
       dh_out.P.h = hTWater(dh_out.F.T);
-
       dh_in.F.M = par.vctp("Qk")[nk] / (dh_out.P.h - dh_in.P.h);
       dh_out.F.M = dh_in.F.M;
 
-      // In / out heating fluid to for exporting heat to district heating
+      /* Create flows representing inlet and outlet heating fluids (steam)
+      in a heat exchanger for exporting heat Qk for district heating */
       flow hf_in, hf_out;
-
       hf_in = flow("hf_in", "water");
       hf_out = flow("hf_out", "water");
       hf_in.F.T = dh_out.F.T + 25.0;
@@ -178,14 +234,15 @@ void district_heating(object &par) {
       hf_out.F.T = Tsat_hf_in - 5.0;
       hf_out.F.P = hf_in.F.P;
       hf_out.P.h = hTWater(hf_out.F.T);
-
       hf_in.F.M = 1e3 * par.vctp("Qk")[nk] / (hf_in.P.h - hf_out.P.h);
       hf_out.F.M = hf_in.F.M;
 
+      /* Export bleed parameters for each Qk */
       P_bleed.push_back(hf_in.F.P);
       M_bleed.push_back(hf_in.F.M);
     }
 
+    /* Sort bleed parameters in pressure descendent order */
     std::vector<double> Pb_ord = P_bleed, Mb_ord = M_bleed;
 
     for (std::size_t i = 0; i < Pb_ord.size() - 1; ++i) {
@@ -197,8 +254,8 @@ void district_heating(object &par) {
       }
     }
 
+    /* Merge bleeds with pressure difference lower than 5 bar-g */
     std::vector<double> Pb = Pb_ord, Mb = Mb_ord;
-
     std::vector<std::size_t> merged;
     if (Pb_ord.size() > 1) {
       double Pmax = Pb_ord[0];
@@ -213,19 +270,33 @@ void district_heating(object &par) {
       }
     }
 
+    /* Expert sorted and merged bleeds as steam extractions */
     par.vct_fp("P_bleed", Pb);
     par.vct_fp("M_bleed", Mb);
   }
 }
 
 void rankine_cycle(object &par) {
+  /*Rankine cycle model, described in docs/bioCHP_model_description.md,
+  including:
+   1. Multi-stage steam turbine
+   2. Condenser
+   3. Heat export to district heating
+  */
+
   flow bfw, sat_cond, sat_stm, steam, steam_out, cond;
+
+  /* Defining and calculating boiler feed water
+  Assumed at 105 deg. C and boiler pressure P_stm */
   bfw = flow("bfw", "water");
   bfw.F.T = 105.0;
   bfw.F.P = par.fp("P_stm");
   bfw.P.h = hTWater(bfw.F.T);
   bfw.P.Tsat = TSatWater(bfw.F.P);
   double Tsat = bfw.P.Tsat;
+
+  /* Calculating saturated condensate and steam at
+ boiler pressure P_stm */
   sat_cond = flow("sat_cond", "water");
   sat_cond.F.T = Tsat - 5.0;
   sat_cond.F.P = par.fp("P_stm");
@@ -235,22 +306,32 @@ void rankine_cycle(object &par) {
   sat_stm.F.T = Tsat + 5.0;
   sat_stm.calculate_flow_properties();
 
+  /* Defining and calculating superheated steam
+  from solid fuel boiler, based on specified
+  temperature and pressure conditions, P_stm and T_stm  */
   steam = flow("steam", "water");
   steam.F.P = par.fp("P_stm");
   steam.F.T = par.fp("T_stm");
   steam.P.h = hPTSupSteam(steam.F.P, steam.F.T);
   steam.F.M = 1.0e-3 * par.fp("Q_stm") / (steam.P.h - bfw.P.h);
   steam_out = flow("cond", "water");
+
+  /* Defining condensate flow */
   cond = flow("cond", "water");
 
-  // calculating district heating data
+  /* Evaluating heat demands to district heating */
   district_heating(par);
 
+  /* Calculate steam turbine model using:
+    1. steam at soild fuel boiler outlet
+    2. steam extraction */
   steam_turbine_model(steam, steam_out, par);
 
-  // calculating steam condenser
+  /* calculating steam condenser */
   steam_condenser(steam_out, cond, par);
 
+  /* creating, specifying and calculating cost
+  of rankine_cycle equipment */
   object rankine_eq("equipment", "rankine_cycle");
   rankine_eq.fval_p("S", par.fp("Q_stm") * 1e-6);
   equipment_cost(rankine_eq);

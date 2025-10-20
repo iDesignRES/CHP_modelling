@@ -10,11 +10,14 @@
 #include "flue_gas_cleaning.h"
 
 void get_feedstock(std::vector<flow> &f, object &plant) {
+  // Creating the feedstock mixture from plant input parameters
   double LHV = 0.0;
   for (std::size_t nf = 0; nf < plant.svct("fuel_def").size(); nf++) {
     f.push_back(flow("feed", plant.svct("fuel_def")[nf]));
+    // Assume feedstock at ambient temperature and pressure conditions
     f[nf].F.T = 25.0;
     f[nf].F.P = 1.01325;
+    // Calculate low heating value of the mixture
     LHV += f[nf].P.LHV * plant.vctp("Yj")[nf];
 
     if (index_species(f[nf].k, "H2O") < 0) {
@@ -29,6 +32,7 @@ void get_feedstock(std::vector<flow> &f, object &plant) {
 }
 
 void bioCHP_plant_model(object &bioCHP) {
+  // Create boiler, rankine cycle and scrubber as objects
   object boiler("system", "solid_fuel_boiler",
                 get_database_path("bioCHP_inputs.toml"));
   object rankine("process", "Rankine_cycle",
@@ -39,6 +43,7 @@ void bioCHP_plant_model(object &bioCHP) {
   print_separation_line();
   std::cout << "Getting the feedstock data: " << std::endl;
 
+  // Creating the feedstock mixture from input data
   std::vector<flow> feed;
   get_feedstock(feed, bioCHP);
   double LHV_f = bioCHP.fp("LHV_f");
@@ -63,6 +68,9 @@ void bioCHP_plant_model(object &bioCHP) {
     sum_Qk += Qk[nk];
   }
 
+  /* When W_el is specified, the required feedstock
+     is calculated by iteration
+  */
   if (bioCHP.bp("W_el")) {
     std::cout << "bioCHP PLANT calculation using W_el = " << bioCHP.fp("W_el")
               << std::endl;
@@ -78,6 +86,8 @@ void bioCHP_plant_model(object &bioCHP) {
 
     double W_el_prod = 0.0;
 
+    // Iteration with the mass flow rate of fuel to match
+    // electric power production
     for (int n = 0; n < 10; n++) {
       double Mf = Hf / LHV_f;
 
@@ -102,6 +112,7 @@ void bioCHP_plant_model(object &bioCHP) {
     bioCHP.fval_p("Hf", Hf);
   }
 
+  // Main stright forward calculation from mass flow rate of feedstock
   bioCHP.fval_p("M_fuel", bioCHP.fp("Hf") / bioCHP.fp("LHV_f"));
 
   for (std::size_t nf = 0; nf < feed.size(); nf++) {
