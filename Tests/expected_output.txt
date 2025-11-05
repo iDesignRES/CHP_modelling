@@ -4,6 +4,7 @@ plant bioCHP_PLANT Biomass_mass_input_(t/h) num 92.0431
 plant bioCHP_PLANT Biomass_energy_input_(MW) num 394.593
 plant bioCHP_PLANT Heat_production_(MW) num 70
 plant bioCHP_PLANT Electricity_production_(MW) num 100
+plant bioCHP_PLANT C_inv num 2.4302e+08
 plant bioCHP_PLANT C_op_mat num 3.79187e+07
 plant bioCHP_PLANT C_op_el num 2.65084e+06
 plant bioCHP_PLANT C_op_maint num 2.58165e+06

@@ -163,6 +163,7 @@ void print_capex(object &par) {
   print_separation_line();
   std::cout << " Capital costs (M$): " << par.fp("C_inv") * 1e-6 << std::endl;
   print_separation_line();
+  std::cout << "C_inv = " << par.fp("C_inv") << std::endl;
   std::cout << "C_eq = " << par.fp("C_eq") * 1e-6 << std::endl;
   std::cout << "C_piping = " << par.fp("C_piping") * 1e-6 << std::endl;
   std::cout << "C_el = " << par.fp("C_el") * 1e-6 << std::endl;
@@ -211,9 +212,11 @@ void capex(object &par) {
                         par.fp("C_build") + par.fp("C_com") + par.fp("C_eng") +
                         par.fp("C_dev")) *
                            par.fp("f_cont"));
-  par.fval_p("C_inv", par.fp("C_pi") + par.fp("C_land") + par.fp("C_site") +
-                          par.fp("C_build") + par.fp("C_com") +
-                          par.fp("C_eng") + par.fp("C_dev") + par.fp("C_cont"));
+  par.fval_p("C_inv",
+             par.fp("C_pi") + par.fp("C_land") + par.fp("C_site") +
+                 par.fp("C_build") + par.fp("C_com") + par.fp("C_eng") +
+                 par.fp("C_dev") + par.fp("C_cont"),
+             "output");
   par.fval_p("C_eq_maint", par.fp("C_eq") * 0.02);
   par.fval_p("C_piping_maint", par.fp("C_piping") * 0.02);
   par.fval_p("C_el_maint", par.fp("C_el") * 0.02);
