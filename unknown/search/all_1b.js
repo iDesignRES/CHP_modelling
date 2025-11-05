@@ -4,7 +4,7 @@ var searchData=
   ['tests_1',['Run tests',['../index.html#autotoc_md8',1,'']]],
   ['tests_20coverage_20reccomended_20if_20altered_2',['Step 6: Tests coverage (reccomended if altered)',['../md_docs_2contribute.html#autotoc_md21',1,'']]],
   ['tests_20description_3',['Model tests description',['../index.html#autotoc_md4',1,'']]],
-  ['the_20biochp_20model_4',['Mathematical description of the bioCHP model',['../md_docs_2bioCHP__model__description.html#back-bio_CHP-par-math',1,'']]],
+  ['the_20biochp_20model_4',['Mathematical description of the bioCHP model',['../detailed_model_documentation_page.html#back-bio_CHP-par-math',1,'']]],
   ['the_20model_5',['Purpose of the model',['../index.html#autotoc_md1',1,'']]],
   ['the_20repository_6',['Step 2: Fork the Repository',['../md_docs_2contribute.html#autotoc_md17',1,'']]],
   ['through_20a_20fork_7',['Incorporate Feature Requests Through a Fork',['../md_docs_2contribute.html#autotoc_md15',1,'']]],

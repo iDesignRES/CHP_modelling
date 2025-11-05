@@ -27,15 +27,20 @@ var NAVTREE =
   [ "CHP_modelling", "index.html", [
     [ "bioCHP plant model", "index.html", "index" ],
     [ "CREDITS", "md_src_2CREDITS.html", null ],
-    [ "bioCHP_model_description", "md_docs_2bioCHP__model__description.html", [
-      [ "module description", "md_docs_2bioCHP__model__description.html#bioCHP", [
-        [ "implementation", "md_docs_2bioCHP__model__description.html#implementation", null ]
+    [ "bioCHP module description", "detailed_model_documentation_page.html", [
+      [ "bioCHP module description", "detailed_model_documentation_page.html#detailed_model_documentation", [
+        [ "Implementation", "detailed_model_documentation_page.html#implementation", null ]
       ] ],
-      [ "Mathematical description of the bioCHP model", "md_docs_2bioCHP__model__description.html#back-bio_CHP-par-math", [
-        [ "Solid fuel characterization", "md_docs_2bioCHP__model__description.html#back-bio_CHP-math-fuel", null ],
-        [ "Solid fuel boiler model", "md_docs_2bioCHP__model__description.html#back-bio_CHP-math-boiler", null ],
-        [ "Rankine cycle model", "md_docs_2bioCHP__model__description.html#back-bio_CHP-math-rankine_cycle", null ]
-      ] ]
+      [ "Mathematical description of the bioCHP model", "detailed_model_documentation_page.html#back-bio_CHP-par-math", [
+        [ "Solid fuel characterization", "detailed_model_documentation_page.html#back-bio_CHP-math-fuel", null ],
+        [ "Solid fuel boiler model", "detailed_model_documentation_page.html#back-bio_CHP-math-boiler", null ],
+        [ "Rankine cycle model", "detailed_model_documentation_page.html#back-bio_CHP-math-rankine_cycle", null ],
+        [ "Dry scrubber model", "detailed_model_documentation_page.html#back-bio_CHP-math-dry-scrubber", null ],
+        [ "CAPEX models", "detailed_model_documentation_page.html#back-bio_CHP-math-CAPEX", null ],
+        [ "OPEX models", "detailed_model_documentation_page.html#back-bio_CHP-math-OPEX", null ]
+      ] ],
+      [ "implementation and database", "detailed_model_documentation_page.html#Module", null ],
+      [ "References", "detailed_model_documentation_page.html#references", null ]
     ] ],
     [ "Contribute to CHP_modelling", "md_docs_2contribute.html", [
       [ "Overview", "md_docs_2contribute.html#autotoc_md11", null ],

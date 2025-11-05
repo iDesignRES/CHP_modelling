@@ -11,8 +11,8 @@ var searchData=
   ['fork_20the_20repository_8',['Step 2: Fork the Repository',['../md_docs_2contribute.html#autotoc_md17',1,'']]],
   ['formula_9',['formula',['../structspecies.html#a00c9bc1cff1f961106cbbd2613cb2e71',1,'species']]],
   ['fp_10',['fp',['../structobject.html#a2199ce9303705a3becfda5d6b59b6f68',1,'object']]],
-  ['fuel_20boiler_20model_11',['Solid fuel boiler model',['../md_docs_2bioCHP__model__description.html#back-bio_CHP-math-boiler',1,'']]],
-  ['fuel_20characterization_12',['Solid fuel characterization',['../md_docs_2bioCHP__model__description.html#back-bio_CHP-math-fuel',1,'']]],
+  ['fuel_20boiler_20model_11',['Solid fuel boiler model',['../detailed_model_documentation_page.html#back-bio_CHP-math-boiler',1,'']]],
+  ['fuel_20characterization_12',['Solid fuel characterization',['../detailed_model_documentation_page.html#back-bio_CHP-math-fuel',1,'']]],
   ['funding_13',['Project Funding',['../index.html#autotoc_md9',1,'']]],
   ['fval_5fp_14',['fval_p',['../structobject.html#ac6fd3c21d9d0facc127b9bd9857b62fc',1,'object']]]
 ];
