@@ -355,7 +355,7 @@ Outputs:
     \dot{Q}_{cond} & = \frac{\dot{M}_{stm}^{turbine}}{(h_{stm}^{turbine}-h_{cond})} \\
   \end{aligned}
   \f]
-where \f$ \dot{M}_{stm}^{turbine} \f$ and \f$ h_{stm}^{turbine} \f$ is the mass flow and specific enthalpy of steam from the turbine, and \f$ \h_{cond} \f$ is the specific ethalpy of condensated water evaluated at \f$ P_{cond}\f$ and \f$ T_{cond} \f$.
+where \f$ \dot{M}_{stm}^{turbine} \f$ and \f$ h_{stm}^{turbine} \f$ is the mass flow and specific enthalpy of steam from the turbine, and \f$ h_{cond} \f$ is the specific ethalpy of condensated water evaluated at \f$ P_{cond}\f$ and \f$ T_{cond} \f$.
 
 \subsection back-bio_CHP-math-dry-scrubber Dry scrubber model
 
