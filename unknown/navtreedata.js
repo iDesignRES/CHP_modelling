@@ -55,15 +55,12 @@ var NAVTREE =
       ] ]
     ] ],
     [ "Example Application: Minimum Viable bioCHP Case", "md_docs_2example_2example.html", [
-      [ "1. Overview", "md_docs_2example_2example.html#autotoc_md26", null ],
-      [ "2. Example Description", "md_docs_2example_2example.html#autotoc_md28", null ],
-      [ "3. Model Inputs", "md_docs_2example_2example.html#autotoc_md30", [
-        [ "(a) Biomass Feedstock Inputs", "md_docs_2example_2example.html#autotoc_md31", null ],
-        [ "(b) Plant Operation and Demand Inputs", "md_docs_2example_2example.html#autotoc_md33", null ]
+      [ "1. Example Description", "md_docs_2example_2example.html#autotoc_md26", [
+        [ "(a) Model Inputs", "md_docs_2example_2example.html#autotoc_md27", null ],
+        [ "(b) Model Outputs", "md_docs_2example_2example.html#autotoc_md28", null ]
       ] ],
-      [ "4. Model Outputs", "md_docs_2example_2example.html#autotoc_md35", null ],
-      [ "6. Example Interpretation", "md_docs_2example_2example.html#autotoc_md37", null ],
-      [ "7. Customization", "md_docs_2example_2example.html#autotoc_md39", null ]
+      [ "2. Example Interpretation", "md_docs_2example_2example.html#autotoc_md29", null ],
+      [ "3. Customization", "md_docs_2example_2example.html#autotoc_md30", null ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],

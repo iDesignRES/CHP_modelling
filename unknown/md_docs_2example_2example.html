@@ -99,21 +99,9 @@ $(document).ready(function(){initNavTree('md_docs_2example_2example.html',''); i
   <div class="headertitle"><div class="title">Example Application: Minimum Viable bioCHP Case</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md24"></a> This document describes a <b>minimum viable application</b> of the <code>bioCHP</code> model. <br  />
- It demonstrates how to define and execute a small-scale case for the biomass-based Combined Heat and Power (bioCHP) plant model.</p>
-<hr  />
-<h1><a class="anchor" id="autotoc_md26"></a>
-1. Overview</h1>
-<p>The <code>bioCHP</code> model simulates the <b>conversion of solid biomass</b> into combined heat and electricity under <b>steady-state conditions</b>. <br  />
- It evaluates the <b>mass and energy balances</b> of the CHP plant, as well as the <b>economic performance</b> in terms of capital (CAPEX) and operational (OPEX) costs.</p>
-<p>The plant is represented as an integrated process system including:</p><ul>
-<li>Biomass storage and feeding,</li>
-<li>Combustion and steam generation,</li>
-<li>Flue gas cleaning and residue management,</li>
-<li>A Rankine cycle with electricity production and multiple heat extractions,</li>
-<li>Heat exchange for district heating, and</li>
-<li>Economic evaluation modules for CAPEX and OPEX.</li>
-</ul>
+<div class="textblock"><p><a class="anchor" id="autotoc_md24"></a> This document describes a <b>minimum viable example</b> that demonstrates how to define and execute a small-scale case for the biomass-based Combined Heat and Power (bioCHP) plant model.</p>
+<p>The <code>bioCHP</code> model simulates the <b>conversion of solid biomass</b> into combined heat and electricity under <b>steady-state conditions</b>. It evaluates the <b>mass and energy balances</b> of the CHP plant, as well as the <b>economic performance</b> in terms of capital (CAPEX) and operational (OPEX) costs.</p>
+<p>For detailed information on the bioCHP model and implementation, please refer to <code>docs/bioCHP_model_description.md</code></p>
 <p>For detailed information about:</p><ul>
 <li>Installation requirements, <br  />
 </li>
@@ -124,7 +112,35 @@ $(document).ready(function(){initNavTree('md_docs_2example_2example.html',''); i
 </ul>
 <p>please refer to the <b><a class="el" href="index.html#quickstart">main README.md page</a></b>. <br  />
 </p>
-<p>The example presented here uses the input file located at: <code>docs/example/bioCHP_input.toml</code></p>
+<hr  />
+<h1><a class="anchor" id="autotoc_md26"></a>
+1. Example Description</h1>
+<p>In this example, the bioCHP plant is defined by:</p><ul>
+<li>The biomass mixture feeding the plant, composed of four different type of wood feedstock quantified in terms of their mass fraction.</li>
+<li>The target for electricity generation, quentified in terms of power output</li>
+<li>Two independent district heating demands, defined by their thermal power (MW) and their return/supply temperatures.</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md27"></a>
+(a) Model Inputs</h2>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Parameter   </th><th class="markdownTableHeadNone">Symbol   </th><th class="markdownTableHeadNone">Description   </th><th class="markdownTableHeadNone">Example    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>fuel_def</code>   </td><td class="markdownTableBodyNone">–   </td><td class="markdownTableBodyNone">Names of the biomass feedstocks (must exist in model database)   </td><td class="markdownTableBodyNone"><code>["spruce_stem", "birch_stem", "spruce_TandB", "spruce_bark"]</code>    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><code>Yj</code>   </td><td class="markdownTableBodyNone">\( Y_j^F \)   </td><td class="markdownTableBodyNone">Mass fraction of each biomass in the feed mixture (sums to 1)   </td><td class="markdownTableBodyNone"><code>[0.1, 0.3, 0.4, 0.2]</code>    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>YH2Oj</code>   </td><td class="markdownTableBodyNone">\( Y_{H_2O,j}^F \)   </td><td class="markdownTableBodyNone">Moisture content (mass fraction) of each biomass   </td><td class="markdownTableBodyNone"><code>[0.4, 0.35, 0.45, 0.5]</code>    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><code>W_el</code>   </td><td class="markdownTableBodyNone">\( \dot{W}_{el} \)   </td><td class="markdownTableBodyNone">Target electric power output [MW]   </td><td class="markdownTableBodyNone"><code>100.0</code>    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>Qk</code>   </td><td class="markdownTableBodyNone">\( \dot{Q}_{k} \)   </td><td class="markdownTableBodyNone">Thermal power supplied to each heat user [MW]   </td><td class="markdownTableBodyNone"><code>[30.0, 40.0]</code>    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><code>Tk_in</code>   </td><td class="markdownTableBodyNone">\( T_{in,k} \)   </td><td class="markdownTableBodyNone">Return temperature for each heat user [°C]   </td><td class="markdownTableBodyNone"><code>[70.0, 50.0]</code>    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>Tk_out</code>   </td><td class="markdownTableBodyNone">\( T_{out,k} \)   </td><td class="markdownTableBodyNone">Supply temperature for each heat user [°C]   </td><td class="markdownTableBodyNone"><code>[90.0, 80.0]</code>   </td></tr>
+</table>
+<p>The input in this example are implented using toml format in the file located at: <code>docs/example/bioCHP_input.toml</code></p>
 <div class="fragment"><div class="line"># Example input for bioCHP_plant function</div>
 <div class="line">[inputs]</div>
 <div class="line">    fuel_def = [&quot;spruce_stem&quot;, &quot;birch_stem&quot;, &quot;spruce_TandB&quot;, &quot;spruce_bark&quot;]</div>
@@ -134,75 +150,10 @@ $(document).ready(function(){initNavTree('md_docs_2example_2example.html',''); i
 <div class="line">    Qk = [30.0, 40.0]</div>
 <div class="line">    Tk_in = [70.0, 50.0]</div>
 <div class="line">    Tk_out = [90.0, 80.0]</div>
-</div><!-- fragment --><hr  />
-<h1><a class="anchor" id="autotoc_md28"></a>
-2. Example Description</h1>
-<p>This case defines a mixed feedstock, a target for electricity generation, and two thermal energy demands.</p>
-<p>The plant in this example is designed to:</p><ul>
-<li>Deliver <b>100 MW of electric power</b>, <br  />
-</li>
-<li>Provide <b>70 MW of district heating</b> (30 MW + 40 MW) at two temperature levels, and <br  />
-</li>
-<li>Use a <b>biomass blend</b> composed of spruce and birch resources with different moisture contents.</li>
-</ul>
-<hr  />
-<h1><a class="anchor" id="autotoc_md30"></a>
-3. Model Inputs</h1>
-<p>The model requires two main categories of inputs: (a) biomass feedstock definition and (b) plant operating specifications.</p>
-<h2><a class="anchor" id="autotoc_md31"></a>
-(a) Biomass Feedstock Inputs</h2>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Parameter   </th><th class="markdownTableHeadNone">Symbol   </th><th class="markdownTableHeadNone">Description   </th><th class="markdownTableHeadNone">Example    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>fuel_def</code>   </td><td class="markdownTableBodyNone">–   </td><td class="markdownTableBodyNone">Names of the biomass feedstocks (must exist in model database)   </td><td class="markdownTableBodyNone"><code>["spruce_stem", "birch_stem", "spruce_TandB", "spruce_bark"]</code>    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>Yj</code>   </td><td class="markdownTableBodyNone">\( Y_j^F \)   </td><td class="markdownTableBodyNone">Mass fraction of each biomass in the feed mixture (sums to 1)   </td><td class="markdownTableBodyNone"><code>[0.1, 0.3, 0.4, 0.2]</code>    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>YH2Oj</code>   </td><td class="markdownTableBodyNone">\( Y_{H_2O,j}^F \)   </td><td class="markdownTableBodyNone">Moisture content (mass fraction) of each biomass   </td><td class="markdownTableBodyNone"><code>[0.4, 0.35, 0.45, 0.5]</code>   </td></tr>
-</table>
-<p>Each feedstock is characterized internally by:</p><ul>
-<li>Atomic composition (C, H, O, N, S, Cl),</li>
-<li>Ash content,</li>
-<li>Lower Heating Value (LHV),</li>
-<li>Density and thermodynamic correlations.</li>
-</ul>
-<p>These are stored in the model database (<code>src/Database/flows.toml</code>).</p>
-<hr  />
-<h2><a class="anchor" id="autotoc_md33"></a>
-(b) Plant Operation and Demand Inputs</h2>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Parameter   </th><th class="markdownTableHeadNone">Symbol   </th><th class="markdownTableHeadNone">Description   </th><th class="markdownTableHeadNone">Example    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>W_el</code>   </td><td class="markdownTableBodyNone">\( \dot{W}_{el} \)   </td><td class="markdownTableBodyNone">Target electric power output [MW]   </td><td class="markdownTableBodyNone"><code>100.0</code>    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>Qk</code>   </td><td class="markdownTableBodyNone">\( \dot{Q}_{k} \)   </td><td class="markdownTableBodyNone">Thermal power supplied to each heat user [MW]   </td><td class="markdownTableBodyNone"><code>[30.0, 40.0]</code>    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>Tk_in</code>   </td><td class="markdownTableBodyNone">\( T_{in,k} \)   </td><td class="markdownTableBodyNone">Return temperature for each heat user [°C]   </td><td class="markdownTableBodyNone"><code>[70.0, 50.0]</code>    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>Tk_out</code>   </td><td class="markdownTableBodyNone">\( T_{out,k} \)   </td><td class="markdownTableBodyNone">Supply temperature for each heat user [°C]   </td><td class="markdownTableBodyNone"><code>[90.0, 80.0]</code>   </td></tr>
-</table>
-<p>Each heat user corresponds to a <b>district heating loop</b>, simulated as a heat exchanger where steam from the turbine condenses to provide useful heat.</p>
-<hr  />
-<h1><a class="anchor" id="autotoc_md35"></a>
-4. Model Outputs</h1>
-<p>The bioCHP model produces both <b>technical</b> and <b>economic</b> results. <br  />
- The results are written to a plain text file <code>output.txt</code>:</p>
-<div class="fragment"><div class="line">plant bioCHP_PLANT Mj num 2.55675 7.67026 10.227 5.1135</div>
-<div class="line">plant bioCHP_PLANT Hfj num 47.1976 61.8726 188.947 96.5762</div>
-<div class="line">plant bioCHP_PLANT Biomass_mass_input_(t/h) num 92.0431</div>
-<div class="line">plant bioCHP_PLANT Biomass_energy_input_(MW) num 394.593</div>
-<div class="line">plant bioCHP_PLANT Heat_production_(MW) num 70</div>
-<div class="line">plant bioCHP_PLANT Electricity_production_(MW) num 100</div>
-<div class="line">plant bioCHP_PLANT C_op_mat num 3.79187e+07</div>
-<div class="line">plant bioCHP_PLANT C_op_el num 2.65084e+06</div>
-<div class="line">plant bioCHP_PLANT C_op_maint num 2.58165e+06</div>
-<div class="line">plant bioCHP_PLANT C_op_ins num 1.29083e+06</div>
-<div class="line">plant bioCHP_PLANT C_op_adm num 1.29083e+06</div>
-<div class="line">plant bioCHP_PLANT C_op num 4.57329e+07</div>
-<div class="line">plant bioCHP_PLANT C_op_var num 4.05695e+07</div>
-</div><!-- fragment --><p>with the following detailed explanation</p>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md28"></a>
+(b) Model Outputs</h2>
+<p>The main outputs from the bioCHP model are the quantified <b>required input feedstock</b>, <b>capex</b> interms of capital investment, and <b>opex</b>.</p>
+<p>A detailed description of the outputs from the bioCHP model is shown in the tanle below:</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Output   </th><th class="markdownTableHeadNone">Symbol   </th><th class="markdownTableHeadNone">Description   </th><th class="markdownTableHeadNone">Units    </th></tr>
@@ -231,32 +182,52 @@ $(document).ready(function(){initNavTree('md_docs_2example_2example.html',''); i
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><code>C_op_var</code>   </td><td class="markdownTableBodyNone">\( C_{op,d} \)   </td><td class="markdownTableBodyNone">Direct variable operating costs   </td><td class="markdownTableBodyNone">USD/year    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>C_op</code>   </td><td class="markdownTableBodyNone">\( C_{op} \)   </td><td class="markdownTableBodyNone">Total operating costs (variable + fixed)   </td><td class="markdownTableBodyNone">USD/year   </td></tr>
+<td class="markdownTableBodyNone"><code>C_op</code>   </td><td class="markdownTableBodyNone">\( C_{op} \)   </td><td class="markdownTableBodyNone">Total operating costs (variable + fixed)   </td><td class="markdownTableBodyNone">USD/year    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><code>C_inv</code>   </td><td class="markdownTableBodyNone">\( C_{inv} \)   </td><td class="markdownTableBodyNone">Total investment   </td><td class="markdownTableBodyNone">USD   </td></tr>
 </table>
-<p>These results allow estimation of:</p><ul>
+<p>These output results are written to a plain text file <code>output.txt</code>:</p>
+<div class="fragment"><div class="line">plant bioCHP_PLANT Mj num 2.55675 7.67026 10.227 5.1135</div>
+<div class="line">plant bioCHP_PLANT Hfj num 47.1976 61.8726 188.947 96.5762</div>
+<div class="line">plant bioCHP_PLANT Biomass_mass_input_(t/h) num 92.0431</div>
+<div class="line">plant bioCHP_PLANT Biomass_energy_input_(MW) num 394.593</div>
+<div class="line">plant bioCHP_PLANT Heat_production_(MW) num 70</div>
+<div class="line">plant bioCHP_PLANT Electricity_production_(MW) num 100</div>
+<div class="line">plant bioCHP_PLANT C_inv num 2.4302e+08</div>
+<div class="line">plant bioCHP_PLANT C_op_mat num 3.79187e+07</div>
+<div class="line">plant bioCHP_PLANT C_op_el num 2.65084e+06</div>
+<div class="line">plant bioCHP_PLANT C_op_maint num 2.58165e+06</div>
+<div class="line">plant bioCHP_PLANT C_op_ins num 1.29083e+06</div>
+<div class="line">plant bioCHP_PLANT C_op_adm num 1.29083e+06</div>
+<div class="line">plant bioCHP_PLANT C_op num 4.57329e+07</div>
+<div class="line">plant bioCHP_PLANT C_op_var num 4.05695e+07</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md29"></a>
+2. Example Interpretation</h1>
+<p>These output results allow estimation of:</p><ul>
 <li><b>Total biomass required</b> to sustain the desired power outputs,</li>
 <li><b>Energy conversion efficiency</b> (electrical and overall),</li>
 <li><b>Operating cost structure</b> for the bioCHP system.</li>
 </ul>
-<hr  />
-<h1><a class="anchor" id="autotoc_md37"></a>
-6. Example Interpretation</h1>
 <p>For the given example:</p><ul>
 <li>The total <b>biomass energy input</b> is approximately <b>395 MW</b>. <br  />
 </li>
 <li>The model produces <b>100 MW of electricity</b> and <b>70 MW of useful heat</b>, corresponding to an <b>overall efficiency</b> of about <b>43%</b>, assuming nominal conversion losses. <br  />
 </li>
 <li>The total biomass feed rate is around <b>92 t/h</b>, representing a large-scale CHP plant.</li>
+<li>The required total investment is around <b>243 M USD</b></li>
+<li>The total annual operating cost is approximately <b>45.7 M USD</b>, where around <b>40.6 M USD</b> are variable operating cost due to consumables including the supply cost of biomass.</li>
 </ul>
-<p>The detailed cost breakdown (<code>C_op_*</code>) quantifies the impact of fuel, operation, and maintenance on plant economics. <br  />
- By adjusting the feedstock mix, moisture contents, or power-to-heat ratio, users can explore the sensitivity of technical and economic performance.</p>
-<hr  />
-<h1><a class="anchor" id="autotoc_md39"></a>
-7. Customization</h1>
-<p>You can modify the example by changing parameters in the TOML input:</p><ul>
+<h1><a class="anchor" id="autotoc_md30"></a>
+3. Customization</h1>
+<p>The values of the parameters defined in the TOML input for this example can be modified:</p><ul>
 <li><b>Feedstock mix:</b> alter <code>fuel_def</code>, <code>Yj</code>, or <code>YH2Oj</code> to simulate alternative biomass blends.</li>
-<li><b>Plant capacity:</b> change <code>W_el</code> to represent smaller or larger installations.</li>
-<li><b>Heat demands:</b> modify <code>Qk</code>, <code>Tk_in</code>, and <code>Tk_out</code> to reflect district heating requirements. </li>
+<li><b>Plant capacity:</b> change <code>W_el</code> to represent smaller or larger capacity of the CHP plant.</li>
+<li><b>Heat demands:</b> modify <code>Qk</code>, <code>Tk_in</code>, and <code>Tk_out</code> to analyze the impact of district heating demands on the process and economic performance.</li>
+</ul>
+<p>Additional input data can also be modified:</p><ul>
+<li>Introducing new types of wood feedstock can be reated within the flows database (<code>src/Database/flows.toml</code>) by replicating existing feedstock using the same characterization</li>
+<li>Process parameters of the bioCHP plant, within the file (<code>src/Database/bioCHP_input.toml</code>)</li>
+<li>Prices and equipment cost aparemeters, within the file (<code>src/Database/costs.toml</code>) </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

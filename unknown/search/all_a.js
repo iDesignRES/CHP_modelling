@@ -24,6 +24,6 @@ var searchData=
   ['create_20an_20issue_21',['Step 1: Create an Issue',['../md_docs_2contribute.html#autotoc_md16',1,'']]],
   ['creating_20an_20issue_22',['Creating an Issue',['../md_docs_2contribute.html#autotoc_md14',1,'']]],
   ['credits_23',['CREDITS',['../md_src_2CREDITS.html',1,'']]],
-  ['customization_24',['7. Customization',['../md_docs_2example_2example.html#autotoc_md39',1,'']]],
+  ['customization_24',['3. Customization',['../md_docs_2example_2example.html#autotoc_md30',1,'']]],
   ['cycle_20model_25',['Rankine cycle model',['../md_docs_2bioCHP__model__description.html#back-bio_CHP-math-rankine_cycle',1,'']]]
 ];
