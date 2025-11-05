@@ -1,4 +1,8 @@
-\section bioCHP module description
+\page detailed_model_documentation_page bioCHP module description
+
+This pages gives a detailed documentation of the bioCHP module.
+
+\section detailed_model_documentation bioCHP module description
 
 The BioCHP plant model incorporates the following mass/energy streams and unit process operations:
 
@@ -60,7 +64,7 @@ Important features of the model include:
 - The feedstock is defined as a mixture of several types of *Biomass* resources.
 - Multiple heat demands for **district heating**, specified by thermal power and return/supply temperatures.
 
-\subsection implementation
+\subsection implementation Implementation
 
 The module is implemented as a nonlinear C++ model linked to `EnergyModelsX` through a function that calculates both the **costs** (Investment, total and variable operating expenses) and the required **mass flow rate of each feedstock** as outputs, based on the specified *electric power production*, *heat demands* (thermal power capacity and return/supply temperatures) and **moisture content of each biomass feedstock** as inputs. This sampling routine allows a tight integration of the model within the `EnergyModelsX` framework.
 
@@ -188,7 +192,7 @@ Mass and energy flows of combustion air, bottom ash, fly ash and flue gas are ca
 
 Combustion of each biomass feedstock is modelled assuming steady-state through the global reaction [12]
 
-\f$CH_xO_y + \nu_{O2} (O_2 + 3.76N_2) \arrow \nu_{CO2} CO_2 + \nu_{H2O} H_2O\f$
+\f$ CH_xO_y + \nu_{O2} (O_2 + 3.76N_2) \rightarrow \nu_{CO2} CO_2 + \nu_{H2O} H_2O \f$
 
 where CH_xO_y represents the biomass feedstock atomic composition per unit mol of carbon.
 Here \f$ x \f$ and \f$ y \f$ denoting, respectively, the hydrogen-to-carbon and oxygen-to-carbon atomic molar ratio calculated in terms of the atomic composition from:
@@ -319,18 +323,18 @@ Bleeds are calculated for each heat demand as follows:
   \f$ Pb_{k} \f$ (`P_bleed[k]` in the model as `vector[double]`) is calculated as the saturation pressure of water at \f$ Th_{out,k} + 25°C \f$
   \f$ \dot{M}b_{k} \f$ (`P_bleed[k]` in the model as `vector[double]`)
 
-\f$ Mb_{k} \f = \frac{\dot{Q}_{k}}{h_{vap}^{sat}(Pb_{k}) - h_{cond}^{sat}(Pb_{k})} \f$
+\f$ Mb_{k} = \frac{\dot{Q}_{k}}{h_{vap}^{sat}(Pb_{k}) - h_{cond}^{sat}(Pb_{k})} \f$
 
 with $h_{vap}^{sat}(Pb_{k})$ and $h_{cond}^{sat}(Pb_{k})$ are the vapor and condensate specific enthalpies of saturated water evaluated at Pb_{k}. 
 
-The pair [\f$ Pb_{n} \f$,\f$ \dot{M}b_{n}] is obtained by sorting the pressure in descendent order and merging bleeds with pressure difference lower than 5 bar. 
+The pair \f$ [Pb_{n}, \dot{M}_{n} ]\f$ is obtained by sorting the pressure in descendent order and merging bleeds with pressure difference lower than 5 bar. 
 When two bleeds merge, the resulting one keeps the higher pressure and the sum the steam flow rates.     
 
 3. **steam turbine model**, implemented in the function `steam_turbine_model(object &par)`
 It calculates the steam turbine with steam extractions. 
 The overall steam turbine process is divided in stages: inlet to first extraction, between extractions, and last extraction to outlet. 
 Each stage is calculated assuming steady state, adiabatic expansion using a constant isentropic efficiency [13]   
-The output is the calculated total electric power production, denoted by \dot{W}_{el} (`par.W_el` in the model) in MW, from
+The output is the calculated total electric power production, denoted by \f$ \dot{W}_{el} \f$ (`par.W_el` in the model) in MW, from
 
 \f[
 \dot{W}_{el} = \sum_{n=0}^{N_q} \left(\dot{H}_F \frac{(q_{stm}^{boiler}/h_{fuel})}{(h_{stm}^{boiler}-h_{bfw}^{boiler})} - \sum_{k=0}^n \frac{\dot{Q}_{k}}{(h_{stm}^{k}-h_{o}^{k})} \right) (h_{in}^{ST_n}-h_{out,s}^{ST_n})\eta_S^{ST_n}
@@ -351,7 +355,7 @@ Outputs:
     \dot{Q}_{cond} & = \frac{\dot{M}_{stm}^{turbine}}{(h_{stm}^{turbine}-h_{cond})} \\
   \end{aligned}
   \f]
-where $\dot{M}_{stm}^{turbine}$ and $h_{stm}^{turbine}$ is the mass flow and specific enthalpy of steam from the turbine, and $\h_{cond}$ is the specific ethalpy of condensated water evaluated at $P_{cond}$ and $T_{cond}$.
+where \f$ \dot{M}_{stm}^{turbine} \f$ and \f$ h_{stm}^{turbine} \f$ is the mass flow and specific enthalpy of steam from the turbine, and \f$ \h_{cond} \f$ is the specific ethalpy of condensated water evaluated at \f$ P_{cond}\f$ and \f$ T_{cond} \f$.
 
 \subsection back-bio_CHP-math-dry-scrubber Dry scrubber model
 
