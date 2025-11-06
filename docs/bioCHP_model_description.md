@@ -79,9 +79,9 @@ Important features and functionalities of the module include:
 -	The **cost module** `src/Cost.cpp` evaluates CAPEX of a physical system and variable OPEX of a consumable or utility using their representing object as input. 
 - Values for all physical properties are defined in SI units.
 
-All **input data** used by the bioCHP plant module is implenented using **TOML format** [7] within the `src/Database` Directory. Database is described below, in section `Module databse`. 
+All **input data** used by the bioCHP plant module is implenented using **TOML format** [7] within the `src/Database` directory. Database is described below, in the section `Module database`. 
 
-The CHP plant module is implemented through the function (in `src/bioCHP.cpp`): 
+The CHP plant module is implemented through the function (in `src/bioCHP.h`): 
 
 `bioCHP_plant(std::vector<std::string> fuel_def, std::vector<double> Yj,
                     std::vector<double> YH2Oj, double W_el,
@@ -90,9 +90,9 @@ The CHP plant module is implemented through the function (in `src/bioCHP.cpp`):
 
 with the inputs defined as follow:
 
-- none (`fuel_vec` in the model as `vector[string]`): Biomass composition in the input soild fuel to the CHP plant.
+- none (`fuel_def` in the model as `vector[string]`): Biomass composition in the input soild fuel to the CHP plant.
   The input solid fuel to the CHP plant is a mixture of individual biomass feedstock.
-  Each biomass feedstock is defined by one string in the `fuel_vec` vector, e.g., `spruce_bark`, linked
+  Each biomass feedstock is defined by one string in the `fuel_def` vector, e.g., `spruce_bark`, linked
   to a biomass database as described in section `Module database` below.
 - \f$ Y_j^F \f$ (`Yj_vec[j]` in the model as `vector[double]`): The mass fraction of biomass resource \f$ j \f$ in the feed.
   The total mass fraction must sum to 1.
@@ -240,7 +240,7 @@ h_{fuel} = \sum_j Y_j^F\Big[(1-Y_{H_2O,j})\, LHV_j - Y_{H_2O,j}\, h_{v,H_2O}\Big
  \f[
   \begin{aligned}
     \dot{V}_{ca}^{boiler} & = \sum_j \Big[ \dot{V}_{stoich,j}\, (1+\lambda_{air}^{comb}) \Big] \\
-    \dot{M}_{ca}^{boiler} & = \dot{V}_{ca}^{boiler} (W_air / 0.02241) \\
+    \dot{M}_{ca}^{boiler} & = \dot{V}_{ca}^{boiler} (W_{air} / 0.02241) \\
   \end{aligned}
   \f]
 Here, \f$ W_{air} \f$ is the molecular weight of air (29 g/mol).
@@ -290,7 +290,7 @@ where the \f$ q_{loss} \f$ corresponds is the fraction of dissipation heat losse
 
 \subsection back-bio_CHP-math-rankine_cycle Rankine cycle model
 
-The rankine cycle model is implemented in the function `rankine_cycle(object &par)` (located in`src/Library/Process_library/Rankine_cycle.cpp`)
+The rankine cycle model is implemented in the function `rankine_cycle(object &par)` (located in `src/Library/Process_library/Rankine_cycle.h`)
 
 with the following input parameters:
 
@@ -323,9 +323,11 @@ Bleeds are calculated for each heat demand as follows:
   \f$ Pb_{k} \f$ (`P_bleed[k]` in the model as `vector[double]`) is calculated as the saturation pressure of water at \f$ Th_{out,k} + 25°C \f$
   \f$ \dot{M}b_{k} \f$ (`P_bleed[k]` in the model as `vector[double]`)
 
-\f$ Mb_{k} = \frac{\dot{Q}_{k}}{h_{vap}^{sat}(Pb_{k}) - h_{cond}^{sat}(Pb_{k})} \f$
+\f[ 
+Mb_{k} = \frac{\dot{Q}_{k}}{h_{vap}^{sat}(Pb_{k}) - h_{cond}^{sat}(Pb_{k})} 
+\f]
 
-with $h_{vap}^{sat}(Pb_{k})$ and $h_{cond}^{sat}(Pb_{k})$ are the vapor and condensate specific enthalpies of saturated water evaluated at Pb_{k}. 
+with \f$ h_{vap}^{sat}(Pb_{k}) \f$ and \f$ h_{cond}^{sat}(Pb_{k}) \f$ are the vapor and condensate specific enthalpies of saturated water evaluated at \f$ Pb_{k} \f$. 
 
 The pair \f$ [Pb_{n}, \dot{M}_{n} ]\f$ is obtained by sorting the pressure in descendent order and merging bleeds with pressure difference lower than 5 bar. 
 When two bleeds merge, the resulting one keeps the higher pressure and the sum the steam flow rates.     
@@ -352,7 +354,7 @@ Outputs:
 -  Thermal power output \f$ \dot{Q}_{cond} \f$ (`par.Q_cond` **parameter** in the model) 
  \f[
   \begin{aligned}
-    \dot{Q}_{cond} & = \frac{\dot{M}_{stm}^{turbine}}{(h_{stm}^{turbine}-h_{cond})} \\
+    \dot{Q}_{cond} & = \frac{\dot{M}_{stm}^{turbine}}{h_{stm}^{turbine}-h_{cond}} \\
   \end{aligned}
   \f]
 where \f$ \dot{M}_{stm}^{turbine} \f$ and \f$ h_{stm}^{turbine} \f$ is the mass flow and specific enthalpy of steam from the turbine, and \f$ h_{cond} \f$ is the specific ethalpy of condensated water evaluated at \f$ P_{cond}\f$ and \f$ T_{cond} \f$.

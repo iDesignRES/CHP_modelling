@@ -86,10 +86,10 @@ int main(int argc, char *argv[]) {
       Tk_out_len = 2;
 
       Mj_len = 4;
-      expected_Mj[0] = 2.556752419796;
-      expected_Mj[1] = 5.113504839591;
-      expected_Mj[2] = 7.670257259387;
-      expected_Mj[3] = 10.227009679183;
+      expected_Mj[0] = 5.113504839591;
+      expected_Mj[1] = 10.227009679183;
+      expected_Mj[2] = 2.556752419796;
+      expected_Mj[3] = 7.670257259387;
       break;
     default:
       fuel_def[0] = "spruce_stem";
