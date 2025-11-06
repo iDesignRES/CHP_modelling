@@ -135,12 +135,12 @@ Implementation</h2>
 <li>The <b>cost module</b> <code>src/Cost.cpp</code> evaluates CAPEX of a physical system and variable OPEX of a consumable or utility using their representing object as input.</li>
 <li>Values for all physical properties are defined in SI units.</li>
 </ul>
-<p>All <b>input data</b> used by the bioCHP plant module is implenented using <b>TOML format</b> [7] within the <code>src/Database</code> Directory. Database is described below, in section <code>Module databse</code>.</p>
-<p>The CHP plant module is implemented through the function (in <code>src/bioCHP.cpp</code>):</p>
+<p>All <b>input data</b> used by the bioCHP plant module is implenented using <b>TOML format</b> [7] within the <code>src/Database</code> directory. Database is described below, in the section <code>Module database</code>.</p>
+<p>The CHP plant module is implemented through the function (in <code><a class="el" href="bioCHP_8h_source.html">src/bioCHP.h</a></code>):</p>
 <p><code>bioCHP_plant(std::vector&lt;std::string&gt; fuel_def, std::vector&lt;double&gt; Yj, std::vector&lt;double&gt; YH2Oj, double W_el, std::vector&lt;double&gt; Qk, std::vector&lt;double&gt; Tk_in, std::vector&lt;double&gt; Tk_out)</code></p>
 <p>with the inputs defined as follow:</p>
 <ul>
-<li>none (<code>fuel_vec</code> in the model as <code>vector[string]</code>): Biomass composition in the input soild fuel to the CHP plant. The input solid fuel to the CHP plant is a mixture of individual biomass feedstock. Each biomass feedstock is defined by one string in the <code>fuel_vec</code> vector, e.g., <code>spruce_bark</code>, linked to a biomass database as described in section <code>Module database</code> below.</li>
+<li>none (<code>fuel_def</code> in the model as <code>vector[string]</code>): Biomass composition in the input soild fuel to the CHP plant. The input solid fuel to the CHP plant is a mixture of individual biomass feedstock. Each biomass feedstock is defined by one string in the <code>fuel_def</code> vector, e.g., <code>spruce_bark</code>, linked to a biomass database as described in section <code>Module database</code> below.</li>
 <li>\( Y_j^F \) (<code>Yj_vec[j]</code> in the model as <code>vector[double]</code>): The mass fraction of biomass resource \( j \) in the feed. The total mass fraction must sum to 1.</li>
 <li>\( Y_{H_2O,j}^F \) (<code>YH2Oj_vec[j]</code> in the model as <code>vector[double]</code>): The moisture content of biomass resource \( j \) as a mass fraction. It corresponds to the water content in the total wet mass.</li>
 <li>\( Th_{in,k} \) (<code>Tkin_vec[k]</code> in the model as <code>vector[double]</code>): The return temperature level of heat demand \( k \) in °C. As the CHP plant can provide heat at several temperature levels, it is possible to specify them directly.</li>
@@ -267,7 +267,7 @@ h_{fuel} = \sum_j Y_j^F\Big[(1-Y_{H_2O,j})\, LHV_j - Y_{H_2O,j}\, h_{v,H_2O}\Big
 \[
   \begin{aligned}
     \dot{V}_{ca}^{boiler} &amp; = \sum_j \Big[ \dot{V}_{stoich,j}\, (1+\lambda_{air}^{comb}) \Big] \\
-    \dot{M}_{ca}^{boiler} &amp; = \dot{V}_{ca}^{boiler} (W_air / 0.02241) \\
+    \dot{M}_{ca}^{boiler} &amp; = \dot{V}_{ca}^{boiler} (W_{air} / 0.02241) \\
   \end{aligned}
   \]
 </p>
@@ -318,7 +318,7 @@ h_g^{FGC}  = (T_g^{FGC}-T_0) \sum_j \Big\{ Y_j^F\, c_{p,g,j} \Big( Y_{H2O,j} + (
 <p>where the \( q_{loss} \) corresponds is the fraction of dissipation heat losses relative to thermal power production, assumed to be constant and equal to 0.1.</p>
 <h2><a class="anchor" id="back-bio_CHP-math-rankine_cycle"></a>
 Rankine cycle model</h2>
-<p>The rankine cycle model is implemented in the function <code>rankine_cycle(object &amp;par)</code> (located in<code>src/Library/Process_library/Rankine_cycle.cpp</code>)</p>
+<p>The rankine cycle model is implemented in the function <code>rankine_cycle(object &amp;par)</code> (located in <code>src/Library/Process_library/Rankine_cycle.h</code>)</p>
 <p>with the following input parameters:</p>
 <ul>
 <li>\( \dot{Q}_{stm}^{boiler} \) (<code>par.Q_stm</code> in the model): The <b>Boiler</b> steam thermal energy production in MW.</li>
@@ -348,8 +348,12 @@ Rankine cycle model</h2>
 <li>\( \dot{M}b_{n} \) (<code>par.Mb[nb]</code> in the model as <code>vector[double]</code>): steam mass flow rates related to each steam extraction pressure.</li>
 </ul>
 <p>Bleeds are calculated for each heat demand as follows: \( Pb_{k} \) (<code>P_bleed[k]</code> in the model as <code>vector[double]</code>) is calculated as the saturation pressure of water at \( Th_{out,k} + 25°C \) \( \dot{M}b_{k} \) (<code>P_bleed[k]</code> in the model as <code>vector[double]</code>)</p>
-<p>\( Mb_{k} = \frac{\dot{Q}_{k}}{h_{vap}^{sat}(Pb_{k}) - h_{cond}^{sat}(Pb_{k})} \)</p>
-<p>with $h_{vap}^{sat}(Pb_{k})$ and $h_{cond}^{sat}(Pb_{k})$ are the vapor and condensate specific enthalpies of saturated water evaluated at Pb_{k}.</p>
+<p class="formulaDsp">
+\[ 
+Mb_{k} = \frac{\dot{Q}_{k}}{h_{vap}^{sat}(Pb_{k}) - h_{cond}^{sat}(Pb_{k})} 
+\]
+</p>
+<p>with \( h_{vap}^{sat}(Pb_{k}) \) and \( h_{cond}^{sat}(Pb_{k}) \) are the vapor and condensate specific enthalpies of saturated water evaluated at \( Pb_{k} \).</p>
 <p>The pair \( [Pb_{n}, \dot{M}_{n} ]\) is obtained by sorting the pressure in descendent order and merging bleeds with pressure difference lower than 5 bar. When two bleeds merge, the resulting one keeps the higher pressure and the sum the steam flow rates. <br  />
 </p>
 <ol type="1">
@@ -374,7 +378,7 @@ Rankine cycle model</h2>
 <li>Thermal power output \( \dot{Q}_{cond} \) (<code>par.Q_cond</code> <b>parameter</b> in the model)  <p class="formulaDsp">
 \[
   \begin{aligned}
-    \dot{Q}_{cond} &amp; = \frac{\dot{M}_{stm}^{turbine}}{(h_{stm}^{turbine}-h_{cond})} \\
+    \dot{Q}_{cond} &amp; = \frac{\dot{M}_{stm}^{turbine}}{h_{stm}^{turbine}-h_{cond}} \\
   \end{aligned}
   \]
 </p>
