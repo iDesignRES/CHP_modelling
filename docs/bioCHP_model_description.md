@@ -66,7 +66,7 @@ Important features of the model include:
 
 \subsection implementation Implementation
 
-The module is implemented as a nonlinear C++ model linked to `EnergyModelsX` through a function that calculates both the **costs** (Investment, total and variable operating expenses) and the required **mass flow rate of each feedstock** as outputs, based on the specified *electric power production*, *heat demands* (thermal power capacity and return/supply temperatures) and **moisture content of each biomass feedstock** as inputs. This sampling routine allows a tight integration of the model within the `EnergyModelsX` framework.
+The nonlinear C++ model enables sampling for [EnergyModelsX](https://github.com/EnergyModelsX) through the function `bioCHP_wrapper.cpp` which provides a function that calculates both the **costs** (Investment, total and variable operating expenses) and the required **mass flow rate of each feedstock** as outputs, based on the specified *electric power production*, *heat demands* (thermal power capacity and return/supply temperatures) and **moisture content of each biomass feedstock** as inputs. This sampling routine allows a tight integration of the model within the [EnergyModelsX](https://github.com/EnergyModelsX) framework.
 
 Important features and functionalities of the module include:
 
@@ -511,7 +511,7 @@ Here, the subscript \f$ k \f$ denotes the personnel categories and the parameter
 \note Number of employees:
 The number of employees depends on the size of the plant. The chosen distinction is based on the mass flow of biomass into the plant \f$ \dot{M}_F \f$, with a change in staffing when the flow exceeds 10 t/h.
 
-\section Module implementation and database
+\section module_implementation_and_database Module implementation and database
 
 
 - Input parameters for the bioCHP plant, in `src/Database/bioCHP_inputs.toml`:

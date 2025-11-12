@@ -5,7 +5,7 @@
 
 #include "flow_definitions.h"
 /**
- * @brief function to mix to flow withy the same type of chemical composition
+ * @brief function to mix two flows with the same type of chemical composition
  *
  * @param f1 1st input flow
  * @param f2 2nd input flow
