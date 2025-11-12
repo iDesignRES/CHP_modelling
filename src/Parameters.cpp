@@ -14,7 +14,6 @@ parameter::parameter() {}
  * @brief Parameter constructor
  * @param stype string defining the type of object where parameter belongs
  * @param sdef string defining the name of object where parameter belongs
- * @param ddef string defining the name of the file with object's data
  * @param ddef Defined type of parameter (e.g., input, prop, output)
  * @param symb string defining the identification name of parameter (e.g., W_el,
  * Q, C_pi)
@@ -36,7 +35,6 @@ parameter::parameter(std::string stype, std::string sdef, std::string ddef,
  * @brief Parameter constructor
  * @param stype string defining the type of object where parameter belongs
  * @param sdef string defining the name of object where parameter belongs
- * @param ddef string defining the name of the file with object's data
  * @param ddef Defined type of parameter (e.g., input, prop, output)
  * @param symb string defining the identification name of parameter (e.g., W_el,
  * Q, C_pi)
@@ -61,7 +59,6 @@ parameter::parameter(std::string stype, std::string sdef, std::string ddef,
  * @brief Parameter constructor
  * @param stype string defining the type of object where parameter belongs
  * @param sdef string defining the name of object where parameter belongs
- * @param ddef string defining the name of the file with object's data
  * @param ddef Defined type of parameter (e.g., input, prop, output)
  * @param symb string defining the identification name of parameter (e.g., W_el,
  * Q, C_pi)
@@ -83,7 +80,6 @@ parameter::parameter(std::string stype, std::string sdef, std::string ddef,
  * @brief Parameter constructor
  * @param stype string defining the type of object where parameter belongs
  * @param sdef string defining the name of object where parameter belongs
- * @param ddef string defining the name of the file with object's data
  * @param ddef Defined type of parameter (e.g., input, prop, output)
  * @param symb string defining the identification name of parameter (e.g., W_el,
  * Q, C_pi)
@@ -260,6 +256,7 @@ void object::fval_p(std::string symb, double val, std::string data_def) {
  *
  * @param symb parameter name to populate
  * @param vct vector with numerical values
+ * @param data_def type of parameter (e.g., input, prop, output)
  */
 void object::vct_fp(std::string symb, std::vector<double> vct,
                     std::string data_def) {
@@ -286,6 +283,7 @@ void object::vct_fp(std::string symb, std::vector<double> vct,
  *
  * @param symb parameter name to populate
  * @param vct vector with string values
+ * @param data_def type of parameter (e.g., input, prop, output)
  */
 void object::vct_sp(std::string symb, std::vector<std::string> vct,
                     std::string data_def) {
