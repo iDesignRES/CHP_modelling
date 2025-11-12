@@ -19,13 +19,11 @@ void get_feedstock(std::vector<flow> &f, object &plant) {
     f[nf].F.P = 1.01325;
     // Calculate low heating value of the mixture
     LHV += f[nf].P.LHV * plant.vctp("Yj")[nf];
-
-    if (index_species(f[nf].k, "H2O") < 0) {
-      f[nf].k.push_back(species("H2O", plant.vctp("YH2Oj")[nf]));
-    } else if (index_species(f[nf].k, "H2O") >= 0) {
-      std::size_t H2O = index_species(f[nf].k, "H2O");
-      f[nf].k[H2O].Y = plant.vctp("YH2Oj")[nf];
+    if (!find_species(f[nf].k, "H2O")) {
+      f[nf].k.push_back(species("H2O"));
     }
+    std::size_t H2O = index_species(f[nf].k, "H2O");
+    f[nf].k[H2O].Y = plant.vctp("YH2Oj")[nf];
   }
 
   plant.fval_p("LHV_f", LHV);

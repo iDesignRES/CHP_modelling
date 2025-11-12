@@ -33,6 +33,15 @@ struct parameter {
   std::size_t pos = 0;
   std::vector<std::string> str;
   std::vector<double> vct;
+  parameter();
+  parameter(std::string stype, std::string sdef, std::string ddef,
+            std::string symb, std::string dtype, double val);
+  parameter(std::string stype, std::string sdef, std::string ddef,
+            std::string symb, std::string dtype, std::vector<double> val);
+  parameter(std::string stype, std::string sdef, std::string ddef,
+            std::string symb, std::string dtype, std::string val);
+  parameter(std::string stype, std::string sdef, std::string ddef,
+            std::string symb, std::string dtype, std::vector<std::string> val);
 };
 
 /**
@@ -64,8 +73,10 @@ struct object {
   std::string sp(std::string symb);
   std::vector<std::string> svct(std::string symb);
   void fval_p(std::string symb, double val, std::string data_def = "prop");
-  void vct_fp(std::string symb, std::vector<double> vct);
-  void vct_sp(std::string symb, std::vector<std::string> vct);
+  void vct_fp(std::string symb, std::vector<double> vct,
+              std::string data_def = "prop");
+  void vct_sp(std::string symb, std::vector<std::string> vct,
+              std::string data_def = "prop");
 };
 
 /**

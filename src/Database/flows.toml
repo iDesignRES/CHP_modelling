@@ -31,7 +31,7 @@ prop_data = "solid_fuel"
     H = {Y = 0.0627}
     O = {Y = 0.448}
     N = {Y = 0.0013}
-    S = {Y = 0.0001}
+    S = {Y = 0.0002}
     Cl = {Y = 0.0}
 
     [flow.spruce_chips.proximate]
@@ -54,14 +54,13 @@ prop_data = "solid_fuel"
     H = {Y = 0.064}
     O = {Y = 0.461}
     N = {Y = 0.0009}
-    S = {Y = 0.0001}
+    S = {Y = 0.0003}
     Cl = {Y = 0.0}
 
     [flow.spruce_stem.proximate]
     VOL = {Y = 0.7243}
     FC = {Y = 0.2727}
     ash = {Y = 0.003}
-    H2O = {Y = 0.5}
 
     [flow.spruce_stem.properties]
     HHV = 19.9

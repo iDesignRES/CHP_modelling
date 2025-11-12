@@ -8,8 +8,104 @@
 
 #include "utils.h"
 
+parameter::parameter() {}
+
 /**
- * @brief Object initializing functions
+ * @brief Parameter constructor
+ * @param stype string defining the type of object where parameter belongs
+ * @param sdef string defining the name of object where parameter belongs
+ * @param ddef string defining the name of the file with object's data
+ * @param ddef Defined type of parameter (e.g., input, prop, output)
+ * @param symb string defining the identification name of parameter (e.g., W_el,
+ * Q, C_pi)
+ * @param dtype string defining the type of parameter value ("num" = numerical,
+ * "str" = string)
+ * @param val double with the parameter value
+ */
+parameter::parameter(std::string stype, std::string sdef, std::string ddef,
+                     std::string symb, std::string dtype, double val) {
+  sys_type = stype;
+  sys_def = sdef;
+  data_def = ddef;
+  data_id = symb;
+  data_type = dtype;
+  vct.push_back(val);
+}
+
+/**
+ * @brief Parameter constructor
+ * @param stype string defining the type of object where parameter belongs
+ * @param sdef string defining the name of object where parameter belongs
+ * @param ddef string defining the name of the file with object's data
+ * @param ddef Defined type of parameter (e.g., input, prop, output)
+ * @param symb string defining the identification name of parameter (e.g., W_el,
+ * Q, C_pi)
+ * @param dtype string defining the type of parameter value ("num" = numerical,
+ * "str" = string)
+ * @param val vector double with the parameter values
+ */
+parameter::parameter(std::string stype, std::string sdef, std::string ddef,
+                     std::string symb, std::string dtype,
+                     std::vector<double> val) {
+  sys_type = stype;
+  sys_def = sdef;
+  data_def = ddef;
+  data_id = symb;
+  data_type = dtype;
+  for (std::size_t n = 0; n < val.size(); n++) {
+    vct.push_back(val[n]);
+  }
+}
+
+/**
+ * @brief Parameter constructor
+ * @param stype string defining the type of object where parameter belongs
+ * @param sdef string defining the name of object where parameter belongs
+ * @param ddef string defining the name of the file with object's data
+ * @param ddef Defined type of parameter (e.g., input, prop, output)
+ * @param symb string defining the identification name of parameter (e.g., W_el,
+ * Q, C_pi)
+ * @param dtype string defining the type of parameter value ("num" = numerical,
+ * "str" = string)
+ * @param val string with the parameter value
+ */
+parameter::parameter(std::string stype, std::string sdef, std::string ddef,
+                     std::string symb, std::string dtype, std::string val) {
+  sys_type = stype;
+  sys_def = sdef;
+  data_def = ddef;
+  data_id = symb;
+  data_type = dtype;
+  str.push_back(val);
+}
+
+/**
+ * @brief Parameter constructor
+ * @param stype string defining the type of object where parameter belongs
+ * @param sdef string defining the name of object where parameter belongs
+ * @param ddef string defining the name of the file with object's data
+ * @param ddef Defined type of parameter (e.g., input, prop, output)
+ * @param symb string defining the identification name of parameter (e.g., W_el,
+ * Q, C_pi)
+ * @param dtype string defining the type of parameter value ("num" = numerical,
+ * "str" = string)
+ * @param val vector string with the parameter values
+ */
+parameter::parameter(std::string stype, std::string sdef, std::string ddef,
+                     std::string symb, std::string dtype,
+                     std::vector<std::string> val) {
+  sys_type = stype;
+  sys_def = sdef;
+  data_def = ddef;
+  data_id = symb;
+  data_type = dtype;
+  for (std::size_t n = 0; n < val.size(); n++) {
+    str.push_back(val[n]);
+  }
+}
+
+/**
+ * @brief Object initializing function
  * @param type string defining the type of object
  * @param def string defining the name of object
  * @param file string defining the name of the file with object's data
@@ -154,14 +250,7 @@ void object::fval_p(std::string symb, double val, std::string data_def) {
     }
   }
   if (!found) {
-    parameter p_new;
-    p_new.data_def = data_def;
-    p_new.sys_type = sys_type;
-    p_new.sys_def = sys_def;
-    p_new.data_id = symb;
-    p_new.data_type = "num";
-    p_new.vct.push_back(val);
-    p.push_back(p_new);
+    p.push_back(parameter(sys_type, sys_def, data_def, symb, "num", val));
   }
 }
 
@@ -172,7 +261,8 @@ void object::fval_p(std::string symb, double val, std::string data_def) {
  * @param symb parameter name to populate
  * @param vct vector with numerical values
  */
-void object::vct_fp(std::string symb, std::vector<double> vct) {
+void object::vct_fp(std::string symb, std::vector<double> vct,
+                    std::string data_def) {
   bool found = false;
   for (std::size_t np = 0; np < p.size(); np++) {
     if (p[np].sys_type == sys_type && p[np].sys_def == sys_def &&
@@ -186,16 +276,7 @@ void object::vct_fp(std::string symb, std::vector<double> vct) {
     }
   }
   if (!found) {
-    parameter p_new;
-    p_new.data_def = "prop";
-    p_new.sys_type = sys_type;
-    p_new.sys_def = sys_def;
-    p_new.data_id = symb;
-    p_new.data_type = "num";
-    for (std::size_t n = 0; n < vct.size(); n++) {
-      p_new.vct.push_back(vct[n]);
-    }
-    p.push_back(p_new);
+    p.push_back(parameter(sys_type, sys_def, data_def, symb, "num", vct));
   }
 }
 
@@ -206,7 +287,8 @@ void object::vct_fp(std::string symb, std::vector<double> vct) {
  * @param symb parameter name to populate
  * @param vct vector with string values
  */
-void object::vct_sp(std::string symb, std::vector<std::string> vct) {
+void object::vct_sp(std::string symb, std::vector<std::string> vct,
+                    std::string data_def) {
   bool found = false;
   for (std::size_t np = 0; np < p.size(); np++) {
     if (p[np].sys_type == sys_type && p[np].sys_def == sys_def &&
@@ -220,16 +302,7 @@ void object::vct_sp(std::string symb, std::vector<std::string> vct) {
     }
   }
   if (!found) {
-    parameter p_new;
-    p_new.data_def = "prop";
-    p_new.sys_type = sys_type;
-    p_new.sys_def = sys_def;
-    p_new.data_id = symb;
-    p_new.data_type = "str";
-    for (std::size_t n = 0; n < vct.size(); n++) {
-      p_new.str.push_back(vct[n]);
-    }
-    p.push_back(p_new);
+    p.push_back(parameter(sys_type, sys_def, data_def, symb, "str", vct));
   }
 }
 
@@ -259,7 +332,9 @@ double get_num_parameter(std::vector<parameter> &par, std::string sys_type,
       return val;
     }
   }
-  return std::numeric_limits<double>::quiet_NaN();
+  throw std::out_of_range("Parameter with data_id " + data_id +
+                          " not found for sys_type " + sys_type +
+                          " and sys_def " + sys_def + ".");
 }
 
 void get_parameters(std::vector<parameter> &par, std::string sys_type,

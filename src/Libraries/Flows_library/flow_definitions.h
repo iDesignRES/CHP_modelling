@@ -114,6 +114,8 @@ struct species {
 
 std::size_t index_species(std::vector<species> &spc, std::string spc_id);
 
+bool find_species(std::vector<species> &spc, std::string spc_id);
+
 /**
  * @struct phase
  * @brief Structure to define the parameters of one flow phase

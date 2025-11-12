@@ -16,8 +16,10 @@
 void steam_turbine_parameters::assign_parameter_values(std::string sys_type,
                                                        std::string sys_def,
                                                        object par) {
-  Po = get_num_parameter(par.p, sys_type, sys_def, "Po");
-  mu_isent = get_num_parameter(par.p, sys_type, sys_def, "mu_isent");
+  // Po = get_num_parameter(par.p, sys_type, sys_def, "Po");
+  // mu_isent = get_num_parameter(par.p, sys_type, sys_def, "mu_isent");
+  Po = par.fp("Po");
+  mu_isent = par.fp("mu_isent");
 }
 
 void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
@@ -50,18 +52,26 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
   until reaching isentropic outlet conditions  */
   if (s_out_initial < s_in) {
     s_out = s_out_initial;
+    int j = 0;
     while (s_out < s_in) {
       Ts_out += 0.01;
       s_out = sPTSupSteam(ST.Po, Ts_out);
+      if (j++ > 1000000) {
+        throw std::runtime_error("Number of iteration have reached 1e6");
+      }
     }
     hs_out = hPTSupSteam(ST.Po, Ts_out);
     h_out = h_in + ST.mu_isent * (hPTSupSteam(ST.Po, Ts_out) - h_in);
   } else {
     s_out = s_out_initial;
+    int j = 0;
     while (s_out > s_in) {
       ys_moisture += 0.001;
       s_out = ys_moisture * sPWater(ST.Po) +
               (1.0 - ys_moisture) * sPSatSteam(ST.Po);
+      if (j++ > 1000000) {
+        throw std::runtime_error("Number of iteration have reached 1e6");
+      }
     }
     hs_out =
         ys_moisture * hPWater(ST.Po) + (1.0 - ys_moisture) * hPSatSteam(ST.Po);
@@ -71,18 +81,26 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
   if (h_out > hPSatSteam(ST.Po)) {
     T_out = Ts_out;
     h_calc = hPSatSteam(ST.Po);
+    int j = 0;
     while (h_calc < h_out) {
       T_out += 0.001;
       h_calc = hPTSupSteam(ST.Po, T_out);
+      if (j++ > 1000000) {
+        throw std::runtime_error("Number of iteration have reached 1e6");
+      }
     }
   } else {
     y_moisture = ys_moisture;
     T_out = Ts_out;
     h_calc = hs_out;
+    int j = 0;
     while (h_calc < h_out) {
       y_moisture = y_moisture - 0.001;
       h_calc =
           y_moisture * hPWater(ST.Po) + (1.0 - y_moisture) * hPSatSteam(ST.Po);
+      if (j++ > 1000000) {
+        throw std::runtime_error("Number of iteration have reached 1e6");
+      }
     }
   }
 

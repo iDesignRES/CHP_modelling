@@ -9,9 +9,20 @@ int main() {
   flow f1("f1", "spruce_chips");
   flow f2("f2", "spruce_TandB");
   flow f3("dry_air");
-  std::vector<flow> f = {f1, f2, f3};
+  f3.molec_def = "X";
+  flow f4("dry_air");
+  f4.molec_def = "X";
+  flow f5("dry_air");
+  f4.molec_def = "X";
+  std::vector<flow> f = {f1, f2, f3, f4, f5};
   for (std::size_t nf = 0; nf < f.size(); nf++) {
-    f[nf].F.M = 1.0;
+    if (nf < 3) {
+      f[nf].F.M = 1.0;
+    } else if (nf == 3)
+      f[nf].F.N = 1.0;
+    else if (nf == 4)
+      f[nf].F.VN = 1.0;
+
     f[nf].F.T = 25.0;
     f[nf].F.P = 1.01325;
     f[nf].calculate_flow();

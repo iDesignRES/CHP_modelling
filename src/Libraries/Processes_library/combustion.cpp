@@ -171,10 +171,10 @@ void solid_fuel_boiler(std::vector<flow> &fuel, std::vector<flow> &comb_air,
       fly_ash = fa[n];
     }
     if (n > 0) {
-      mix_same_type_flows(comb_air[0], air[n], comb_air[0]);
-      mix_same_type_flows(bottom_ash, ba[n], bottom_ash);
-      mix_same_type_flows(flue_gas, fg[n], flue_gas);
-      mix_same_type_flows(fly_ash, fa[n], fly_ash);
+      comb_air[0] = mix_same_type_flows(comb_air[0], air[n]);
+      bottom_ash = mix_same_type_flows(bottom_ash, ba[n]);
+      flue_gas = mix_same_type_flows(flue_gas, fg[n]);
+      fly_ash = mix_same_type_flows(fly_ash, fa[n]);
     }
 
     comb_Hf = comb_Hf + fuel[n].F.Hf;

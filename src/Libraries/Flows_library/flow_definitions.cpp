@@ -48,6 +48,29 @@ species::species(std::string sid, double val, std::string def) {
   }
 }
 
+/**
+ * @brief function to find an species in the species vector
+ *
+ * @param spc species vector in a flow
+ * @param spc_id string with the species' id
+ * @return true if found, false otherwise
+ */
+bool find_species(std::vector<species>& spc, std::string spc_id) {
+  for (std::size_t i = 0; i < spc.size(); i++) {
+    if (spc[i].id == spc_id) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * @brief function to get the position of an species in the species vector
+ *
+ * @param spc species vector in a flow
+ * @param spc_id string with the species' id
+ * @return size_t with the position
+ */
 std::size_t index_species(std::vector<species>& spc, std::string spc_id) {
   for (std::size_t i = 0; i < spc.size(); i++) {
     if (spc[i].id == spc_id) {
@@ -55,7 +78,8 @@ std::size_t index_species(std::vector<species>& spc, std::string spc_id) {
     }
   }
   // returns SIZE_MAX if species does not exist in the vector
-  return static_cast<std::size_t>(-1);
+  // return static_cast<std::size_t>(-1);
+  return -1;
 }
 
 /**
@@ -70,9 +94,6 @@ flow::flow(std::string flw_def) {
   F.T = 25.0;
   F.P = 1.01325;
   get_flow_data(flw_def);
-  if (cls == "woody_biomass" || cls == "sludge") {
-    calculate_solid_fuel();
-  }
 }
 
 /**
@@ -89,9 +110,6 @@ flow::flow(std::string flw_id, std::string flw_def) {
   F.T = 25.0;
   F.P = 1.01325;
   get_flow_data(flw_def);
-  if (cls == "woody_biomass" || cls == "sludge") {
-    calculate_solid_fuel();
-  }
 }
 
 /**
@@ -117,15 +135,6 @@ void flow::interpret_molecules() {
       pos1 = 0;
       pos2 = 0;
       while (pos1 < j[n].formula.length()) {
-        if ((molec_ID[pos1] == 'T' || molec_ID[pos1] == 'S') &&
-            (molec_ID[pos1 + 1] == 'X' || molec_ID[pos1 + 1] == '-')) {
-          pos1 += 2;
-        }
-        if (molec_ID[pos1] == '+' || molec_ID[pos1] == '-') {
-          if (molec_ID[pos1 + 1] >= '1' && molec_ID[pos1 + 1] <= '9') break;
-          if (pos1 == j[n].formula.length() - 1) break;
-        }
-
         // finding a match in the atoms list
         for (std::size_t m = 0; m < i.size(); m++) {
           atom_ID = i[m].id;

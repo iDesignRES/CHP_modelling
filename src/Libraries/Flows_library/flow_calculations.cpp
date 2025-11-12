@@ -2,13 +2,13 @@
 
 #include <cstddef>
 #include <iostream>
-
+#include <limits>
 #include "../../Parameters.h"
 #include "../Thermodynamic_library/species_thermodynamics.h"
 #include "flow_definitions.h"
 
-void mix_same_type_flows(flow &f1, flow &f2, flow &f) {
-  f = f1;
+flow mix_same_type_flows(flow &f1, flow &f2) {
+  flow f = f1;
 
   f.F.M = f1.F.M + f2.F.M;
 
@@ -27,6 +27,8 @@ void mix_same_type_flows(flow &f1, flow &f2, flow &f) {
   f.P.rho = f.F.M / ((f1.F.M / f1.P.rho) + (f2.F.M / f2.P.rho));
 
   f.F.T = 25.0 + f.F.Ht / (f.F.M * f.P.cp);
+
+  return f;
 }
 
 /**
@@ -36,9 +38,7 @@ void mix_same_type_flows(flow &f1, flow &f2, flow &f) {
 void flow::calculate_flow() {
   if (prop_data == "solid_fuel") {
     calculate_solid_fuel();
-  }
-
-  if (prop_data != "solid_fuel") {
+  } else {
     calculate_flow_composition();
     if (molec_def == "Y" || molec_def == "X") {
       calculate_flow_properties();
@@ -56,24 +56,19 @@ void flow::calculate_solid_fuel() {
   double yC = 0.0, yH = 0.0, yS = 0.0, yN = 0.0, yO = 0.0;  // atomic components
   double yA = 0.0, yH2O = 0.0, yDM = 0.0;                   // proximates
 
-  if (index_species(k, "H2O") == -1 && index_species(k, "DM") != -1) {
-    yH2O = 1.0 - k[index_species(k, "DM")].Y;
-    k.push_back(species("H2O", yH2O));
-  }
-
   if (index_species(k, "H2O") != -1 && index_species(k, "DM") == -1) {
     yDM = 1.0 - k[index_species(k, "H2O")].Y;
     k.push_back(species("DM", yDM));
   }
 
-  if (index_species(i, "O") == -1) {
-    double sum_Yi = 0.0;
-    for (std::size_t ni = 0; ni < i.size(); ni++) {
-      sum_Yi += i[ni].Y;
-    }
-    double YO = 1.0 - sum_Yi;
-    i.push_back(species("O", YO));
+  double sum_Yi = 0.0;
+  for (std::size_t ni = 0; ni < i.size(); ni++) {
+    sum_Yi += i[ni].Y;
   }
+  if (std::abs(sum_Yi - 1.0) > 10 * std::numeric_limits<double>::epsilon())
+    throw std::runtime_error("The sum of atomic mass fractions of " + def +
+                             " in src/Database/flows.toml file is " +
+                             std::to_string(sum_Yi) + " not 1");
 
   // kC, kH, kO, kS, kN, kH2O, kA coefficients for Milne's formulae (from
   // Phyllis database)
@@ -110,16 +105,20 @@ void flow::calculate_solid_fuel() {
   }
 
   if (yH2O > 1.0) {
-    yH2O = yH2O / 100;
+    throw std::runtime_error(
+        "The mass fraction of H2O [kg/kg] in src/Database/flows.toml file must "
+        "not be larger than 1");
   }
 
-  if (P.LHV_dry == 0) {
+  if (P.LHV == 0) {
     P.LHV_dry = kC * yC + kH * yH + kS * yS + kN * yN + kO * yO + kA * yA;
+    P.LHV = P.LHV_dry * (1.0 - yH2O) + kH2O * yH2O;
+    P.HHV_dry = P.LHV_dry - kH2O * yH * (18 / 2);
   }
 
-  P.LHV = P.LHV_dry * (1.0 - yH2O) + kH2O * yH2O;
-  P.HHV_dry = P.LHV_dry - kH2O * yH * (18 / 2);
   P.HHV = P.LHV - kH2O * (1 - yH2O) * yH * (18 / 2);
+  P.LHV_dry = (P.LHV - kH2O * yH2O) / (1.0 - yH2O);
+  P.HHV_dry = P.LHV_dry - kH2O * yH * (18 / 2);
 
   if (yH2O > 0) {
     P.cp = 1.2e3 * (1.0 - yH2O) + 4.18e3 * yH2O;
@@ -199,11 +198,6 @@ void flow::calculate_flow_composition() {
     for (std::size_t n = 0; n < j.size(); n++) {
       P.MW += j[n].X * j[n].P.MW;
     }
-  }
-
-  if (i.size() == 1) {
-    i[0].Y = 1.0;
-    i[0].X = 1.0;
   }
 
   if (i.size() > 1) {
@@ -288,24 +282,12 @@ void flow::calculate_species_properties() {
     j[n].F.P = F.P;
 
     j[n].P.cp = thermodynamic_property(j[n].id, "cp", j[n].F.T + 273.15);
-    if (j[n].P.cp == -1.0) {
-      j[n].P.cp = 0.0;
-    }
 
     j[n].P.h = thermodynamic_property(j[n].id, "h", j[n].F.T + 273.15);
-    if (j[n].P.h == -1.0) {
-      j[n].P.h = 0.0;
-    }
 
     j[n].P.hf = thermodynamic_property(j[n].id, "hf", j[n].F.T + 273.15);
-    if (j[n].P.hf == -1.0) {
-      j[n].P.hf = 0.0;
-    }
 
     j[n].P.s = thermodynamic_property(j[n].id, "s", j[n].F.T + 273.15);
-    if (j[n].P.s == -1.0) {
-      j[n].P.s = 0.0;
-    }
 
     if (j[n].P.cp > 0.0) {
       j[n].P.ht = j[n].P.cp * (j[n].F.T - 25.0);
