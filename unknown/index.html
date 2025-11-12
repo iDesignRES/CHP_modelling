@@ -99,11 +99,10 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
   <div class="headertitle"><div class="title">bioCHP plant model </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_README"></a> This README provides an overview of the iDesignRES biomass-based Combined Heat and Power (bioCHP) Model within iDesignRES.</p>
-<p>It is handled by SINTEF Energy Research and part of WP1, Task number Task 1.3.</p>
+<div class="textblock"><p><a class="anchor" id="md_README"></a> This README provides an overview of the biomass-based Combined Heat and Power (bioCHP) Model.</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
 Purpose of the model</h1>
-<p>The main purpose of this model is to evaluate numerically the overall process and economics of converting solid biomass to electricity and heat. Important features of the model are: 1) supply of different types of biomass feedstock from multiple sources, 2) specification of multiple heat outputs (as steam or district heating) defined in terms of thermal power, temperature and pressure. The overall process is calculated in terms of the mass and energy flows. The economics is calculated in terms of capital investment (CAPEX), variable and fixed operating cost (OPEX). The implementation of this model aims to extend the EnergyModelsBase (EMB) for including bioenergy technologies, which have been recognized as an important contribution in present and future renewable energy mix. <br  />
+<p>The main purpose of this model is to evaluate numerically the overall process and economics of converting solid biomass to electricity and heat. Important features of the model are: 1) supply of different types of biomass feedstock from multiple sources, 2) specification of multiple heat outputs (as steam or district heating) defined in terms of thermal power, temperature and pressure. The overall process is calculated in terms of the mass and energy flows. The economics is calculated in terms of capital investment (CAPEX), variable and fixed operating cost (OPEX). <br  />
 </p>
 <h1><a class="anchor" id="autotoc_md2"></a>
 Model design philosophy</h1>
@@ -117,8 +116,7 @@ Model design philosophy</h1>
 <h1><a class="anchor" id="autotoc_md3"></a>
 Core assumptions</h1>
 <ul>
-<li>All material and energy flows are calculated assuming state-state behavior of all processes.</li>
-<li>Annually, the plant has a nominal operating time is 8000 hours and one maintenance shutdown of 736 hours during the summer. <br  />
+<li>All material and energy flows are calculated assuming state-state behavior of all processes. <br  />
 </li>
 <li>The cost of supply of each biomass feedstock is proportional to the total mass flow rate assuming constant unit transportation cost per unit mass and distance and constant unit harvesting. <br  />
 </li>
@@ -126,23 +124,10 @@ Core assumptions</h1>
 </li>
 <li>The steam turbine power outputs are calculated assuming constant isentropic efficiencies for each stage.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md4"></a>
-Model tests description</h1>
-<p>This repository contains separately c++ files bioCHP_function_test_[number].cpp:</p><ul>
-<li>Parameters_test.cpp: Parameters functionalities</li>
-<li>Thermodynamics_test.cpp: Thermodynamics using NIST database and water-thermodynamics correlations</li>
-<li>Flows_test.cpp: Flows functionalities</li>
-<li>bioCHP_test_0-[1-5].cpp: errors in specifying the input parameters of the bioCHP plant</li>
-<li>bioCHP_function_test_1.cpp: bioCHP plant using a single biomass feedstock with specified electric power production and no heat demands</li>
-<li>bioCHP_function_test_2.cpp: bioCHP plant using two biomass feedstock with specified electric power production and no heat demands</li>
-<li>bioCHP_function_test_3.cpp: bioCHP plant using two biomass feedstock with specified electric power production and several heat demands</li>
-<li>bioCHP_function_test_4-[1,2].cpp: bioCHP plant using four biomass feedstock with specified electric power production and several heat demands</li>
-<li>bioCHP_wrapper_test.cpp: bioCHP plant using four biomass feedstock with specified electric power production and several heat</li>
-</ul>
 <p><a class="anchor" id="quickstart"></a> </p>
-<h1><a class="anchor" id="autotoc_md5"></a>
+<h1><a class="anchor" id="autotoc_md4"></a>
 Quick start - Linux and Windows Setup</h1>
-<h2><a class="anchor" id="autotoc_md6"></a>
+<h2><a class="anchor" id="autotoc_md5"></a>
 Install dependencies</h2>
 <p>Make sure you have <code>g++</code>, <code>CMake</code>, and <code>Conan</code> installed.</p>
 <ol type="1">
@@ -163,7 +148,7 @@ Install dependencies</h2>
 <div class="line">conan profile detect</div>
 </div><!-- fragment --></li>
 </ol>
-<h2><a class="anchor" id="autotoc_md7"></a>
+<h2><a class="anchor" id="autotoc_md6"></a>
 Build and run minimal viable case</h2>
 <p>Create a build directory and compile:</p>
 <div class="fragment"><div class="line">git clone https://github.com/iDesignRES/CHP_modelling.git</div>
@@ -184,11 +169,11 @@ Build and run minimal viable case</h2>
 </div><!-- fragment --></li>
 </ol>
 <p>This example takes the input parameters in <code>../docs/example/bioCHP_input.toml</code> and prints outputs to <code>output.txt</code>.</p>
-<h2><a class="anchor" id="autotoc_md8"></a>
+<h2><a class="anchor" id="autotoc_md7"></a>
 Run tests</h2>
 <p>Following the above comands, the tests can be run with</p>
 <div class="fragment"><div class="line">ctest -C Release</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md9"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md8"></a>
 Project Funding</h1>
 <p>The development of <code>bioCHP_plant</code> was funded by the European Union’s Horizon Europe research and innovation programme in the project <a href="https://idesignres.eu/">iDesignRES</a> under grant agreement <a href="https://doi.org/10.3030/101095849">101095849</a>. </p>
 </div></div><!-- PageDoc -->

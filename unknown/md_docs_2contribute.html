@@ -99,11 +99,11 @@ $(document).ready(function(){initNavTree('md_docs_2contribute.html',''); initRes
   <div class="headertitle"><div class="title">Contribute to CHP_modelling</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md10"></a> </p>
-<h1><a class="anchor" id="autotoc_md11"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md9"></a> </p>
+<h1><a class="anchor" id="autotoc_md10"></a>
 Overview</h1>
 <p>Contributing to <code>CHP_modelling</code> can be done in several ways, including reporting issues, requesting features, or developing new functionality.</p>
-<h1><a class="anchor" id="autotoc_md12"></a>
+<h1><a class="anchor" id="autotoc_md11"></a>
 File a Bug Report</h1>
 <p>If you encounter unexpected behaviour, please file an issue at <a href="https://github.com/iDesignRES/CHP_modelling/issues/new">GitHub Issues</a>.</p>
 <p>When reporting a bug:</p>
@@ -115,14 +115,14 @@ File a Bug Report</h1>
 <blockquote class="doxtable">
 <p>&zwj;<b>Note:</b> Reports of ambiguities are welcome and help improve the model. </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md13"></a>
+<h1><a class="anchor" id="autotoc_md12"></a>
 Feature Requests</h1>
 <p>If you need additional features, you can request them by:</p>
 <ol type="1">
 <li>Creating an issue describing the feature.</li>
 <li>Implementing the feature in a fork of the repository.</li>
 </ol>
-<h2><a class="anchor" id="autotoc_md14"></a>
+<h2><a class="anchor" id="autotoc_md13"></a>
 Creating an Issue</h2>
 <p>To request a feature, open an <a href="https://github.com/iDesignRES/CHP_modelling/issues/new">issue</a> and include:</p>
 <ol type="1">
@@ -130,19 +130,19 @@ Creating an Issue</h2>
 <li><b>Outcome:</b> What is the desired result and minimum requirements?</li>
 <li><b>Solutions:</b> Suggest alternatives if possible.</li>
 </ol>
-<h2><a class="anchor" id="autotoc_md15"></a>
+<h2><a class="anchor" id="autotoc_md14"></a>
 Incorporate Feature Requests Through a Fork</h2>
 <p>If you wish to contribute code directly, follow these steps:</p>
-<h3><a class="anchor" id="autotoc_md16"></a>
+<h3><a class="anchor" id="autotoc_md15"></a>
 Step 1: Create an Issue</h3>
 <p>Before contributing code, create an issue as described above. This allows maintainers to review and discuss your proposal.</p>
-<h3><a class="anchor" id="autotoc_md17"></a>
+<h3><a class="anchor" id="autotoc_md16"></a>
 Step 2: Fork the Repository</h3>
 <p>Fork <code>CHP_modelling</code> and work within your fork.</p>
-<h3><a class="anchor" id="autotoc_md18"></a>
+<h3><a class="anchor" id="autotoc_md17"></a>
 Step 3: Checkout a New Branch</h3>
 <p>Develop new features or fixes on a separate branch.</p>
-<h3><a class="anchor" id="autotoc_md19"></a>
+<h3><a class="anchor" id="autotoc_md18"></a>
 Step 4: Make Changes</h3>
 <p>Implement your changes, comment your code, and add relevant tests. Ensure all existing tests pass and update/add tests for new features.</p>
 <blockquote class="doxtable">
@@ -153,7 +153,7 @@ Step 4: Make Changes</h3>
 <div class="fragment"><div class="line">sudo apt install clang-format</div>
 </div><!-- fragment --><p>and then run the following in the main folder</p>
 <div class="fragment"><div class="line">find . -regex &#39;.*\.\&zwj;(cpp\|hpp\|cc\|cxx\|h\&zwj;)&#39; -exec clang-format -i {} \;</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md20"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md19"></a>
 Step 5: Debugging (reccomended)</h3>
 <p>Debug the updated code by firstly installing</p>
 <div class="fragment"><div class="line">conan install .. --output-folder=. --build=missing -s build_type=Debug -s compiler.cppstd=17 -s arch=x86_64</div>
@@ -162,7 +162,7 @@ Step 5: Debugging (reccomended)</h3>
 <div class="line">cmake --build . --config Debug</div>
 </div><!-- fragment --><p>which then enables testing through (look for warnings to improve your contribution)</p>
 <div class="fragment"><div class="line">ctest -C Debug</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md21"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md20"></a>
 Step 6: Tests coverage (reccomended if altered)</h3>
 <p>To check coverage of the tests one can install lcov</p>
 <div class="fragment"><div class="line">sudo apt install lcov</div>
@@ -175,13 +175,13 @@ Step 6: Tests coverage (reccomended if altered)</h3>
 <div class="line">lcov --remove coverage.info &#39;/usr/*&#39; &#39;**/.conan2/*&#39; --output-file coverage.info</div>
 <div class="line">genhtml coverage.info --output-directory coverage_report</div>
 </div><!-- fragment --><p>The newly generated file <code>build/coverage_report/index.html</code> can then be opened in any browser.</p>
-<h3><a class="anchor" id="autotoc_md22"></a>
+<h3><a class="anchor" id="autotoc_md21"></a>
 Step 7: Build documentation (reccomended if altered)</h3>
 <p>The documentation is generated using <a href="https://doxygen.nl/">Doxygen</a> which can be installed with</p>
 <div class="fragment"><div class="line">sudo apt-get install doxygen</div>
 </div><!-- fragment --><p>You can build the updated documentation from the main folder with</p>
 <div class="fragment"><div class="line">doxygen docs/Doxyfile</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md23"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md22"></a>
 Step 8: Create a Pull Request</h3>
 <p>When ready, submit a pull request to the main branch. Maintainers will review and assign reviewers as needed.</p>
 <p>You may receive feedback on your changes. Please be patient during the review process. </p>
