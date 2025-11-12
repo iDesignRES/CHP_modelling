@@ -7,7 +7,7 @@ var searchData=
   ['a_20pull_20request_4',['Step 8: Create a Pull Request',['../md_docs_2contribute.html#autotoc_md22',1,'']]],
   ['altered_5',['altered',['../md_docs_2contribute.html#autotoc_md20',1,'Step 6: Tests coverage (reccomended if altered)'],['../md_docs_2contribute.html#autotoc_md21',1,'Step 7: Build documentation (reccomended if altered)']]],
   ['an_20issue_6',['an issue',['../md_docs_2contribute.html#autotoc_md13',1,'Creating an Issue'],['../md_docs_2contribute.html#autotoc_md15',1,'Step 1: Create an Issue']]],
-  ['and_20database_7',['implementation and database',['../detailed_model_documentation_page.html#Module',1,'']]],
+  ['and_20database_7',['Module implementation and database',['../detailed_model_documentation_page.html#module_implementation_and_database',1,'']]],
   ['and_20run_20minimal_20viable_20case_8',['Build and run minimal viable case',['../index.html#autotoc_md6',1,'']]],
   ['and_20windows_20setup_9',['Quick start - Linux and Windows Setup',['../index.html#autotoc_md4',1,'']]],
   ['application_3a_20minimum_20viable_20biochp_20case_10',['Example Application: Minimum Viable bioCHP Case',['../md_docs_2example_2example.html',1,'']]],

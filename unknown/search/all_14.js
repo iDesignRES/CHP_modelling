@@ -14,7 +14,8 @@ var searchData=
   ['model_20outputs_11',['(b) Model Outputs',['../md_docs_2example_2example.html#autotoc_md27',1,'']]],
   ['models_12',['models',['../detailed_model_documentation_page.html#back-bio_CHP-math-CAPEX',1,'CAPEX models'],['../detailed_model_documentation_page.html#back-bio_CHP-math-OPEX',1,'OPEX models']]],
   ['module_20description_13',['module description',['../detailed_model_documentation_page.html#detailed_model_documentation',1,'bioCHP module description'],['../detailed_model_documentation_page.html',1,'bioCHP module description']]],
-  ['molec_5fdef_14',['molec_def',['../structflow.html#a8bca8c27da16accb71fa0a05ff8f07b6',1,'flow']]],
-  ['mu_5fisent_15',['mu_isent',['../structsteam__turbine__parameters.html#a8a379291c1fbfa31aecfcb58d7734db0',1,'steam_turbine_parameters']]],
-  ['mw_16',['MW',['../structproperties.html#ad476a49dfebdffacb781c454b5d63069',1,'properties']]]
+  ['module_20implementation_20and_20database_14',['Module implementation and database',['../detailed_model_documentation_page.html#module_implementation_and_database',1,'']]],
+  ['molec_5fdef_15',['molec_def',['../structflow.html#a8bca8c27da16accb71fa0a05ff8f07b6',1,'flow']]],
+  ['mu_5fisent_16',['mu_isent',['../structsteam__turbine__parameters.html#a8a379291c1fbfa31aecfcb58d7734db0',1,'steam_turbine_parameters']]],
+  ['mw_17',['MW',['../structproperties.html#ad476a49dfebdffacb781c454b5d63069',1,'properties']]]
 ];

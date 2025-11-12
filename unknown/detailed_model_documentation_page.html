@@ -120,7 +120,7 @@ bioCHP module description</h1>
 </ul>
 <h2><a class="anchor" id="implementation"></a>
 Implementation</h2>
-<p>The module is implemented as a nonlinear C++ model linked to <code>EnergyModelsX</code> through a function that calculates both the <b>costs</b> (Investment, total and variable operating expenses) and the required <b>mass flow rate of each feedstock</b> as outputs, based on the specified <em>electric power production</em>, <em>heat demands</em> (thermal power capacity and return/supply temperatures) and <b>moisture content of each biomass feedstock</b> as inputs. This sampling routine allows a tight integration of the model within the <code>EnergyModelsX</code> framework.</p>
+<p>The nonlinear C++ model enables sampling for <a href="https://github.com/EnergyModelsX">EnergyModelsX</a> through the function <code>bioCHP_wrapper.cpp</code> which provides a function that calculates both the <b>costs</b> (Investment, total and variable operating expenses) and the required <b>mass flow rate of each feedstock</b> as outputs, based on the specified <em>electric power production</em>, <em>heat demands</em> (thermal power capacity and return/supply temperatures) and <b>moisture content of each biomass feedstock</b> as inputs. This sampling routine allows a tight integration of the model within the <a href="https://github.com/EnergyModelsX">EnergyModelsX</a> framework.</p>
 <p>Important features and functionalities of the module include:</p>
 <ul>
 <li><b>Flows</b> are implemented as the so-called <code>flow</code> structure, defined in <code>src/Flows/Flow_definitions.h</code>, which contain identifying strings, atomic and molecular composition, material and energy flow rates, and physical and thermodynamic properties. Flows are created by importing their data from a database located in the <code>src/Database/flows.toml</code> folder. <br  />
@@ -541,8 +541,8 @@ C_{op} = C_{op,d} + C_{op,f},
 \]
 </p>
 <dl class="section note"><dt>Note</dt><dd>Number of employees: The number of employees depends on the size of the plant. The chosen distinction is based on the mass flow of biomass into the plant \( \dot{M}_F \), with a change in staffing when the flow exceeds 10 t/h.</dd></dl>
-<h1><a class="anchor" id="Module"></a>
-implementation and database</h1>
+<h1><a class="anchor" id="module_implementation_and_database"></a>
+Module implementation and database</h1>
 <ul>
 <li>Input parameters for the bioCHP plant, in <code>src/Database/bioCHP_inputs.toml</code>:</li>
 </ul>

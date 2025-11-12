@@ -39,7 +39,7 @@ var NAVTREE =
         [ "CAPEX models", "detailed_model_documentation_page.html#back-bio_CHP-math-CAPEX", null ],
         [ "OPEX models", "detailed_model_documentation_page.html#back-bio_CHP-math-OPEX", null ]
       ] ],
-      [ "implementation and database", "detailed_model_documentation_page.html#Module", null ],
+      [ "Module implementation and database", "detailed_model_documentation_page.html#module_implementation_and_database", null ],
       [ "References", "detailed_model_documentation_page.html#references", null ]
     ] ],
     [ "Contribute to CHP_modelling", "md_docs_2contribute.html", [
