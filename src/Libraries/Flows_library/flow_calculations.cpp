@@ -305,7 +305,7 @@ void flow::calculate_species_properties() {
  * @brief Function to calculate flow parameters
  */
 void flow::calculate_flow_parameters() {
-  if (F.M == 0 && F.VN > 0 && F.N > 0 && P.MW > 0) {
+  if (F.M == 0 && F.VN == 0 && F.N > 0 && P.MW > 0) {
     F.M = F.N * P.MW;
   } else if (F.N == 0 && F.VN > 0 && F.M > 0 && P.MW > 0) {
     F.N = F.M / P.MW;
@@ -317,11 +317,4 @@ void flow::calculate_flow_parameters() {
   F.H = F.M * P.h;
   F.Ht = F.M * P.ht;
   F.Hf = F.M * P.hf;
-
-  if (F.H == 0 && F.Ht > 0) {
-    F.H = F.Ht;
-  }
-  if (F.Hf == 0 && F.H > 0 && F.Ht > 0) {
-    F.Hf = F.H - F.Ht;
-  }
 }

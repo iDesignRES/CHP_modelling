@@ -78,8 +78,7 @@ std::size_t index_species(std::vector<species>& spc, std::string spc_id) {
     }
   }
   // returns SIZE_MAX if species does not exist in the vector
-  // return static_cast<std::size_t>(-1);
-  return -1;
+  return static_cast<std::size_t>(-1);
 }
 
 /**

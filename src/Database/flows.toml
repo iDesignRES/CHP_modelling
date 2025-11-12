@@ -136,6 +136,28 @@ prop_data = "solid_fuel"
     rho_m = 400.0
     cp_m = 1200.0
 
+[flow.birch_TandB]
+class = "woody_biomass"
+prop_data = "solid_fuel"
+
+    [flow.birch_TandB.atoms]
+    C = {Y = 0.4862}
+    H = {Y = 0.0634}
+    O = {Y = 0.449}
+    N = {Y = 0.0009}
+    S = {Y = 0.0005}
+    Cl = {Y = 0.0}
+
+    [flow.birch_TandB.proximate]
+    VOL = {Y = 0.8943}
+    FC = {Y = 0.1035}
+    ash = {Y = 0.0022}
+    H2O = {Y = 0.5}
+
+    [flow.birch_TandB.properties]
+    rho_m = 400.0
+    cp_m = 1200.0
+
 # Ash
 [flow.ash]
 class = "ash"
@@ -262,8 +284,8 @@ prop_data = "water_correlations"
     H2O = {Y = 1.0}
 
     [flow.water.atoms]
-    H = {X = 2.0}
-    O = {X = 1.0}
+    H = {X = 0.3333}
+    O = {X = 0.6667}
 
     [flow.water.properties]
     HHV = -2.5
@@ -279,8 +301,8 @@ prop_data = "water_correlations"
     H2O = {Y = 1.0}
 
     [flow.steam.atoms]
-    H = {X = 2.0}
-    O = {X = 1.0}
+    H = {X = 0.3333}
+    O = {X = 0.6667}
 
     [flow.steam.properties]
     HHV = -2.5
@@ -296,10 +318,21 @@ prop_data = "water_correlations"
     H2O = {Y = 1.0}
 
     [flow.H2O.atoms]
-    H = {X = 2.0}
-    O = {X = 1.0}
+    H = {X = 0.3333}
+    O = {X = 0.6667}
 
     [flow.H2O.properties]
     HHV = -2.5
     rho_m = 1000.0
     cp_m = 1000.0
+
+[flow.CO2]
+class = "ideal_gas"
+prop_data = "NIST"
+
+    [flow.CO2.molecules]
+    CO2 = {Y = 1.0}
+
+    [flow.CO2.atoms]
+    C = {X = 0.3333}
+    O = {X = 0.6667}

@@ -2,6 +2,11 @@
 
 This README provides an overview of the biomass-based Combined Heat and Power (bioCHP) Model.
 
+[![Build Status](https://github.com/iDesignRES/CHP_modelling/workflows/CI/badge.svg)](https://github.com/iDesignRES/CHP_modelling/actions?query=workflow%3ACI)
+[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://idesignres.github.io/CHP_modelling/stable/)
+[![In Development](https://img.shields.io/badge/docs-dev-blue.svg)](https://idesignres.github.io/CHP_modelling/dev/)
+![clang-format](https://img.shields.io/badge/clang--format-Google%20style-blue?logo=clang&logoColor=white)
+
 ## Purpose of the model
 
 The main purpose of this model is to evaluate numerically the overall process and economics of converting solid biomass to electricity and heat. Important features of the model are: 1) supply of different types of biomass feedstock from multiple sources, 2) specification of multiple heat outputs (as steam or district heating) defined in terms of thermal power, temperature and pressure. The overall process is calculated in terms of the mass and energy flows. The economics is calculated in terms of capital investment (CAPEX), variable and fixed operating cost (OPEX).  

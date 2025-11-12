@@ -26,17 +26,25 @@ int main() {
     assert(approxEqual(ST.W, expected_W[n]) || mismatch("W", ST.W));
   }
 
+  std::vector<std::string> bleeds = {"1st", "2nd"};
   std::vector<double> Pb = {15.0, 5.0};
   std::vector<double> Mb = {0.0, 0.0};
   object par;
+  par.p.push_back(
+      parameter("process", "steam_turbine", "output", "name", "str", "ST"));
   par.fval_p("Po", 0.1);
   par.fval_p("mu_isent", 0.5);
+  par.vct_sp("bleeds", bleeds);
   par.vct_fp("P_bleed", Pb);
   par.vct_fp("M_bleed", Mb);
-  flow out("out", "steam");
+  par.vct_sp("bleeds", bleeds, "output");
+  par.vct_fp("P_bleed", Pb);
+  par.vct_fp("M_bleed", Mb);
   double expected_Wel = 496858.635288289865;
+  flow out("out", "steam");
   steam_turbine_model(in, out, par);
   assert(approxEqual(par.fp("W_el") * 1e6, expected_Wel) ||
          mismatch("W_el", par.fp("W_el") * 1e6));
+  export_output_parameters(par, "steam_turbine_test");
   return 0;
 }

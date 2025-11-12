@@ -56,8 +56,10 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
     while (s_out < s_in) {
       Ts_out += 0.01;
       s_out = sPTSupSteam(ST.Po, Ts_out);
-      if (j++ > 1000000) {
-        throw std::runtime_error("Number of iteration have reached 1e6");
+      if (j++ > 1e6) {
+        throw std::runtime_error(
+            "In the steam_turbine function within Rankine_cycle.cpp, "
+            "convergence was not reached within 1e6 iterations - aborted");
       }
     }
     hs_out = hPTSupSteam(ST.Po, Ts_out);
@@ -69,8 +71,10 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
       ys_moisture += 0.001;
       s_out = ys_moisture * sPWater(ST.Po) +
               (1.0 - ys_moisture) * sPSatSteam(ST.Po);
-      if (j++ > 1000000) {
-        throw std::runtime_error("Number of iteration have reached 1e6");
+      if (j++ > 1e6) {
+        throw std::runtime_error(
+            "In the steam_turbine function within Rankine_cycle.cpp, "
+            "convergence was not reached within 1e6 iterations - aborted");
       }
     }
     hs_out =
@@ -85,8 +89,10 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
     while (h_calc < h_out) {
       T_out += 0.001;
       h_calc = hPTSupSteam(ST.Po, T_out);
-      if (j++ > 1000000) {
-        throw std::runtime_error("Number of iteration have reached 1e6");
+      if (j++ > 1e6) {
+        throw std::runtime_error(
+            "In the steam_turbine function within Rankine_cycle.cpp, "
+            "convergence was not reached within 1e6 iterations - aborted");
       }
     }
   } else {
@@ -98,8 +104,10 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
       y_moisture = y_moisture - 0.001;
       h_calc =
           y_moisture * hPWater(ST.Po) + (1.0 - y_moisture) * hPSatSteam(ST.Po);
-      if (j++ > 1000000) {
-        throw std::runtime_error("Number of iteration have reached 1e6");
+      if (j++ > 1e6) {
+        throw std::runtime_error(
+            "In the steam_turbine function within Rankine_cycle.cpp, "
+            "convergence was not reached within 1e6 iterations - aborted");
       }
     }
   }

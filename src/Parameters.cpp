@@ -238,8 +238,7 @@ std::vector<std::string> object::svct(std::string symb) {
 void object::fval_p(std::string symb, double val, std::string data_def) {
   bool found = false;
   for (std::size_t np = 0; np < p.size(); np++) {
-    if (p[np].sys_type == sys_type && p[np].sys_def == sys_def &&
-        p[np].data_id == symb) {
+    if (p[np].data_id == symb) {
       p[np].vct.push_back(val);
       p[np].pos = p[np].str.size() - 1;
       found = true;
@@ -262,8 +261,7 @@ void object::vct_fp(std::string symb, std::vector<double> vct,
                     std::string data_def) {
   bool found = false;
   for (std::size_t np = 0; np < p.size(); np++) {
-    if (p[np].sys_type == sys_type && p[np].sys_def == sys_def &&
-        p[np].data_id == symb) {
+    if (p[np].data_id == symb) {
       p[np].vct.clear();
       for (std::size_t n = 0; n < vct.size(); n++) {
         p[np].vct.push_back(vct[n]);
@@ -289,8 +287,7 @@ void object::vct_sp(std::string symb, std::vector<std::string> vct,
                     std::string data_def) {
   bool found = false;
   for (std::size_t np = 0; np < p.size(); np++) {
-    if (p[np].sys_type == sys_type && p[np].sys_def == sys_def &&
-        p[np].data_id == symb) {
+    if (p[np].data_id == symb) {
       p[np].str.clear();
       for (std::size_t n = 0; n < vct.size(); n++) {
         p[np].str.push_back(vct[n]);
