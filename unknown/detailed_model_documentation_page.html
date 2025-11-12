@@ -102,7 +102,7 @@ $(document).ready(function(){initNavTree('detailed_model_documentation_page.html
 <div class="textblock"><p>This pages gives a detailed documentation of the bioCHP module.</p>
 <h1><a class="anchor" id="detailed_model_documentation"></a>
 bioCHP module description</h1>
-<p>The BioCHP plant model incorporates the following mass/energy streams and unit process operations:</p>
+<p>The bioCHP plant model incorporates the following mass/energy streams and unit process operations:</p>
 <div class="dotgraph">
 <img src="dot_inline_dotgraph_1.png" alt="dot_inline_dotgraph_1.png" border="0" usemap="#dot_inline_dotgraph_1.map"/>
 </div>
@@ -123,24 +123,24 @@ Implementation</h2>
 <p>The nonlinear C++ model enables sampling for <a href="https://github.com/EnergyModelsX">EnergyModelsX</a> through the function <code>bioCHP_wrapper.cpp</code> which provides a function that calculates both the <b>costs</b> (Investment, total and variable operating expenses) and the required <b>mass flow rate of each feedstock</b> as outputs, based on the specified <em>electric power production</em>, <em>heat demands</em> (thermal power capacity and return/supply temperatures) and <b>moisture content of each biomass feedstock</b> as inputs. This sampling routine allows a tight integration of the model within the <a href="https://github.com/EnergyModelsX">EnergyModelsX</a> framework.</p>
 <p>Important features and functionalities of the module include:</p>
 <ul>
-<li><b>Flows</b> are implemented as the so-called <code>flow</code> structure, defined in <code>src/Flows/Flow_definitions.h</code>, which contain identifying strings, atomic and molecular composition, material and energy flow rates, and physical and thermodynamic properties. Flows are created by importing their data from a database located in the <code>src/Database/flows.toml</code> folder. <br  />
+<li><b>Flows</b> are implemented as the so-called <code>flow</code> structure, defined in <code>src/Flows/flow_definitions.h</code>, which contain identifying strings, atomic and molecular composition, material and energy flow rates, and physical and thermodynamic properties. Flows are created by importing their data from a database located in the <code>src/Database/flows.toml</code> folder. <br  />
 </li>
-<li><b>Atomic and molecular species</b> are also implemented as the so-called <code>species</code> structure, defined in <code>src/Flows/Flow_definitions.h</code>, which contains identifying strings and physical or thermodynamic properties. Atomic and molecular species are created by importing their data from <code>src/Database/atoms.toml</code> and <code>src/Database/molecules.toml</code>, respectively.</li>
-<li><b>Thermodynamic properties</b> are calculated using the library located in <code>src/Library/Thermodynamic_library/</code>. Molecular gas species (O2, N2, Ar, CO, CO2, H2, CH4, SO2, SO3, HCl, Cl2, NH3) using the NIST correlaltions [8] in <code>src/Library/Thermodynamic_library/species_thermodynamics.h</code>. Solid biomass properties are constant and user defined, except for heating values which are evaluated by correlations [9]. Liquid water and steam through specific correlations in <code>src/Library/Thermodynamic_library/Water_correlations.h</code>. <br  />
+<li><b>Atomic and molecular species</b> are also implemented as the so-called <code>species</code> structure, defined in <code>src/Flows_library/flow_definitions.h</code>, which contains identifying strings and physical or thermodynamic properties. Atomic and molecular species are created by importing their data from <code>src/Database/atoms.toml</code> and <code>src/Database/molecules.toml</code>, respectively.</li>
+<li><b>Thermodynamic properties</b> are calculated using the library located in <code>src/Libraries/Thermodynamic_library/</code>. Molecular gas species (O2, N2, Ar, CO, CO2, H2, CH4, SO2, SO3, HCl, Cl2, NH3) using the NIST correlaltions [8] in <code><a class="el" href="species__thermodynamics_8h_source.html">src/Libraries/Thermodynamic_library/species_thermodynamics.h</a></code>. Solid biomass properties are constant and user defined, except for heating values which are evaluated by correlations [9]. Liquid water and steam through specific correlations in <code><a class="el" href="Library__Water__Correlations_8h_source.html">src/Libraries/Thermodynamic_library/Library_Water_Correlations.h</a></code>. <br  />
 </li>
 <li><b>Physical systems</b> such as equipment, systems or plants are defined as so-called <code>objects</code>. Objects are implemented as a structure, defined in <code><a class="el" href="Parameters_8h_source.html">src/Parameters.h</a></code>, containing identifying strings and a set (vector) of specifying <code>parameters</code> for the object. Each <code>parameter</code> is also implemented as a structure, defined in <code><a class="el" href="Parameters_8h_source.html">src/Parameters.h</a></code>, containing identifying strings, two vectors with numerical or string values of the parameter, and a integer pointing to a position inside the vectors. Each object can contain also other components as objects.</li>
 <li><b>Consumables, residues, effluents and utilities</b> as also implemented as objects. <br  />
 </li>
-<li><b>Processes</b> are implemented through functions in <code>src/Library/Process_library/</code>. Inputs to each function can be flows and an object (containing input parameters) representing the physical system where the process takes place. Output from the process function can be calculated output flows and calculated output parameters within the representing object.</li>
-<li>The <b>cost module</b> <code>src/Cost.cpp</code> evaluates CAPEX of a physical system and variable OPEX of a consumable or utility using their representing object as input.</li>
-<li>Values for all physical properties are defined in SI units.</li>
+<li><b>Processes</b> are implemented through functions in <code>src/Libraries/Processes_library/</code>. Inputs to each function can be flows and an object (containing input parameters) representing the physical system where the process takes place. Output from the process function can be calculated output flows and calculated output parameters within the representing object.</li>
+<li>The <b>cost module</b> <code><a class="el" href="Cost_8h_source.html">src/Cost.h</a></code> evaluates CAPEX of a physical system and variable OPEX of a consumable or utility using their representing object as input.</li>
+<li>Values for all physical properties are defined in SI units. Default units for temperature and pressure are defined in degrees Celsius and bar.</li>
 </ul>
 <p>All <b>input data</b> used by the bioCHP plant module is implenented using <b>TOML format</b> [7] within the <code>src/Database</code> directory. Database is described below, in the section <code>Module database</code>.</p>
 <p>The CHP plant module is implemented through the function (in <code><a class="el" href="bioCHP_8h_source.html">src/bioCHP.h</a></code>):</p>
 <p><code>bioCHP_plant(std::vector&lt;std::string&gt; fuel_def, std::vector&lt;double&gt; Yj, std::vector&lt;double&gt; YH2Oj, double W_el, std::vector&lt;double&gt; Qk, std::vector&lt;double&gt; Tk_in, std::vector&lt;double&gt; Tk_out)</code></p>
 <p>with the inputs defined as follow:</p>
 <ul>
-<li>none (<code>fuel_def</code> in the model as <code>vector[string]</code>): Biomass composition in the input soild fuel to the CHP plant. The input solid fuel to the CHP plant is a mixture of individual biomass feedstock. Each biomass feedstock is defined by one string in the <code>fuel_def</code> vector, e.g., <code>spruce_bark</code>, linked to a biomass database as described in section <code>Module database</code> below.</li>
+<li>none (<code>fuel_def</code> in the model as <code>vector[string]</code>): Biomass composition in the input soild fuel to the CHP plant. The input solid fuel to the CHP plant is a mixture of individual biomass feedstock. Each biomass feedstock is defined by one string in the <code>fuel_def</code> vector, e.g., <code>spruce_bark</code>, linked to a biomass database as described in section <code>Module implementation and database</code> below.</li>
 <li>\( Y_j^F \) (<code>Yj_vec[j]</code> in the model as <code>vector[double]</code>): The mass fraction of biomass resource \( j \) in the feed. The total mass fraction must sum to 1.</li>
 <li>\( Y_{H_2O,j}^F \) (<code>YH2Oj_vec[j]</code> in the model as <code>vector[double]</code>): The moisture content of biomass resource \( j \) as a mass fraction. It corresponds to the water content in the total wet mass.</li>
 <li>\( Th_{in,k} \) (<code>Tkin_vec[k]</code> in the model as <code>vector[double]</code>): The return temperature level of heat demand \( k \) in °C. As the CHP plant can provide heat at several temperature levels, it is possible to specify them directly.</li>
@@ -148,19 +148,19 @@ Implementation</h2>
 <li>\( \dot{Q}_{k} \) (<code>Qk_vec[k]</code> in the model as <code>vector[double]</code>): The heat demands at the individual temperature levels \( k \) in MW.</li>
 <li>\( \dot{W}_{el} \) (<code>W_el</code> in the model as <code>double</code>): The electric power output of the CHP plant in MW.</li>
 </ul>
-<p>When running the CHP module separately, these inputs are specified by the user through the toml files. Examples in <code>Tests\input_files</code>.</p>
+<p>When running the CHP module separately, these inputs are specified by the user through the toml files. Examples in <code>Tests/input_files</code>.</p>
 <dl class="section note"><dt>Note</dt><dd>Vector positions: Both the input biomass and heat demands are specified as vectors. This implies that the ordering of the biomass types, their mass fractions, and the moisture content requires correct indexing. Similarly, the thermal power and return/supply temperatures of the district heating demands must follow the correct indexing.</dd></dl>
 <p>The standard outputs from the <code>bioCHP_plant</code> functions are:</p>
 <ul>
-<li>\( \dot{M}_F \) (<code>M_fuel</code> in the model) is the input mass flow rate of biomass to the BioCHP plant in kg/s.</li>
-<li>\( \dot{H}_F \) (<code>H_fuel</code> in the model) is the input energy flow rate of biomass to the BioCHP plant in MW.</li>
+<li>\( \dot{M}_F \) (<code>M_fuel</code> in the model) is the input mass flow rate of biomass to the bioCHP plant in kg/s.</li>
+<li>\( \dot{H}_F \) (<code>H_fuel</code> in the model) is the input energy flow rate of biomass to the bioCHP plant in MW.</li>
 <li>\( C_{inv} \) (<code>C_inv</code> in the model) represents the capital expenditures in M$.</li>
 <li>\( C_{op,d} \) (<code>C_op_d</code> in the model) represents the annual direct variable operating expenses in M$. <br  />
  It is assumed that the plant operates at XXX h/year at full capacity.</li>
 <li>\( C_{op,f} \) (<code>C_op_f</code> in the model) represents the annual fixed operating expenses in M$.</li>
 </ul>
 <dl class="section note"><dt>Note</dt><dd>Format of the outputs: All outputs are required as <code>double</code> types in the model.</dd></dl>
-<p>The integration of the CHP module with EMX is through the wrapper <code>C</code> function, (in <code>src/bioCHP_wrapper.cpp</code>):</p>
+<p>The integration of the CHP module with EMX is through the wrapper <code>C</code> function, (in <code><a class="el" href="bioCHP__wrapper_8h_source.html">src/bioCHP_wrapper.h</a></code>):</p>
 <p><code>bioCHP_plant_c(const char** fuel_def, int fuel_count, const double* Yj,
                     int Yj_len, const double* YH2Oj, int YH2Oj_len, double W_el,
                     const double* Qk, int Qk_len, const double* Tk_in,
@@ -184,10 +184,10 @@ Implementation</h2>
 <li><code>Qk_len</code> (input) denoting the size of <code>Qk</code></li>
 <li><code>W_el</code> (input) as the electric power output of the CHP plant in MW. <br  />
 </li>
-<li><code>Mj</code> (output) as the input mass flow rate of each biomass feedstock to the BioCHP plant in kg/s.</li>
+<li><code>Mj</code> (output) as the input mass flow rate of each biomass feedstock to the bioCHP plant in kg/s.</li>
 <li><code>Mj_len</code> (output) denoting the size of <code>Mj</code></li>
-<li><code>Q_prod</code> (output) as the total heat production from the BioCHP plant in MW.</li>
-<li><code>W_el_prod</code> (output) as the total electric power production from the BioCHP plant in MW.</li>
+<li><code>Q_prod</code> (output) as the total heat production from the bioCHP plant in MW.</li>
+<li><code>W_el_prod</code> (output) as the total electric power production from the bioCHP plant in MW.</li>
 <li><code>C_inv</code> (output) as represents the capital expenditures in M$.</li>
 <li><code>C_op_d</code> (output) as the annual direct variable operating expenses in M$. <br  />
 </li>
@@ -205,7 +205,7 @@ Solid fuel characterization</h2>
 </ul>
 <h2><a class="anchor" id="back-bio_CHP-math-boiler"></a>
 Solid fuel boiler model</h2>
-<p>The solid fuel boiler model is implemented in <code>src/Library/Process_library/combustion.cpp</code>.</p>
+<p>The solid fuel boiler model is implemented in the function <code>solid_fuel_boiler(std::vector&lt;flow&gt; &amp;fuel, std::vector&lt;flow&gt; &amp;comb_air, flow &amp;flue_gas, flow &amp;bottom_ash, flow &amp;fly_ash, object &amp;comb)</code> located in <code><a class="el" href="combustion_8h_source.html">src/Libraries/Processes_library/combustion.h</a></code>.</p>
 <p>It assumes steady-state mass and energy conservation applied to the entire boiler with the following boundaries:</p><ul>
 <li>Inlets: biomass feed, combustion air</li>
 <li>Outlets: bottom ash, flue gas, steam produced, dissipation heat losses</li>
@@ -245,9 +245,7 @@ Solid fuel boiler model</h2>
 <p>Here, \( MW_C \), \( MW_H \), and \( MW_O \) are atomic weights for C, H and O.</p>
 <p>Calculated flows for the solid fuel boiler model includes:</p>
 <ul>
-<li>Mass and energy flow rate of the biomass mixture and of each feedstock \( j \):</li>
-</ul>
-<p class="formulaDsp">
+<li>Mass and energy flow rate of the biomass mixture and of each feedstock \( j \):  <p class="formulaDsp">
 \[
   \begin{aligned}
     \dot{M}_F &amp; = \dot{H}_F/h_{fuel} \\
@@ -256,13 +254,12 @@ Solid fuel boiler model</h2>
   \end{aligned}
   \]
 </p>
-<p>with specific enthalpy of the fuel is calculated through the lower heating values of the individual biomass resources (indexed through \( j \)), excluding the moisture in the resources (indexed through \( H_2O \)):</p>
-<p class="formulaDsp">
+ with specific enthalpy of the fuel is calculated through the lower heating values of the individual biomass resources (indexed through \( j \)), excluding the moisture in the resources (indexed through \( H_2O \)):  <p class="formulaDsp">
 \[
 h_{fuel} = \sum_j Y_j^F\Big[(1-Y_{H_2O,j})\, LHV_j - Y_{H_2O,j}\, h_{v,H_2O}\Big]
 \]
 </p>
-<ul>
+</li>
 <li>Volumetric flow rate (Nm3/s)and mass flow rate (kg/s) of combustion air required by the boiler:  <p class="formulaDsp">
 \[
   \begin{aligned}
@@ -272,9 +269,7 @@ h_{fuel} = \sum_j Y_j^F\Big[(1-Y_{H_2O,j})\, LHV_j - Y_{H_2O,j}\, h_{v,H_2O}\Big
   \]
 </p>
  Here, \( W_{air} \) is the molecular weight of air (29 g/mol).</li>
-<li>Mass flow rate and energy flow rate of bottom ash ( \( ba \)) from the boiler:</li>
-</ul>
-<p class="formulaDsp">
+<li>Mass flow rate and energy flow rate of bottom ash ( \( ba \)) from the boiler:  <p class="formulaDsp">
 \[
   \begin{aligned}
     \dot{M}_{ba}^{boiler} &amp; = \dot{M}_F \,(1+Y_{C,ba})\, f_{ba}\, \sum_j \Big[ Y_{ash,j}^F\, \dot{Y}_j^F\,(1-Y_{H2O,j}) \Big] \\
@@ -282,16 +277,13 @@ h_{fuel} = \sum_j Y_j^F\Big[(1-Y_{H_2O,j})\, LHV_j - Y_{H_2O,j}\, h_{v,H_2O}\Big
   \end{aligned}
   \]
 </p>
-<p>with the specific enthalpy of the bottom ash is given by</p>
-<p class="formulaDsp">
+ with the specific enthalpy of the bottom ash is given by  <p class="formulaDsp">
 \[
 h_{ba}^{boiler}  = \Big[c_{ba}\,(T_{ba}^{boiler}-T_0) + Y_{C,ba}\, h_C\Big]\, f_{ba}\,\sum_j \Big[ \dot{Y}_j^F\,(1-Y_{H2O,j})\, Y_{ash,j}^F \Big]
 \]
 </p>
-<ul>
-<li>Mass and energy flow rates of flue gas from the CHP plant:</li>
-</ul>
-<p class="formulaDsp">
+</li>
+<li>Mass and energy flow rates of flue gas from the CHP plant:  <p class="formulaDsp">
 \[
   \begin{aligned}
     \dot{M}_{g}^{FGC} &amp; = \dot{M}_F\, \sum_j \dot{Y}_j^F\Big[ Y_{H2O,j} + (1-Y_{H2O,j})\Big( 1+\lambda_{air}^{comb}\, Y_{C,j}\Big(\frac{W_{air}}{W_C}\Big)(1+n_H/4-n_O/2)\Big) \Big] \\
@@ -299,12 +291,13 @@ h_{ba}^{boiler}  = \Big[c_{ba}\,(T_{ba}^{boiler}-T_0) + Y_{C,ba}\, h_C\Big]\, f_
   \end{aligned}
   \]
 </p>
-<p>with the specific enthalpy of the flue gas at the boiler outlet is calculated through the difference between its temperature and the reference temperature \( T_0 \), the heat capacities \( c_{p,g,j} \) and</p>
-<p class="formulaDsp">
+ with the specific enthalpy of the flue gas at the boiler outlet is calculated through the difference between its temperature and the reference temperature \( T_0 \), the heat capacities \( c_{p,g,j} \) and  <p class="formulaDsp">
 \[
 h_g^{FGC}  = (T_g^{FGC}-T_0) \sum_j \Big\{ Y_j^F\, c_{p,g,j} \Big( Y_{H2O,j} + (1-Y_{H2O,j})\Big[ 1+\lambda_{air}^{comb}\, Y_{C,j}\Big(\frac{W_{air}}{W_C}\Big)(1+n_H/4-n_O/2)\Big]\Big) \Big\}
 \]
 </p>
+</li>
+</ul>
 <dl class="section note"><dt>Note</dt><dd>Specific enthalpies: All specific enthalpies described above are relative to the mass flow of the biomass feedstock \( \dot{M}_F \).</dd></dl>
 <p>The total thermal power produced from the boiler is calculated by applying energy conservation as the difference in mass enthalpy between the biomass fuel and the output from the system (i.e. the flue gas, the fly ash, and the bottom ash). <br  />
 </p>
@@ -318,7 +311,7 @@ h_g^{FGC}  = (T_g^{FGC}-T_0) \sum_j \Big\{ Y_j^F\, c_{p,g,j} \Big( Y_{H2O,j} + (
 <p>where the \( q_{loss} \) corresponds is the fraction of dissipation heat losses relative to thermal power production, assumed to be constant and equal to 0.1.</p>
 <h2><a class="anchor" id="back-bio_CHP-math-rankine_cycle"></a>
 Rankine cycle model</h2>
-<p>The rankine cycle model is implemented in the function <code>rankine_cycle(object &amp;par)</code> (located in <code>src/Library/Process_library/Rankine_cycle.h</code>)</p>
+<p>The rankine cycle model is implemented in the function <code>rankine_cycle(object &amp;par)</code> (located in <code><a class="el" href="Rankine__cycle_8h_source.html">src/Libraries/Processes_library/Rankine_cycle.h</a></code>)</p>
 <p>with the following input parameters:</p>
 <ul>
 <li>\( \dot{Q}_{stm}^{boiler} \) (<code>par.Q_stm</code> in the model): The <b>Boiler</b> steam thermal energy production in MW.</li>
@@ -332,7 +325,7 @@ Rankine cycle model</h2>
 <li>\( P_{cond} \) (<code>par.P_cond</code> in the model): The <b>Condenser</b> pressure in bar gauge.</li>
 </ul>
 <p>The rankine cycle performs the following calculations:</p>
-<ol type="1">
+<ul>
 <li><b>Steam flow</b> produced from the boiler, from:  <p class="formulaDsp">
 \[
   \begin{aligned}
@@ -341,34 +334,25 @@ Rankine cycle model</h2>
   \]
 </p>
 </li>
-<li><b>District heating model</b>, implemented in the function <code>district_heating(object &amp;par)</code> It calculates <b>Steam extractions</b> (bleeds) required from steam turbine to meet the specified heat demands for distric heating Calculated bleeds, exported to the rankine_cycle <code>par</code> object, are defined as:</li>
-</ol>
-<ul>
+<li><b>District heating model</b>, implemented in the function <code>district_heating(object &amp;par)</code> (located in <code><a class="el" href="Rankine__cycle_8h_source.html">src/Libraries/Processes_library/Rankine_cycle.h</a></code>) It calculates <b>Steam extractions</b> (bleeds) required from steam turbine to meet the specified heat demands for distric heating Calculated bleeds, exported to the rankine_cycle <code>par</code> object, are defined as:<ul>
 <li>\( Pb_{n} \) (<code>par.Pb[nb]</code> in the model as <code>vector[double]</code>): pressure for each steam extraction in descendent order.</li>
-<li>\( \dot{M}b_{n} \) (<code>par.Mb[nb]</code> in the model as <code>vector[double]</code>): steam mass flow rates related to each steam extraction pressure.</li>
-</ul>
-<p>Bleeds are calculated for each heat demand as follows: \( Pb_{k} \) (<code>P_bleed[k]</code> in the model as <code>vector[double]</code>) is calculated as the saturation pressure of water at \( Th_{out,k} + 25°C \) \( \dot{M}b_{k} \) (<code>P_bleed[k]</code> in the model as <code>vector[double]</code>)</p>
-<p class="formulaDsp">
+<li>\( \dot{M}b_{n} \) (<code>par.Mb[nb]</code> in the model as <code>vector[double]</code>): steam mass flow rates related to each steam extraction pressure. Bleeds are calculated for each heat demand as follows: \( Pb_{k} \) (<code>P_bleed[k]</code> in the model as <code>vector[double]</code>) is calculated as the saturation pressure of water at \( Th_{out,k} + 25°C \) \( \dot{M}b_{k} \) (<code>P_bleed[k]</code> in the model as <code>vector[double]</code>)  <p class="formulaDsp">
 \[ 
 Mb_{k} = \frac{\dot{Q}_{k}}{h_{vap}^{sat}(Pb_{k}) - h_{cond}^{sat}(Pb_{k})} 
 \]
 </p>
-<p>with \( h_{vap}^{sat}(Pb_{k}) \) and \( h_{cond}^{sat}(Pb_{k}) \) are the vapor and condensate specific enthalpies of saturated water evaluated at \( Pb_{k} \).</p>
-<p>The pair \( [Pb_{n}, \dot{M}_{n} ]\) is obtained by sorting the pressure in descendent order and merging bleeds with pressure difference lower than 5 bar. When two bleeds merge, the resulting one keeps the higher pressure and the sum the steam flow rates. <br  />
-</p>
-<ol type="1">
-<li><b>steam turbine model</b>, implemented in the function <code>steam_turbine_model(object &amp;par)</code> It calculates the steam turbine with steam extractions. The overall steam turbine process is divided in stages: inlet to first extraction, between extractions, and last extraction to outlet. Each stage is calculated assuming steady state, adiabatic expansion using a constant isentropic efficiency [13] <br  />
- The output is the calculated total electric power production, denoted by \( \dot{W}_{el} \) (<code>par.W_el</code> in the model) in MW, from</li>
-</ol>
-<p class="formulaDsp">
+ with \( h_{vap}^{sat}(Pb_{k}) \) and \( h_{cond}^{sat}(Pb_{k}) \) are the vapor and condensate specific enthalpies of saturated water evaluated at \( Pb_{k} \). The pair \( [Pb_{n}, \dot{M}_{n} ]\) is obtained by sorting the pressure in descendent order and merging bleeds with pressure difference lower than 5 bar. When two bleeds merge, the resulting one keeps the higher pressure and the sum the steam flow rates. <br  />
+</li>
+</ul>
+</li>
+<li><b>steam turbine model</b>, implemented in the function <code>steam_turbine_model(object &amp;par)</code>(located in <code><a class="el" href="Rankine__cycle_8h_source.html">src/Libraries/Processes_library/Rankine_cycle.h</a></code>) It calculates the steam turbine with steam extractions. The overall steam turbine process is divided in stages: inlet to first extraction, between extractions, and last extraction to outlet. Each stage is calculated assuming steady state, adiabatic expansion using a constant isentropic efficiency [13] <br  />
+ The output is the calculated total electric power production, denoted by \( \dot{W}_{el} \) (<code>par.W_el</code> in the model) in MW, from  <p class="formulaDsp">
 \[
 \dot{W}_{el} = \sum_{n=0}^{N_q} \left(\dot{H}_F \frac{(q_{stm}^{boiler}/h_{fuel})}{(h_{stm}^{boiler}-h_{bfw}^{boiler})} - \sum_{k=0}^n \frac{\dot{Q}_{k}}{(h_{stm}^{k}-h_{o}^{k})} \right) (h_{in}^{ST_n}-h_{out,s}^{ST_n})\eta_S^{ST_n}
 \]
 </p>
-<ol type="1">
-<li><b>Steam condenser</b>, implemented in the function <code>steam_condenser(flow &amp;steam, flow &amp;cond, object &amp;par)</code> The model assumes steady-state and isobaric process [13] Inputs:</li>
-</ol>
-<ul>
+</li>
+<li><b>Steam condenser</b>, implemented in the function <code>steam_condenser(flow &amp;steam, flow &amp;cond, object &amp;par)</code> (located in <code><a class="el" href="Rankine__cycle_8h_source.html">src/Libraries/Processes_library/Rankine_cycle.h</a></code>) The model assumes steady-state and isobaric process [13] Inputs:</li>
 <li><code>steam</code>, <b>flow</b> denoting the steam outlet from the steam turbine model</li>
 <li>\( T_{cond} \) (<code>par.T_cond</code> in the model): The condenser temperature in °C.</li>
 <li>\( P_{cond} \) (<code>par.P_cond</code> in the model): The condenser pressure in bar gauge.</li>
@@ -386,7 +370,7 @@ Mb_{k} = \frac{\dot{Q}_{k}}{h_{vap}^{sat}(Pb_{k}) - h_{cond}^{sat}(Pb_{k})}
 </ul>
 <h2><a class="anchor" id="back-bio_CHP-math-dry-scrubber"></a>
 Dry scrubber model</h2>
-<p>Implemented in the function <code>dry_scrubber_model(flow &amp;in, flow &amp;out, object &amp;par)</code> (located in<code>src/Library/Process_library/flue_gas_cleaning.cpp</code>)</p>
+<p>Implemented in the function <code>dry_scrubber_model(flow &amp;in, flow &amp;out, object &amp;par)</code> (located in<code><a class="el" href="flue__gas__cleaning_8h_source.html">src/Libraries/Processes_library/flue_gas_cleaning.h</a></code>)</p>
 <p>Inputs:</p><ul>
 <li><code>in</code>, flow denoting the input flue gas</li>
 <li>\( T_{cond} \) (<code>par.T_cond</code> in the model): The condenser temperature in °C.</li>
@@ -398,10 +382,10 @@ Dry scrubber model</h2>
 <li><code>par.cake</code>, <b>object</b> representing cake as <b>solid residue</b></li>
 <li>Annual mass of lime \( \dot{M}_{lime} \) (<code>par.lime.Q_annual</code> in the model), calculated from  <p class="formulaDsp">
 \[
-  \dot{M}_{lime} = \dot{M}_F\, m_{lime,b}\, 3.6, 8000
+  \dot{M}_{lime} = \dot{M}_F\, m_{lime,b}\, t_{op}, 3.6 
   \]
 </p>
- with \( m_{lime,b} = 14.4 \) a constant specific lime consumption per unit mass of solid fuel entering the boiler [5]</li>
+ with \( m_{lime,b} = 14.4 kg/t \) a constant specific lime consumption per unit mass of solid fuel entering the boiler [5] and \( t_{op} = 8000 h \) is the annual operational time.</li>
 <li>Annual mass of cake \( \dot{M}_{s} \) (<code>par.cake.Q_annual</code> in the model), calculated from <br  />
   <p class="formulaDsp">
 \[
@@ -453,43 +437,36 @@ C_{op} = C_{op,d} + C_{op,f},
 <p>where:</p>
 <ul>
 <li>\( C_{op,d} \) denotes the variable operating cost calculated from \( C_{op,d} = \sum_j Q_j p_j \), with the subscript \( j \) denoting feedstock, consumables and residues, \( Q_j \) is the annual production quantity proportional to the annual operating time \( t_{op} \), and \( p_j \) is the unit price. including the</li>
-<li>\( C_{op,f} \) denotes the fixed operating costs required for keeping the BioCHP plant in operation, including:<ul>
-<li>Maintenance cost:</li>
-</ul>
-</li>
-</ul>
-<p class="formulaDsp">
+<li>\( C_{op,f} \) denotes the fixed operating costs required for keeping the bioCHP plant in operation, including:<ul>
+<li>Maintenance cost:  <p class="formulaDsp">
 \[
     C_{maint} = 0.05\, C_{eq}
     \]
 </p>
-<ul>
-<li>Insurance:</li>
-</ul>
-<p class="formulaDsp">
+</li>
+<li>Insurance:  <p class="formulaDsp">
 \[
     C_{ins} = 0.01\, C_{inv}
     \]
 </p>
-<ul>
-<li>Administration and site services:</li>
-</ul>
-<p class="formulaDsp">
+</li>
+<li>Administration and site services:  <p class="formulaDsp">
 \[
     C_{adm} = 0.03\, C_{inv}
     \]
 </p>
-<ul>
-<li>Labor cost:</li>
-</ul>
-<p class="formulaDsp">
+</li>
+<li>Labor cost:  <p class="formulaDsp">
 \[
     C_{labor} = \sum_k N_k^{labor}\, c_{b,k}^{labor}\,\Big[1+f_{oh,k}^{labor}\Big]
     \]
 </p>
+</li>
+</ul>
+</li>
+</ul>
 <p>Here, the subscript \( k \) denotes the personnel categories and the parameters are defined as follows:</p>
-<p>1) Plant manager:</p>
-<p class="formulaDsp">
+<p>1) Plant manager:  </p><p class="formulaDsp">
 \[
 \begin{aligned}
   c_{b,k}^{labor} &amp; = 162~k\$/year \\
@@ -498,8 +475,7 @@ C_{op} = C_{op,d} + C_{op,f},
 \end{aligned}
 \]
 </p>
-<p>2) O&amp;M manager:</p>
-<p class="formulaDsp">
+<p>2) O&amp;M manager:  </p><p class="formulaDsp">
 \[
 \begin{aligned}
   c_{b,k}^{labor} &amp; = 96~k\$/year \\
@@ -512,8 +488,7 @@ C_{op} = C_{op,d} + C_{op,f},
 \end{aligned}
 \]
 </p>
-<p>3) O&amp;M engineer:</p>
-<p class="formulaDsp">
+<p>3) O&amp;M engineer:  </p><p class="formulaDsp">
 \[
 \begin{aligned}
   c_{b,k}^{labor} &amp; = 88~k\$/year \\
@@ -526,8 +501,7 @@ C_{op} = C_{op,d} + C_{op,f},
 \end{aligned}
 \]
 </p>
-<p>4) Shift operator:</p>
-<p class="formulaDsp">
+<p>4) Shift operator:  </p><p class="formulaDsp">
 \[
 \begin{aligned}
   c_{b,k}^{labor} &amp; = 37~k\$/year \\
@@ -544,9 +518,7 @@ C_{op} = C_{op,d} + C_{op,f},
 <h1><a class="anchor" id="module_implementation_and_database"></a>
 Module implementation and database</h1>
 <ul>
-<li>Input parameters for the bioCHP plant, in <code>src/Database/bioCHP_inputs.toml</code>:</li>
-</ul>
-<table class="markdownTable">
+<li>Input parameters for the bioCHP plant, in <code>src/Database/bioCHP_inputs.toml</code>: <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadRight">Parameter   </th><th class="markdownTableHeadRight">symbol   </th><th class="markdownTableHeadRight">value   </th><th class="markdownTableHeadRight">unit   </th><th class="markdownTableHeadRight">ref.    </th></tr>
 <tr class="markdownTableRowOdd">
@@ -580,10 +552,8 @@ Module implementation and database</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyRight">capital cost factor, administration   </td><td class="markdownTableBodyRight">f_adm   </td><td class="markdownTableBodyRight">0.01   </td><td class="markdownTableBodyRight">-   </td><td class="markdownTableBodyRight">[3]   </td></tr>
 </table>
-<ul>
-<li>Input parameters for the biomass boiler, in <code>src/Database/bioCHP_inputs.toml</code>:</li>
-</ul>
-<table class="markdownTable">
+</li>
+<li>Input parameters for the biomass boiler, in <code>src/Database/bioCHP_inputs.toml</code>: <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadRight">Parameter   </th><th class="markdownTableHeadRight">symbol   </th><th class="markdownTableHeadRight">value   </th><th class="markdownTableHeadRight">unit   </th><th class="markdownTableHeadRight">ref.    </th></tr>
 <tr class="markdownTableRowOdd">
@@ -605,10 +575,8 @@ Module implementation and database</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyRight">Fraction of ash as bottom ash   </td><td class="markdownTableBodyRight">f_ba   </td><td class="markdownTableBodyRight">0.1   </td><td class="markdownTableBodyRight">-   </td><td class="markdownTableBodyRight">assumed   </td></tr>
 </table>
-<ul>
-<li>Input parameters for the flue gas cleaning, in <code>src/Database/bioCHP_inputs.toml</code>:</li>
-</ul>
-<table class="markdownTable">
+</li>
+<li>Input parameters for the flue gas cleaning, in <code>src/Database/bioCHP_inputs.toml</code>: <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadRight">Parameter   </th><th class="markdownTableHeadRight">symbol   </th><th class="markdownTableHeadRight">value   </th><th class="markdownTableHeadRight">unit   </th><th class="markdownTableHeadRight">ref.    </th></tr>
 <tr class="markdownTableRowOdd">
@@ -622,10 +590,8 @@ Module implementation and database</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyRight">Operatonal temperature   </td><td class="markdownTableBodyRight">P_op   </td><td class="markdownTableBodyRight">1.01325   </td><td class="markdownTableBodyRight">bar-a   </td><td class="markdownTableBodyRight">assumed   </td></tr>
 </table>
-<ul>
-<li>Input parameters for the Rankine cycle, in <code>src/Database/bioCHP_inputs.toml</code>:</li>
-</ul>
-<table class="markdownTable">
+</li>
+<li>Input parameters for the Rankine cycle, in <code>src/Database/bioCHP_inputs.toml</code>: <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadRight">Parameter   </th><th class="markdownTableHeadRight">symbol   </th><th class="markdownTableHeadRight">value   </th><th class="markdownTableHeadRight">unit   </th><th class="markdownTableHeadRight">ref.    </th></tr>
 <tr class="markdownTableRowOdd">
@@ -637,10 +603,8 @@ Module implementation and database</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyRight">Condenser pressure   </td><td class="markdownTableBodyRight">P_cond   </td><td class="markdownTableBodyRight">1.01325   </td><td class="markdownTableBodyRight">bar-a   </td><td class="markdownTableBodyRight">assumed   </td></tr>
 </table>
-<ul>
-<li>Biomass feedstock data, atomic and proximate composition, in <code>src/Database/flows.toml</code></li>
-</ul>
-<table class="markdownTable">
+</li>
+<li>Biomass feedstock data, atomic and proximate composition, in <code>src/Database/flows.toml</code> <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">biomass feedstock   </th><th class="markdownTableHeadRight">ref.    </th></tr>
 <tr class="markdownTableRowOdd">
@@ -654,13 +618,11 @@ Module implementation and database</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">birch stem supply   </td><td class="markdownTableBodyRight">[9]   </td></tr>
 </table>
-<ul>
+</li>
 <li>Molecules data, including composition (chemical formula) and molecular weight (kg/mol) from NIST database [8], in <code>src/Database/molecules.toml</code> <br  />
 </li>
 <li>Atoms data, including atomic weight (kg/mol) and valences, in <code>src/Database/atoms.toml</code></li>
-<li>Specific equipment cost data, in <code>src/Database/cost.toml</code>:</li>
-</ul>
-<table class="markdownTable">
+<li>Specific equipment cost data, in <code>src/Database/cost.toml</code>: <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Equipment   </th><th class="markdownTableHeadRight"><code>S_k^B</code>   </th><th class="markdownTableHeadRight"><code>C_{P,k}^B</code> (M$)   </th><th class="markdownTableHeadRight"><code>f_{inst,k}</code>   </th><th class="markdownTableHeadRight"><code>n_k</code>   </th><th class="markdownTableHeadRight">Base year   </th><th class="markdownTableHeadRight">ref.    </th></tr>
 <tr class="markdownTableRowOdd">
@@ -674,10 +636,8 @@ Module implementation and database</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Heat Exchanger (heat export)   </td><td class="markdownTableBodyRight">100 m²   </td><td class="markdownTableBodyRight">0.086   </td><td class="markdownTableBodyRight">2.8   </td><td class="markdownTableBodyRight">0.71   </td><td class="markdownTableBodyRight">2008   </td><td class="markdownTableBodyRight">[1]   </td></tr>
 </table>
-<ul>
-<li>Unit prices used to calculate direct operating costs, in <code>src/Database/Cost.toml</code>:</li>
-</ul>
-<table class="markdownTable">
+</li>
+<li>Unit prices used to calculate direct operating costs, in <code>src/Database/Cost.toml</code>: <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Variable cost   </th><th class="markdownTableHeadRight">Unit price <code>p_j</code>   </th><th class="markdownTableHeadRight">ref.    </th></tr>
 <tr class="markdownTableRowOdd">
@@ -697,16 +657,18 @@ Module implementation and database</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Bottom ash disposal   </td><td class="markdownTableBodyRight">20 $/kg   </td><td class="markdownTableBodyRight">[11]   </td></tr>
 </table>
+</li>
+</ul>
 <h1><a class="anchor" id="references"></a>
 References</h1>
-<p>[1] Woods, D. R., Rules of Thumb. Rules of Thumb in Engineering Practice. Wiley-VCH: 2008</p>
-<p>[2] Peters, M. S.; Timmerhaus, K. D.; West, R. E.; Timmerhaus, K.; West, R., Plant design and economics for chemical engineers, Vol. 4.. 5th ed., McGraw-Hill New York: 2003,</p>
-<p>[3] Ereev, S..; Patel, M. Recommended methodology and tool for cost estimates at micro level for new technologies. Utrecht, October 2011. <a href="http://www.prosuite.org/c/document_library/get_file?uuid=0efb1401-9854-4b92-8741-b0955c387cfa&groupId=12772">http://www.prosuite.org/c/document_library/get_file?uuid=0efb1401-9854-4b92-8741-b0955c387cfa&amp;groupId=12772</a></p>
+<p>[1] Woods, D. R., Rules of Thumb. Rules of Thumb in Engineering Practice. Wiley-VCH: 2008. <a href="https://doi.org/10.1002/9783527611119">https://doi.org/10.1002/9783527611119</a></p>
+<p>[2] Peters, M. S.; Timmerhaus, K. D.; West, R. E.; Timmerhaus, K.; West, R., Plant design and economics for chemical engineers, Vol. 4.. 5th ed., McGraw-Hill New York: 2003.</p>
+<p>[3] Ereev, S..; Patel, M. Recommended methodology and tool for cost estimates at micro level for new technologies. Utrecht, October 2011. <a href="https://dspace.library.uu.nl/bitstream/handle/1874/279466/Issue02-2012_150.pdf?sequence=1&isAllowed=y">https://dspace.library.uu.nl/bitstream/handle/1874/279466/Issue02-2012_150.pdf?sequence=1&amp;isAllowed=y</a></p>
 <p>[4] Tomberlin, G. (2014). Wood Pellet-Fired Biomass Boiler Project at the Ketchikan Federal Building. National Renewable Energy Laboratory (NREL). <a href="https://doi.org/10.2172/1171779">https://doi.org/10.2172/1171779</a></p>
 <p>[5] J. Stubenvoll, S. Böhmer and I. Szednyj, "State of the Art for Waste Incineration Plants," Federal Ministry of Agriculture and Forestry, Environment and Water Management, Vienna 2002. ISBN 3-902 338-13-X</p>
 <p>[6] M. C. Woods, P. J. Capicotto, J. L. Haslbeck, N. J. Kuehn, M. Matuszewski, L. L. Pinkerton, M. D. Rutkowski, R. L. Schoff, V. Vaysman, Cost and Performance Baseline for Fossil Energy Plants. Volume 1: Bituminous coal and natural gas to electricity. Report DOE/NETL-2007/1281, 2007. URL: <a href="https://www.nrc.gov/docs/ML1217/ML12170A423.pdf">https://www.nrc.gov/docs/ML1217/ML12170A423.pdf</a>.</p>
-<p>[7] <a href="https://toml.io/en/">https://toml.io/en/</a></p>
-<p>[8] DOI: <a href="https://doi.org/10.18434/T4D303">https://doi.org/10.18434/T4D303</a></p>
+<p>[7] T. Preston-Werner, P. Gedam, et al., “TOML: Tom’s Obvious, Minimal Language, Version 1.0.0,” Jan. 11, 2021. [Online]. Available: <a href="https://toml.io/en/v1.0.0">https://toml.io/en/v1.0.0</a></p>
+<p>[8] National Institute of Standards and Technology. (2025). NIST Chemistry WebBook, NIST Standard Reference Database Number 69. U.S. Department of Commerce. <a href="https://doi.org/10.18434/T4D303">https://doi.org/10.18434/T4D303</a></p>
 <p>[9] Phyllis2, database for (treated) biomass, algae, feedstocks for biogas production and biochar. <a href="https://phyllis.nl/">https://phyllis.nl/</a></p>
 <p>[10] Changdong Sheng, J.L.T. Azevedo, "Estimating the higher heating value of biomass fuels from basic analysis data, Biomass and Bioenergy," Vol. 28, Issue 5, 2005, pp. 499-507. <a href="https://doi.org/10.1016/j.biombioe.2004.11.008">https://doi.org/10.1016/j.biombioe.2004.11.008</a>.</p>
 <p>[11] G. Del Alamo, Rajesh S. Kempegowda, Øyvind Skreiberg, and Roger Khalil, Energy &amp; Fuels 2017 31 (6), 6089-6108. <a href="https://doi.org/10.1021/acs.energyfuels.7b00273">https://doi.org/10.1021/acs.energyfuels.7b00273</a></p>
