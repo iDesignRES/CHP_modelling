@@ -40,7 +40,7 @@ int main() {
   par.vct_sp("bleeds", bleeds, "output");
   par.vct_fp("P_bleed", Pb);
   par.vct_fp("M_bleed", Mb);
-  double expected_Wel = 496858.635288289865;
+  [[maybe_unused]] double expected_Wel = 496858.635288289865;
   flow out("out", "steam");
   steam_turbine_model(in, out, par);
   assert(approxEqual(par.fp("W_el") * 1e6, expected_Wel) ||
