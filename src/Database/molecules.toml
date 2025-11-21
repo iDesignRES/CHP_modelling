@@ -1,0 +1,37 @@
+[molecules.O2]
+composition = "O2"
+MW = 0.032
+
+[molecules.N2]
+composition = "N2"
+MW = 0.028
+
+[molecules.H2]
+composition = "H2"
+MW = 0.002
+LHV = 120.971
+
+[molecules.H2O]
+composition = "H2O"
+MW = 0.018
+
+[molecules.CO]
+composition = "CO"
+MW = 0.028
+LHV = 10.112
+
+[molecules.CO2]
+composition = "CO2"
+MW = 0.044
+
+[molecules.SO2]
+composition = "SO2"
+MW = 0.064
+
+[molecules.NO2]
+composition = "NO2"
+MW = 0.046
+
+[molecules.Ar]
+composition = "Ar"
+MW = 0.039948

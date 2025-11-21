@@ -1,0 +1,18 @@
+# This section provides inputs for the bioCHP_plant function
+[inputs]
+fuel_def = ["spruce_stem", "birch_stem", "spruce_TandB", "spruce_bark"]
+Yj = [0.1, 0.3, 0.4, 0.2]
+YH2Oj = [0.4, 0.35, 0.45, 0.5]
+W_el = 100.0
+Qk = [30.0, 40.0]
+Tk_in = [70.0, 50.0]
+Tk_out = [90.0, 80.0]
+
+# This section is optional and only used for testing
+[expected]
+Mj = [2.163095432773, 6.489286298320, 8.652381731093, 4.326190865546]
+Q_prod = 70.0
+W_el_prod = 100.000000004445
+C_inv = 224.750123723543
+C_op = 39.098300692570
+C_op_var = 34.323152193531

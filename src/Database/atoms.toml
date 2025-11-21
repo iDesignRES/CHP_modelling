@@ -1,0 +1,103 @@
+[atoms.H]
+atomic_weight = 0.0010008
+valences = [-1, 1]
+
+[atoms.He]
+atomic_weight = 0.0040026
+valences = [0]
+
+[atoms.Ar]
+atomic_weight = 0.03995
+valences = [0]
+
+[atoms.C]
+atomic_weight = 0.012011
+valences = [2, 4]
+
+[atoms.N]
+atomic_weight = 0.014007
+valences = [-3, -2, -1, 1, 2, 3, 4, 5]
+
+[atoms.O]
+atomic_weight = 0.015999
+valences = [-1]
+
+[atoms.S]
+atomic_weight = 0.03206
+valences = [-2, 2, 4, 6]
+
+[atoms.P]
+atomic_weight = 0.030974
+valences = [-3, 1, 3, 5]
+
+[atoms.As]
+atomic_weight = 0.074922
+valences = [-3, 2, 3, 5]
+
+[atoms.K]
+atomic_weight = 0.039098
+valences = [1]
+
+[atoms.Na]
+atomic_weight = 0.02299
+valences = [1]
+
+[atoms.Mg]
+atomic_weight = 0.024305
+valences = [2]
+
+[atoms.Ca]
+atomic_weight = 0.040078
+valences = [2]
+
+[atoms.Cl]
+atomic_weight = 0.03545
+valences = [-1, 1, 2, 3, 4, 5, 7]
+
+[atoms.Al]
+atomic_weight = 0.026982
+valences = [3]
+
+[atoms.Fe]
+atomic_weight = 0.055845
+valences = [2, 3, 4, 6]
+
+[atoms.Mn]
+atomic_weight = 0.054938
+valences = [2, 3, 4, 6, 7]
+
+[atoms.Si]
+atomic_weight = 0.028085
+valences = [-4, 2, 4]
+
+[atoms.Ti]
+atomic_weight = 0.047867
+valences = [2, 3, 4]
+
+[atoms.Zn]
+atomic_weight = 0.06538
+valences = [2]
+
+[atoms.Hg]
+atomic_weight = 0.20059
+valences = [1, 2]
+
+[atoms.Pb]
+atomic_weight = 0.2072
+valences = [2, 4]
+
+[atoms.Cd]
+atomic_weight = 0.11241
+valences = [1, 2]
+
+[atoms.Cr]
+atomic_weight = 0.051996
+valences = [2, 3, 6]
+
+[atoms.Cu]
+atomic_weight = 0.063456
+valences = [1, 2, 3]
+
+[atoms.Ni]
+atomic_weight = 0.058693
+valences = [1, 2, 3, 4]

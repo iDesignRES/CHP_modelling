@@ -1,0 +1,254 @@
+# plant properties
+[plant]
+    # bioCHP_PLANT
+    [[plant.bioCHP_PLANT]]
+    data_def = "prop"
+    data_id = "fuel_diameter_m"
+    data_type = "num"
+    data_info = "unit=m, characteristic particle size of the feedstock"
+    values = [0.05]
+
+    [[plant.bioCHP_PLANT]]
+    data_def = "prop"
+    data_id = "T_stm"
+    data_type = "num"
+    data_info = "unit=deg.C, boiler steam temperature"
+    values = [450.0]
+
+    [[plant.bioCHP_PLANT]]
+    data_def = "prop"
+    data_id = "P_stm"
+    data_type = "num"
+    data_info = "unit=bar-g, boiler steam pressure"
+    values = [100.0]
+
+    [[plant.bioCHP_PLANT]]
+    data_def = "prop"
+    data_id = "electricity_unit"
+    data_type = "str"
+    data_info = ""
+    values = ["kWh"]
+
+    [[plant.bioCHP_PLANT]]
+    data_def = "prop"
+    data_id = "price_electricity"
+    data_type = "num"
+    data_info = "unit=euro/kwh"
+    values = [0.1]
+
+    [[plant.bioCHP_PLANT]]
+    data_def = "prop"
+    data_id = "f_piping"
+    data_type = "num"
+    data_info = "unit=none, equipment cost factor for piping"
+    values = [0.065]
+
+    [[plant.bioCHP_PLANT]]
+    data_def = "prop"
+    data_id = "f_el"
+    data_type = "num"
+    data_info = "unit=none, equipment cost factor for electrical system"
+    values = [0.05]
+
+    [[plant.bioCHP_PLANT]]
+    data_def = "prop"
+    data_id = "f_I&C"
+    data_type = "num"
+    data_info = "unit=none, equipment cost factor for instrumentation&control"
+    values = [0.05]
+
+    [[plant.bioCHP_PLANT]]
+    data_def = "prop"
+    data_id = "f_land"
+    data_type = "num"
+    data_info = "unit=none, capital cost factor for land purchase"
+    values = [0.12]
+
+    [[plant.bioCHP_PLANT]]
+    data_def = "prop"
+    data_id = "f_site"
+    data_type = "num"
+    data_info = "unit=none, capital cost factor for site preparation"
+    values = [0.05]
+
+    [[plant.bioCHP_PLANT]]
+    data_def = "prop"
+    data_id = "f_build"
+    data_type = "num"
+    data_info = "unit=none, capital cost factor for Construction of buildings"
+    values = [0.2]
+
+    [[plant.bioCHP_PLANT]]
+    data_def = "prop"
+    data_id = "f_eng"
+    data_type = "num"
+    data_info = "unit=none, capital cost factor for engineering"
+    values = [0.1]
+
+    [[plant.bioCHP_PLANT]]
+    data_def = "prop"
+    data_id = "f_dev"
+    data_type = "num"
+    data_info = "unit=none, capital cost factor for Project development"
+    values = [0.02]
+
+    [[plant.bioCHP_PLANT]]
+    data_def = "prop"
+    data_id = "f_com"
+    data_type = "num"
+    data_info = "unit=none, capital cost factor for commissioning"
+    values = [0.10]
+
+    [[plant.bioCHP_PLANT]]
+    data_def = "prop"
+    data_id = "f_cont"
+    data_type = "num"
+    data_info = "unit=none, capital cost factor for contingency"
+    values = [0.15]
+
+    [[plant.bioCHP_PLANT]]
+    data_def = "prop"
+    data_id = "f_ins"
+    data_type = "num"
+    data_info = "unit=none, capital cost factor for insurance"
+    values = [0.01]
+
+    [[plant.bioCHP_PLANT]]
+    data_def = "prop"
+    data_id = "f_adm"
+    data_type = "num"
+    data_info = "unit=none, capital cost factor for administration"
+    values = [0.01]
+
+# System components
+[system]
+    # solid_fuel_boiler
+    [[system.solid_fuel_boiler]]
+    data_def = "prop"
+    data_id = "lambda"
+    data_type = "num"
+    data_info = "unit=none, input to stoichiometric O2 molar ratio in the combustion process"
+    values = [1.2]
+
+    [[system.solid_fuel_boiler]]
+    data_def = "prop"
+    data_id = "P_bar"
+    data_type = "num"
+    data_info = "unit=bar-a, pressure in the combustion process and flue gas"
+    values = [1.01325]
+
+    [[system.solid_fuel_boiler]]
+    data_def = "prop"
+    data_id = "T_ox"
+    data_type = "num"
+    data_info = "unit=deg.C, temperature of the oxidizing fluid (air)"
+    values = [25.0]
+
+    [[system.solid_fuel_boiler]]
+    data_def = "prop"
+    data_id = "T_g"
+    data_type = "num"
+    data_info = "unit=deg.C, oulet flue gas temperature from the boiler after heat recovery"
+    values = [140.0]
+
+    [[system.solid_fuel_boiler]]
+    data_def = "prop"
+    data_id = "q_loss"
+    data_type = "num"
+    data_info = "unit=none, ratio of the rate of heat losses to output boiler thermal power"
+    values = [0.05]
+
+    [[system.solid_fuel_boiler]]
+    data_def = "prop"
+    data_id = "yC_ba"
+    data_type = "num"
+    data_info = "unit=none, Carbon content in the bottom ash"
+    values = [0.03]
+
+    [[system.solid_fuel_boiler]]
+    data_def = "prop"
+    data_id = "T_ba"
+    data_type = "num"
+    data_info = "unit=deg.C, Temperature bottom ash"
+    values = [1000.0]
+
+    [[system.solid_fuel_boiler]]
+    data_def = "prop"
+    data_id = "T_fa"
+    data_type = "num"
+    data_info = "unit=deg.C, Temperature fly ash"
+    values = [1000.0]
+
+    [[system.solid_fuel_boiler]]
+    data_def = "prop"
+    data_id = "f_ba"
+    data_type = "num"
+    data_info = "unit=none, faction of ash as bottom ash"
+    values = [0.1]
+
+# Process parameters
+[process]
+    # flue_gas_cleaning
+    [[process.flue_gas_cleaning]]
+    data_def = "prop"
+    data_id = "SO2"
+    data_type = "num"
+    data_info = "unit=mg/Nm3, SO2 emission limit"
+    values = [50.0]
+
+    [[process.flue_gas_cleaning]]
+    data_def = "prop"
+    data_id = "HCl"
+    data_type = "num"
+    data_info = "unit=mg/Nm3, HCl emission limit"
+    values = [10.0]
+
+    [[process.flue_gas_cleaning]]
+    data_def = "prop"
+    data_id = "PM"
+    data_type = "num"
+    data_info = "unit=mg/Nm3, Particle Matter emission limit"
+    values = [50.0]
+
+    [[process.flue_gas_cleaning]]
+    data_def = "prop"
+    data_id = "T_op"
+    data_type = "num"
+    data_info = "unit=deg.C, operatioal temperature"
+    values = [140.0]
+
+    [[process.flue_gas_cleaning]]
+    data_def = "prop"
+    data_id = "P_op"
+    data_type = "num"
+    data_info = "unit=bar-a, operational pressure"
+    values = [1.01325]
+
+    # Rankine_cycle
+    [[process.Rankine_cycle]]
+    data_def = "prop"
+    data_id = "Po"
+    data_type = "num"
+    data_info = "unit=bar-a, outlet steam pressure from steam turbines"
+    values = [0.032]
+
+    [[process.Rankine_cycle]]
+    data_def = "prop"
+    data_id = "mu_isent"
+    data_type = "num"
+    data_info = "unit=none, isentropic efficiency of the steam turbines"
+    values = [0.65]
+
+    [[process.Rankine_cycle]]
+    data_def = "prop"
+    data_id = "P_cond"
+    data_type = "num"
+    data_info = "unit=bar, operational pressure condenser"
+    values = [1.032]
+
+    [[process.Rankine_cycle]]
+    data_def = "prop"
+    data_id = "T_cond"
+    data_type = "num"
+    data_info = "unit=deg.C, operational temperature condenser"
+    values = [25.0]

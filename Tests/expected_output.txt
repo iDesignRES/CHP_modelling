@@ -1,0 +1,14 @@
+plant bioCHP_PLANT Mj num 2.1631 6.48929 8.65238 4.32619
+plant bioCHP_PLANT Hfj num 39.9307 110.276 159.855 81.7066
+plant bioCHP_PLANT Biomass_mass_input_(t/h) num 77.8714
+plant bioCHP_PLANT Biomass_energy_input_(MW) num 391.768
+plant bioCHP_PLANT Heat_production_(MW) num 70
+plant bioCHP_PLANT Electricity_production_(MW) num 100
+plant bioCHP_PLANT C_inv num 2.2475e+08
+plant bioCHP_PLANT C_op_mat num 3.20805e+07
+plant bioCHP_PLANT C_op_el num 2.2427e+06
+plant bioCHP_PLANT C_op_maint num 2.38757e+06
+plant bioCHP_PLANT C_op_ins num 1.19379e+06
+plant bioCHP_PLANT C_op_adm num 1.19379e+06
+plant bioCHP_PLANT C_op num 3.90983e+07
+plant bioCHP_PLANT C_op_var num 3.43232e+07

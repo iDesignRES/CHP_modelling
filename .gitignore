@@ -1,6 +1,8 @@
 # Build directories
 /build/
-/dev/
-/docs/build/
+/docs/html/
 *.o
-/Test/Output*
+CMakeUserPresets.json
+
+# VSCode settings 
+.vscode/settings.json

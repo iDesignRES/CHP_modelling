@@ -1,0 +1,9 @@
+# This section provides inputs for the bioCHP_plant function
+[inputs]
+fuel_def = ["spruce_chips", "spruce_TandB"]
+Yj = [0.5, 0.5]
+YH2Oj = [0.3, 0.6]
+W_el = 300.0
+Qk = [30.0, 40.0]
+Tk_in = [70.0, 70.0]
+Tk_out = [90.0, 90.0, 90.0]
