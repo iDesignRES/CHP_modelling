@@ -133,84 +133,84 @@ void flow::interpret_molecules() {
       j[n].P.MW = 0.0;
       pos1 = 0;
       pos2 = 0;
-      if(j[n].formula.length() < 100){
-      int formula_iterations = 0;
-      while (pos1 < j[n].formula.length()) {
-        // finding a match in the atoms list
-        for (std::size_t m = 0; m < i.size(); m++) {
-          atom_ID = i[m].id;
+      if (j[n].formula.length() < 100) {
+        int formula_iterations = 0;
+        while (pos1 < j[n].formula.length()) {
+          // finding a match in the atoms list
+          for (std::size_t m = 0; m < i.size(); m++) {
+            atom_ID = i[m].id;
 
-          if (i[m].id.length() == 1 && ctr_atom2 == 0) {
-            if (molec_ID[pos1] == atom_ID[0]) {
-              ctr_atom1 = 1;
-              atoms_ID.push_back(i[m].id);
-            }
-          }
-
-          if (i[m].id.length() == 2) {
-            if (pos1 + 1 <= j[n].formula.length() - 1 &&
-                molec_ID[pos1 + 1] == atom_ID[1] &&
-                molec_ID[pos1] == atom_ID[0]) {
-              ctr_atom2 = 1;
-              pos1 = pos1 + 1;
-              if (ctr_atom1 == 0) {
+            if (i[m].id.length() == 1 && ctr_atom2 == 0) {
+              if (molec_ID[pos1] == atom_ID[0]) {
+                ctr_atom1 = 1;
                 atoms_ID.push_back(i[m].id);
               }
-              if (ctr_atom1 == 1) {
-                atoms_ID[atoms_ID.size() - 1] = i[m].id;
-                ctr_atom1 = 0;
-              }
             }
-          }
-        }
 
-        if (ctr_atom1 == 1 || ctr_atom2 == 1) {
-          ctr_atom1 = 0;
-          ctr_atom2 = 0;
-          if (pos1 == j[n].formula.length() - 1) {
-            atoms_N.push_back(1);
-            ctr_molec = 1;
-          }
-
-          if ((pos1 < j[n].formula.length() - 1) &&
-              !(molec_ID[pos1 + 1] >= '0' && molec_ID[pos1 + 1] <= '9')) {
-            atoms_N.push_back(1);
-            pos2 = pos1 + 1;
-          }
-
-          if ((pos1 < j[n].formula.length() - 1) &&
-              (molec_ID[pos1 + 1] >= '0' && molec_ID[pos1 + 1] <= '9')) {
-            if ((pos1 + 1) == (j[n].formula.length() - 1)) {
-              ctr_molec = 1;
-              atoms_N.push_back(molec_ID[pos1 + 1] - '0');
-            }
-            if ((pos1 + 1) < (j[n].formula.length() - 1)) {
-              int v = 0;
-              int N_iteration = 0;
-              while (molec_ID[pos1 + 1] >= '0' && molec_ID[pos1 + 1] <= '9') {
-                v = 10 * v + molec_ID[pos1 + 1] - '0';
-                if ((pos1 + 1) == j[n].formula.length() - 1) {
-                  ctr_molec = 1;
-                  break;
-                }
+            if (i[m].id.length() == 2) {
+              if (pos1 + 1 <= j[n].formula.length() - 1 &&
+                  molec_ID[pos1 + 1] == atom_ID[1] &&
+                  molec_ID[pos1] == atom_ID[0]) {
+                ctr_atom2 = 1;
                 pos1 = pos1 + 1;
+                if (ctr_atom1 == 0) {
+                  atoms_ID.push_back(i[m].id);
+                }
+                if (ctr_atom1 == 1) {
+                  atoms_ID[atoms_ID.size() - 1] = i[m].id;
+                  ctr_atom1 = 0;
+                }
               }
-              atoms_N.push_back(v);
+            }
+          }
+
+          if (ctr_atom1 == 1 || ctr_atom2 == 1) {
+            ctr_atom1 = 0;
+            ctr_atom2 = 0;
+            if (pos1 == j[n].formula.length() - 1) {
+              atoms_N.push_back(1);
+              ctr_molec = 1;
+            }
+
+            if ((pos1 < j[n].formula.length() - 1) &&
+                !(molec_ID[pos1 + 1] >= '0' && molec_ID[pos1 + 1] <= '9')) {
+              atoms_N.push_back(1);
               pos2 = pos1 + 1;
             }
-          }
-          pos1 = pos2;
-        }
 
-        if (ctr_molec == 1) {
-          ctr_molec = 0;
-          break;
+            if ((pos1 < j[n].formula.length() - 1) &&
+                (molec_ID[pos1 + 1] >= '0' && molec_ID[pos1 + 1] <= '9')) {
+              if ((pos1 + 1) == (j[n].formula.length() - 1)) {
+                ctr_molec = 1;
+                atoms_N.push_back(molec_ID[pos1 + 1] - '0');
+              }
+              if ((pos1 + 1) < (j[n].formula.length() - 1)) {
+                int v = 0;
+                int N_iteration = 0;
+                while (molec_ID[pos1 + 1] >= '0' && molec_ID[pos1 + 1] <= '9') {
+                  v = 10 * v + molec_ID[pos1 + 1] - '0';
+                  if ((pos1 + 1) == j[n].formula.length() - 1) {
+                    ctr_molec = 1;
+                    break;
+                  }
+                  pos1 = pos1 + 1;
+                }
+                atoms_N.push_back(v);
+                pos2 = pos1 + 1;
+              }
+            }
+            pos1 = pos2;
+          }
+
+          if (ctr_molec == 1) {
+            ctr_molec = 0;
+            break;
+          }
+          formula_iterations += 1;
+          if (formula_iterations > j[n].formula.length()) {
+            break;
+          }
         }
-        formula_iterations += 1;
-        if(formula_iterations > j[n].formula.length() ){
-          break;
-        }
-      }
       }
 
       std::size_t index;

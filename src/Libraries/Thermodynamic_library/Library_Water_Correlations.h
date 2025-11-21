@@ -29,8 +29,8 @@ double TSatWater(double P);
 double PSatWater(double T);
 
 /**
- * @brief Specific entropy [kJ/kg K] of superheated steam using IAPWS Formulation 1995
- * A,B,C,D,E,f,G,H,i,j,k constants to evaluate the function
+ * @brief Specific entropy [kJ/kg K] of superheated steam using IAPWS
+ * Formulation 1995 A,B,C,D,E,f,G,H,i,j,k constants to evaluate the function
  * @param P = Pressure (bar-a)
  * @param H = Specific enthalpy (kJ/kg)
  */
@@ -45,23 +45,23 @@ double sPhSupSteam(double P, double H);
 double TPhSupSteam(double P, double H);
 
 /**
- * @brief Specific entalpy [kJ/kg] of superheated steam using IAPWS Formulation 1995
- * A,B,C,D,E,f,G,H,i,j,T constants to evaluate the function
+ * @brief Specific entalpy [kJ/kg] of superheated steam using IAPWS Formulation
+ * 1995 A,B,C,D,E,f,G,H,i,j,T constants to evaluate the function
  * @param P = Pressure (bar-a)
  * @param Temp = Temperature (deg.C)
  */
 double hPTSupSteam(double P, double Temp);
 
 /**
- * @brief Specific entalpy [kJ/kg] of saturated steam using IAPWS Formulation 1995
- * A,B,C,D,E,f,G,H,i,j constants to evaluate the function
+ * @brief Specific entalpy [kJ/kg] of saturated steam using IAPWS Formulation
+ * 1995 A,B,C,D,E,f,G,H,i,j constants to evaluate the function
  * @param P = Pressure (bar-a)
  */
 double hPSatSteam(double P);
 
 /**
- * @brief Specific entropy [kJ/kg K] of superheated steam using IAPWS Formulation 1995
- * A,B,C,D,E,f,G,H,i,j constants to evaluate the function
+ * @brief Specific entropy [kJ/kg K] of superheated steam using IAPWS
+ * Formulation 1995 A,B,C,D,E,f,G,H,i,j constants to evaluate the function
  * @param P = Pressure (bar-a)
  * @param T_in = Temperature (deg.C)
  */
@@ -75,8 +75,8 @@ double sPTSupSteam(double P, double T_in);
 double sPWater(double P);
 
 /**
- * @brief Specific entropy [kJ/kg K] of saturated steam using IAPWS Formulation 1995
- * A,B,C,D,E,f,G,H,i,j constants to evaluate the function
+ * @brief Specific entropy [kJ/kg K] of saturated steam using IAPWS Formulation
+ * 1995 A,B,C,D,E,f,G,H,i,j constants to evaluate the function
  * @param P = Pressure (bar-a)
  */
 double sPSatSteam(double P);

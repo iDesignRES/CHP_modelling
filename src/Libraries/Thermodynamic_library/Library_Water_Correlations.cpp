@@ -6,7 +6,7 @@
 double hPWater(double P) {
   // Property calculations according IAPWS Formulation 1995
   // Specific enthalpy of water (kJ/kg) = (A + C*log(P) + E*(log(P)^2.0)
-  // + G * (log(P)^3.0) + i * (log(P)^4.0)) /  
+  // + G * (log(P)^3.0) + i * (log(P)^4.0)) /
   // (1.0 + B * log(P) + D*(log(P)^2.0) + f*(log(P)^3.0) + H * (log(P)^4.0))
   double A, B, C, D, E, f, G, H, i;
 
@@ -29,7 +29,7 @@ double hPWater(double P) {
 double hTWater(double T) {
   // Property calculations according IAPWS Formulation 1995
   // Specific enthalpy of water (kJ/kg) = (A + C*T + E*(T^2.0)
-  // + G * (T^3.0) + i * (T^4.0)) /  
+  // + G * (T^3.0) + i * (T^4.0)) /
   // (1.0 + B*T + D*(T^2.0) + f*(T^3.0) + H*(T^4.0) + j * (T^5.0))
   double A, B, C, D, E, f, G, H, i, j;
 
@@ -52,8 +52,8 @@ double hTWater(double T) {
 
 double TSatWater(double P) {
   // Property calculations according IAPWS Formulation 1995
-  // Saturation temperature of water (deg.C) = (A + C*log(P)+ G * (log(P)^3.0) 
-  // + i * (log(P)^4.0) + k*(log(P)^5.0) ) /  
+  // Saturation temperature of water (deg.C) = (A + C*log(P)+ G * (log(P)^3.0)
+  // + i * (log(P)^4.0) + k*(log(P)^5.0) ) /
   // (1.0 + B * log(P) + D*(log(P)^2.0) + f*(log(P)^3.0) + H * (log(P)^4.0)
   // + j*(log(P)^5.0))
   double A, B, C, D, E, f, G, H, i, j, k;
@@ -79,10 +79,10 @@ double TSatWater(double P) {
 }
 
 double PSatWater(double T) {
- // Property calculations according IAPWS Formulation 1995
+  // Property calculations according IAPWS Formulation 1995
   // Saturation pressure of water (bar) = (A + C*T + E*(T^2.0)
-  // + G * (T^3.0) + i * (T^4.0) + k * (T^5.0)) /  
-  // (1.0 + B*T + D*(T^2.0) + f*(T^3.0) + H*(T^4.0) + j * (T^5.0))   
+  // + G * (T^3.0) + i * (T^4.0) + k * (T^5.0)) /
+  // (1.0 + B*T + D*(T^2.0) + f*(T^3.0) + H*(T^4.0) + j * (T^5.0))
   double A, B, C, D, E, f, G, H, i, j, k;
 
   A = 0.005990987;
@@ -105,7 +105,7 @@ double PSatWater(double T) {
 
 double sPhSupSteam(double P, double H) {
   // Property calculations according IAPWS Formulation 1995
-  // Specific entropy of superheated steam (kJ/kg*K) 
+  // Specific entropy of superheated steam (kJ/kg*K)
   double A, B, C, D, E, f, G, U, i, j;
 
   if (P < 10.0) {
@@ -120,9 +120,9 @@ double sPhSupSteam(double P, double H) {
     i = 1583110;
     j = 30.39968182;
 
-  // = (A + B*log(P)+ C/H + D * (log(P)^2.0) 
-  // + E / (H^2.0) + f * (log(P)/H) + G * (log(P)^3.0) + U / (H^3.0)   
-  // + i*(log(P)/(H^2.0) + j*(log(P)^2.0)/H
+    // = (A + B*log(P)+ C/H + D * (log(P)^2.0)
+    // + E / (H^2.0) + f * (log(P)/H) + G * (log(P)^3.0) + U / (H^3.0)
+    // + i*(log(P)/(H^2.0) + j*(log(P)^2.0)/H
     return A + B * std::log(P) + C / H + D * std::pow(std::log(P), 2.0) +
            E / std::pow(H, 2.0) + f * (std::log(P)) / H +
            G * std::pow(std::log(P), 3.0) + U / std::pow(H, 3.0) +
@@ -140,9 +140,9 @@ double sPhSupSteam(double P, double H) {
     i = 363315.174;
     j = 0.344766694;
 
-  // = (A + B * P + C/H + D * (P ^ 2.0) + E / (H ^ 3.0) 
-  // + f * P / H + G * (P^3.0) + U / (H^3.0)   
-  // + i*(P/(H^2.0) + j*(P^2.0)/H
+    // = (A + B * P + C/H + D * (P ^ 2.0) + E / (H ^ 3.0)
+    // + f * P / H + G * (P^3.0) + U / (H^3.0)
+    // + i*(P/(H^2.0) + j*(P^2.0)/H
     return A + B * P + C / H + D * std::pow(P, 2.0) + E / std::pow(H, 2.0) +
            f * P / H + G * std::pow(P, 3.0) + U / std::pow(H, 3.0) +
            i * P / std::pow(H, 2.0) + j * std::pow(P, 2.0) / H;
@@ -158,9 +158,9 @@ double sPhSupSteam(double P, double H) {
     i = 225677.9999;
     j = -0.035514;
 
-  // = (A + B * P + C / H + D * (P ^ 2.0) + E / (H ^ 3.0) 
-  // + f * P / H + G * (P^3.0) + U / (H^3.0)   
-  // + i*(P/(H^2.0) + j*(P^2.0)/H
+    // = (A + B * P + C / H + D * (P ^ 2.0) + E / (H ^ 3.0)
+    // + f * P / H + G * (P^3.0) + U / (H^3.0)
+    // + i*(P/(H^2.0) + j*(P^2.0)/H
     return A + B * P + C / H + D * std::pow(P, 2.0) + E / std::pow(H, 2.0) +
            f * P / H + G * std::pow(P, 3.0) + U / std::pow(H, 3.0) +
            i * P / std::pow(H, 2.0) + j * std::pow(P, 2.0) / H;
@@ -176,9 +176,9 @@ double sPhSupSteam(double P, double H) {
     i = 9512250;
     j = 133.8484047;
 
-  // = (A + B*log(P)+ C/H + D * (log(P)^2.0) 
-  // + E / (H^2.0) + f * (log(P)/H) + G * (log(P)^3.0) + U / (H^3.0)   
-  // + i*(log(P)/(H^2.0) + j*(log(P)^2.0)/H
+    // = (A + B*log(P)+ C/H + D * (log(P)^2.0)
+    // + E / (H^2.0) + f * (log(P)/H) + G * (log(P)^3.0) + U / (H^3.0)
+    // + i*(log(P)/(H^2.0) + j*(log(P)^2.0)/H
     return A + B * std::log(P) + C / H + D * std::pow(std::log(P), 2.0) +
            E / std::pow(H, 2.0) + f * (std::log(P)) / H +
            G * std::pow(std::log(P), 3.0) + U / std::pow(H, 3.0) +
@@ -196,9 +196,9 @@ double sPhSupSteam(double P, double H) {
     i = -846390000;
     j = 5052500;
 
-  // = (A + B * P + C / H + D * (P ^ 2.0) + E / (H ^ 3.0) 
-  // + f / (P * H) + G * (P^3.0) + U / (H^3.0)   
-  // + i/(P*(H^2.0)) + j/((P^2.0)*H)
+    // = (A + B * P + C / H + D * (P ^ 2.0) + E / (H ^ 3.0)
+    // + f / (P * H) + G * (P^3.0) + U / (H^3.0)
+    // + i/(P*(H^2.0)) + j/((P^2.0)*H)
     return A + B / P + C / H + D / std::pow(P, 2.0) + E / std::pow(H, 2.0) +
            f / (P * H) + G / std::pow(P, 3.0) + U / std::pow(H, 3.0) +
            i / (P * std::pow(H, 2.0)) + j / (std::pow(P, 2.0) * H);
@@ -209,7 +209,7 @@ double sPhSupSteam(double P, double H) {
 
 double TPhSupSteam(double P, double H) {
   // Property calculations according IAPWS Formulation 1995
-  // Temperature (deg.C) of superheated steam  
+  // Temperature (deg.C) of superheated steam
   double A, B, C, D, E, f, G, U, i, j;
 
   if (P < 10) {
@@ -224,9 +224,9 @@ double TPhSupSteam(double P, double H) {
     i = 568766000;
     j = -601.941773;
 
-  // = (A + B * P + C / H + D * (P ^ 2.0) + E / (H ^ 2.0) 
-  // + f * P / H + G * (P ^ 3.0) + U / (H ^ 3.0)   
-  // + i*P/(H^2.0) + j*(P^2.0)/H - 273.17)
+    // = (A + B * P + C / H + D * (P ^ 2.0) + E / (H ^ 2.0)
+    // + f * P / H + G * (P ^ 3.0) + U / (H ^ 3.0)
+    // + i*P/(H^2.0) + j*(P^2.0)/H - 273.17)
     return A + B * P + C / H + D * std::pow(P, 2.0) + E / std::pow(H, 2.0) +
            f * P / H + G * std::pow(P, 3.0) + U / std::pow(H, 3.0) +
            i * P / std::pow(H, 2.0) + j * std::pow(P, 2.0) / H - 273.17;
@@ -242,9 +242,9 @@ double TPhSupSteam(double P, double H) {
     i = 244038000;
     j = -150.038485;
 
-  // = (A + B * P + C / H + D * (P ^ 2.0) + E / (H ^ 2.0) 
-  // + f * P / H + G * (P ^ 3.0) + U / (H ^ 3.0)   
-  // + i*P/(H^2.0) + j*(P^2.0)/H - 273.17)
+    // = (A + B * P + C / H + D * (P ^ 2.0) + E / (H ^ 2.0)
+    // + f * P / H + G * (P ^ 3.0) + U / (H ^ 3.0)
+    // + i*P/(H^2.0) + j*(P^2.0)/H - 273.17)
     return A + B * P + C / H + D * std::pow(P, 2.0) + E / std::pow(H, 2.0) +
            f * P / H + G * std::pow(P, 3.0) + U / std::pow(H, 3.0) +
            i * P / std::pow(H, 2.0) + j * std::pow(P, 2.0) / H - 273.17;
@@ -260,9 +260,9 @@ double TPhSupSteam(double P, double H) {
     i = 4251290000;
     j = 125603.7895;
 
-  // = (A + B*log(P)+ C/H + D * (log(P)^2.0) 
-  // + E / (H^2.0) + f * (log(P)/H) + G * (log(P)^3.0) + U / (H^3.0)   
-  // + i*(log(P)/(H^2.0) + j*(log(P)^2.0)/H - 273.17
+    // = (A + B*log(P)+ C/H + D * (log(P)^2.0)
+    // + E / (H^2.0) + f * (log(P)/H) + G * (log(P)^3.0) + U / (H^3.0)
+    // + i*(log(P)/(H^2.0) + j*(log(P)^2.0)/H - 273.17
     return A + B * std::log(P) + C / H + D * std::pow(std::log(P), 2.0) +
            E / std::pow(H, 2.0) + f * (std::log(P)) / H +
            G * std::pow(std::log(P), 3.0) + U / std::pow(H, 3.0) +
@@ -280,9 +280,9 @@ double TPhSupSteam(double P, double H) {
     i = 3874260000;
     j = 132398.2899;
 
-  // = (A + B*log(P)+ C/H + D * (log(P)^2.0) 
-  // + E / (H^2.0) + f * (log(P)/H) + G * (log(P)^3.0) + U / (H^3.0)   
-  // + i*(log(P)/(H^2.0) + j*(log(P)^2.0)/H - 273.17
+    // = (A + B*log(P)+ C/H + D * (log(P)^2.0)
+    // + E / (H^2.0) + f * (log(P)/H) + G * (log(P)^3.0) + U / (H^3.0)
+    // + i*(log(P)/(H^2.0) + j*(log(P)^2.0)/H - 273.17
     return A + B * std::log(P) + C / H + D * std::pow(std::log(P), 2.0) +
            E / std::pow(H, 2.0) + f * (std::log(P)) / H +
            G * std::pow(std::log(P), 3.0) + U / std::pow(H, 3.0) +
@@ -300,9 +300,10 @@ double TPhSupSteam(double P, double H) {
     i = 269.4471355;
     j = -19.7817003;
 
-  // = (A + B*log(P)+ C* log(H) + D * (log(P)^2.0) 
-  // + E * (log(H)^2.0) + f * log(P)*log(H) + G * (log(P)^3.0) + U * (log(H)^3.0)   
-  // + i*(log(P)*(log(H)^2.0) + j*(log(P)^2.0)*log(H) - 273.17
+    // = (A + B*log(P)+ C* log(H) + D * (log(P)^2.0)
+    // + E * (log(H)^2.0) + f * log(P)*log(H) + G * (log(P)^3.0) + U *
+    // (log(H)^3.0)
+    // + i*(log(P)*(log(H)^2.0) + j*(log(P)^2.0)*log(H) - 273.17
     return A + B * std::log(P) + C * std::log(H) +
            D * std::pow(std::log(P), 2.0) + E * std::pow(std::log(H), 2.0) +
            f * std::log(P) * std::log(H) + G * std::pow(std::log(P), 3.0) +
@@ -316,7 +317,7 @@ double TPhSupSteam(double P, double H) {
 
 double hPTSupSteam(double P, double Temp) {
   // Property calculations according IAPWS Formulation 1995
-  // Specific enthalpy of superheated steam (kJ/kg) 
+  // Specific enthalpy of superheated steam (kJ/kg)
   double A, B, C, D, E, f, G, H, i, j, T;
 
   T = Temp + 273.15;
@@ -333,9 +334,9 @@ double hPTSupSteam(double P, double Temp) {
     i = -22.3871465;
     j = -0.14473537;
 
-  // = (A + B * P + C* log(T) + D * (P^2.0) 
-  // + E * (log(T)^2.0) + f * P*log(T) + G * (P^3.0) + H * (log(T)^3.0)   
-  // + i*(P*(log(T)^2.0) + j*(P^2.0)*log(T)
+    // = (A + B * P + C* log(T) + D * (P^2.0)
+    // + E * (log(T)^2.0) + f * P*log(T) + G * (P^3.0) + H * (log(T)^3.0)
+    // + i*(P*(log(T)^2.0) + j*(P^2.0)*log(T)
     return A + B * P + C * std::log(T) + D * std::pow(P, 2.0) +
            E * std::pow(std::log(T), 2.0) + f * P * std::log(T) +
            G * std::pow(P, 3.0) + H * std::pow(std::log(T), 3.0) +
@@ -353,9 +354,10 @@ double hPTSupSteam(double P, double Temp) {
     i = -186.603652;
     j = 59.50843382;
 
-  // = (A + B * log(P) + C* log(T) + D * (log(P)^2.0) 
-  // + E * (log(T)^2.0) + f * log(P)*log(T) + G * (log(P)^3.0) + H * (log(T)^3.0)   
-  // + i*(log(P)*(log(T)^2.0) + j*(log(P)^2.0)*log(T)
+    // = (A + B * log(P) + C* log(T) + D * (log(P)^2.0)
+    // + E * (log(T)^2.0) + f * log(P)*log(T) + G * (log(P)^3.0) + H *
+    // (log(T)^3.0)
+    // + i*(log(P)*(log(T)^2.0) + j*(log(P)^2.0)*log(T)
     return A + B * std::log(P) + C * std::log(T) +
            D * std::pow(std::log(P), 2.0) + E * std::pow(std::log(T), 2.0) +
            f * std::log(P) * std::log(T) + G * std::pow(std::log(P), 3.0) +
@@ -374,9 +376,9 @@ double hPTSupSteam(double P, double Temp) {
     i = -16.9130087;
     j = 0.033445377;
 
-  // = (A + B * P + C * log(T) + D * (P^2.0) 
-  // + E * (log(T)^2.0) + f * P*log(T) + G * (P^3.0) + H * (log(T)^3.0)   
-  // + i*(P*(log(T)^2.0) + j*(P^2.0)*log(T)
+    // = (A + B * P + C * log(T) + D * (P^2.0)
+    // + E * (log(T)^2.0) + f * P*log(T) + G * (P^3.0) + H * (log(T)^3.0)
+    // + i*(P*(log(T)^2.0) + j*(P^2.0)*log(T)
     return A + B * P + C * std::log(T) + D * std::pow(P, 2.0) +
            E * std::pow(std::log(T), 2.0) + f * P * std::log(T) +
            G * std::pow(P, 3.0) + H * std::pow(std::log(T), 3.0) +
@@ -394,9 +396,9 @@ double hPTSupSteam(double P, double Temp) {
     i = -8055900;
     j = -21.1829918;
 
-  // = (A + B * P + C / T + D * (P^2.0) 
-  // + E / (T^2.0) + f * P / T + G * (P^3.0) + H / (T^3.0)   
-  // + i*P/(T^2.0) + j*(P^2.0)/T
+    // = (A + B * P + C / T + D * (P^2.0)
+    // + E / (T^2.0) + f * P / T + G * (P^3.0) + H / (T^3.0)
+    // + i*P/(T^2.0) + j*(P^2.0)/T
     return A + B * P + C / T + D * std::pow(P, 2.0) + E / std::pow(T, 2.0) +
            f * P / T + G * std::pow(P, 3.0) + H / std::pow(T, 3.0) +
            i * P / std::pow(T, 2.0) + j * std::pow(P, 2.0) / T;
@@ -412,9 +414,9 @@ double hPTSupSteam(double P, double Temp) {
     i = -11659000;
     j = -24.5631185;
 
-  // = (A + B * P + C / T + D * (P ^ 2.0) 
-  // + E / (T^2.0) + f * P / T + G * (P^3.0) + H / (T^3.0)   
-  // + i * P/(T^2.0) + j*(P^2.0)/T
+    // = (A + B * P + C / T + D * (P ^ 2.0)
+    // + E / (T^2.0) + f * P / T + G * (P^3.0) + H / (T^3.0)
+    // + i * P/(T^2.0) + j*(P^2.0)/T
     return A + B * P + C / T + D * std::pow(P, 2.0) + E / std::pow(T, 2.0) +
            f * P / T + G * std::pow(P, 3.0) + H / std::pow(T, 3.0) +
            i * P / std::pow(T, 2.0) + j * std::pow(P, 2.0) / T;
@@ -425,11 +427,11 @@ double hPTSupSteam(double P, double Temp) {
 
 double hPSatSteam(double P) {
   // Property calculations according IAPWS Formulation 1995
-  // Specific enthalpy of saturated steam (kJ/kg) 
-  // = (A + B * log(P) + E * (log(P)^2.0) 
+  // Specific enthalpy of saturated steam (kJ/kg)
+  // = (A + B * log(P) + E * (log(P)^2.0)
   // + G * (log(P) ^ 3.0) + i * (log(P) ^ 4.0)) /
-  // ( 1.0 + B * log(P) + D *(log(P)^2.0) + f *(log(P)^3.0) 
-  // + H *(log(P)^4.0) + j *(log(P)^5.0) )  
+  // ( 1.0 + B * log(P) + D *(log(P)^2.0) + f *(log(P)^3.0)
+  // + H *(log(P)^4.0) + j *(log(P)^5.0) )
   double A, B, C, D, E, f, G, H, i, j;
 
   A = 2675.345891;
@@ -452,7 +454,7 @@ double hPSatSteam(double P) {
 
 double sPTSupSteam(double P, double T_in) {
   // Property calculations according IAPWS Formulation 1995
-  // Specific enthalpy of saturated steam (kJ/kg) 
+  // Specific enthalpy of saturated steam (kJ/kg)
   double A, B, C, D, E, f, G, H, i, j;
   double T;
 
@@ -470,10 +472,10 @@ double sPTSupSteam(double P, double T_in) {
     i = -0.08032672;
     j = 0.015149543;
 
-  // = (A + B * log(P) + C * log(T) + D * (log(P) ^ 2.0)
-  // + E * (log(T) ^ 2.0) + f * log(P) * log(T) 
-  // + G * (log(P)^3.0) + H * (log(T) ^ 3.0)
-  // + i * log(P) (log(T)^2.0) + j *(log(P)^2.0) * log(T)  
+    // = (A + B * log(P) + C * log(T) + D * (log(P) ^ 2.0)
+    // + E * (log(T) ^ 2.0) + f * log(P) * log(T)
+    // + G * (log(P)^3.0) + H * (log(T) ^ 3.0)
+    // + i * log(P) (log(T)^2.0) + j *(log(P)^2.0) * log(T)
     return A + B * std::log(P) + C * std::log(T) +
            D * std::pow(std::log(P), 2.0) + E * std::pow(std::log(T), 2.0) +
            f * std::log(P) * std::log(T) + G * std::pow(std::log(P), 3.0) +
@@ -492,10 +494,10 @@ double sPTSupSteam(double P, double T_in) {
     i = -13142.3681;
     j = 0.011191165;
 
-  // = (A + B * P + C / T + D * (P ^ 2.0)
-  // + E / (T ^ 2.0) + f * P / T 
-  // + G * (P^3.0) + H / (T ^ 2.0)
-  // + i * P / (T^2.0) + j *(P^2.0) / T  
+    // = (A + B * P + C / T + D * (P ^ 2.0)
+    // + E / (T ^ 2.0) + f * P / T
+    // + G * (P^3.0) + H / (T ^ 2.0)
+    // + i * P / (T^2.0) + j *(P^2.0) / T
     return A + B * P + C / T + D * std::pow(P, 2.0) + E / std::pow(T, 2.0) +
            f * P / T + G * std::pow(P, 3.0) + H / std::pow(T, 3.0) +
            i * P / std::pow(T, 2.0) + j * std::pow(P, 2.0) / T;
@@ -511,10 +513,10 @@ double sPTSupSteam(double P, double T_in) {
     i = -14683.8767;
     j = -0.03100245;
 
-  // = (A + B * P + C / T + D * (P ^ 2.0)
-  // + E / (T ^ 2.0) + f * P / T 
-  // + G * (P ^ 3.0) + H / (T ^ 2.0)
-  // + i * P / (T ^ 2.0) + j *(P ^ 2.0) / T  
+    // = (A + B * P + C / T + D * (P ^ 2.0)
+    // + E / (T ^ 2.0) + f * P / T
+    // + G * (P ^ 3.0) + H / (T ^ 2.0)
+    // + i * P / (T ^ 2.0) + j *(P ^ 2.0) / T
     return A + B * P + C / T + D * std::pow(P, 2.0) + E / std::pow(T, 2.0) +
            f * P / T + G * std::pow(P, 3.0) + H / std::pow(T, 3.0) +
            i * P / std::pow(T, 2.0) + j * std::pow(P, 2.0) / T;
@@ -530,10 +532,10 @@ double sPTSupSteam(double P, double T_in) {
     i = -19906.5907;
     j = -0.03586857;
 
-  // = (A + B * P + C / T + D * (P ^ 2.0)
-  // + E / (T ^ 2.0) + f * P / T 
-  // + G * (P ^ 3.0) + H / (T ^ 3.0)
-  // + i * P / (T ^ 2.0) + j *(P ^ 2.0) / T  
+    // = (A + B * P + C / T + D * (P ^ 2.0)
+    // + E / (T ^ 2.0) + f * P / T
+    // + G * (P ^ 3.0) + H / (T ^ 3.0)
+    // + i * P / (T ^ 2.0) + j *(P ^ 2.0) / T
     return A + B * P + C / T + D * std::pow(P, 2.0) + E / std::pow(T, 2.0) +
            f * P / T + G * std::pow(P, 3.0) + H / std::pow(T, 3.0) +
            i * P / std::pow(T, 2.0) + j * std::pow(P, 2.0) / T;
@@ -560,10 +562,10 @@ double sPWater(double P) {
   k = -0.000067444;
 
   // = (A + C * log(P) + E * (log(P) ^ 2.0)
-  // + G * (log(P) ^ 3.0) + i * (log(P) ^ 4.0) + k * (log(P) ^ 5.0) ) / 
+  // + G * (log(P) ^ 3.0) + i * (log(P) ^ 4.0) + k * (log(P) ^ 5.0) ) /
   // (1.0 + B * log(P) + D * (log(P) ^ 2.0)
   // + f * (log(P) ^ 3.0) + H * (log(P) ^ 4.0)
-  // + j * (log(P) ^ 5.0))  
+  // + j * (log(P) ^ 5.0))
   return (A + C * std::log(P) + E * std::pow(std::log(P), 2.0) +
           G * std::pow(std::log(P), 3.0) + i * std::pow(std::log(P), 4.0) +
           k * std::pow(std::log(P), 5.0)) /
@@ -589,10 +591,10 @@ double sPSatSteam(double P) {
   j = 0.0000202713;
 
   // = (A + C * log(P) + E * (log(P) ^ 2.0)
-  // + G * (log(P) ^ 3.0) + i * (log(P) ^ 4.0) ) / 
+  // + G * (log(P) ^ 3.0) + i * (log(P) ^ 4.0) ) /
   // (1.0 + B * log(P) + D * (log(P) ^ 2.0)
   // + f * (log(P) ^ 3.0) + H * (log(P) ^ 4.0)
-  // + j * (log(P) ^ 5.0))  
+  // + j * (log(P) ^ 5.0))
   return (A + C * std::log(P) + E * std::pow(std::log(P), 2.0) +
           G * std::pow(std::log(P), 3.0) + i * std::pow(std::log(P), 4.0)) /
          (1.0 + B * std::log(P) + D * std::pow(std::log(P), 2.0) +
@@ -618,10 +620,10 @@ double sTWater(double T) {
   k = 3.70402e-24;
 
   // = (A + C * (T ^ 2.0) + E * (T ^ 4.0)
-  // + G * (T ^ 6.0) + i * (T ^ 8.0) + k * (T ^ 10.0) ) / 
+  // + G * (T ^ 6.0) + i * (T ^ 8.0) + k * (T ^ 10.0) ) /
   // (1.0 + B * (T ^ 2.0) + D * (T ^ 4.0)
   // + f * (T ^ 6.0) + H * (T ^ 8.0)
-  // + j * (T ^ 10.0))  
+  // + j * (T ^ 10.0))
   return std::pow(
       ((A + C * std::pow(T, 2.0) + E * std::pow(T, 4.0) + G * std::pow(T, 6.0) +
         i * std::pow(T, 8.0) + k * std::pow(T, 10.0)) /
@@ -646,9 +648,9 @@ double HTSteam(double T) {
   i = 1.18814E-14;
 
   // = ( (A + C * (T ^ 2.0) + E * (T ^ 4.0)
-  // + G * (T ^ 6.0) + i * (T ^ 8.0) + k * (T ^ 10.0) ) / 
+  // + G * (T ^ 6.0) + i * (T ^ 8.0) + k * (T ^ 10.0) ) /
   // (1.0 + B * (T ^ 2.0) + D * (T ^ 4.0)
-  // + f * (T ^ 6.0) + H * (T ^ 8.0)) )^0.5  
+  // + f * (T ^ 6.0) + H * (T ^ 8.0)) )^0.5
   return std::pow(((A + C * std::pow(T, 2.0) + E * std::pow(T, 4.0) +
                     G * std::pow(T, 6.0) + i * std::pow(T, 8.0)) /
                    (1.0 + B * std::pow(T, 2.0) + D * std::pow(T, 4.0) +
@@ -683,7 +685,8 @@ double vTSteam(double T) {
   E = 0.0000826718;
   f = -0.0000000061263;
 
-  // = exp( (A + C * T + E * T ^ 2.0) / (1.0 + B * T + D * T ^ 2.0 + f * T ^ 3.0) )
+  // = exp( (A + C * T + E * T ^ 2.0) / (1.0 + B * T + D * T ^ 2.0 + f * T
+  // ^ 3.0) )
   return std::exp((A + C * T + E * std::pow(T, 2.0)) /
                   (1.0 + B * T + D * std::pow(T, 2.0) + f * std::pow(T, 3.0)));
 }
