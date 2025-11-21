@@ -209,14 +209,14 @@ void flow::calculate_flow_composition() {
     for (std::size_t n = 0; n < i.size(); n++) {
       sum_X += i[n].X;
     }
-    if (molec_def != "Y" && sum_Y > 0.0) {
-      molec_def = "Y";
+    if (atom_def != "Y" && sum_Y > 0.0) {
+      atom_def = "Y";
     }
-    if (molec_def != "X" && sum_Y == 0.0 && sum_X > 1e-6) {
+    if (atom_def != "X" && sum_Y == 0.0 && sum_X > 1e-6) {
       molec_def = "X";
     }
 
-    if (molec_def == "Y") {
+    if (atom_def == "Y") {
       sum_Y_MW = 0.0;
       for (std::size_t n = 0; n < i.size(); n++) {
         if (i[n].Y > 0 && i[n].P.MW > 0) {
@@ -231,7 +231,7 @@ void flow::calculate_flow_composition() {
           i[n].X = 0;
         }
       }
-    } else if (molec_def == "X") {
+    } else if (atom_def == "X") {
       sum_X_MW = 0.0;
       for (std::size_t n = 0; n < i.size(); n++) {
         if (i[n].X > 0 && i[n].P.MW > 0) {
@@ -307,7 +307,7 @@ void flow::calculate_species_properties() {
 void flow::calculate_flow_parameters() {
   if (F.M == 0 && F.VN == 0 && F.N > 0 && P.MW > 0) {
     F.M = F.N * P.MW;
-  } else if (F.N == 0 && F.VN > 0 && F.M > 0 && P.MW > 0) {
+  } else if (F.N == 0 && F.VN == 0 && F.M > 0 && P.MW > 0) {
     F.N = F.M / P.MW;
   } else if (F.VN > 0 && F.M == 0 && F.N == 0 && P.MW > 0) {
     F.N = F.VN / 0.02214;

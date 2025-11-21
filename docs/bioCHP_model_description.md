@@ -70,16 +70,16 @@ The nonlinear C++ model enables sampling for [EnergyModelsX](https://github.com/
 
 Important features and functionalities of the module include:
 
-- **Flows** are implemented as the so-called `flow` structure, defined in `src/Flows/flow_definitions.h`, which contain identifying strings, atomic and molecular composition, material and energy flow rates, and physical and thermodynamic properties. Flows are created by importing their data from a database located in the `src/Database/flows.toml` folder.  
-- **Atomic and molecular species** are also implemented as the so-called `species` structure, defined in `src/Flows_library/flow_definitions.h`, which contains identifying strings and physical or thermodynamic properties. Atomic and molecular species are created by importing their data from `src/Database/atoms.toml` and `src/Database/molecules.toml`, respectively. 
-- **Thermodynamic properties** are calculated using the library located in `src/Libraries/Thermodynamic_library/`. Molecular gas species (O2, N2, Ar, CO, CO2, H2, CH4, SO2, SO3, HCl, Cl2, NH3) using the NIST correlaltions [8] in `src/Libraries/Thermodynamic_library/species_thermodynamics.h`. Solid biomass properties are constant and user defined, except for heating values which are evaluated by correlations [9]. Liquid water and steam through specific correlations in `src/Libraries/Thermodynamic_library/Library_Water_Correlations.h`.                
+- **Flows** are implemented as the so-called `flow` structure, defined in `src/Libraries/Flows_library/flow_definitions.h`, which contain identifying strings, atomic and molecular composition, material and energy flow rates, and physical and thermodynamic properties. Flows are created by importing their data from a database located in the `src/Database/flows.toml` folder.  
+- **Atomic and molecular species** are also implemented as the so-called `species` structure, defined in `src/Libraries/Flows_library/flow_definitions.h`, which contains identifying strings and physical or thermodynamic properties. Atomic and molecular species are created by importing their data from `src/Database/atoms.toml` and `src/Database/molecules.toml`, respectively. 
+- **Thermodynamic properties** are calculated using the library located in `src/Libraries/Thermodynamic_library/`. Molecular gas species (O2, N2, Ar, CO, CO2, H2, CH4, SO2, SO3, HCl, Cl2, NH3) using the NIST correlaltions [8] in `src/Libraries/Thermodynamic_library/species_thermodynamics.h`. Solid biomass properties are constant and user defined, except for heating values which are evaluated by correlations [9]. Liquid water and steam through specific correlations in `src/Libraries/Thermodynamic_library/Library_Water_Correlations.h` using the IAPWS Formulation 1995 [14]. 
 -	**Physical systems** such as equipment, systems or plants are defined as so-called `objects`. Objects are implemented as a structure, defined in `src/Parameters.h`, containing identifying strings and a set (vector) of specifying `parameters` for the object. Each `parameter` is also implemented as a structure, defined in `src/Parameters.h`, containing identifying strings, two vectors with numerical or string values of the parameter, and a integer pointing to a position inside the vectors. Each object can contain also other components as objects.
 - **Consumables, residues, effluents and utilities** as also implemented as objects.        
 - **Processes** are implemented through functions in `src/Libraries/Processes_library/`. Inputs to each function can be flows and an object (containing input parameters) representing the physical system where the process takes place. Output from the process function can be calculated output flows and calculated output parameters within the representing object. 
 -	The **cost module** `src/Cost.h` evaluates CAPEX of a physical system and variable OPEX of a consumable or utility using their representing object as input. 
 - Values for all physical properties are defined in SI units. Default units for temperature and pressure are defined in degrees Celsius and bar. 
 
-All **input data** used by the bioCHP plant module is implenented using **TOML format** [7] within the `src/Database` directory. Database is described below, in the section `Module database`. 
+All **input data** used by the bioCHP plant module is implenented using **TOML format** [7] within the `src/Database` directory. Database is described below, in the section `Module implementation and database`. 
 
 The CHP plant module is implemented through the function (in `src/bioCHP.h`): 
 
@@ -310,8 +310,8 @@ The rankine cycle performs the following calculations:
 - **District heating model**, implemented in the function `district_heating(object &par)` (located in `src/Libraries/Processes_library/Rankine_cycle.h`)
 It calculates **Steam extractions** (bleeds) required from steam turbine to meet the specified heat demands for distric heating
 Calculated bleeds, exported to the rankine_cycle `par` object, are defined as: 
-  - \f$ Pb_{n} \f$ (`par.Pb[nb]` in the model as `vector[double]`): pressure for each steam extraction in descendent order.
-  - \f$ \dot{M}b_{n} \f$ (`par.Mb[nb]` in the model as `vector[double]`): steam mass flow rates related to each steam extraction pressure.
+    - \f$ Pb_{n} \f$ (`par.Pb[nb]` in the model as `vector[double]`): pressure for each steam extraction in descendent order.
+    - \f$ \dot{M}b_{n} \f$ (`par.Mb[nb]` in the model as `vector[double]`): steam mass flow rates related to each steam extraction pressure.
 Bleeds are calculated for each heat demand as follows:
   \f$ Pb_{k} \f$ (`P_bleed[k]` in the model as `vector[double]`) is calculated as the saturation pressure of water at \f$ Th_{out,k} + 25°C \f$
   \f$ \dot{M}b_{k} \f$ (`P_bleed[k]` in the model as `vector[double]`)
@@ -332,15 +332,15 @@ The output is the calculated total electric power production, denoted by \f$ \do
 \f]
 
 - **Steam condenser**, implemented in the function `steam_condenser(flow &steam, flow &cond, object &par)` (located in `src/Libraries/Processes_library/Rankine_cycle.h`)
-The model assumes steady-state and isobaric process [13]
+The model assumes steady-state and isobaric process [13].
 Inputs: 
-- `steam`, **flow** denoting the steam outlet from the steam turbine model
-- \f$ T_{cond} \f$ (`par.T_cond` in the model): The condenser temperature in °C.
-- \f$ P_{cond} \f$ (`par.P_cond` in the model): The condenser pressure in bar gauge.
+    - `steam`, **flow** denoting the steam outlet from the steam turbine model
+    - \f$ T_{cond} \f$ (`par.T_cond` in the model): The condenser temperature in °C.
+    - \f$ P_{cond} \f$ (`par.P_cond` in the model): The condenser pressure in bar gauge.
 
 Outputs:
-- `cond`, **flow** denoting the condenstae outlet
--  Thermal power output \f$ \dot{Q}_{cond} \f$ (`par.Q_cond` **parameter** in the model) 
+    - `cond`, **flow** denoting the condenstae outlet
+    -  Thermal power output \f$ \dot{Q}_{cond} \f$ (`par.Q_cond` **parameter** in the model) 
  \f[
   \begin{aligned}
     \dot{Q}_{cond} & = \frac{\dot{M}_{stm}^{turbine}}{h_{stm}^{turbine}-h_{cond}} \\
@@ -363,7 +363,7 @@ Outputs:
 - `par.cake`, **object** representing cake as **solid residue** 
 -  Annual mass of lime \f$ \dot{M}_{lime} \f$ (`par.lime.Q_annual` in the model), calculated from
  \f[
-  \dot{M}_{lime} = \dot{M}_F\, m_{lime,b}\, t_{op}, 3.6 
+  \dot{M}_{lime} = \dot{M}_F\ \cdot m_{lime,b}\ \cdot t_{op} \cdot 3.6 
   \f]
 with \f$ m_{lime,b} = 14.4 kg/t \f$ a constant specific lime consumption per unit mass of solid fuel entering the boiler [5] and \f$ t_{op} = 8000 h \f$ is the annual operational time.
 
@@ -419,76 +419,74 @@ where:
 - \f$ C_{op,d} \f$ denotes the variable operating cost calculated from \f$ C_{op,d} = \sum_j Q_j p_j \f$, with the subscript \f$ j \f$ denoting feedstock, consumables and residues, \f$ Q_j \f$ is the annual production quantity proportional to the annual operating time \f$ t_{op} \f$, and \f$ p_j \f$ is the unit price.  including the
 
 - \f$ C_{op,f} \f$ denotes the fixed operating costs required for keeping the bioCHP plant in operation, including:
-  - Maintenance cost:
+    - Maintenance cost:
     \f[
     C_{maint} = 0.05\, C_{eq}
     \f]
 
-  - Insurance:
+    - Insurance:
     \f[
     C_{ins} = 0.01\, C_{inv}
     \f]
 
-  - Administration and site services:
+    - Administration and site services:
     \f[
     C_{adm} = 0.03\, C_{inv}
     \f]
 
-  - Labor cost:
+    - Labor cost:
     \f[
     C_{labor} = \sum_k N_k^{labor}\, c_{b,k}^{labor}\,\Big[1+f_{oh,k}^{labor}\Big]
     \f]
+  Here, the subscript \f$ k \f$ denotes the personnel categories and the parameters are defined as follows:
 
-Here, the subscript \f$ k \f$ denotes the personnel categories and the parameters are defined as follows:
+    - Plant manager:
+    \f[
+    \begin{aligned}
+    c_{b,k}^{labor} & = 162~k\$/year \\
+    N_k^{labor} & = 1 \\
+    f_{oh,k}^{labor} & = 0.0 \\
+    \end{aligned}
+    \f]
 
-1) Plant manager:
-\f[
-\begin{aligned}
-  c_{b,k}^{labor} & = 162~k\$/year \\
-  N_k^{labor} & = 1 \\
-  f_{oh,k}^{labor} & = 0.0 \\
-\end{aligned}
-\f]
-
-2) O\&M manager:
-\f[
-\begin{aligned}
-  c_{b,k}^{labor} & = 96~k\$/year \\
-  N_k^{labor} & =
+    - O\&M manager:
+    \f[
+    \begin{aligned}
+    c_{b,k}^{labor} & = 96~k\$/year \\
+    N_k^{labor} & =
     \begin{cases}
       1 ,& \text{if} ~ \dot{M}_F < 10~\text{t/h} \\
       2 ,& \text{if} ~ \dot{M}_F > 10~\text{t/h} \\
     \end{cases} \\
-  f_{oh,k}^{labor} & = 1.2 \\
-\end{aligned}
-\f]
+    f_{oh,k}^{labor} & = 1.2 \\
+    \end{aligned}
+    \f]
 
-3) O\&M engineer:
-\f[
-\begin{aligned}
-  c_{b,k}^{labor} & = 88~k\$/year \\
-  N_k^{labor} & =
-    \begin{cases}
-      1 ,& \text{if} ~ \dot{M}_F < 10~\text{t/h} \\
-      2 ,& \text{if} ~ \dot{M}_F > 10~\text{t/h} \\
-    \end{cases} \\
-  f_{oh,k}^{labor} & = 1.2 \\
-\end{aligned}
-\f]
+    - O\&M engineer:
+    \f[
+    \begin{aligned}
+      c_{b,k}^{labor} & = 88~k\$/year \\
+      N_k^{labor} & =
+      \begin{cases}
+        1 ,& \text{if} ~ \dot{M}_F < 10~\text{t/h} \\
+        2 ,& \text{if} ~ \dot{M}_F > 10~\text{t/h} \\
+      \end{cases} \\
+      f_{oh,k}^{labor} & = 1.2 \\
+    \end{aligned}
+    \f]
 
-4) Shift operator:
-\f[
-\begin{aligned}
-  c_{b,k}^{labor} & = 37~k\$/year \\
-  N_k^{labor} & =
-    \begin{cases}
-      3 ,& \text{if} ~ \dot{M}_F < 10~\text{t/h} \\
-      6 ,& \text{if} ~ \dot{M}_F > 10~\text{t/h} \\
-    \end{cases} \\
-  f_{oh,k}^{labor} & = 1.3 \\
-\end{aligned}
-\f]
-
+    - Shift operator:
+    \f[
+    \begin{aligned}
+      c_{b,k}^{labor} & = 37~k\$/year \\
+      N_k^{labor} & =
+      \begin{cases}
+        3 ,& \text{if} ~ \dot{M}_F < 10~\text{t/h} \\
+        6 ,& \text{if} ~ \dot{M}_F > 10~\text{t/h} \\
+      \end{cases} \\
+      f_{oh,k}^{labor} & = 1.3 \\
+    \end{aligned}
+    \f]
 \note Number of employees:
 The number of employees depends on the size of the plant. The chosen distinction is based on the mass flow of biomass into the plant \f$ \dot{M}_F \f$, with a change in staffing when the flow exceeds 10 t/h.
 
@@ -609,3 +607,5 @@ gas to electricity. Report DOE/NETL-2007/1281, 2007. URL: https://www.nrc.gov/do
 [12] Koppejan, J., & van Loo, S. (Eds.). (2008). The Handbook of Biomass Combustion and Co-firing (1st ed.). Routledge. https://doi.org/10.4324/9781849773041
 
 [13] Moran, M.J., Shapiro, H.N., Boettner, D.D., & Bailey, M.B. Fundamentals of Engineering Thermodynamics. 8th Edition. Wiley, 2014. ISBN: 978-1118412930
+
+[14] W. Wagner and A. Pruß, "The IAPWS Formulation 1995 for the Thermodynamic Properties of Ordinary Water Substance for General and Scientific Use," J. Phys. Chem. Ref. Data, 31, 387-535 (2002). https://doi.org/10.1063/1.1461829

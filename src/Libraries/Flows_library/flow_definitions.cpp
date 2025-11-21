@@ -133,6 +133,8 @@ void flow::interpret_molecules() {
       j[n].P.MW = 0.0;
       pos1 = 0;
       pos2 = 0;
+      if(j[n].formula.length() < 100){
+      int formula_iterations = 0;
       while (pos1 < j[n].formula.length()) {
         // finding a match in the atoms list
         for (std::size_t m = 0; m < i.size(); m++) {
@@ -184,6 +186,7 @@ void flow::interpret_molecules() {
             }
             if ((pos1 + 1) < (j[n].formula.length() - 1)) {
               int v = 0;
+              int N_iteration = 0;
               while (molec_ID[pos1 + 1] >= '0' && molec_ID[pos1 + 1] <= '9') {
                 v = 10 * v + molec_ID[pos1 + 1] - '0';
                 if ((pos1 + 1) == j[n].formula.length() - 1) {
@@ -203,6 +206,11 @@ void flow::interpret_molecules() {
           ctr_molec = 0;
           break;
         }
+        formula_iterations += 1;
+        if(formula_iterations > j[n].formula.length() ){
+          break;
+        }
+      }
       }
 
       std::size_t index;

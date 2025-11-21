@@ -67,7 +67,8 @@ object bioCHP_plant(std::vector<std::string> fuel_def, std::vector<double> Yj,
   if (sum_Qk > 0.5 * (W_el / 0.2)) {
     throw std::runtime_error(
         "There is not sufficient heat available from Rankine cycle to "
-        "supply the specified heat demand");
+        "supply the specified heat demand. Please, make sure that "
+        "sum_Qk > 0.5 * (W_el / 0.2) in the input .toml file");
   }
 
   object bioCHP("plant", "bioCHP_PLANT",

@@ -1,111 +1,111 @@
 #pragma once
 
 /**
- * @brief Specific enthalpy [kJ/kg] of water
+ * @brief Specific enthalpy [kJ/kg] of water using IAPWS Formulation 1995
+ * @ A,B,C,D,E,f,G,H,i are constants to evaluate the function
  * @param P = Pressure (bar-a)
- * @param A,B,C,D,E,f,G,H,i constants to evaluate the function
  */
 double hPWater(double P);
 
 /**
- * @brief Specific enthalpy [kJ/kg] of water
+ * @brief Specific enthalpy [kJ/kg] of water using IAPWS Formulation 1995
+ * @ A,B,C,D,E,f,G,H,i are constants to evaluate the function
  * @param T = Temperature (deg. C)
- * @param A,B,C,D,E,f,G,H,i,j constants to evaluate the function
  */
 double hTWater(double T);
 
 /**
- * @brief Saturation temperature (deg. C) of water
+ * @brief Saturation temperature (deg. C) of water using IAPWS Formulation 1995
+ * A,B,C,D,E,f,G,H,i,j,k constants to evaluate the function
  * @param P = Pressure (bar-a)
- * @param A,B,C,D,E,f,G,H,i,j,k constants to evaluate the function
  */
 double TSatWater(double P);
 
 /**
- * @brief Saturation pressure [bar-a] of water
+ * @brief Saturation pressure [bar-a] of water using IAPWS Formulation 1995
+ * A,B,C,D,E,f,G,H,i,j,k constants to evaluate the function
  * @param T = Temperature (deg. C)
- * @param A,B,C,D,E,f,G,H,i,j,k constants to evaluate the function
  */
 double PSatWater(double T);
 
 /**
- * @brief Specific entropy [kJ/kg K] of superheated steam
+ * @brief Specific entropy [kJ/kg K] of superheated steam using IAPWS Formulation 1995
+ * A,B,C,D,E,f,G,H,i,j,k constants to evaluate the function
  * @param P = Pressure (bar-a)
  * @param H = Specific enthalpy (kJ/kg)
- * @param A,B,C,D,E,f,G,H,i,j,k constants to evaluate the function
  */
 double sPhSupSteam(double P, double H);
 
 /**
- * @brief Temperature [deg.C] of superheated steam
+ * @brief Temperature [deg.C] of superheated steam using IAPWS Formulation 1995
+ * A,B,C,D,E,f,G,U,i,j constants to evaluate the function
  * @param P = Pressure (bar-a)
  * @param H = Specific enthalpy (kJ/kg)
- * @param A,B,C,D,E,f,G,U,i,j constants to evaluate the function
  */
 double TPhSupSteam(double P, double H);
 
 /**
- * @brief Specific entalpy [kJ/kg] of superheated steam
+ * @brief Specific entalpy [kJ/kg] of superheated steam using IAPWS Formulation 1995
+ * A,B,C,D,E,f,G,H,i,j,T constants to evaluate the function
  * @param P = Pressure (bar-a)
  * @param Temp = Temperature (deg.C)
- * @param A,B,C,D,E,f,G,H,i,j,T constants to evaluate the function
  */
 double hPTSupSteam(double P, double Temp);
 
 /**
- * @brief Specific entalpy [kJ/kg] of saturated steam
+ * @brief Specific entalpy [kJ/kg] of saturated steam using IAPWS Formulation 1995
+ * A,B,C,D,E,f,G,H,i,j constants to evaluate the function
  * @param P = Pressure (bar-a)
- * @param A,B,C,D,E,f,G,H,i,j constants to evaluate the function
  */
 double hPSatSteam(double P);
 
 /**
- * @brief Specific entropy [kJ/kg K] of superheated steam
+ * @brief Specific entropy [kJ/kg K] of superheated steam using IAPWS Formulation 1995
+ * A,B,C,D,E,f,G,H,i,j constants to evaluate the function
  * @param P = Pressure (bar-a)
  * @param T_in = Temperature (deg.C)
- * @param A,B,C,D,E,f,G,H,i,j constants to evaluate the function
  */
 double sPTSupSteam(double P, double T_in);
 
 /**
- * @brief Specific entropy [kJ/kg K] of water
+ * @brief Specific entropy [kJ/kg K] of water using IAPWS Formulation 1995
+ * A,B,C,D,E,f,G,H,i,j,k constants to evaluate the function
  * @param P = Pressure (bar-a)
- * @param A,B,C,D,E,f,G,H,i,j,k constants to evaluate the function
  */
 double sPWater(double P);
 
 /**
- * @brief Specific entropy [kJ/kg K] of saturated steam
+ * @brief Specific entropy [kJ/kg K] of saturated steam using IAPWS Formulation 1995
+ * A,B,C,D,E,f,G,H,i,j constants to evaluate the function
  * @param P = Pressure (bar-a)
- * @param A,B,C,D,E,f,G,H,i,j constants to evaluate the function
  */
 double sPSatSteam(double P);
 
 /**
- * @brief Specific entropy [kJ/kg K] of water
+ * @brief Specific entropy [kJ/kg K] of water using IAPWS Formulation 1995
+ * A,B,C,D,E,f,G,H,i,j,k constants to evaluate the function
  * @param T = Temperature (deg.C)
- * @param A,B,C,D,E,f,G,H,i,j,k constants to evaluate the function
  */
 double sTWater(double T);
 
 /**
- * @brief Specific enthalpy [kJ/kg] of steam
+ * @brief Specific enthalpy [kJ/kg] of steam using IAPWS Formulation 1995
+ * A,B,C,D,E,f,G,H,i constants to evaluate the function
  * @param T = Temperature (deg.C)
- * @param A,B,C,D,E,f,G,H,i constants to evaluate the function
  */
 double HTSteam(double T);
 
 /**
- * @brief Specific volume [m3/kg] of water
+ * @brief Specific volume [m3/kg] of water using IAPWS Formulation 1995
+ * A,B,C,D,E constants to evaluate the function
  * @param T = Temperature (deg.C)
- * @param A,B,C,D,E constants to evaluate the function
  */
 double vTWater(double T);
 
 /**
- * @brief Specific volume [m3/kg] of steam
+ * @brief Specific volume [m3/kg] of steam using IAPWS Formulation 1995
+ * A,B,C,D,E,f constants to evaluate the function
  * @param T = Temperature (deg.C)
- * @param A,B,C,D,E,f constants to evaluate the function
  */
 double vTSteam(double T);
 
