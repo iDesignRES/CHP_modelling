@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['and_20energy_20flows_20nominal_20steady_20state_20operation_0',['Mass and energy flows (nominal steady state operation)',['../detailed_model_documentation.html#back-bio_CHP-math-balances',1,'']]]
+  ['1_20example_20description_0',['1. Example Description',['../md_docs_2example_2example.html#autotoc_md25',1,'']]],
+  ['1_3a_20create_20an_20issue_1',['Step 1: Create an Issue',['../md_docs_2contribute.html#autotoc_md15',1,'']]]
 ];

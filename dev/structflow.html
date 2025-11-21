@@ -103,17 +103,22 @@ $(document).ready(function(){initNavTree('structflow.html',''); initResizable();
   <div class="headertitle"><div class="title">flow Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Structure to define the parameters of one flow.  
+ <a href="structflow.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="flow__definitions_8h_source.html">flow_definitions.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for flow:</div>
 <div class="dyncontent">
 <div class="center"><img src="structflow__coll__graph.png" border="0" usemap="#aflow_coll__map" alt="Collaboration graph"/></div>
 <map name="aflow_coll__map" id="aflow_coll__map">
-<area shape="rect" title=" " alt="" coords="89,181,138,207"/>
-<area shape="rect" href="structproperties.html" title=" " alt="" coords="5,5,93,31"/>
+<area shape="rect" title="Structure to define the parameters of one flow." alt="" coords="89,181,138,207"/>
+<area shape="rect" href="structproperties.html" title="Structure to define flow or species properties." alt="" coords="5,5,93,31"/>
 <area shape="poly" title=" " alt="" coords="50,44,51,80,60,118,80,153,103,179,99,183,76,156,55,120,46,81,45,45"/>
-<area shape="rect" href="structphase.html" title=" " alt="" coords="83,93,144,119"/>
+<area shape="rect" href="structphase.html" title="Structure to define the parameters of one flow phase." alt="" coords="83,93,144,119"/>
 <area shape="poly" title=" " alt="" coords="68,40,107,91,102,94,64,43"/>
-<area shape="rect" href="structflow__parameters.html" title=" " alt="" coords="124,5,255,31"/>
+<area shape="rect" href="structflow__parameters.html" title="Structure to define flow parameters." alt="" coords="124,5,255,31"/>
 <area shape="poly" title=" " alt="" coords="186,45,169,98,142,159,126,182,121,179,138,156,164,97,181,43"/>
 <area shape="poly" title=" " alt="" coords="172,43,126,95,122,91,168,39"/>
 <area shape="poly" title=" " alt="" coords="116,133,116,181,111,181,111,133"/>
@@ -122,238 +127,448 @@ Collaboration diagram for flow:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a625363ed4f1572fe36999195331e8012" id="r_a625363ed4f1572fe36999195331e8012"><td class="memItemLeft" align="right" valign="top"><a id="a625363ed4f1572fe36999195331e8012" name="a625363ed4f1572fe36999195331e8012"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>flow</b> (string flw_def)</td></tr>
-<tr class="separator:a625363ed4f1572fe36999195331e8012"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a827a5468819e086d0e60f1b06bede772" id="r_a827a5468819e086d0e60f1b06bede772"><td class="memItemLeft" align="right" valign="top"><a id="a827a5468819e086d0e60f1b06bede772" name="a827a5468819e086d0e60f1b06bede772"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>flow</b> (string flw_def, string flw_id)</td></tr>
-<tr class="separator:a827a5468819e086d0e60f1b06bede772"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79c248b877c19b7119fa8906901834c6" id="r_a79c248b877c19b7119fa8906901834c6"><td class="memItemLeft" align="right" valign="top"><a id="a79c248b877c19b7119fa8906901834c6" name="a79c248b877c19b7119fa8906901834c6"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>get_flow_data</b> (string)</td></tr>
-<tr class="separator:a79c248b877c19b7119fa8906901834c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a305ae8d8d8057c593776d5edd2dd3f73" id="r_a305ae8d8d8057c593776d5edd2dd3f73"><td class="memItemLeft" align="right" valign="top"><a id="a305ae8d8d8057c593776d5edd2dd3f73" name="a305ae8d8d8057c593776d5edd2dd3f73"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>initialize_species</b> (vector&lt; <a class="el" href="structspecies.html">species</a> &gt; &amp;)</td></tr>
-<tr class="separator:a305ae8d8d8057c593776d5edd2dd3f73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02c1326102554054a10fcb9f0f9939ae" id="r_a02c1326102554054a10fcb9f0f9939ae"><td class="memItemLeft" align="right" valign="top"><a id="a02c1326102554054a10fcb9f0f9939ae" name="a02c1326102554054a10fcb9f0f9939ae"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>get_flow_species</b> (vector&lt; <a class="el" href="structspecies.html">species</a> &gt; &amp;, string)</td></tr>
-<tr class="separator:a02c1326102554054a10fcb9f0f9939ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e09f4e9c06370a7bc44f55fe95214f9" id="r_a3e09f4e9c06370a7bc44f55fe95214f9"><td class="memItemLeft" align="right" valign="top"><a id="a3e09f4e9c06370a7bc44f55fe95214f9" name="a3e09f4e9c06370a7bc44f55fe95214f9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>get_flow_composition</b> (vector&lt; <a class="el" href="structspecies.html">species</a> &gt; &amp;, string)</td></tr>
-<tr class="separator:a3e09f4e9c06370a7bc44f55fe95214f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04969f264101bf1a9e7a2c71250951b5" id="r_a04969f264101bf1a9e7a2c71250951b5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow.html#a04969f264101bf1a9e7a2c71250951b5">flow</a> (std::string flw_def)</td></tr>
+<tr class="memdesc:a04969f264101bf1a9e7a2c71250951b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">function to create a flow from def  <br /></td></tr>
+<tr class="separator:a04969f264101bf1a9e7a2c71250951b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf1e665759c0bbea8c19980b6025f8f0" id="r_adf1e665759c0bbea8c19980b6025f8f0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow.html#adf1e665759c0bbea8c19980b6025f8f0">flow</a> (std::string flw_def, std::string flw_id)</td></tr>
+<tr class="memdesc:adf1e665759c0bbea8c19980b6025f8f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">function to create a flow id and def  <br /></td></tr>
+<tr class="separator:adf1e665759c0bbea8c19980b6025f8f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5eba2033cbc12f0e850104c1d8653d76" id="r_a5eba2033cbc12f0e850104c1d8653d76"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow.html#a5eba2033cbc12f0e850104c1d8653d76">get_flow_data</a> (std::string)</td></tr>
+<tr class="memdesc:a5eba2033cbc12f0e850104c1d8653d76"><td class="mdescLeft">&#160;</td><td class="mdescRight">function to import all data of a flow from the database  <br /></td></tr>
+<tr class="separator:a5eba2033cbc12f0e850104c1d8653d76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6ec3ebb9a36023c82faeb7f9287d882" id="r_ac6ec3ebb9a36023c82faeb7f9287d882"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow.html#ac6ec3ebb9a36023c82faeb7f9287d882">get_flow_composition</a> (std::vector&lt; <a class="el" href="structspecies.html">species</a> &gt; &amp;, std::string)</td></tr>
+<tr class="memdesc:ac6ec3ebb9a36023c82faeb7f9287d882"><td class="mdescLeft">&#160;</td><td class="mdescRight">function to import the composition data of a flow from the database  <br /></td></tr>
+<tr class="separator:ac6ec3ebb9a36023c82faeb7f9287d882"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afcbe5fbc14c5a6222146c26a9b3e3010" id="r_afcbe5fbc14c5a6222146c26a9b3e3010"><td class="memItemLeft" align="right" valign="top"><a id="afcbe5fbc14c5a6222146c26a9b3e3010" name="afcbe5fbc14c5a6222146c26a9b3e3010"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>get_flow_properties</b> ()</td></tr>
+<tr class="memdesc:afcbe5fbc14c5a6222146c26a9b3e3010"><td class="mdescLeft">&#160;</td><td class="mdescRight">function to import the properties of a flow from the database <br /></td></tr>
 <tr class="separator:afcbe5fbc14c5a6222146c26a9b3e3010"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82eff7eab7d4ba89e48f408a6d3fd233" id="r_a82eff7eab7d4ba89e48f408a6d3fd233"><td class="memItemLeft" align="right" valign="top"><a id="a82eff7eab7d4ba89e48f408a6d3fd233" name="a82eff7eab7d4ba89e48f408a6d3fd233"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>get_flow_chemistry</b> ()</td></tr>
-<tr class="separator:a82eff7eab7d4ba89e48f408a6d3fd233"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c5361a97d13a063d1a0d58ed7738eed" id="r_a9c5361a97d13a063d1a0d58ed7738eed"><td class="memItemLeft" align="right" valign="top"><a id="a9c5361a97d13a063d1a0d58ed7738eed" name="a9c5361a97d13a063d1a0d58ed7738eed"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>interpret_molecules</b> ()</td></tr>
+<tr class="memdesc:a9c5361a97d13a063d1a0d58ed7738eed"><td class="mdescLeft">&#160;</td><td class="mdescRight">function to interpret the molecular composition of a flow <br /></td></tr>
 <tr class="separator:a9c5361a97d13a063d1a0d58ed7738eed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae34afe2341fdf80cc8e59d73ccb9b842" id="r_ae34afe2341fdf80cc8e59d73ccb9b842"><td class="memItemLeft" align="right" valign="top"><a id="ae34afe2341fdf80cc8e59d73ccb9b842" name="ae34afe2341fdf80cc8e59d73ccb9b842"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>mix_flows</b> (<a class="el" href="structflow.html">flow</a> &amp;, <a class="el" href="structflow.html">flow</a> &amp;)</td></tr>
-<tr class="separator:ae34afe2341fdf80cc8e59d73ccb9b842"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5670aae28c992e4deb1a9da480dbce8e" id="r_a5670aae28c992e4deb1a9da480dbce8e"><td class="memItemLeft" align="right" valign="top"><a id="a5670aae28c992e4deb1a9da480dbce8e" name="a5670aae28c992e4deb1a9da480dbce8e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>flows_database</b> (string)</td></tr>
-<tr class="separator:a5670aae28c992e4deb1a9da480dbce8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f5a6f9aaf81fabce7886a26b27425ad" id="r_a3f5a6f9aaf81fabce7886a26b27425ad"><td class="memItemLeft" align="right" valign="top"><a id="a3f5a6f9aaf81fabce7886a26b27425ad" name="a3f5a6f9aaf81fabce7886a26b27425ad"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>get_species_data</b> ()</td></tr>
-<tr class="separator:a3f5a6f9aaf81fabce7886a26b27425ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a418d0d84b6754df464b47ee827f24f1f" id="r_a418d0d84b6754df464b47ee827f24f1f"><td class="memItemLeft" align="right" valign="top"><a id="a418d0d84b6754df464b47ee827f24f1f" name="a418d0d84b6754df464b47ee827f24f1f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>get_species_MW</b> ()</td></tr>
-<tr class="separator:a418d0d84b6754df464b47ee827f24f1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5448a18922f1737df1451688204d4338" id="r_a5448a18922f1737df1451688204d4338"><td class="memItemLeft" align="right" valign="top"><a id="a5448a18922f1737df1451688204d4338" name="a5448a18922f1737df1451688204d4338"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>define_flow_prop_data</b> ()</td></tr>
-<tr class="separator:a5448a18922f1737df1451688204d4338"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f387d1c2363e3c667615198e60bc315" id="r_a8f387d1c2363e3c667615198e60bc315"><td class="memItemLeft" align="right" valign="top"><a id="a8f387d1c2363e3c667615198e60bc315" name="a8f387d1c2363e3c667615198e60bc315"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>calculate_flow</b> (string)</td></tr>
-<tr class="separator:a8f387d1c2363e3c667615198e60bc315"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99894f9fbac8ddd83345749123b08fa5" id="r_a99894f9fbac8ddd83345749123b08fa5"><td class="memItemLeft" align="right" valign="top"><a id="a99894f9fbac8ddd83345749123b08fa5" name="a99894f9fbac8ddd83345749123b08fa5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>calculate_flow</b> ()</td></tr>
+<tr class="memdesc:a99894f9fbac8ddd83345749123b08fa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">General function to calculate a flow. <br /></td></tr>
+<tr class="separator:a99894f9fbac8ddd83345749123b08fa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ebf1550fe17187ec021f30809a65730" id="r_a9ebf1550fe17187ec021f30809a65730"><td class="memItemLeft" align="right" valign="top"><a id="a9ebf1550fe17187ec021f30809a65730" name="a9ebf1550fe17187ec021f30809a65730"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>calculate_flow_composition</b> ()</td></tr>
+<tr class="memdesc:a9ebf1550fe17187ec021f30809a65730"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to calculate flow composition. <br /></td></tr>
 <tr class="separator:a9ebf1550fe17187ec021f30809a65730"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04d288e5b942e195b7ca067e6517c7a0" id="r_a04d288e5b942e195b7ca067e6517c7a0"><td class="memItemLeft" align="right" valign="top"><a id="a04d288e5b942e195b7ca067e6517c7a0" name="a04d288e5b942e195b7ca067e6517c7a0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>calculate_flow_properties</b> (string)</td></tr>
-<tr class="separator:a04d288e5b942e195b7ca067e6517c7a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d336cf18e1ab2424c79feb9caec2a2d" id="r_a9d336cf18e1ab2424c79feb9caec2a2d"><td class="memItemLeft" align="right" valign="top"><a id="a9d336cf18e1ab2424c79feb9caec2a2d" name="a9d336cf18e1ab2424c79feb9caec2a2d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>calculate_species_properties</b> (string)</td></tr>
-<tr class="separator:a9d336cf18e1ab2424c79feb9caec2a2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bedb67b7d81fde367a4caf0d109dba2" id="r_a0bedb67b7d81fde367a4caf0d109dba2"><td class="memItemLeft" align="right" valign="top"><a id="a0bedb67b7d81fde367a4caf0d109dba2" name="a0bedb67b7d81fde367a4caf0d109dba2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>calculate_flow_properties</b> ()</td></tr>
+<tr class="memdesc:a0bedb67b7d81fde367a4caf0d109dba2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to calculate flow properties. <br /></td></tr>
+<tr class="separator:a0bedb67b7d81fde367a4caf0d109dba2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9626c48dc519e568f8cea3a99b8a8f9" id="r_ab9626c48dc519e568f8cea3a99b8a8f9"><td class="memItemLeft" align="right" valign="top"><a id="ab9626c48dc519e568f8cea3a99b8a8f9" name="ab9626c48dc519e568f8cea3a99b8a8f9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>calculate_species_properties</b> ()</td></tr>
+<tr class="memdesc:ab9626c48dc519e568f8cea3a99b8a8f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to calculate species properties. <br /></td></tr>
+<tr class="separator:ab9626c48dc519e568f8cea3a99b8a8f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a44fdd76dc1f237c4daf08be5125eabcb" id="r_a44fdd76dc1f237c4daf08be5125eabcb"><td class="memItemLeft" align="right" valign="top"><a id="a44fdd76dc1f237c4daf08be5125eabcb" name="a44fdd76dc1f237c4daf08be5125eabcb"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>calculate_flow_parameters</b> ()</td></tr>
+<tr class="memdesc:a44fdd76dc1f237c4daf08be5125eabcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to calculate flow parameters. <br /></td></tr>
 <tr class="separator:a44fdd76dc1f237c4daf08be5125eabcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af547bab0b5c03516afd2b2893e4d6fe0" id="r_af547bab0b5c03516afd2b2893e4d6fe0"><td class="memItemLeft" align="right" valign="top"><a id="af547bab0b5c03516afd2b2893e4d6fe0" name="af547bab0b5c03516afd2b2893e4d6fe0"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>calculate_solid_fuel</b> ()</td></tr>
+<tr class="memdesc:af547bab0b5c03516afd2b2893e4d6fe0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to calculate solid fuel. <br /></td></tr>
 <tr class="separator:af547bab0b5c03516afd2b2893e4d6fe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58585140523e2c92b63fcbbf8179a21a" id="r_a58585140523e2c92b63fcbbf8179a21a"><td class="memItemLeft" align="right" valign="top"><a id="a58585140523e2c92b63fcbbf8179a21a" name="a58585140523e2c92b63fcbbf8179a21a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>calculate_gas_fuel</b> ()</td></tr>
-<tr class="separator:a58585140523e2c92b63fcbbf8179a21a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f2774eaa941aa603d46bd411d8b756c" id="r_a2f2774eaa941aa603d46bd411d8b756c"><td class="memItemLeft" align="right" valign="top"><a id="a2f2774eaa941aa603d46bd411d8b756c" name="a2f2774eaa941aa603d46bd411d8b756c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>calculate_properties</b> ()</td></tr>
-<tr class="separator:a2f2774eaa941aa603d46bd411d8b756c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3af086f157c87cbb42855e349e90e111" id="r_a3af086f157c87cbb42855e349e90e111"><td class="memItemLeft" align="right" valign="top"><a id="a3af086f157c87cbb42855e349e90e111" name="a3af086f157c87cbb42855e349e90e111"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>calculate_gas_thermodynamics</b> ()</td></tr>
-<tr class="separator:a3af086f157c87cbb42855e349e90e111"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4d39b3365079c154f58e8eed1750a8a" id="r_ae4d39b3365079c154f58e8eed1750a8a"><td class="memItemLeft" align="right" valign="top"><a id="ae4d39b3365079c154f58e8eed1750a8a" name="ae4d39b3365079c154f58e8eed1750a8a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>calculate_thermodynamic_properties</b> ()</td></tr>
-<tr class="separator:ae4d39b3365079c154f58e8eed1750a8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38672144846c2d5730e71a1ce3407a5c" id="r_a38672144846c2d5730e71a1ce3407a5c"><td class="memItemLeft" align="right" valign="top"><a id="a38672144846c2d5730e71a1ce3407a5c" name="a38672144846c2d5730e71a1ce3407a5c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>calculate_MW</b> ()</td></tr>
-<tr class="separator:a38672144846c2d5730e71a1ce3407a5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad63046af6a4425315e2466e9a0982b3c" id="r_ad63046af6a4425315e2466e9a0982b3c"><td class="memItemLeft" align="right" valign="top"><a id="ad63046af6a4425315e2466e9a0982b3c" name="ad63046af6a4425315e2466e9a0982b3c"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>print_flow</b> ()</td></tr>
-<tr class="separator:ad63046af6a4425315e2466e9a0982b3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a625363ed4f1572fe36999195331e8012" id="r_a625363ed4f1572fe36999195331e8012"><td class="memItemLeft" align="right" valign="top"><a id="a625363ed4f1572fe36999195331e8012" name="a625363ed4f1572fe36999195331e8012"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>flow</b> (string flw_def)</td></tr>
-<tr class="separator:a625363ed4f1572fe36999195331e8012"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a827a5468819e086d0e60f1b06bede772" id="r_a827a5468819e086d0e60f1b06bede772"><td class="memItemLeft" align="right" valign="top"><a id="a827a5468819e086d0e60f1b06bede772" name="a827a5468819e086d0e60f1b06bede772"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>flow</b> (string flw_def, string flw_id)</td></tr>
-<tr class="separator:a827a5468819e086d0e60f1b06bede772"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79c248b877c19b7119fa8906901834c6" id="r_a79c248b877c19b7119fa8906901834c6"><td class="memItemLeft" align="right" valign="top"><a id="a79c248b877c19b7119fa8906901834c6" name="a79c248b877c19b7119fa8906901834c6"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>get_flow_data</b> (string)</td></tr>
-<tr class="separator:a79c248b877c19b7119fa8906901834c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a305ae8d8d8057c593776d5edd2dd3f73" id="r_a305ae8d8d8057c593776d5edd2dd3f73"><td class="memItemLeft" align="right" valign="top"><a id="a305ae8d8d8057c593776d5edd2dd3f73" name="a305ae8d8d8057c593776d5edd2dd3f73"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>initialize_species</b> (vector&lt; <a class="el" href="structspecies.html">species</a> &gt; &amp;)</td></tr>
-<tr class="separator:a305ae8d8d8057c593776d5edd2dd3f73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02c1326102554054a10fcb9f0f9939ae" id="r_a02c1326102554054a10fcb9f0f9939ae"><td class="memItemLeft" align="right" valign="top"><a id="a02c1326102554054a10fcb9f0f9939ae" name="a02c1326102554054a10fcb9f0f9939ae"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>get_flow_species</b> (vector&lt; <a class="el" href="structspecies.html">species</a> &gt; &amp;, string)</td></tr>
-<tr class="separator:a02c1326102554054a10fcb9f0f9939ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e09f4e9c06370a7bc44f55fe95214f9" id="r_a3e09f4e9c06370a7bc44f55fe95214f9"><td class="memItemLeft" align="right" valign="top"><a id="a3e09f4e9c06370a7bc44f55fe95214f9" name="a3e09f4e9c06370a7bc44f55fe95214f9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>get_flow_composition</b> (vector&lt; <a class="el" href="structspecies.html">species</a> &gt; &amp;, string)</td></tr>
-<tr class="separator:a3e09f4e9c06370a7bc44f55fe95214f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afcbe5fbc14c5a6222146c26a9b3e3010" id="r_afcbe5fbc14c5a6222146c26a9b3e3010"><td class="memItemLeft" align="right" valign="top"><a id="afcbe5fbc14c5a6222146c26a9b3e3010" name="afcbe5fbc14c5a6222146c26a9b3e3010"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>get_flow_properties</b> ()</td></tr>
-<tr class="separator:afcbe5fbc14c5a6222146c26a9b3e3010"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82eff7eab7d4ba89e48f408a6d3fd233" id="r_a82eff7eab7d4ba89e48f408a6d3fd233"><td class="memItemLeft" align="right" valign="top"><a id="a82eff7eab7d4ba89e48f408a6d3fd233" name="a82eff7eab7d4ba89e48f408a6d3fd233"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>get_flow_chemistry</b> ()</td></tr>
-<tr class="separator:a82eff7eab7d4ba89e48f408a6d3fd233"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c5361a97d13a063d1a0d58ed7738eed" id="r_a9c5361a97d13a063d1a0d58ed7738eed"><td class="memItemLeft" align="right" valign="top"><a id="a9c5361a97d13a063d1a0d58ed7738eed" name="a9c5361a97d13a063d1a0d58ed7738eed"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>interpret_molecules</b> ()</td></tr>
-<tr class="separator:a9c5361a97d13a063d1a0d58ed7738eed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae34afe2341fdf80cc8e59d73ccb9b842" id="r_ae34afe2341fdf80cc8e59d73ccb9b842"><td class="memItemLeft" align="right" valign="top"><a id="ae34afe2341fdf80cc8e59d73ccb9b842" name="ae34afe2341fdf80cc8e59d73ccb9b842"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>mix_flows</b> (<a class="el" href="structflow.html">flow</a> &amp;, <a class="el" href="structflow.html">flow</a> &amp;)</td></tr>
-<tr class="separator:ae34afe2341fdf80cc8e59d73ccb9b842"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5670aae28c992e4deb1a9da480dbce8e" id="r_a5670aae28c992e4deb1a9da480dbce8e"><td class="memItemLeft" align="right" valign="top"><a id="a5670aae28c992e4deb1a9da480dbce8e" name="a5670aae28c992e4deb1a9da480dbce8e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>flows_database</b> (string)</td></tr>
-<tr class="separator:a5670aae28c992e4deb1a9da480dbce8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f5a6f9aaf81fabce7886a26b27425ad" id="r_a3f5a6f9aaf81fabce7886a26b27425ad"><td class="memItemLeft" align="right" valign="top"><a id="a3f5a6f9aaf81fabce7886a26b27425ad" name="a3f5a6f9aaf81fabce7886a26b27425ad"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>get_species_data</b> ()</td></tr>
-<tr class="separator:a3f5a6f9aaf81fabce7886a26b27425ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a418d0d84b6754df464b47ee827f24f1f" id="r_a418d0d84b6754df464b47ee827f24f1f"><td class="memItemLeft" align="right" valign="top"><a id="a418d0d84b6754df464b47ee827f24f1f" name="a418d0d84b6754df464b47ee827f24f1f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>get_species_MW</b> ()</td></tr>
-<tr class="separator:a418d0d84b6754df464b47ee827f24f1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5448a18922f1737df1451688204d4338" id="r_a5448a18922f1737df1451688204d4338"><td class="memItemLeft" align="right" valign="top"><a id="a5448a18922f1737df1451688204d4338" name="a5448a18922f1737df1451688204d4338"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>define_flow_prop_data</b> ()</td></tr>
-<tr class="separator:a5448a18922f1737df1451688204d4338"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f387d1c2363e3c667615198e60bc315" id="r_a8f387d1c2363e3c667615198e60bc315"><td class="memItemLeft" align="right" valign="top"><a id="a8f387d1c2363e3c667615198e60bc315" name="a8f387d1c2363e3c667615198e60bc315"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>calculate_flow</b> (string)</td></tr>
-<tr class="separator:a8f387d1c2363e3c667615198e60bc315"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ebf1550fe17187ec021f30809a65730" id="r_a9ebf1550fe17187ec021f30809a65730"><td class="memItemLeft" align="right" valign="top"><a id="a9ebf1550fe17187ec021f30809a65730" name="a9ebf1550fe17187ec021f30809a65730"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>calculate_flow_composition</b> ()</td></tr>
-<tr class="separator:a9ebf1550fe17187ec021f30809a65730"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04d288e5b942e195b7ca067e6517c7a0" id="r_a04d288e5b942e195b7ca067e6517c7a0"><td class="memItemLeft" align="right" valign="top"><a id="a04d288e5b942e195b7ca067e6517c7a0" name="a04d288e5b942e195b7ca067e6517c7a0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>calculate_flow_properties</b> (string)</td></tr>
-<tr class="separator:a04d288e5b942e195b7ca067e6517c7a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d336cf18e1ab2424c79feb9caec2a2d" id="r_a9d336cf18e1ab2424c79feb9caec2a2d"><td class="memItemLeft" align="right" valign="top"><a id="a9d336cf18e1ab2424c79feb9caec2a2d" name="a9d336cf18e1ab2424c79feb9caec2a2d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>calculate_species_properties</b> (string)</td></tr>
-<tr class="separator:a9d336cf18e1ab2424c79feb9caec2a2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44fdd76dc1f237c4daf08be5125eabcb" id="r_a44fdd76dc1f237c4daf08be5125eabcb"><td class="memItemLeft" align="right" valign="top"><a id="a44fdd76dc1f237c4daf08be5125eabcb" name="a44fdd76dc1f237c4daf08be5125eabcb"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>calculate_flow_parameters</b> ()</td></tr>
-<tr class="separator:a44fdd76dc1f237c4daf08be5125eabcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af547bab0b5c03516afd2b2893e4d6fe0" id="r_af547bab0b5c03516afd2b2893e4d6fe0"><td class="memItemLeft" align="right" valign="top"><a id="af547bab0b5c03516afd2b2893e4d6fe0" name="af547bab0b5c03516afd2b2893e4d6fe0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>calculate_solid_fuel</b> ()</td></tr>
-<tr class="separator:af547bab0b5c03516afd2b2893e4d6fe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58585140523e2c92b63fcbbf8179a21a" id="r_a58585140523e2c92b63fcbbf8179a21a"><td class="memItemLeft" align="right" valign="top"><a id="a58585140523e2c92b63fcbbf8179a21a" name="a58585140523e2c92b63fcbbf8179a21a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>calculate_gas_fuel</b> ()</td></tr>
-<tr class="separator:a58585140523e2c92b63fcbbf8179a21a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f2774eaa941aa603d46bd411d8b756c" id="r_a2f2774eaa941aa603d46bd411d8b756c"><td class="memItemLeft" align="right" valign="top"><a id="a2f2774eaa941aa603d46bd411d8b756c" name="a2f2774eaa941aa603d46bd411d8b756c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>calculate_properties</b> ()</td></tr>
-<tr class="separator:a2f2774eaa941aa603d46bd411d8b756c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3af086f157c87cbb42855e349e90e111" id="r_a3af086f157c87cbb42855e349e90e111"><td class="memItemLeft" align="right" valign="top"><a id="a3af086f157c87cbb42855e349e90e111" name="a3af086f157c87cbb42855e349e90e111"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>calculate_gas_thermodynamics</b> ()</td></tr>
-<tr class="separator:a3af086f157c87cbb42855e349e90e111"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4d39b3365079c154f58e8eed1750a8a" id="r_ae4d39b3365079c154f58e8eed1750a8a"><td class="memItemLeft" align="right" valign="top"><a id="ae4d39b3365079c154f58e8eed1750a8a" name="ae4d39b3365079c154f58e8eed1750a8a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>calculate_thermodynamic_properties</b> ()</td></tr>
-<tr class="separator:ae4d39b3365079c154f58e8eed1750a8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38672144846c2d5730e71a1ce3407a5c" id="r_a38672144846c2d5730e71a1ce3407a5c"><td class="memItemLeft" align="right" valign="top"><a id="a38672144846c2d5730e71a1ce3407a5c" name="a38672144846c2d5730e71a1ce3407a5c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>calculate_MW</b> ()</td></tr>
-<tr class="separator:a38672144846c2d5730e71a1ce3407a5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad63046af6a4425315e2466e9a0982b3c" id="r_ad63046af6a4425315e2466e9a0982b3c"><td class="memItemLeft" align="right" valign="top"><a id="ad63046af6a4425315e2466e9a0982b3c" name="ad63046af6a4425315e2466e9a0982b3c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>print_flow</b> ()</td></tr>
+<tr class="memdesc:ad63046af6a4425315e2466e9a0982b3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">function to print the parameters of a flow <br /></td></tr>
 <tr class="separator:ad63046af6a4425315e2466e9a0982b3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ad6987975bcbdf590a130f4b7c52c5710" id="r_ad6987975bcbdf590a130f4b7c52c5710"><td class="memItemLeft" align="right" valign="top"><a id="ad6987975bcbdf590a130f4b7c52c5710" name="ad6987975bcbdf590a130f4b7c52c5710"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>id</b></td></tr>
-<tr class="separator:ad6987975bcbdf590a130f4b7c52c5710"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40b5209f084fccf692a7a14ffc0a5806" id="r_a40b5209f084fccf692a7a14ffc0a5806"><td class="memItemLeft" align="right" valign="top"><a id="a40b5209f084fccf692a7a14ffc0a5806" name="a40b5209f084fccf692a7a14ffc0a5806"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>def</b></td></tr>
-<tr class="separator:a40b5209f084fccf692a7a14ffc0a5806"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b0c174c6e7c2d810acfaa8d854a325c" id="r_a3b0c174c6e7c2d810acfaa8d854a325c"><td class="memItemLeft" align="right" valign="top"><a id="a3b0c174c6e7c2d810acfaa8d854a325c" name="a3b0c174c6e7c2d810acfaa8d854a325c"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>cls</b></td></tr>
-<tr class="separator:a3b0c174c6e7c2d810acfaa8d854a325c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4073ed4a3474816cba9964aa328753b" id="r_ad4073ed4a3474816cba9964aa328753b"><td class="memItemLeft" align="right" valign="top"><a id="ad4073ed4a3474816cba9964aa328753b" name="ad4073ed4a3474816cba9964aa328753b"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>prop_data</b></td></tr>
-<tr class="separator:ad4073ed4a3474816cba9964aa328753b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7882707c2c62edbb75497374cef837c0" id="r_a7882707c2c62edbb75497374cef837c0"><td class="memItemLeft" align="right" valign="top"><a id="a7882707c2c62edbb75497374cef837c0" name="a7882707c2c62edbb75497374cef837c0"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>flow_db</b></td></tr>
-<tr class="separator:a7882707c2c62edbb75497374cef837c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adeaa5bcf65ffd6e4103b41d0a6d00cb4" id="r_adeaa5bcf65ffd6e4103b41d0a6d00cb4"><td class="memItemLeft" align="right" valign="top"><a id="adeaa5bcf65ffd6e4103b41d0a6d00cb4" name="adeaa5bcf65ffd6e4103b41d0a6d00cb4"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>thermo_file</b></td></tr>
-<tr class="separator:adeaa5bcf65ffd6e4103b41d0a6d00cb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b8fe40496425fc13a8ee53a96fd83e3" id="r_a4b8fe40496425fc13a8ee53a96fd83e3"><td class="memItemLeft" align="right" valign="top"><a id="a4b8fe40496425fc13a8ee53a96fd83e3" name="a4b8fe40496425fc13a8ee53a96fd83e3"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>trans_file</b></td></tr>
-<tr class="separator:a4b8fe40496425fc13a8ee53a96fd83e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3661f9035bf1977c4921b262f91871b" id="r_aa3661f9035bf1977c4921b262f91871b"><td class="memItemLeft" align="right" valign="top"><a id="aa3661f9035bf1977c4921b262f91871b" name="aa3661f9035bf1977c4921b262f91871b"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>chem_file</b></td></tr>
-<tr class="separator:aa3661f9035bf1977c4921b262f91871b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1cba7fe903018cc58c37b3184e0c0032" id="r_a1cba7fe903018cc58c37b3184e0c0032"><td class="memItemLeft" align="right" valign="top"><a id="a1cba7fe903018cc58c37b3184e0c0032" name="a1cba7fe903018cc58c37b3184e0c0032"></a>
-vector&lt; <a class="el" href="structspecies.html">species</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>i</b></td></tr>
-<tr class="separator:a1cba7fe903018cc58c37b3184e0c0032"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1ba256e16519053d486176b7adb7b2b" id="r_ab1ba256e16519053d486176b7adb7b2b"><td class="memItemLeft" align="right" valign="top"><a id="ab1ba256e16519053d486176b7adb7b2b" name="ab1ba256e16519053d486176b7adb7b2b"></a>
-vector&lt; <a class="el" href="structspecies.html">species</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>j</b></td></tr>
-<tr class="separator:ab1ba256e16519053d486176b7adb7b2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a448b12baf6b9be55716e7fea82487f5b" id="r_a448b12baf6b9be55716e7fea82487f5b"><td class="memItemLeft" align="right" valign="top"><a id="a448b12baf6b9be55716e7fea82487f5b" name="a448b12baf6b9be55716e7fea82487f5b"></a>
-vector&lt; <a class="el" href="structspecies.html">species</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>k</b></td></tr>
-<tr class="separator:a448b12baf6b9be55716e7fea82487f5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3bc56ac7cecc1a863a9981fb56158fee" id="r_a3bc56ac7cecc1a863a9981fb56158fee"><td class="memItemLeft" align="right" valign="top"><a id="a3bc56ac7cecc1a863a9981fb56158fee" name="a3bc56ac7cecc1a863a9981fb56158fee"></a>
-vector&lt; <a class="el" href="structspecies.html">species</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>l</b></td></tr>
-<tr class="separator:a3bc56ac7cecc1a863a9981fb56158fee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5fcc7131c3f68b766d8a36fb301b9f1b" id="r_a5fcc7131c3f68b766d8a36fb301b9f1b"><td class="memItemLeft" align="right" valign="top"><a id="a5fcc7131c3f68b766d8a36fb301b9f1b" name="a5fcc7131c3f68b766d8a36fb301b9f1b"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>n_i</b></td></tr>
-<tr class="separator:a5fcc7131c3f68b766d8a36fb301b9f1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a336b106827eda31ca68ecbf6457314fe" id="r_a336b106827eda31ca68ecbf6457314fe"><td class="memItemLeft" align="right" valign="top"><a id="a336b106827eda31ca68ecbf6457314fe" name="a336b106827eda31ca68ecbf6457314fe"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>n_j</b></td></tr>
-<tr class="separator:a336b106827eda31ca68ecbf6457314fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea9a422ff95ea33e284df4d725298bc8" id="r_aea9a422ff95ea33e284df4d725298bc8"><td class="memItemLeft" align="right" valign="top"><a id="aea9a422ff95ea33e284df4d725298bc8" name="aea9a422ff95ea33e284df4d725298bc8"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>n_k</b></td></tr>
-<tr class="separator:aea9a422ff95ea33e284df4d725298bc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33d1de0549e2445cf2a8759c24686015" id="r_a33d1de0549e2445cf2a8759c24686015"><td class="memItemLeft" align="right" valign="top"><a id="a33d1de0549e2445cf2a8759c24686015" name="a33d1de0549e2445cf2a8759c24686015"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>n_l</b></td></tr>
-<tr class="separator:a33d1de0549e2445cf2a8759c24686015"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33fd860909e678b3f5ec10ef2e015751" id="r_a33fd860909e678b3f5ec10ef2e015751"><td class="memItemLeft" align="right" valign="top"><a id="a33fd860909e678b3f5ec10ef2e015751" name="a33fd860909e678b3f5ec10ef2e015751"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>atom_def</b></td></tr>
-<tr class="separator:a33fd860909e678b3f5ec10ef2e015751"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aadda31be4b91b9ff369d5963d447b53e" id="r_aadda31be4b91b9ff369d5963d447b53e"><td class="memItemLeft" align="right" valign="top"><a id="aadda31be4b91b9ff369d5963d447b53e" name="aadda31be4b91b9ff369d5963d447b53e"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>molec_def</b></td></tr>
-<tr class="separator:aadda31be4b91b9ff369d5963d447b53e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73427c22f21369b354898ddb40391332" id="r_a73427c22f21369b354898ddb40391332"><td class="memItemLeft" align="right" valign="top"><a id="a73427c22f21369b354898ddb40391332" name="a73427c22f21369b354898ddb40391332"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>prox_def</b></td></tr>
-<tr class="separator:a73427c22f21369b354898ddb40391332"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d3ebb785b74039b4208f3ac7c95f4a4" id="r_a9d3ebb785b74039b4208f3ac7c95f4a4"><td class="memItemLeft" align="right" valign="top"><a id="a9d3ebb785b74039b4208f3ac7c95f4a4" name="a9d3ebb785b74039b4208f3ac7c95f4a4"></a>
-<a class="el" href="structproperties.html">properties</a>&#160;</td><td class="memItemRight" valign="bottom"><b>P</b></td></tr>
-<tr class="separator:a9d3ebb785b74039b4208f3ac7c95f4a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a235bb7d85eb0e1d6cddd3897d57c135b" id="r_a235bb7d85eb0e1d6cddd3897d57c135b"><td class="memItemLeft" align="right" valign="top"><a id="a235bb7d85eb0e1d6cddd3897d57c135b" name="a235bb7d85eb0e1d6cddd3897d57c135b"></a>
-<a class="el" href="structflow__parameters.html">flow_parameters</a>&#160;</td><td class="memItemRight" valign="bottom"><b>F</b></td></tr>
-<tr class="separator:a235bb7d85eb0e1d6cddd3897d57c135b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19d22defe498e823a0a26b63c6f173c4" id="r_a19d22defe498e823a0a26b63c6f173c4"><td class="memItemLeft" align="right" valign="top"><a id="a19d22defe498e823a0a26b63c6f173c4" name="a19d22defe498e823a0a26b63c6f173c4"></a>
-<a class="el" href="structphase.html">phase</a>&#160;</td><td class="memItemRight" valign="bottom"><b>ph</b> [3]</td></tr>
-<tr class="separator:a19d22defe498e823a0a26b63c6f173c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1507258bbf1718b918ee4408a81463a4" id="r_a1507258bbf1718b918ee4408a81463a4"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow.html#a1507258bbf1718b918ee4408a81463a4">id</a> = &quot;&quot;</td></tr>
+<tr class="separator:a1507258bbf1718b918ee4408a81463a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8079055fddf9c6c605b6852259a06763" id="r_a8079055fddf9c6c605b6852259a06763"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow.html#a8079055fddf9c6c605b6852259a06763">def</a> = &quot;&quot;</td></tr>
+<tr class="separator:a8079055fddf9c6c605b6852259a06763"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c580f311a8e066dcc985de9a61e834d" id="r_a2c580f311a8e066dcc985de9a61e834d"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow.html#a2c580f311a8e066dcc985de9a61e834d">cls</a> = &quot;&quot;</td></tr>
+<tr class="separator:a2c580f311a8e066dcc985de9a61e834d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87b789458903f35463fab80f0d2dbb54" id="r_a87b789458903f35463fab80f0d2dbb54"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow.html#a87b789458903f35463fab80f0d2dbb54">prop_data</a> = &quot;&quot;</td></tr>
+<tr class="separator:a87b789458903f35463fab80f0d2dbb54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad44d7a4340f50ff618d4111c57d71bb6" id="r_ad44d7a4340f50ff618d4111c57d71bb6"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow.html#ad44d7a4340f50ff618d4111c57d71bb6">flow_db</a> = &quot;&quot;</td></tr>
+<tr class="separator:ad44d7a4340f50ff618d4111c57d71bb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accc13bed651af1af1c6beecb1a342d44" id="r_accc13bed651af1af1c6beecb1a342d44"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structspecies.html">species</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow.html#accc13bed651af1af1c6beecb1a342d44">i</a></td></tr>
+<tr class="separator:accc13bed651af1af1c6beecb1a342d44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bc5ef0e3aa675355e594be4dde55bca" id="r_a7bc5ef0e3aa675355e594be4dde55bca"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structspecies.html">species</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow.html#a7bc5ef0e3aa675355e594be4dde55bca">j</a></td></tr>
+<tr class="separator:a7bc5ef0e3aa675355e594be4dde55bca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c520729ce3dc8105928d1771824d104" id="r_a5c520729ce3dc8105928d1771824d104"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structspecies.html">species</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow.html#a5c520729ce3dc8105928d1771824d104">k</a></td></tr>
+<tr class="separator:a5c520729ce3dc8105928d1771824d104"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac32123999b040b8fc36decca17f1ee96" id="r_ac32123999b040b8fc36decca17f1ee96"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structspecies.html">species</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow.html#ac32123999b040b8fc36decca17f1ee96">l</a></td></tr>
+<tr class="separator:ac32123999b040b8fc36decca17f1ee96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44866b53825daff896277064c3ee5726" id="r_a44866b53825daff896277064c3ee5726"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow.html#a44866b53825daff896277064c3ee5726">atom_def</a> = &quot;&quot;</td></tr>
+<tr class="separator:a44866b53825daff896277064c3ee5726"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bca8c27da16accb71fa0a05ff8f07b6" id="r_a8bca8c27da16accb71fa0a05ff8f07b6"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow.html#a8bca8c27da16accb71fa0a05ff8f07b6">molec_def</a> = &quot;&quot;</td></tr>
+<tr class="separator:a8bca8c27da16accb71fa0a05ff8f07b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f5f7eb87054b7a91bd807b3e5df9740" id="r_a9f5f7eb87054b7a91bd807b3e5df9740"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow.html#a9f5f7eb87054b7a91bd807b3e5df9740">prox_def</a> = &quot;&quot;</td></tr>
+<tr class="separator:a9f5f7eb87054b7a91bd807b3e5df9740"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81b9983fd4f827610cbdc261a3a0b063" id="r_a81b9983fd4f827610cbdc261a3a0b063"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structproperties.html">properties</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow.html#a81b9983fd4f827610cbdc261a3a0b063">P</a></td></tr>
+<tr class="separator:a81b9983fd4f827610cbdc261a3a0b063"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a674c547379fc87580ff30bc17d19da07" id="r_a674c547379fc87580ff30bc17d19da07"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structflow__parameters.html">flow_parameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow.html#a674c547379fc87580ff30bc17d19da07">F</a></td></tr>
+<tr class="separator:a674c547379fc87580ff30bc17d19da07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ddbcab172a4324c224faa4858d81b59" id="r_a9ddbcab172a4324c224faa4858d81b59"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structphase.html">phase</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow.html#a9ddbcab172a4324c224faa4858d81b59">ph</a> [3]</td></tr>
+<tr class="separator:a9ddbcab172a4324c224faa4858d81b59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Structure to define the parameters of one flow. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a04969f264101bf1a9e7a2c71250951b5" name="a04969f264101bf1a9e7a2c71250951b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04969f264101bf1a9e7a2c71250951b5">&#9670;&#160;</a></span>flow() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">flow::flow </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>flw_def</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>function to create a flow from def </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">flw_def</td><td>string with the definition of the flow in the database </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="adf1e665759c0bbea8c19980b6025f8f0" name="adf1e665759c0bbea8c19980b6025f8f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf1e665759c0bbea8c19980b6025f8f0">&#9670;&#160;</a></span>flow() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">flow::flow </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>flw_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>flw_def</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>function to create a flow id and def </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">flw_id</td><td>string with the identification name of the flow </td></tr>
+    <tr><td class="paramname">flw_def</td><td>string with the definition of the flow in the database </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ac6ec3ebb9a36023c82faeb7f9287d882" name="ac6ec3ebb9a36023c82faeb7f9287d882"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6ec3ebb9a36023c82faeb7f9287d882">&#9670;&#160;</a></span>get_flow_composition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void flow::get_flow_composition </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="structspecies.html">species</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>spc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>input</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>function to import the composition data of a flow from the database </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">spc</td><td>vector of species </td></tr>
+    <tr><td class="paramname">input</td><td>string specifying the same of the flow </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5eba2033cbc12f0e850104c1d8653d76" name="a5eba2033cbc12f0e850104c1d8653d76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5eba2033cbc12f0e850104c1d8653d76">&#9670;&#160;</a></span>get_flow_data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void flow::get_flow_data </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>input_def</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>function to import all data of a flow from the database </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input_def</td><td>string specifying the name definition of the flow in the database </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a44866b53825daff896277064c3ee5726" name="a44866b53825daff896277064c3ee5726"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44866b53825daff896277064c3ee5726">&#9670;&#160;</a></span>atom_def</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">flow::atom_def = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Type of atomic composition ("Y" mass fraction, "X" mol fraction) </p>
+
+</div>
+</div>
+<a id="a2c580f311a8e066dcc985de9a61e834d" name="a2c580f311a8e066dcc985de9a61e834d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c580f311a8e066dcc985de9a61e834d">&#9670;&#160;</a></span>cls</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">flow::cls = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Flow class (e.g., hardwood) </p>
+
+</div>
+</div>
+<a id="a8079055fddf9c6c605b6852259a06763" name="a8079055fddf9c6c605b6852259a06763"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8079055fddf9c6c605b6852259a06763">&#9670;&#160;</a></span>def</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">flow::def = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Definition in database (e.g., spruce_chips) </p>
+
+</div>
+</div>
+<a id="a674c547379fc87580ff30bc17d19da07" name="a674c547379fc87580ff30bc17d19da07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a674c547379fc87580ff30bc17d19da07">&#9670;&#160;</a></span>F</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">flow::F</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Flow parameters </p>
+
+</div>
+</div>
+<a id="ad44d7a4340f50ff618d4111c57d71bb6" name="ad44d7a4340f50ff618d4111c57d71bb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad44d7a4340f50ff618d4111c57d71bb6">&#9670;&#160;</a></span>flow_db</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">flow::flow_db = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>File with flow data in database </p>
+
+</div>
+</div>
+<a id="accc13bed651af1af1c6beecb1a342d44" name="accc13bed651af1af1c6beecb1a342d44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accc13bed651af1af1c6beecb1a342d44">&#9670;&#160;</a></span>i</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">flow::i</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Atoms vector </p>
+
+</div>
+</div>
+<a id="a1507258bbf1718b918ee4408a81463a4" name="a1507258bbf1718b918ee4408a81463a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1507258bbf1718b918ee4408a81463a4">&#9670;&#160;</a></span>id</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">flow::id = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Name of the flow (e.g., wood) </p>
+
+</div>
+</div>
+<a id="a7bc5ef0e3aa675355e594be4dde55bca" name="a7bc5ef0e3aa675355e594be4dde55bca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bc5ef0e3aa675355e594be4dde55bca">&#9670;&#160;</a></span>j</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">flow::j</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Molecules vector </p>
+
+</div>
+</div>
+<a id="a5c520729ce3dc8105928d1771824d104" name="a5c520729ce3dc8105928d1771824d104"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c520729ce3dc8105928d1771824d104">&#9670;&#160;</a></span>k</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">flow::k</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Proximate composition vector </p>
+
+</div>
+</div>
+<a id="ac32123999b040b8fc36decca17f1ee96" name="ac32123999b040b8fc36decca17f1ee96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac32123999b040b8fc36decca17f1ee96">&#9670;&#160;</a></span>l</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">flow::l</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Constituent vector </p>
+
+</div>
+</div>
+<a id="a8bca8c27da16accb71fa0a05ff8f07b6" name="a8bca8c27da16accb71fa0a05ff8f07b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bca8c27da16accb71fa0a05ff8f07b6">&#9670;&#160;</a></span>molec_def</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">flow::molec_def = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Type of molecular composition ("Y" mass fraction, "X" mol fraction) </p>
+
+</div>
+</div>
+<a id="a81b9983fd4f827610cbdc261a3a0b063" name="a81b9983fd4f827610cbdc261a3a0b063"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81b9983fd4f827610cbdc261a3a0b063">&#9670;&#160;</a></span>P</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">flow::P</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Properties of the flow </p>
+
+</div>
+</div>
+<a id="a9ddbcab172a4324c224faa4858d81b59" name="a9ddbcab172a4324c224faa4858d81b59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ddbcab172a4324c224faa4858d81b59">&#9670;&#160;</a></span>ph</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">flow::ph</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Phase vector: 0=solid, 1=liquid, 2=gas </p>
+
+</div>
+</div>
+<a id="a87b789458903f35463fab80f0d2dbb54" name="a87b789458903f35463fab80f0d2dbb54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87b789458903f35463fab80f0d2dbb54">&#9670;&#160;</a></span>prop_data</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">flow::prop_data = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Type of properties (e.g., solid_fuel) </p>
+
+</div>
+</div>
+<a id="a9f5f7eb87054b7a91bd807b3e5df9740" name="a9f5f7eb87054b7a91bd807b3e5df9740"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f5f7eb87054b7a91bd807b3e5df9740">&#9670;&#160;</a></span>prox_def</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">flow::prox_def = &quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Type of proximate composition ("Y" mass fraction, "X" mol fraction) </p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following files:<ul>
 <li>src/Libraries/Flows_library/<a class="el" href="flow__definitions_8h_source.html">flow_definitions.h</a></li>
-<li>src/Libraries/Flows_library/<a class="el" href="flow__definitions___8h_source.html">flow_definitions_.h</a></li>
-<li>src/Libraries/Flows_library/<a class="el" href="feedstock__characterization_8h_source.html">feedstock_characterization.h</a></li>
-<li>src/Libraries/Flows_library/<a class="el" href="flow__calculations_8h_source.html">flow_calculations.h</a></li>
-<li>src/Libraries/Flows_library/<a class="el" href="flow__calculations___8h_source.html">flow_calculations_.h</a></li>
+<li>src/Libraries/Flows_library/<b>flow_calculations.cpp</b></li>
+<li>src/Libraries/Flows_library/<b>flow_definitions.cpp</b></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

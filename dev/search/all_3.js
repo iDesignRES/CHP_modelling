@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['detailed_20model_20documentation_0',['Detailed Model Documentation',['../detailed_model_documentation.html',1,'']]],
-  ['documentation_1',['Detailed Model Documentation',['../detailed_model_documentation.html',1,'']]]
+  ['4_3a_20make_20changes_0',['Step 4: Make Changes',['../md_docs_2contribute.html#autotoc_md18',1,'']]]
 ];

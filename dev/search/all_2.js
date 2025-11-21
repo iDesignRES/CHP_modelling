@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['capex_0',['CAPEX',['../detailed_model_documentation.html#back-bio_CHP-math-CAPEX',1,'']]],
-  ['credits_1',['CREDITS',['../md_src_2CREDITS.html',1,'']]]
+  ['3_20customization_0',['3. Customization',['../md_docs_2example_2example.html#autotoc_md29',1,'']]],
+  ['3_3a_20checkout_20a_20new_20branch_1',['Step 3: Checkout a New Branch',['../md_docs_2contribute.html#autotoc_md17',1,'']]]
 ];

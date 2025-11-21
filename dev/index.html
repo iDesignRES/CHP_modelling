@@ -100,15 +100,81 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_README"></a> <a href="https://github.com/iDesignRES/CHP_modelling/actions?query=workflow%3ACI"><img src="https://github.com/iDesignRES/CHP_modelling/workflows/CI/badge.svg" alt="Build Status" style="pointer-events: none;" class="inline"/></a> <a href="https://idesignres.github.io/CHP_modelling/stable/"><img src="https://img.shields.io/badge/docs-stable-blue.svg" alt="Stable" style="pointer-events: none;" class="inline"/></a> <a href="https://idesignres.github.io/CHP_modelling/dev/"><img src="https://img.shields.io/badge/docs-dev-blue.svg" alt="In Development" style="pointer-events: none;" class="inline"/></a> <img src="https://img.shields.io/badge/clang--format-Google%20style-blue?logo=clang&amp;logoColor=white" alt="clang-format" class="inline"/></p>
-<p><code>bioCHP_plant</code> is a c++ module with functionality to model mass and energy flows, investment cost and operational cost of a combined heat and power production plant using biomass as feedstock. The documentation can be found at <a class="el" href="detailed_model_documentation.html">Detailed Model Documentation</a>.</p>
+<p>This README provides an overview of the biomass-based Combined Heat and Power (bioCHP) Model.</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
-Model test</h1>
-<p>The bioCHP plant model can be tested separately using the c++ files bioCHP_function_test_[number].cpp in the main directory:</p><ul>
-<li>bioCHP_function_test_1.cpp: single biomass feedstock with specified electric power production and no heat demand</li>
-<li>bioCHP_function_test_2.cpp: multiple biomass feedstock with specified electric power production and no heat demands</li>
-<li>bioCHP_function_test_3.cpp: multiple biomass feedstock with specified electric power production and several heat demand</li>
-</ul>
+Purpose of the model</h1>
+<p>The main purpose of this model is to evaluate numerically the overall process and economics of converting solid biomass to electricity and heat. Important features of the model are: 1) supply of different types of biomass feedstock from multiple sources, 2) specification of multiple heat outputs (as steam or district heating) defined in terms of thermal power, temperature and pressure. The overall process is calculated in terms of the mass and energy flows. The economics is calculated in terms of capital investment (CAPEX), variable and fixed operating cost (OPEX). <br  />
+</p>
 <h1><a class="anchor" id="autotoc_md2"></a>
+Model design philosophy</h1>
+<p>The model is programmed in C++ and includes the following elements:</p><ul>
+<li>Flows as objects (classes) defined by mass flow rates, chemical composition and thermodynamics.</li>
+<li>Processes: as functions transforming the flows according to physical and thermochemical processes</li>
+<li>Equipment as objects (classes) within processes, defined by their type (ex. pump, boiler, heat exchanger, etc) and main design specifications.</li>
+<li>Cost module, evaluates CAPEX and OPEX using flows and equipment as inputs. CAPEX is calculated in terms of the total permanent investment, which includes the installed cost of all equipment and additional capital cost factors associated with piping, electric system and instrumentation and control, land, civil work for site preparation and construction of buildings, engineering and contingencies for civil work and process equipment, and project development and licenses. OPEX is the annual operating costs, calculated as the sum of variable direct operational cost (proportional the annual operating time) and fixed indirect operational costs (required for having the plant in activity).</li>
+</ul>
+<p>Detailed description of the model can be found at <a class="el" href="detailed_model_documentation_page.html#detailed_model_documentation">bioCHP module description</a>.</p>
+<h1><a class="anchor" id="autotoc_md3"></a>
+Core assumptions</h1>
+<ul>
+<li>All material and energy flows are calculated assuming state-state behavior of all processes. <br  />
+</li>
+<li>The cost of supply of each biomass feedstock is proportional to the total mass flow rate assuming constant unit transportation cost per unit mass and distance and constant unit harvesting. <br  />
+</li>
+<li>The combustion of biomass assumes a constant excess-air ratio of 1.2. <br  />
+</li>
+<li>The steam turbine power outputs are calculated assuming constant isentropic efficiencies for each stage.</li>
+</ul>
+<p><a class="anchor" id="quickstart"></a> </p>
+<h1><a class="anchor" id="autotoc_md4"></a>
+Quick start - Linux and Windows Setup</h1>
+<h2><a class="anchor" id="autotoc_md5"></a>
+Install dependencies</h2>
+<p>Make sure you have <code>g++</code>, <code>CMake</code>, and <code>Conan</code> installed.</p>
+<ol type="1">
+<li><p class="startli"><b>Linux setup</b></p>
+<p class="startli">You can install dependencies with:</p>
+<div class="fragment"><div class="line">sudo apt update</div>
+<div class="line">sudo apt install -y g++ cmake python3-pip</div>
+<div class="line">pip install conan</div>
+<div class="line">conan profile detect</div>
+</div><!-- fragment --></li>
+<li><p class="startli"><b>Windows setup (PowerShell)</b></p>
+<p class="startli">Open PowerShell as Administrator and run:</p>
+<div class="fragment"><div class="line">winget install -e --id Kitware.CMake</div>
+<div class="line">winget install -e --id Git.Git</div>
+<div class="line">winget install --id Python.Python.3.11 --source winget --scope user --override &quot;PrependPath=1&quot;</div>
+</div><!-- fragment --><p class="startli">Restart the PowerShell and run</p>
+<div class="fragment"><div class="line">pip install conan</div>
+<div class="line">conan profile detect</div>
+</div><!-- fragment --></li>
+</ol>
+<h2><a class="anchor" id="autotoc_md6"></a>
+Build and run minimal viable case</h2>
+<p>Create a build directory and compile:</p>
+<div class="fragment"><div class="line">git clone https://github.com/iDesignRES/CHP_modelling.git</div>
+<div class="line">cd CHP_modelling</div>
+<div class="line">mkdir build &amp;&amp; cd build</div>
+</div><!-- fragment --><p>Install external dependencies (via Conan):</p>
+<div class="fragment"><div class="line">conan install .. --output-folder=. --build=missing -s compiler.cppstd=17 -s arch=x86_64</div>
+</div><!-- fragment --><p>Configure and build the project:</p>
+<div class="fragment"><div class="line">cmake .. -DCMAKE_TOOLCHAIN_FILE=&quot;${PWD}/conan_toolchain.cmake&quot; -DCMAKE_BUILD_TYPE=Release</div>
+<div class="line">cmake --build . --config Release</div>
+</div><!-- fragment --><p>You can now run the created <code>bioCHP</code> program:</p>
+<ol type="1">
+<li><p class="startli">On Linux</p>
+<div class="fragment"><div class="line">./bioCHP ../docs/example/bioCHP_input.toml output.txt</div>
+</div><!-- fragment --></li>
+<li><p class="startli">On Windows</p>
+<div class="fragment"><div class="line">./Release/bioCHP ../docs/example/bioCHP_input.toml output.txt</div>
+</div><!-- fragment --></li>
+</ol>
+<p>This example takes the input parameters in <code>../docs/example/bioCHP_input.toml</code> and prints outputs to <code>output.txt</code>.</p>
+<h2><a class="anchor" id="autotoc_md7"></a>
+Run tests</h2>
+<p>Following the above comands, the tests can be run with</p>
+<div class="fragment"><div class="line">ctest -C Release</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md8"></a>
 Project Funding</h1>
 <p>The development of <code>bioCHP_plant</code> was funded by the European Union’s Horizon Europe research and innovation programme in the project <a href="https://idesignres.eu/">iDesignRES</a> under grant agreement <a href="https://doi.org/10.3030/101095849">101095849</a>. </p>
 </div></div><!-- PageDoc -->
