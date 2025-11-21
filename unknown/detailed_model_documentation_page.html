@@ -123,11 +123,10 @@ Implementation</h2>
 <p>The nonlinear C++ model enables sampling for <a href="https://github.com/EnergyModelsX">EnergyModelsX</a> through the function <code>bioCHP_wrapper.cpp</code> which provides a function that calculates both the <b>costs</b> (Investment, total and variable operating expenses) and the required <b>mass flow rate of each feedstock</b> as outputs, based on the specified <em>electric power production</em>, <em>heat demands</em> (thermal power capacity and return/supply temperatures) and <b>moisture content of each biomass feedstock</b> as inputs. This sampling routine allows a tight integration of the model within the <a href="https://github.com/EnergyModelsX">EnergyModelsX</a> framework.</p>
 <p>Important features and functionalities of the module include:</p>
 <ul>
-<li><b>Flows</b> are implemented as the so-called <code>flow</code> structure, defined in <code>src/Flows/flow_definitions.h</code>, which contain identifying strings, atomic and molecular composition, material and energy flow rates, and physical and thermodynamic properties. Flows are created by importing their data from a database located in the <code>src/Database/flows.toml</code> folder. <br  />
+<li><b>Flows</b> are implemented as the so-called <code>flow</code> structure, defined in <code><a class="el" href="flow__definitions_8h_source.html">src/Libraries/Flows_library/flow_definitions.h</a></code>, which contain identifying strings, atomic and molecular composition, material and energy flow rates, and physical and thermodynamic properties. Flows are created by importing their data from a database located in the <code>src/Database/flows.toml</code> folder. <br  />
 </li>
-<li><b>Atomic and molecular species</b> are also implemented as the so-called <code>species</code> structure, defined in <code>src/Flows_library/flow_definitions.h</code>, which contains identifying strings and physical or thermodynamic properties. Atomic and molecular species are created by importing their data from <code>src/Database/atoms.toml</code> and <code>src/Database/molecules.toml</code>, respectively.</li>
-<li><b>Thermodynamic properties</b> are calculated using the library located in <code>src/Libraries/Thermodynamic_library/</code>. Molecular gas species (O2, N2, Ar, CO, CO2, H2, CH4, SO2, SO3, HCl, Cl2, NH3) using the NIST correlaltions [8] in <code><a class="el" href="species__thermodynamics_8h_source.html">src/Libraries/Thermodynamic_library/species_thermodynamics.h</a></code>. Solid biomass properties are constant and user defined, except for heating values which are evaluated by correlations [9]. Liquid water and steam through specific correlations in <code><a class="el" href="Library__Water__Correlations_8h_source.html">src/Libraries/Thermodynamic_library/Library_Water_Correlations.h</a></code>. <br  />
-</li>
+<li><b>Atomic and molecular species</b> are also implemented as the so-called <code>species</code> structure, defined in <code><a class="el" href="flow__definitions_8h_source.html">src/Libraries/Flows_library/flow_definitions.h</a></code>, which contains identifying strings and physical or thermodynamic properties. Atomic and molecular species are created by importing their data from <code>src/Database/atoms.toml</code> and <code>src/Database/molecules.toml</code>, respectively.</li>
+<li><b>Thermodynamic properties</b> are calculated using the library located in <code>src/Libraries/Thermodynamic_library/</code>. Molecular gas species (O2, N2, Ar, CO, CO2, H2, CH4, SO2, SO3, HCl, Cl2, NH3) using the NIST correlaltions [8] in <code><a class="el" href="species__thermodynamics_8h_source.html">src/Libraries/Thermodynamic_library/species_thermodynamics.h</a></code>. Solid biomass properties are constant and user defined, except for heating values which are evaluated by correlations [9]. Liquid water and steam through specific correlations in <code><a class="el" href="Library__Water__Correlations_8h_source.html">src/Libraries/Thermodynamic_library/Library_Water_Correlations.h</a></code> using the IAPWS Formulation 1995 [14].</li>
 <li><b>Physical systems</b> such as equipment, systems or plants are defined as so-called <code>objects</code>. Objects are implemented as a structure, defined in <code><a class="el" href="Parameters_8h_source.html">src/Parameters.h</a></code>, containing identifying strings and a set (vector) of specifying <code>parameters</code> for the object. Each <code>parameter</code> is also implemented as a structure, defined in <code><a class="el" href="Parameters_8h_source.html">src/Parameters.h</a></code>, containing identifying strings, two vectors with numerical or string values of the parameter, and a integer pointing to a position inside the vectors. Each object can contain also other components as objects.</li>
 <li><b>Consumables, residues, effluents and utilities</b> as also implemented as objects. <br  />
 </li>
@@ -135,7 +134,7 @@ Implementation</h2>
 <li>The <b>cost module</b> <code><a class="el" href="Cost_8h_source.html">src/Cost.h</a></code> evaluates CAPEX of a physical system and variable OPEX of a consumable or utility using their representing object as input.</li>
 <li>Values for all physical properties are defined in SI units. Default units for temperature and pressure are defined in degrees Celsius and bar.</li>
 </ul>
-<p>All <b>input data</b> used by the bioCHP plant module is implenented using <b>TOML format</b> [7] within the <code>src/Database</code> directory. Database is described below, in the section <code>Module database</code>.</p>
+<p>All <b>input data</b> used by the bioCHP plant module is implenented using <b>TOML format</b> [7] within the <code>src/Database</code> directory. Database is described below, in the section <code>Module implementation and database</code>.</p>
 <p>The CHP plant module is implemented through the function (in <code><a class="el" href="bioCHP_8h_source.html">src/bioCHP.h</a></code>):</p>
 <p><code>bioCHP_plant(std::vector&lt;std::string&gt; fuel_def, std::vector&lt;double&gt; Yj, std::vector&lt;double&gt; YH2Oj, double W_el, std::vector&lt;double&gt; Qk, std::vector&lt;double&gt; Tk_in, std::vector&lt;double&gt; Tk_out)</code></p>
 <p>with the inputs defined as follow:</p>
@@ -352,10 +351,12 @@ Mb_{k} = \frac{\dot{Q}_{k}}{h_{vap}^{sat}(Pb_{k}) - h_{cond}^{sat}(Pb_{k})}
 \]
 </p>
 </li>
-<li><b>Steam condenser</b>, implemented in the function <code>steam_condenser(flow &amp;steam, flow &amp;cond, object &amp;par)</code> (located in <code><a class="el" href="Rankine__cycle_8h_source.html">src/Libraries/Processes_library/Rankine_cycle.h</a></code>) The model assumes steady-state and isobaric process [13] Inputs:</li>
+<li><b>Steam condenser</b>, implemented in the function <code>steam_condenser(flow &amp;steam, flow &amp;cond, object &amp;par)</code> (located in <code><a class="el" href="Rankine__cycle_8h_source.html">src/Libraries/Processes_library/Rankine_cycle.h</a></code>) The model assumes steady-state and isobaric process [13]. Inputs:<ul>
 <li><code>steam</code>, <b>flow</b> denoting the steam outlet from the steam turbine model</li>
 <li>\( T_{cond} \) (<code>par.T_cond</code> in the model): The condenser temperature in °C.</li>
 <li>\( P_{cond} \) (<code>par.P_cond</code> in the model): The condenser pressure in bar gauge.</li>
+</ul>
+</li>
 </ul>
 <p>Outputs:</p><ul>
 <li><code>cond</code>, <b>flow</b> denoting the condenstae outlet</li>
@@ -382,7 +383,7 @@ Dry scrubber model</h2>
 <li><code>par.cake</code>, <b>object</b> representing cake as <b>solid residue</b></li>
 <li>Annual mass of lime \( \dot{M}_{lime} \) (<code>par.lime.Q_annual</code> in the model), calculated from  <p class="formulaDsp">
 \[
-  \dot{M}_{lime} = \dot{M}_F\, m_{lime,b}\, t_{op}, 3.6 
+  \dot{M}_{lime} = \dot{M}_F\ \cdot m_{lime,b}\ \cdot t_{op} \cdot 3.6 
   \]
 </p>
  with \( m_{lime,b} = 14.4 kg/t \) a constant specific lime consumption per unit mass of solid fuel entering the boiler [5] and \( t_{op} = 8000 h \) is the annual operational time.</li>
@@ -461,60 +462,63 @@ C_{op} = C_{op,d} + C_{op,f},
     C_{labor} = \sum_k N_k^{labor}\, c_{b,k}^{labor}\,\Big[1+f_{oh,k}^{labor}\Big]
     \]
 </p>
-</li>
-</ul>
-</li>
-</ul>
-<p>Here, the subscript \( k \) denotes the personnel categories and the parameters are defined as follows:</p>
-<p>1) Plant manager:  </p><p class="formulaDsp">
+ Here, the subscript \( k \) denotes the personnel categories and the parameters are defined as follows:</li>
+<li>Plant manager:  <p class="formulaDsp">
 \[
-\begin{aligned}
-  c_{b,k}^{labor} &amp; = 162~k\$/year \\
-  N_k^{labor} &amp; = 1 \\
-  f_{oh,k}^{labor} &amp; = 0.0 \\
-\end{aligned}
-\]
+    \begin{aligned}
+    c_{b,k}^{labor} &amp; = 162~k\$/year \\
+    N_k^{labor} &amp; = 1 \\
+    f_{oh,k}^{labor} &amp; = 0.0 \\
+    \end{aligned}
+    \]
 </p>
-<p>2) O&amp;M manager:  </p><p class="formulaDsp">
+</li>
+<li>O&amp;M manager:  <p class="formulaDsp">
 \[
-\begin{aligned}
-  c_{b,k}^{labor} &amp; = 96~k\$/year \\
-  N_k^{labor} &amp; =
+    \begin{aligned}
+    c_{b,k}^{labor} &amp; = 96~k\$/year \\
+    N_k^{labor} &amp; =
     \begin{cases}
       1 ,&amp; \text{if} ~ \dot{M}_F &lt; 10~\text{t/h} \\
       2 ,&amp; \text{if} ~ \dot{M}_F &gt; 10~\text{t/h} \\
     \end{cases} \\
-  f_{oh,k}^{labor} &amp; = 1.2 \\
-\end{aligned}
-\]
+    f_{oh,k}^{labor} &amp; = 1.2 \\
+    \end{aligned}
+    \]
 </p>
-<p>3) O&amp;M engineer:  </p><p class="formulaDsp">
+</li>
+<li>O&amp;M engineer:  <p class="formulaDsp">
 \[
-\begin{aligned}
-  c_{b,k}^{labor} &amp; = 88~k\$/year \\
-  N_k^{labor} &amp; =
-    \begin{cases}
-      1 ,&amp; \text{if} ~ \dot{M}_F &lt; 10~\text{t/h} \\
-      2 ,&amp; \text{if} ~ \dot{M}_F &gt; 10~\text{t/h} \\
-    \end{cases} \\
-  f_{oh,k}^{labor} &amp; = 1.2 \\
-\end{aligned}
-\]
+    \begin{aligned}
+      c_{b,k}^{labor} &amp; = 88~k\$/year \\
+      N_k^{labor} &amp; =
+      \begin{cases}
+        1 ,&amp; \text{if} ~ \dot{M}_F &lt; 10~\text{t/h} \\
+        2 ,&amp; \text{if} ~ \dot{M}_F &gt; 10~\text{t/h} \\
+      \end{cases} \\
+      f_{oh,k}^{labor} &amp; = 1.2 \\
+    \end{aligned}
+    \]
 </p>
-<p>4) Shift operator:  </p><p class="formulaDsp">
+</li>
+<li>Shift operator:  <p class="formulaDsp">
 \[
-\begin{aligned}
-  c_{b,k}^{labor} &amp; = 37~k\$/year \\
-  N_k^{labor} &amp; =
-    \begin{cases}
-      3 ,&amp; \text{if} ~ \dot{M}_F &lt; 10~\text{t/h} \\
-      6 ,&amp; \text{if} ~ \dot{M}_F &gt; 10~\text{t/h} \\
-    \end{cases} \\
-  f_{oh,k}^{labor} &amp; = 1.3 \\
-\end{aligned}
-\]
+    \begin{aligned}
+      c_{b,k}^{labor} &amp; = 37~k\$/year \\
+      N_k^{labor} &amp; =
+      \begin{cases}
+        3 ,&amp; \text{if} ~ \dot{M}_F &lt; 10~\text{t/h} \\
+        6 ,&amp; \text{if} ~ \dot{M}_F &gt; 10~\text{t/h} \\
+      \end{cases} \\
+      f_{oh,k}^{labor} &amp; = 1.3 \\
+    \end{aligned}
+    \]
 </p>
-<dl class="section note"><dt>Note</dt><dd>Number of employees: The number of employees depends on the size of the plant. The chosen distinction is based on the mass flow of biomass into the plant \( \dot{M}_F \), with a change in staffing when the flow exceeds 10 t/h.</dd></dl>
+ <dl class="section note"><dt>Note</dt><dd>Number of employees: The number of employees depends on the size of the plant. The chosen distinction is based on the mass flow of biomass into the plant \( \dot{M}_F \), with a change in staffing when the flow exceeds 10 t/h.</dd></dl>
+</li>
+</ul>
+</li>
+</ul>
 <h1><a class="anchor" id="module_implementation_and_database"></a>
 Module implementation and database</h1>
 <ul>
@@ -673,7 +677,8 @@ References</h1>
 <p>[10] Changdong Sheng, J.L.T. Azevedo, "Estimating the higher heating value of biomass fuels from basic analysis data, Biomass and Bioenergy," Vol. 28, Issue 5, 2005, pp. 499-507. <a href="https://doi.org/10.1016/j.biombioe.2004.11.008">https://doi.org/10.1016/j.biombioe.2004.11.008</a>.</p>
 <p>[11] G. Del Alamo, Rajesh S. Kempegowda, Øyvind Skreiberg, and Roger Khalil, Energy &amp; Fuels 2017 31 (6), 6089-6108. <a href="https://doi.org/10.1021/acs.energyfuels.7b00273">https://doi.org/10.1021/acs.energyfuels.7b00273</a></p>
 <p>[12] Koppejan, J., &amp; van Loo, S. (Eds.). (2008). The Handbook of Biomass Combustion and Co-firing (1st ed.). Routledge. <a href="https://doi.org/10.4324/9781849773041">https://doi.org/10.4324/9781849773041</a></p>
-<p>[13] Moran, M.J., Shapiro, H.N., Boettner, D.D., &amp; Bailey, M.B. Fundamentals of Engineering Thermodynamics. 8th Edition. Wiley, 2014. ISBN: 978-1118412930 </p>
+<p>[13] Moran, M.J., Shapiro, H.N., Boettner, D.D., &amp; Bailey, M.B. Fundamentals of Engineering Thermodynamics. 8th Edition. Wiley, 2014. ISBN: 978-1118412930</p>
+<p>[14] W. Wagner and A. Pruß, "The IAPWS Formulation 1995 for the Thermodynamic Properties of Ordinary Water Substance for General and Scientific Use," J. Phys. Chem. Ref. Data, 31, 387-535 (2002). <a href="https://doi.org/10.1063/1.1461829">https://doi.org/10.1063/1.1461829</a> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
