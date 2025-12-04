@@ -20,9 +20,9 @@ int main(int argc, char *argv[]) {
   [[maybe_unused]] double expected_Mj[4];
   [[maybe_unused]] double expected_Q_prod = 70.0;
   [[maybe_unused]] double expected_W_el_prod = 100.000000004445;
-  [[maybe_unused]] double expected_C_inv = 224.750123723543;
-  [[maybe_unused]] double expected_C_op = 39.098300692570;
-  [[maybe_unused]] double expected_C_op_var = 34.323152193531;
+  [[maybe_unused]] double expected_C_inv = 317.941917708361;
+  [[maybe_unused]] double expected_C_op = 76.500779705097;
+  [[maybe_unused]] double expected_C_op_var = 69.745633830321;
 
   switch (test) {
     case 1:
@@ -53,10 +53,10 @@ int main(int argc, char *argv[]) {
       Tk_out_len = 2;
 
       Mj_len = 4;
-      expected_Mj[0] = 2.163095432773;
-      expected_Mj[1] = 4.326190865546;
-      expected_Mj[2] = 6.489286298320;
-      expected_Mj[3] = 8.652381731093;
+      expected_Mj[0] = 4.395472220721;
+      expected_Mj[1] = 8.790944441442;
+      expected_Mj[2] = 13.186416662165;
+      expected_Mj[3] = 17.581888882886;
       break;
     case 2:
       fuel_def[0] = "spruce_bark";
@@ -86,10 +86,10 @@ int main(int argc, char *argv[]) {
       Tk_out_len = 2;
 
       Mj_len = 4;
-      expected_Mj[0] = 4.326190865546;
-      expected_Mj[1] = 8.652381731093;
-      expected_Mj[2] = 2.163095432773;
-      expected_Mj[3] = 6.489286298320;
+      expected_Mj[0] = 8.790944441442;
+      expected_Mj[1] = 17.581888882886;
+      expected_Mj[2] = 4.395472220721;
+      expected_Mj[3] = 13.186416662165;
       break;
     default:
       fuel_def[0] = "spruce_stem";
@@ -119,10 +119,10 @@ int main(int argc, char *argv[]) {
       Tk_out_len = 2;
 
       Mj_len = 4;
-      expected_Mj[0] = 2.163095432773;
-      expected_Mj[1] = 6.489286298320;
-      expected_Mj[2] = 8.652381731093;
-      expected_Mj[3] = 4.326190865546;
+      expected_Mj[0] = 4.395472220721;
+      expected_Mj[1] = 13.186416662165;
+      expected_Mj[2] = 17.581888882886;
+      expected_Mj[3] = 8.790944441442;
       break;
   }
 

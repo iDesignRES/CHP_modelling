@@ -14,12 +14,20 @@
  * input steam pressure (bar)
  * @var steam_turbine_parameters::Ti
  * input steam temperature (deg.C)
+ * @var steam_turbine_parameters::qi
+ * input steam quality (-)
  * @var steam_turbine_parameters::Po
  * output steam pressure (bar)
+ * @var steam_turbine_parameters::To
+ * Outlet steam temperature (deg.C)
+ * @var steam_turbine_parameters::qo
+ * Outlet steam quality (-)
  * @var steam_turbine_parameters::mu_isent
  * isentropic efficiency (-)
  * @var steam_turbine_parameters::W
  * output mechanical power (MW)
+ * @var steam_turbine_parameters::w
+ * output specific power per unit mass inlet steam (MJ/kg)
  * @var steam_turbine_parameters::Pext
  * vector with extractions pressure (bar)
  * @var steam_turbine_parameters::Mext
@@ -28,7 +36,9 @@
 struct steam_turbine_parameters {
  public:
   std::string id = "";
-  double Mi = 0.0, Pi = 0.0, Ti = 0.0, Po = 0.0, mu_isent = 0.0, W = 0.0;
+  double Mi = 0.0, Pi = 0.0, Ti = 0.0, qi = 1.0;
+  double Po = 0.0, To = 0.0, qo = 1.0;
+  double mu_isent = 0.0, W = 0.0, w = 0.0;
   std::vector<double> Pext = {}, Mext = {};
   void assign_parameter_values(std::string, std::string, object);
 };

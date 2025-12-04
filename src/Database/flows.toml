@@ -1,26 +1,4 @@
 # Biomass fuels
-[flow.SE_pellets_arbacore_spruce_stem]
-class = "SE-pellets_hardwood"
-prop_data = "solid_fuel"
-
-    [flow.SE_pellets_arbacore_spruce_stem.atoms]
-    C = {Y = 0.523}
-    H = {Y = 0.062}
-    O = {Y = 0.4139}
-    N = {Y = 0.001}
-    S = {Y = 0.0001}
-    Cl = {Y = 0.00002}
-
-    [flow.SE_pellets_arbacore_spruce_stem.proximate]
-    VOL = {Y = 0.802}
-    FC = {Y = 0.196}
-    ash = {Y = 0.0002}
-    H2O = {Y = 0.034}
-
-    [flow.SE_pellets_arbacore_spruce_stem.properties]
-    LHV = 20.9
-    rho_m = 400.0
-    cp_m = 1200.0
 
 [flow.spruce_chips]
 class = "hardwood"
@@ -41,7 +19,7 @@ prop_data = "solid_fuel"
     H2O = {Y = 0.05}
 
     [flow.spruce_chips.properties]
-    HHV = 20.13
+    HHV_dry = 20.13
     rho_m = 400.0
     cp_m = 1200.0
 
@@ -63,7 +41,7 @@ prop_data = "solid_fuel"
     ash = {Y = 0.003}
 
     [flow.spruce_stem.properties]
-    HHV = 19.9
+    HHV_dry = 19.9
     rho_m = 400.0
     cp_m = 1200.0
 
@@ -86,7 +64,7 @@ prop_data = "solid_fuel"
     H2O = {Y = 0.5}
 
     [flow.spruce_bark.properties]
-    HHV = 20.25
+    HHV_dry = 20.25
     rho_m = 400.0
     cp_m = 1200.0
 
@@ -109,7 +87,7 @@ prop_data = "solid_fuel"
     H2O = {Y = 0.5}
 
     [flow.spruce_TandB.properties]
-    HHV = 19.94
+    HHV_dry = 19.94
     rho_m = 400.0
     cp_m = 1200.0
 
@@ -132,7 +110,7 @@ prop_data = "solid_fuel"
     H2O = {Y = 0.5}
 
     [flow.birch_stem.properties]
-    HHV = 18.42
+    HHV_dry = 18.42
     rho_m = 400.0
     cp_m = 1200.0
 
@@ -155,6 +133,7 @@ prop_data = "solid_fuel"
     H2O = {Y = 0.5}
 
     [flow.birch_TandB.properties]
+    HHV_dry = 18.42
     rho_m = 400.0
     cp_m = 1200.0
 

@@ -15,8 +15,8 @@ int main() {
   steam_turbine_parameters ST;
   ST.mu_isent = 0.5;
   std::vector<double> Po = {10.0, 1.0, 0.1};
-  std::vector<double> expected_W = {111166.480514052819, 311805.848024832609,
-                                    457608.539262635109};
+  std::vector<double> expected_W = {111166.522855557560, 310849.179846769257,
+                                    456951.741239636904};
 
   for (std::size_t n = 0; n < Po.size(); n++) {
     flow out("out", "steam");
@@ -40,7 +40,7 @@ int main() {
   par.vct_sp("bleeds", bleeds, "output");
   par.vct_fp("P_bleed", Pb);
   par.vct_fp("M_bleed", Mb);
-  [[maybe_unused]] double expected_Wel = 496858.635288289865;
+  [[maybe_unused]] double expected_Wel = 496341.464455725218;
   flow out("out", "steam");
   steam_turbine_model(in, out, par);
   assert(approxEqual(par.fp("W_el") * 1e6, expected_Wel) ||

@@ -10,9 +10,9 @@ Tk_out = []
 
 # This section is optional and only used for testing
 [expected]
-Mj = [30.200224083773, 30.200224083773]
+Mj = [64.161295226085, 64.161295226085]
 Q_prod = 0.0
 W_el_prod = 300.0
-C_inv = 442.146359335645
-C_op = 94.797923814729
-C_op_var = 85.403871036659
+C_inv = 638.320272371972
+C_op = 195.005180783329
+C_op_var = 181.443123330261

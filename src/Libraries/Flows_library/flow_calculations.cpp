@@ -110,15 +110,14 @@ void flow::calculate_solid_fuel() {
         "not be larger than 1");
   }
 
-  if (P.LHV == 0) {
+  if (P.LHV_dry == 0) {
     P.LHV_dry = kC * yC + kH * yH + kS * yS + kN * yN + kO * yO + kA * yA;
-    P.LHV = P.LHV_dry * (1.0 - yH2O) + kH2O * yH2O;
+    P.HHV_dry = P.LHV_dry - kH2O * yH * (18 / 2);
     P.HHV_dry = P.LHV_dry - kH2O * yH * (18 / 2);
   }
 
-  P.HHV = P.LHV - kH2O * (1 - yH2O) * yH * (18 / 2);
-  P.LHV_dry = (P.LHV - kH2O * yH2O) / (1.0 - yH2O);
-  P.HHV_dry = P.LHV_dry - kH2O * yH * (18 / 2);
+  P.LHV = P.LHV_dry * (1.0 - yH2O) + kH2O * yH2O;
+  P.HHV = P.HHV_dry * (1.0 - yH2O) + kH2O * yH2O;
 
   if (yH2O > 0) {
     P.cp = 1.2e3 * (1.0 - yH2O) + 4.18e3 * yH2O;

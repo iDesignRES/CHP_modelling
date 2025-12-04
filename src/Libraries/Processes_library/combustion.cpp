@@ -48,9 +48,11 @@ void calculate_fuel_combustion_properties(flow fuel, object &prop) {
      * of solid fuel*/
     /* vn_H2O_m: stoichiometric normal flow rate of H2O (Nm3) per unit mass (kg)
      * of solid fuel*/
-    prop.fval_p("vn_CO2_m", (1 - fuel.k[H2O].Y) * prop.fp("nu_CO2") *
+    prop.fval_p("vn_CO2_m", (1 - fuel.k[H2O].Y) * (1 - fuel.k[ash].Y) *
+                                prop.fp("nu_CO2") *
                                 (0.02241 / prop.fp("W_CHxOy")));
-    prop.fval_p("vn_H2O_m", (1 - fuel.k[H2O].Y) * prop.fp("nu_H2O") *
+    prop.fval_p("vn_H2O_m", (1 - fuel.k[H2O].Y) * (1 - fuel.k[ash].Y) *
+                                    prop.fp("nu_H2O") *
                                     (0.02241 / prop.fp("W_CHxOy")) +
                                 fuel.k[H2O].Y * (0.02241 / 0.018));
   }
@@ -140,13 +142,14 @@ void solid_fuel_boiler(std::vector<flow> &fuel, std::vector<flow> &comb_air,
     ba[n].F.M =
         fuel[n].F.M * (1.0 - fuel[n].k[H2O].Y) * (fuel[n].k[ash].Y * f_ba);
     ba[n].P.cp = 1.25;  // kJ/kg*k, assumed value
-    ba[n].F.Ht =
-        ba[n].F.M * (ba[n].P.cp * (T_ba - 25.0) * 1.0e3 + yC_ba * 34.1 * 1.0e6);
+    ba[n].P.ht = (ba[n].P.cp * (T_ba - 25.0) * 1.0e3 + yC_ba * 34.1 * 1.0e6);
+    ba[n].F.Ht = ba[n].F.M * ba[n].P.ht;
 
     fa[n].F.M = fuel[n].F.M * (1.0 - fuel[n].k[H2O].Y) * fuel[n].k[ash].Y *
                 (1.0 - f_ba);
     fa[n].P.cp = 1.25;  // kJ/kg*k, assumed value
-    fa[n].F.Ht = fa[n].F.M * fa[n].P.cp * (T_fa - 25.0);
+    fa[n].P.ht = fa[n].P.cp * 1e3 * (T_fa - 25.0);
+    fa[n].F.Ht = fa[n].F.M * fa[n].P.ht;
   }
 
   /* Calculation of total input fuel energy,
@@ -180,18 +183,21 @@ void solid_fuel_boiler(std::vector<flow> &fuel, std::vector<flow> &comb_air,
     comb_Hf = comb_Hf + fuel[n].F.Hf;
   }
 
-  comb.fval_p("Hf", comb_Hf);
-
   /* Calculation of heat losses, as proportional to
   flue gas enthalpy flow with the input parameter q_loss
   as propertionality constant
   */
 
-  comb.fval_p("Q_loss", flue_gas.F.Ht * comb.fp("q_loss"));
+  comb.fval_p("Hf", comb_Hf);
+  comb.fval_p("Ht_g", flue_gas.F.Ht * 1e-6);
+  comb.fval_p("Ht_ba", bottom_ash.F.Ht * 1e-6);
+  comb.fval_p("Ht_fa", fly_ash.F.Ht * 1e-6);
+  comb.fval_p("Q_loss", flue_gas.F.Ht * 1e-6 * comb.fp("q_loss"));
 
   /* Calculation of boiler heat output from energy balance*/
   comb.fval_p("Q_out", comb.fp("Hf") * 1.0e6 + comb_air[0].F.Ht -
-                           flue_gas.F.Ht - bottom_ash.F.Ht - comb.fp("Q_loss"));
+                           flue_gas.F.Ht * (1.0 + comb.fp("q_loss")) -
+                           bottom_ash.F.Ht - fly_ash.F.Ht);
 
   /* defining and specifying the equipment associated to the solid_fuel_boiler:
       1. biomass_stoker_boiler_power

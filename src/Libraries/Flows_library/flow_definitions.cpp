@@ -409,9 +409,9 @@ void flow::get_flow_properties() {
     if (auto v = props["Tsat"].value<double>()) P.Tsat = *v;
     if (auto v = props["hv"].value<double>()) P.hVap = *v;
 
-    if (P.LHV == 0.0 && P.HHV > 0) {
+    if (P.LHV_dry == 0.0 && P.HHV_dry > 0) {
       size_t H = index_species(i, "H");
-      P.LHV = P.HHV - i[H].Y * (18 / 2) * 2.5;
+      P.LHV_dry = P.HHV_dry - i[H].Y * (18 / 2) * 2.5;
     }
   } catch (const toml::parse_error& err) {
     throw std::runtime_error(std::string("TOML parse error: ") + err.what());
