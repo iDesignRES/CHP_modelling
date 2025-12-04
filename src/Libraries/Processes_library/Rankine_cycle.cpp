@@ -202,7 +202,12 @@ void steam_turbine_model(flow &in, flow &out, object &par) {
       }
       par.fval_p("M_stm", (par.fp("W_el") + sum_Mb_wn) / sum_wn);
       par.fval_p("Q_stm", par.fp("M_stm") * par.fp("q_stm"));
-    } else if (par.bp("Q_stm") or (in.F.M > 0)) {
+    } else if (par.bp("Q_stm")) {
+      double W = 0.0;
+      for (std::size_t n = 0; n < vct_ST.size(); n++) {
+        W = W + vct_ST[n].W;
+      }
+    } else if (in.F.M > 0) {
       double W = 0.0;
       for (std::size_t n = 0; n < vct_ST.size(); n++) {
         W = W + vct_ST[n].W;
