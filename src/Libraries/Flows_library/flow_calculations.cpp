@@ -199,19 +199,21 @@ void flow::calculate_flow_composition() {
   }
 
   if (i.size() > 1) {
-    sum_Y = 0.0;
-    for (std::size_t n = 0; n < i.size(); n++) {
-      sum_Y += i[n].Y;
-    }
-    sum_X = 0.0;
-    for (std::size_t n = 0; n < i.size(); n++) {
-      sum_X += i[n].X;
-    }
-    if (atom_def != "Y" && sum_Y > 0.0) {
-      atom_def = "Y";
-    }
-    if (atom_def != "X" && sum_Y == 0.0 && sum_X > 1e-6) {
-      molec_def = "X";
+    if (atom_def != "Y" && atom_def != "X") {
+      sum_Y = 0.0;
+      for (std::size_t n = 0; n < i.size(); n++) {
+        sum_Y += i[n].Y;
+      }
+      sum_X = 0.0;
+      for (std::size_t n = 0; n < i.size(); n++) {
+        sum_X += i[n].X;
+      }
+      if (atom_def != "Y" && sum_Y > 0.0) {
+        atom_def = "Y";
+      }
+      if (atom_def != "X" && sum_Y == 0.0 && sum_X > 1e-6) {
+        molec_def = "X";
+      }
     }
 
     if (atom_def == "Y") {
