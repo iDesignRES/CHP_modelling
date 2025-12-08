@@ -18,6 +18,18 @@ int bioCHP_plant_c(const char** fuel_def, int fuel_count, const double* Yj,
                    char** err_out) {
   if (err_out) *err_out = nullptr;
   try {
+    if (fuel_count != Yj_len)
+      throw std::invalid_argument(
+          "Length of fuel_def and Yj must be the same.");
+
+    if (fuel_count != YH2Oj_len)
+      throw std::invalid_argument(
+          "Length of fuel_def and YH2Oj must be the same.");
+
+    if (Qk_len != Tk_in_len || Qk_len != Tk_out_len)
+      throw std::invalid_argument(
+          "Length of Qk, Tk_in and Tk_out must be the same.");
+
     std::vector<std::string> fuel_vec;
     for (int i = 0; i < fuel_count; ++i) fuel_vec.emplace_back(fuel_def[i]);
 

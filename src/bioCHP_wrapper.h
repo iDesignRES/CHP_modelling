@@ -44,11 +44,11 @@ extern "C" {
  * this will be set to a dynamically allocated string containing the error
  * message. The caller is responsible for freeing this memory using `free()`.
  * If no error occurs, this will be set to `nullptr`.
- * 
+ *
  * @retval 0 Success.
  * @retval 1 std::exception was thrown.
  * @retval 2 Any other exception.
- * 
+ *
  * @note The caller must free the memory allocated for `err_out` using `free()`
  * when an error occurs (non-zero return value) to prevent memory leaks.
  */

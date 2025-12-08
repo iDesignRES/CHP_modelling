@@ -1,9 +1,9 @@
-# Test if model throws error when sum_Qk < 0.5 * (W_el / 0.2)
+# Test if model throws error when Tk_in[1] > Tk_out[1]
 [inputs]
 fuel_def = ["spruce_stem", "birch_stem", "spruce_TandB", "spruce_bark"]
 Yj = [0.1, 0.3, 0.4, 0.2]
 YH2Oj = [0.4, 0.35, 0.45, 0.5]
 W_el = 100.0
-Qk = [140.0, 120.0]
-Tk_in = [70.0, 50.0]
+Qk = [300.0, 400.0]
+Tk_in = [70.0, 90.0]
 Tk_out = [90.0, 80.0]

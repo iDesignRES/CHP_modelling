@@ -126,21 +126,62 @@ int main(int argc, char *argv[]) {
       break;
   }
 
-  bioCHP_plant_c(fuel_def, fuel_count, Yj, Yj_len, YH2Oj, YH2Oj_len, W_el, Qk,
-                 Qk_len, Tk_in, Tk_in_len, Tk_out, Tk_out_len, Mj, Mj_len,
-                 &Q_prod, &W_el_prod, &C_inv, &C_op, &C_op_var, nullptr);
+  if (test == 4 || test == 5 || test == 6 || test == 7) {
+    char *err = nullptr;
 
-  for (int nj = 0; nj < Mj_len; nj++)
-    assert(approxEqual(Mj[nj], expected_Mj[nj]) ||
-           mismatch("Mj[" + std::to_string(nj) + "]", Mj[nj]));
+    if (test == 4)
+      Yj[0] = 0.2;  // Force sum(Yj) != 1
+    else if (test == 5)
+      Yj_len = 3;  // Force length mismatch
+    else if (test == 6)
+      YH2Oj_len = 3;  // Force length mismatch
+    else if (test == 7)
+      Qk_len = 3;  // Force length mismatch
 
-  assert(approxEqual(Q_prod, expected_Q_prod) || mismatch("Q_prod", Q_prod));
-  assert(approxEqual(W_el_prod, expected_W_el_prod) ||
-         mismatch("W_el_prod", W_el_prod));
-  assert(approxEqual(C_inv, expected_C_inv) || mismatch("C_inv", C_inv));
-  assert(approxEqual(C_op, expected_C_op) || mismatch("C_op", C_op));
-  assert(approxEqual(C_op_var, expected_C_op_var) ||
-         mismatch("C_op_var", C_op_var));
+    int status = bioCHP_plant_c(fuel_def, fuel_count, Yj, Yj_len, YH2Oj,
+                                YH2Oj_len, W_el, Qk, Qk_len, Tk_in, Tk_in_len,
+                                Tk_out, Tk_out_len, Mj, Mj_len, &Q_prod,
+                                &W_el_prod, &C_inv, &C_op, &C_op_var, &err);
 
-  return 0;
+    assert(status == 1);
+    assert(err != nullptr);
+
+    std::string msg(err);
+    std::free(err);
+
+    if (test == 4)
+      assert(msg.find("Yj must sum to 1") != std::string::npos);
+    else if (test == 5)
+      assert(msg.find("Length of fuel_def and Yj must be the same.") !=
+             std::string::npos);
+    else if (test == 6)
+      assert(msg.find("Length of fuel_def and YH2Oj must be the same.") !=
+             std::string::npos);
+    else if (test == 7)
+      assert(msg.find("Length of Qk, Tk_in and Tk_out must be the same.") !=
+             std::string::npos);
+
+    return 0;
+  } else {
+    int status = bioCHP_plant_c(fuel_def, fuel_count, Yj, Yj_len, YH2Oj,
+                                YH2Oj_len, W_el, Qk, Qk_len, Tk_in, Tk_in_len,
+                                Tk_out, Tk_out_len, Mj, Mj_len, &Q_prod,
+                                &W_el_prod, &C_inv, &C_op, &C_op_var, nullptr);
+
+    assert(status == 0);
+
+    for (int nj = 0; nj < Mj_len; nj++)
+      assert(approxEqual(Mj[nj], expected_Mj[nj]) ||
+             mismatch("Mj[" + std::to_string(nj) + "]", Mj[nj]));
+
+    assert(approxEqual(Q_prod, expected_Q_prod) || mismatch("Q_prod", Q_prod));
+    assert(approxEqual(W_el_prod, expected_W_el_prod) ||
+           mismatch("W_el_prod", W_el_prod));
+    assert(approxEqual(C_inv, expected_C_inv) || mismatch("C_inv", C_inv));
+    assert(approxEqual(C_op, expected_C_op) || mismatch("C_op", C_op));
+    assert(approxEqual(C_op_var, expected_C_op_var) ||
+           mismatch("C_op_var", C_op_var));
+
+    return 0;
+  }
 }
