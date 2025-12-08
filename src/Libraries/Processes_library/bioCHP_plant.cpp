@@ -17,15 +17,15 @@ void get_feedstock(std::vector<flow> &f, object &plant) {
     // Assume feedstock at ambient temperature and pressure conditions
     f[nf].F.T = 25.0;
     f[nf].F.P = 1.01325;
-    // Calculate low heating value of the mixture
-    LHV += f[nf].P.LHV * plant.vctp("Yj")[nf];
     if (!find_species(f[nf].k, "H2O")) {
       f[nf].k.push_back(species("H2O"));
     }
     std::size_t H2O = index_species(f[nf].k, "H2O");
     f[nf].k[H2O].Y = plant.vctp("YH2Oj")[nf];
+    f[nf].calculate_flow();
+    // Calculate low heating value of the mixture (dry basis)
+    LHV += f[nf].P.LHV * plant.vctp("Yj")[nf];
   }
-
   plant.fval_p("LHV_f", LHV);
 }
 
@@ -69,6 +69,7 @@ void bioCHP_plant_model(object &bioCHP) {
   /* When W_el is specified, the required feedstock
      is calculated by iteration
   */
+  bool rankine_calculated = false;
   if (bioCHP.bp("W_el")) {
     std::cout << "bioCHP PLANT calculation using W_el = " << bioCHP.fp("W_el")
               << std::endl;
@@ -76,36 +77,29 @@ void bioCHP_plant_model(object &bioCHP) {
     std::cout << "Estimating the required feedstock mass flow rate"
               << std::endl;
 
-    double W_el = bioCHP.fp("W_el");
+    rankine.fval_p("W_el", bioCHP.fp("W_el"));
+    std::cout << "Calculating rankine cycle" << std::endl;
+    rankine_cycle(rankine);
+    rankine_calculated = true;
+    std::cout << "required Q_stm from rankine cycle = " << rankine.fp("Q_stm")
+              << std::endl;
 
-    // initial assumtion of 20% and 90% electric and thermal conversion
-    // efficiency
-    double Hf = W_el / 0.2 + sum_Qk / 0.9;
-
-    double W_el_prod = 0.0;
-
-    // Iteration with the mass flow rate of fuel to match
-    // electric power production
-    for (int n = 0; n < 10; n++) {
-      double Mf = Hf / LHV_f;
-
-      for (std::size_t nf = 0; nf < Yj.size(); nf++) {
-        feed[nf].F.M = Yj[nf] * Mf;
-        feed[nf].F.Hf = feed[nf].F.M * feed[nf].P.LHV;
-      }
-
-      object b = boiler;
-      b.fval_p("M_fuel", Mf);
-      solid_fuel_boiler(feed, comb_air, flue_gas, bottom_ash, fly_ash, b);
-
-      object r = rankine;
-      r.fval_p("Q_stm", b.fp("Q_out"));
-      rankine_cycle(r);
-
-      W_el_prod = r.fp("W_el");
-
-      Hf *= W_el / W_el_prod;
+    std::cout << "Estimating the required feedstock mass flow rate"
+              << std::endl;
+    double Hf = bioCHP.fp("W_el") / 0.2 + sum_Qk / 0.9;
+    double Mf = Hf / LHV_f;
+    for (std::size_t nf = 0; nf < Yj.size(); nf++) {
+      feed[nf].F.M = Yj[nf] * Mf;
+      feed[nf].F.Hf = feed[nf].F.M * feed[nf].P.LHV;
     }
+    object b = boiler;
+    b.fval_p("M_fuel", Mf);
+    solid_fuel_boiler(feed, comb_air, flue_gas, bottom_ash, fly_ash, b);
+    std::cout << "Q_out (boiler) = " << b.fp("Q_out") << std::endl;
+    Mf = Mf * rankine.fp("Q_stm") / b.fp("Q_out");
+    Hf = Mf * LHV_f;
+    std::cout << "Mf = " << Mf << std::endl;
+    std::cout << "Hf = " << Hf << std::endl;
 
     bioCHP.fval_p("Hf", Hf);
   }
@@ -156,8 +150,10 @@ void bioCHP_plant_model(object &bioCHP) {
   std::cout << "H_fa: (MW) " << fly_ash.F.Ht * 1.0e-6 << std::endl;
   print_separation_line();
 
-  rankine.fval_p("Q_stm", boiler.fp("Q_out"));
-  rankine_cycle(rankine);
+  if (!rankine_calculated) {
+    rankine.fval_p("Q_stm", boiler.fp("Q_out"));
+    rankine_cycle(rankine);
+  }
 
   scrubber.fval_p("M_fuel", bioCHP.fp("M_fuel"));
 

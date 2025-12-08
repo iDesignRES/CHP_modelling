@@ -16,8 +16,6 @@
 void steam_turbine_parameters::assign_parameter_values(std::string sys_type,
                                                        std::string sys_def,
                                                        object par) {
-  // Po = get_num_parameter(par.p, sys_type, sys_def, "Po");
-  // mu_isent = get_num_parameter(par.p, sys_type, sys_def, "mu_isent");
   Po = par.fp("Po");
   mu_isent = par.fp("mu_isent");
 }
@@ -32,30 +30,48 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
     - Mechanical to electric conversion effieiency, eff_el = 0.9
   */
 
-  ST.Mi = in.F.M;
   ST.Ti = in.F.T;
   ST.Pi = in.F.P;
   in.calculate_flow_properties();
 
   const double eff_el = 0.9;
 
-  /* Calculation of inlet thermodynamic propoperties */
-  double s_out, s_in = sPTSupSteam(ST.Pi, ST.Ti);
-  double hs_out, h_out, h_calc, h_in = hPTSupSteam(ST.Pi, ST.Ti);
+  /* Calculation of inlet thermodynamic properties */
+  double Tsat_in = TSatWater(ST.Pi);
+  double s_in, h_in;
+  if (ST.Ti > Tsat_in) {
+    s_in = sPTSupSteam(ST.Pi, ST.Ti);
+    h_in = hPTSupSteam(ST.Pi, ST.Ti);
+  } else if (ST.Ti <= Tsat_in) {
+    ST.Ti = Tsat_in;
+    if (ST.qi == 1.0) {
+      s_in = sPSatSteam(ST.Pi);
+      h_in = hPSatSteam(ST.Pi);
+    }
+    if (ST.qi < 1.0) {
+      s_in = ST.qi * sPSatSteam(ST.Pi) + (1.0 - ST.qi) * sPWater(ST.Pi);
+      h_in = ST.qi * hPSatSteam(ST.Pi) + (1.0 - ST.qi) * hPWater(ST.Pi);
+    }
+  }
 
-  /* Initial guess for specific entropy and steam quality at outlet */
-  double T_out, Ts_out = TSatWater(ST.Po);
-  double ys_moisture = 0.0, y_moisture;
-  double s_out_initial = sPTSupSteam(ST.Po, Ts_out);
-
-  /* Iterate with isentropic outlet temperature and steam quality
-  until reaching isentropic outlet conditions  */
-  if (s_out_initial < s_in) {
-    s_out = s_out_initial;
-    int j = 0;
-    while (s_out < s_in) {
+  /* isentropic outlet conditions  */
+  double qs_out, hs_out, Ts_out;
+  double s_out_v = sPSatSteam(ST.Po);
+  double s_out_l = sPWater(ST.Po);
+  double h_out_v = hPSatSteam(ST.Po);
+  double h_out_l = hPWater(ST.Po);
+  if (s_in < s_out_v) {
+    Ts_out = TSatWater(ST.Po);
+    qs_out = (s_in - s_out_l) / (s_out_v - s_out_l);
+    hs_out = qs_out * h_out_v + (1.0 - qs_out) * h_out_l;
+  } else if (s_in > s_out_v) {
+    qs_out = 1.0;
+    Ts_out = TSatWater(ST.Po);
+    double s_out_s = s_out_v;
+    while (s_out_s < s_in) {
       Ts_out += 0.01;
-      s_out = sPTSupSteam(ST.Po, Ts_out);
+      s_out_s = sPTSupSteam(ST.Po, Ts_out);
+      int j = 0;
       if (j++ > 1e6) {
         throw std::runtime_error(
             "In the steam_turbine function within Rankine_cycle.cpp, "
@@ -63,28 +79,20 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
       }
     }
     hs_out = hPTSupSteam(ST.Po, Ts_out);
-    h_out = h_in + ST.mu_isent * (hPTSupSteam(ST.Po, Ts_out) - h_in);
-  } else {
-    s_out = s_out_initial;
-    int j = 0;
-    while (s_out > s_in) {
-      ys_moisture += 0.001;
-      s_out = ys_moisture * sPWater(ST.Po) +
-              (1.0 - ys_moisture) * sPSatSteam(ST.Po);
-      if (j++ > 1e6) {
-        throw std::runtime_error(
-            "In the steam_turbine function within Rankine_cycle.cpp, "
-            "convergence was not reached within 1e6 iterations - aborted");
-      }
-    }
-    hs_out =
-        ys_moisture * hPWater(ST.Po) + (1.0 - ys_moisture) * hPSatSteam(ST.Po);
-    h_out = h_in + ST.mu_isent * (hs_out - h_in);
   }
 
-  if (h_out > hPSatSteam(ST.Po)) {
-    T_out = Ts_out;
-    h_calc = hPSatSteam(ST.Po);
+  /* outlet conditions using isentropic efficiency  */
+  double q_out, T_out, h_out, s_out, h_calc;
+
+  h_out = h_in + ST.mu_isent * (hs_out - h_in);
+  if (h_out < h_out_v) {
+    T_out = TSatWater(ST.Po);
+    q_out = (h_in - h_out) / (h_out_v - h_out_l);
+    s_out = q_out * s_out_v + (1.0 - q_out) * s_out_l;
+  } else if (h_out > h_out_v) {
+    q_out = 1.0;
+    T_out = TSatWater(ST.Po);
+    h_calc = h_out_v;
     int j = 0;
     while (h_calc < h_out) {
       T_out += 0.001;
@@ -95,35 +103,28 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
             "convergence was not reached within 1e6 iterations - aborted");
       }
     }
-  } else {
-    y_moisture = ys_moisture;
-    T_out = Ts_out;
-    h_calc = hs_out;
-    int j = 0;
-    while (h_calc < h_out) {
-      y_moisture = y_moisture - 0.001;
-      h_calc =
-          y_moisture * hPWater(ST.Po) + (1.0 - y_moisture) * hPSatSteam(ST.Po);
-      if (j++ > 1e6) {
-        throw std::runtime_error(
-            "In the steam_turbine function within Rankine_cycle.cpp, "
-            "convergence was not reached within 1e6 iterations - aborted");
-      }
-    }
+    s_out = sPTSupSteam(ST.Po, T_out);
   }
 
-  /* Updating inlet and outlet flow parameters */
-  in.F.Ht = in.F.M * 1.0e3 * h_in;
-
-  out.F.M = in.F.M;
   out.F.T = T_out;
   out.F.P = ST.Po;
-  out.P.h = h_calc;
+  out.P.h = h_out;
+  out.P.s = s_out;
   out.P.ht = out.P.h;
-  out.F.Ht = out.F.M * 1.0e3 * h_calc;
+  ST.To = T_out;
+  ST.qo = q_out;
+  /* Calculation of specific power output in J/kg inlet steam */
+  ST.w = eff_el * 1.0e-3 * (h_in - h_out);
 
-  /* Calculation of power output in Watts */
-  ST.W = eff_el * in.F.M * 1.0e3 * (h_in - h_calc);
+  /* Updating inlet and outlet flow parameters */
+  if (in.F.M > 0) {
+    in.F.Ht = in.F.M * 1.0e3 * h_in;
+    ST.Mi = in.F.M;
+    out.F.M = in.F.M;
+    out.F.Ht = out.F.M * 1.0e3 * h_calc;
+    /* Calculation of power output in Watts */
+    ST.W = eff_el * in.F.M * 1.0e3 * (h_in - h_out);
+  }
 }
 
 void steam_turbine_model(flow &in, flow &out, object &par) {
@@ -136,11 +137,9 @@ void steam_turbine_model(flow &in, flow &out, object &par) {
     */
 
   /* Importing steam_turbine model parameters */
+  std::vector<steam_turbine_parameters> vct_ST;
   steam_turbine_parameters ST;
   ST.assign_parameter_values("process", "Rankine_cycle", par);
-
-  /* Initialize the total power output to zero*/
-  double W = 0;
 
   /* Creating intern flow representing
   the outlet from each steam turbine stage */
@@ -150,7 +149,12 @@ void steam_turbine_model(flow &in, flow &out, object &par) {
   std::size_t N_bleed = par.vctp("P_bleed").size();
   if (N_bleed == 0) {
     steam_turbine(in, out, ST);
-    par.fval_p("W_el", 1e-6 * ST.W);
+    if (par.bp("W_el")) {
+      par.fval_p("M_stm", par.fp("W_el") / ST.w);
+      par.fval_p("Q_stm", par.fp("M_stm") * par.fp("q_stm"));
+    } else if (par.bp("Q_stm")) {
+      par.fval_p("W_el", 1e-6 * ST.W);
+    }
   }
 
   if (N_bleed > 0) {
@@ -181,11 +185,34 @@ void steam_turbine_model(flow &in, flow &out, object &par) {
         ST_n.mu_isent = ST.mu_isent;
         steam_turbine(out_n, out, ST_n);
       }
-      W = W + ST_n.W;  // Add power production from each stage
+      vct_ST.push_back(ST_n);
     }
 
-    /* Exporting total power output in MW*/
-    par.fval_p("W_el", 1e-6 * W);
+    if (par.bp("W_el")) {
+      double sum_wn = vct_ST[0].w, sum_Mb = 0.0, sum_Mb_wn = 0.0;
+      for (std::size_t n = 1; n < vct_ST.size(); n++) {
+        sum_wn += vct_ST[n].w;
+        sum_Mb += par.vctp("M_bleed")[n - 1];
+        sum_Mb_wn += sum_Mb * vct_ST[n].w;
+      }
+      par.fval_p("M_stm", (par.fp("W_el") + sum_Mb_wn) / sum_wn);
+      par.fval_p("Q_stm", par.fp("M_stm") * par.fp("q_stm"));
+    } else if (par.bp("Q_stm")) {
+      double sum_wn = vct_ST[0].w, sum_Mb = 0.0, sum_Mb_wn = 0.0;
+      for (std::size_t n = 1; n < vct_ST.size(); n++) {
+        sum_wn += vct_ST[n].w;
+        sum_Mb += par.vctp("M_bleed")[n - 1];
+        sum_Mb_wn += sum_Mb * vct_ST[n].w;
+      }
+      par.fval_p("M_stm", par.fp("Q_stm") / par.fp("q_stm"));
+      par.fval_p("W_el", par.fp("M_stm") * sum_wn - sum_Mb_wn);
+    } else if (in.F.M > 0) {
+      double W = 0.0;
+      for (std::size_t n = 0; n < vct_ST.size(); n++) {
+        W = W + vct_ST[n].W;
+      }
+      par.fval_p("W_el", 1e-6 * W);
+    }
   }
 }
 
@@ -339,7 +366,11 @@ void rankine_cycle(object &par) {
   steam.F.P = par.fp("P_stm");
   steam.F.T = par.fp("T_stm");
   steam.P.h = hPTSupSteam(steam.F.P, steam.F.T);
-  steam.F.M = 1.0e-3 * par.fp("Q_stm") / (steam.P.h - bfw.P.h);
+  par.fval_p("q_stm", (steam.P.h - bfw.P.h) * 1e3);  // J/kg
+  if (par.bp("Q_stm")) {
+    steam.F.M = 1.0e-3 * par.fp("Q_stm") / (steam.P.h - bfw.P.h);
+  }
+
   steam_out = flow("cond", "water");
 
   /* Defining condensate flow */
@@ -356,6 +387,7 @@ void rankine_cycle(object &par) {
   /* calculating steam condenser */
   steam_condenser(steam_out, cond, par);
 
+  std::cout << "creating rankine cycle equipment " << std::endl;
   /* creating, specifying and calculating cost
   of rankine_cycle equipment */
   object rankine_eq("equipment", "rankine_cycle");

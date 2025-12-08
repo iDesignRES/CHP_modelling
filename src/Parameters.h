@@ -68,6 +68,7 @@ struct object {
   object() {}
   std::size_t ic(std::string type, std::string def);
   bool bp(std::string symb);
+  bool remove(std::string symb);
   double fp(std::string symb);
   std::vector<double> vctp(std::string symb);
   std::string sp(std::string symb);

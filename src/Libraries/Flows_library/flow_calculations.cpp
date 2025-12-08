@@ -110,15 +110,13 @@ void flow::calculate_solid_fuel() {
         "not be larger than 1");
   }
 
-  if (P.LHV == 0) {
+  if (P.LHV_dry == 0) {
     P.LHV_dry = kC * yC + kH * yH + kS * yS + kN * yN + kO * yO + kA * yA;
-    P.LHV = P.LHV_dry * (1.0 - yH2O) + kH2O * yH2O;
     P.HHV_dry = P.LHV_dry - kH2O * yH * (18 / 2);
   }
 
-  P.HHV = P.LHV - kH2O * (1 - yH2O) * yH * (18 / 2);
-  P.LHV_dry = (P.LHV - kH2O * yH2O) / (1.0 - yH2O);
-  P.HHV_dry = P.LHV_dry - kH2O * yH * (18 / 2);
+  P.LHV = P.LHV_dry * (1.0 - yH2O) + kH2O * yH2O;
+  P.HHV = P.HHV_dry * (1.0 - yH2O) + kH2O * yH2O;
 
   if (yH2O > 0) {
     P.cp = 1.2e3 * (1.0 - yH2O) + 4.18e3 * yH2O;
@@ -201,19 +199,21 @@ void flow::calculate_flow_composition() {
   }
 
   if (i.size() > 1) {
-    sum_Y = 0.0;
-    for (std::size_t n = 0; n < i.size(); n++) {
-      sum_Y += i[n].Y;
-    }
-    sum_X = 0.0;
-    for (std::size_t n = 0; n < i.size(); n++) {
-      sum_X += i[n].X;
-    }
-    if (atom_def != "Y" && sum_Y > 0.0) {
-      atom_def = "Y";
-    }
-    if (atom_def != "X" && sum_Y == 0.0 && sum_X > 1e-6) {
-      molec_def = "X";
+    if (atom_def != "Y" && atom_def != "X") {
+      sum_Y = 0.0;
+      for (std::size_t n = 0; n < i.size(); n++) {
+        sum_Y += i[n].Y;
+      }
+      sum_X = 0.0;
+      for (std::size_t n = 0; n < i.size(); n++) {
+        sum_X += i[n].X;
+      }
+      if (atom_def != "Y" && sum_Y > 0.0) {
+        atom_def = "Y";
+      }
+      if (atom_def != "X" && sum_Y == 0.0 && sum_X > 1e-6) {
+        molec_def = "X";
+      }
     }
 
     if (atom_def == "Y") {

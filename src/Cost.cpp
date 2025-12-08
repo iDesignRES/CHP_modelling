@@ -158,6 +158,8 @@ void capex(object &par) {
     C_eq += eq[n].Cpi;
     W_el += eq[n].W_el;
     C_eq_maint += eq[n].C_maint;
+    std::cout << eq[n].def << " Cpi (M$) = " << eq[n].Cpi
+              << " W_el = " << eq[n].W_el << std::endl;
   }
 
   par.fval_p("W_el(kW)", W_el);
