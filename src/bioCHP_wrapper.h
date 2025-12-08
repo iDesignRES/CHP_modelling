@@ -10,7 +10,7 @@
 extern "C" {
 /**
  * @brief wrapper `C` function for the bioCHP model
- * @param[in] fuel_def as biomass composition in the input soild fuel to the
+ * @param[in] fuel_def as biomass composition in the input solid fuel to the
  * CHP plant
  * @param[in] fuel_count denoting the number of biomass feedstock in
  * `fuel_def`
