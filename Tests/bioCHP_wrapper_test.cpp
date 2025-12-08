@@ -128,7 +128,7 @@ int main(int argc, char *argv[]) {
 
   bioCHP_plant_c(fuel_def, fuel_count, Yj, Yj_len, YH2Oj, YH2Oj_len, W_el, Qk,
                  Qk_len, Tk_in, Tk_in_len, Tk_out, Tk_out_len, Mj, Mj_len,
-                 &Q_prod, &W_el_prod, &C_inv, &C_op, &C_op_var);
+                 &Q_prod, &W_el_prod, &C_inv, &C_op, &C_op_var, nullptr);
 
   for (int nj = 0; nj < Mj_len; nj++)
     assert(approxEqual(Mj[nj], expected_Mj[nj]) ||

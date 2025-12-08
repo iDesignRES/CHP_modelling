@@ -1,4 +1,8 @@
 #include "bioCHP_wrapper.h"
+#include <cstring>
+#include <exception>
+#include <iostream>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -39,26 +43,41 @@ extern "C" {
  * M\$.
  * @param C_op_f (output) as the annual fixed operating expenses in M\$.
  */
-void bioCHP_plant_c(const char** fuel_def, int fuel_count, const double* Yj,
-                    int Yj_len, const double* YH2Oj, int YH2Oj_len, double W_el,
-                    const double* Qk, int Qk_len, const double* Tk_in,
-                    int Tk_in_len, const double* Tk_out, int Tk_out_len,
-                    double* Mj, int Mj_len, double* Q_prod, double* W_el_prod,
-                    double* C_inv, double* C_op, double* C_op_var) {
-  std::vector<std::string> fuel_vec;
-  for (int i = 0; i < fuel_count; ++i) fuel_vec.emplace_back(fuel_def[i]);
+int bioCHP_plant_c(const char** fuel_def, int fuel_count, const double* Yj,
+                   int Yj_len, const double* YH2Oj, int YH2Oj_len, double W_el,
+                   const double* Qk, int Qk_len, const double* Tk_in,
+                   int Tk_in_len, const double* Tk_out, int Tk_out_len,
+                   double* Mj, int Mj_len, double* Q_prod, double* W_el_prod,
+                   double* C_inv, double* C_op, double* C_op_var,
+                   char** err_out) {
+  if (err_out) *err_out = nullptr;
+  try {
+    std::vector<std::string> fuel_vec;
+    for (int i = 0; i < fuel_count; ++i) fuel_vec.emplace_back(fuel_def[i]);
 
-  std::vector<double> Yj_vec(Yj, Yj + Yj_len);
-  std::vector<double> YH2Oj_vec(YH2Oj, YH2Oj + YH2Oj_len);
-  std::vector<double> Qk_vec(Qk, Qk + Qk_len);
-  std::vector<double> Tk_in_vec(Tk_in, Tk_in + Tk_in_len);
-  std::vector<double> Tk_out_vec(Tk_out, Tk_out + Tk_out_len);
+    std::vector<double> Yj_vec(Yj, Yj + Yj_len);
+    std::vector<double> YH2Oj_vec(YH2Oj, YH2Oj + YH2Oj_len);
+    std::vector<double> Qk_vec(Qk, Qk + Qk_len);
+    std::vector<double> Tk_in_vec(Tk_in, Tk_in + Tk_in_len);
+    std::vector<double> Tk_out_vec(Tk_out, Tk_out + Tk_out_len);
 
-  object bioCHP = bioCHP_plant(fuel_vec, Yj_vec, YH2Oj_vec, W_el, Qk_vec,
-                               Tk_in_vec, Tk_out_vec);
+    object bioCHP = bioCHP_plant(fuel_vec, Yj_vec, YH2Oj_vec, W_el, Qk_vec,
+                                 Tk_in_vec, Tk_out_vec);
 
-  std::vector<double> Mj_vec(Mj_len);
-  extract_outputs(bioCHP, Q_prod, W_el_prod, C_inv, C_op, C_op_var, Mj_vec);
-  for (int i = 0; i < Mj_len; ++i) Mj[i] = Mj_vec[i];
+    std::vector<double> Mj_vec(Mj_len);
+    extract_outputs(bioCHP, Q_prod, W_el_prod, C_inv, C_op, C_op_var, Mj_vec);
+    for (int i = 0; i < Mj_len; ++i) Mj[i] = Mj_vec[i];
+    return 0;
+  } catch (const std::exception& e) {
+    if (err_out) {
+      const char* msg = e.what();
+      if (!msg) msg = "unknown std::exception";
+      *err_out = strdup(msg);
+    }
+    return 1;  // failure
+  } catch (...) {
+    if (err_out) *err_out = strdup("non-std exception");
+    return 2;  // other failure
+  }
 }
 }
