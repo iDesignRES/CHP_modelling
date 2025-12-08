@@ -300,14 +300,14 @@ with the following input parameters:
 
 The rankine cycle performs the following calculations:
 
-- **Steam flow** produced from the boiler, from:
+1. **Steam flow** produced from the boiler, from:
  \f[
   \begin{aligned}
     \dot{M}_{stm}^{boiler} & = \frac{\dot{Q}_{stm}^{boiler}}{(h_{stm}^{boiler}-h_{bfw}^{boiler})} \\
   \end{aligned}
   \f]
 
-- **District heating model**, implemented in the function `district_heating(object &par)` (located in `src/Libraries/Processes_library/Rankine_cycle.h`)
+2. **District heating model**, implemented in the function `district_heating(object &par)` (located in `src/Libraries/Processes_library/Rankine_cycle.h`)
 It calculates **Steam extractions** (bleeds) required from steam turbine to meet the specified heat demands for distric heating
 Calculated bleeds, exported to the rankine_cycle `par` object, are defined as: 
     - \f$ Pb_{n} \f$ (`par.Pb[nb]` in the model as `vector[double]`): pressure for each steam extraction in descendent order.
@@ -322,7 +322,7 @@ with \f$ h_{vap}^{sat}(Pb_{k}) \f$ and \f$ h_{cond}^{sat}(Pb_{k}) \f$ are the va
 The pair \f$ [Pb_{n}, \dot{M}_{n} ]\f$ is obtained by sorting the pressure in descendent order and merging bleeds with pressure difference lower than 5 bar. 
 When two bleeds merge, the resulting one keeps the higher pressure and the sum the steam flow rates.     
 
-- **steam turbine model**, implemented in the function `steam_turbine_model(object &par)`(located in `src/Libraries/Processes_library/Rankine_cycle.h`)
+3. **steam turbine model**, implemented in the function `steam_turbine_model(object &par)`(located in `src/Libraries/Processes_library/Rankine_cycle.h`)
 It calculates the steam turbine with steam extractions. 
 The overall steam turbine process is divided in stages: inlet to first extraction, between extractions, and last extraction to outlet. 
 Each stage is calculated assuming steady state, adiabatic expansion using a constant isentropic efficiency [13]   
@@ -331,7 +331,7 @@ The output is the calculated total electric power production, denoted by \f$ \do
 \dot{W}_{el} = \sum_{n=0}^{N_q} \left(\dot{H}_F \frac{(q_{stm}^{boiler}/h_{fuel})}{(h_{stm}^{boiler}-h_{bfw}^{boiler})} - \sum_{k=0}^n \frac{\dot{Q}_{k}}{(h_{stm}^{k}-h_{o}^{k})} \right) (h_{in}^{ST_n}-h_{out,s}^{ST_n})\eta_S^{ST_n}
 \f]
 
-- **Steam condenser**, implemented in the function `steam_condenser(flow &steam, flow &cond, object &par)` (located in `src/Libraries/Processes_library/Rankine_cycle.h`)
+4. **Steam condenser**, implemented in the function `steam_condenser(flow &steam, flow &cond, object &par)` (located in `src/Libraries/Processes_library/Rankine_cycle.h`)
 The model assumes steady-state and isobaric process [13].
 Inputs: 
     - `steam`, **flow** denoting the steam outlet from the steam turbine model
