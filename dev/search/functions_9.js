@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['vct_5ffp_0',['vct_fp',['../structobject.html#a185beecfcf1ee6d0a217560d64d0f5fd',1,'object']]],
-  ['vct_5fsp_1',['vct_sp',['../structobject.html#ab7f9e71871c55298f23d510fd9b24367',1,'object']]],
-  ['vctp_2',['vctp',['../structobject.html#a43cc6be247e29bd104ed6c1469da556f',1,'object']]]
+  ['sp_0',['sp',['../structobject.html#a19129b16b121b3b67b88285eae8d6ab6',1,'object']]],
+  ['species_1',['species',['../structspecies.html#a77f4e6f011f2550f8cafb279eb8cf1be',1,'species::species(std::string sid)'],['../structspecies.html#aa05c4a26b287cac6e1ba6b6577661125',1,'species::species(std::string sid, double sY)'],['../structspecies.html#af09e1e6251469d2ae662f88e4cc28349',1,'species::species(std::string sid, double val, std::string def)']]],
+  ['svct_2',['svct',['../structobject.html#a800ed888078dadacfc731545aa85dfb7',1,'object']]]
 ];
