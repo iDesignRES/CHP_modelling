@@ -15,6 +15,7 @@ int main() {
   f5.molec_def = "X";
   flow f6("dry_air");
   flow f7("water");
+  f7.atom_def = "X";
   std::vector<flow> f = {f1, f2, f3, f4, f5, f6, f7};
   for (std::size_t nf = 0; nf < f.size(); nf++) {
     if (nf < 4) {

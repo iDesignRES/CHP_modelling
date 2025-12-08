@@ -158,6 +158,23 @@ bool object::bp(std::string symb) {
 }
 
 /**
+ * @brief object function to remove a parameter within the object if exists
+ *
+ * @param symb name of the parameter to look for
+ *
+ * @return true if it exists, false otherwise
+ */
+bool object::remove(std::string symb) {
+  for (std::size_t n = 0; n < p.size(); n++) {
+    if (p[n].data_id == symb) {
+      p.erase(p.begin() + n);
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
  * @brief object function to get the numerical value of a parameter within the
  * object
  *

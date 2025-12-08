@@ -124,8 +124,6 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
     out.F.Ht = out.F.M * 1.0e3 * h_calc;
     /* Calculation of power output in Watts */
     ST.W = eff_el * in.F.M * 1.0e3 * (h_in - h_out);
-    std::cout << "W_el (MJ/kg): " << eff_el * in.F.M * 1.0e-3 * (h_in - h_out)
-              << std::endl;
   }
 }
 
@@ -142,9 +140,6 @@ void steam_turbine_model(flow &in, flow &out, object &par) {
   std::vector<steam_turbine_parameters> vct_ST;
   steam_turbine_parameters ST;
   ST.assign_parameter_values("process", "Rankine_cycle", par);
-
-  /* Initialize the total power output to zero*/
-  // double W = 0;
 
   /* Creating intern flow representing
   the outlet from each steam turbine stage */
@@ -203,10 +198,14 @@ void steam_turbine_model(flow &in, flow &out, object &par) {
       par.fval_p("M_stm", (par.fp("W_el") + sum_Mb_wn) / sum_wn);
       par.fval_p("Q_stm", par.fp("M_stm") * par.fp("q_stm"));
     } else if (par.bp("Q_stm")) {
-      double W = 0.0;
-      for (std::size_t n = 0; n < vct_ST.size(); n++) {
-        W = W + vct_ST[n].W;
+      double sum_wn = vct_ST[0].w, sum_Mb = 0.0, sum_Mb_wn = 0.0;
+      for (std::size_t n = 1; n < vct_ST.size(); n++) {
+        sum_wn += vct_ST[n].w;
+        sum_Mb += par.vctp("M_bleed")[n - 1];
+        sum_Mb_wn += sum_Mb * vct_ST[n].w;
       }
+      par.fval_p("M_stm", par.fp("Q_stm") / par.fp("q_stm"));
+      par.fval_p("W_el", par.fp("M_stm") * sum_wn - sum_Mb_wn);
     } else if (in.F.M > 0) {
       double W = 0.0;
       for (std::size_t n = 0; n < vct_ST.size(); n++) {

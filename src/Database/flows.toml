@@ -133,7 +133,6 @@ prop_data = "solid_fuel"
     H2O = {Y = 0.5}
 
     [flow.birch_TandB.properties]
-    HHV_dry = 18.42
     rho_m = 400.0
     cp_m = 1200.0
 
