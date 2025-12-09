@@ -159,7 +159,7 @@ Implementation</h2>
 <li>\( C_{op,f} \) (<code>C_op_f</code> in the model) represents the annual fixed operating expenses in M$.</li>
 </ul>
 <dl class="section note"><dt>Note</dt><dd>Format of the outputs: All outputs are required as <code>double</code> types in the model.</dd></dl>
-<p>The integration of the CHP module with EMX is through the wrapper <code>C</code> function, (in <code><a class="el" href="bioCHP__wrapper_8h_source.html">src/bioCHP_wrapper.h</a></code>):</p>
+<p>The integration of the CHP module with EMX is through the wrapper <code>C</code> function, (in <code><a class="el" href="bioCHP__wrapper_8h.html" title="C wrapper API for the bioCHP model.">src/bioCHP_wrapper.h</a></code>):</p>
 <p><code>bioCHP_plant_c(const char** fuel_def, int fuel_count, const double* Yj,
                     int Yj_len, const double* YH2Oj, int YH2Oj_len, double W_el,
                     const double* Qk, int Qk_len, const double* Tk_in,
@@ -324,7 +324,7 @@ Rankine cycle model</h2>
 <li>\( P_{cond} \) (<code>par.P_cond</code> in the model): The <b>Condenser</b> pressure in bar gauge.</li>
 </ul>
 <p>The rankine cycle performs the following calculations:</p>
-<ul>
+<ol type="1">
 <li><b>Steam flow</b> produced from the boiler, from:  <p class="formulaDsp">
 \[
   \begin{aligned}
@@ -357,7 +357,7 @@ Mb_{k} = \frac{\dot{Q}_{k}}{h_{vap}^{sat}(Pb_{k}) - h_{cond}^{sat}(Pb_{k})}
 <li>\( P_{cond} \) (<code>par.P_cond</code> in the model): The condenser pressure in bar gauge.</li>
 </ul>
 </li>
-</ul>
+</ol>
 <p>Outputs:</p><ul>
 <li><code>cond</code>, <b>flow</b> denoting the condenstae outlet</li>
 <li>Thermal power output \( \dot{Q}_{cond} \) (<code>par.Q_cond</code> <b>parameter</b> in the model)  <p class="formulaDsp">
