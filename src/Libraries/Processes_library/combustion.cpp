@@ -161,7 +161,7 @@ void solid_fuel_boiler(std::vector<flow> &fuel, std::vector<flow> &comb_air,
    T_ba = temperature bottom ash at boiler outlet
    T_fa = temperature fly ash at boiler outlet */
 
-  double comb_Hf = 0.0, Mf = 0.0;
+  double comb_Hf = 0.0;
   for (std::size_t n = 0; n < fuel.size(); n++) {
     if (n == 0) {
       if (comb_air.size() == 0) {
@@ -181,7 +181,6 @@ void solid_fuel_boiler(std::vector<flow> &fuel, std::vector<flow> &comb_air,
     }
 
     comb_Hf = comb_Hf + fuel[n].F.Hf;
-    Mf = Mf + fuel[n].F.M;
   }
 
   /* Calculation of heat losses, as proportional to
