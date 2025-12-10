@@ -29,16 +29,16 @@ void calculate_fuel_combustion_properties(flow fuel, object &prop) {
      */
     /* n_H and n_O are the molar ratio of hydrogen and oxygen relative to carbon
      */
-    prop.fval_p("n_H", (fuel.i[H].Y / 1) / (fuel.i[C].Y / 12));
-    prop.fval_p("n_O", (fuel.i[O].Y / 16) / (fuel.i[C].Y / 12));
+    prop.fval_p("n_H", (fuel.i[H].Y / 1.0) / (fuel.i[C].Y / 12.0));
+    prop.fval_p("n_O", (fuel.i[O].Y / 16.0) / (fuel.i[C].Y / 12.0));
     /* W_CHxOy molecular weight of CHxOy */
     prop.fval_p("W_CHxOy",
                 0.012 + prop.fp("n_H") * 0.001 + prop.fp("n_O") * 0.016);
     /* Stoichiometric coefficients, considering a global combustion reaction
        CHxOy + nu_O2 * (O2 + (79/21) N2) -> nu_CO2 * CO2 + nu_H2O * H2O  */
-    prop.fval_p("nu_O2", 1 + prop.fp("n_H") / 4 - prop.fp("n_O") / 2);
+    prop.fval_p("nu_O2", 1.0 + prop.fp("n_H") / 4.0 - prop.fp("n_O") / 2.0);
     prop.fval_p("nu_CO2", 1.0);
-    prop.fval_p("nu_H2O", prop.fp("n_H") / 2);
+    prop.fval_p("nu_H2O", prop.fp("n_H") / 2.0);
 
     /* V_stoich is the stoichiometric combustion air flow rate (Nm3/s) */
     prop.fval_p("V_stoich",
@@ -161,7 +161,7 @@ void solid_fuel_boiler(std::vector<flow> &fuel, std::vector<flow> &comb_air,
    T_ba = temperature bottom ash at boiler outlet
    T_fa = temperature fly ash at boiler outlet */
 
-  double comb_Hf = 0.0;
+  double comb_Hf = 0.0, Mf = 0.0;
   for (std::size_t n = 0; n < fuel.size(); n++) {
     if (n == 0) {
       if (comb_air.size() == 0) {
@@ -181,6 +181,7 @@ void solid_fuel_boiler(std::vector<flow> &fuel, std::vector<flow> &comb_air,
     }
 
     comb_Hf = comb_Hf + fuel[n].F.Hf;
+    Mf = Mf + fuel[n].F.M;
   }
 
   /* Calculation of heat losses, as proportional to

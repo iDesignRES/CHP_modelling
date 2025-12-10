@@ -310,7 +310,7 @@ void flow::calculate_flow_parameters() {
   } else if (F.N == 0 && F.VN == 0 && F.M > 0 && P.MW > 0) {
     F.N = F.M / P.MW;
   } else if (F.VN > 0 && F.M == 0 && F.N == 0 && P.MW > 0) {
-    F.N = F.VN / 0.02214;
+    F.N = F.VN / 0.02241;
     F.M = F.N * P.MW;
   }
 

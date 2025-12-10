@@ -32,7 +32,7 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
 
   ST.Ti = in.F.T;
   ST.Pi = in.F.P;
-  in.calculate_flow_properties();
+  // in.calculate_flow_properties();
 
   const double eff_el = 0.9;
 
@@ -87,7 +87,7 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
   h_out = h_in + ST.mu_isent * (hs_out - h_in);
   if (h_out < h_out_v) {
     T_out = TSatWater(ST.Po);
-    q_out = (h_in - h_out) / (h_out_v - h_out_l);
+    q_out = (h_out - h_out_l) / (h_out_v - h_out_l);
     s_out = q_out * s_out_v + (1.0 - q_out) * s_out_l;
   } else if (h_out > h_out_v) {
     q_out = 1.0;
@@ -106,6 +106,8 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
     s_out = sPTSupSteam(ST.Po, T_out);
   }
 
+  in.P.h = h_in;
+  in.P.s = s_in;
   out.F.T = T_out;
   out.F.P = ST.Po;
   out.P.h = h_out;
@@ -115,6 +117,18 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
   ST.qo = q_out;
   /* Calculation of specific power output in J/kg inlet steam */
   ST.w = eff_el * 1.0e-3 * (h_in - h_out);
+
+  std::cout << "--------------------" << std::endl;
+  std::cout << "steam turbine stage " << std::endl;
+  std::cout << "--------------------" << std::endl;
+  std::cout << "    " << "in" << '\t' << "out" << std::endl;
+  std::cout << "T   " << in.F.T << '\t' << out.F.T << std::endl;
+  std::cout << "P   " << in.F.P << '\t' << out.F.P << std::endl;
+  std::cout << "h   " << in.P.h << '\t' << out.P.h << std::endl;
+  std::cout << "s   " << in.P.s << '\t' << out.P.s << std::endl;
+  std::cout << "q   " << ST.qi << '\t' << ST.qo << std::endl;
+  std::cout << "w   " << ST.w << std::endl;
+  std::cout << "------------------" << std::endl;
 
   /* Updating inlet and outlet flow parameters */
   if (in.F.M > 0) {
@@ -172,6 +186,7 @@ void steam_turbine_model(flow &in, flow &out, object &par) {
       if (N_bleed > 1 && n > 0 && n < N_bleed) {
         ST_n.Ti = out_n.F.T;
         ST_n.Pi = out_n.F.P;
+        ST_n.qi = ST_n.qo;
         ST_n.Po = par.vctp("P_bleed")[n];
         ST_n.mu_isent = ST.mu_isent;
         steam_turbine(out_n, out_n, ST_n);
@@ -181,6 +196,7 @@ void steam_turbine_model(flow &in, flow &out, object &par) {
       if (n == N_bleed) {
         ST_n.Ti = out_n.F.T;
         ST_n.Pi = out_n.F.P;
+        ST_n.qi = ST_n.qo;
         ST_n.Po = ST.Po;
         ST_n.mu_isent = ST.mu_isent;
         steam_turbine(out_n, out, ST_n);

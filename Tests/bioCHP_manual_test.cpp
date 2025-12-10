@@ -19,7 +19,7 @@ int main() {
   std::vector<double> Qk = {30.0, 40.0};
   std::vector<double> Tk_in = {70.0, 50.0};
   std::vector<double> Tk_out = {90.0, 80.0};
-  double Hf = 409.308;
+  double Hf = 408.972996708747;
 
   par.vct_sp("fuel_def", fuel_def);
   par.vct_fp("Yj", Yj);
@@ -38,12 +38,12 @@ int main() {
   double C_op_var = par.fp("C_op_var") * 1e-6;
 
   [[maybe_unused]] std::vector<double> expected_Mj = {
-      4.395472220721, 13.186416662165, 17.581888882886, 8.790944441442};
+      4.391874460436, 13.175623381310, 17.567497841746, 8.783748920872};
   [[maybe_unused]] double expected_Q_prod = 70.0;
   [[maybe_unused]] double expected_W_el_prod = 100.000000004445;
-  [[maybe_unused]] double expected_C_inv = 317.941917708361;
-  [[maybe_unused]] double expected_C_op = 76.500779705097;
-  [[maybe_unused]] double expected_C_op_var = 69.745633830321;
+  [[maybe_unused]] double expected_C_inv = 317.757144938170;
+  [[maybe_unused]] double expected_C_op = 76.439766081682;
+  [[maybe_unused]] double expected_C_op_var = 69.688545977454;
 
   for (std::size_t nj = 0; nj < par.vctp("Mj").size(); nj++)
     assert(approxEqual(par.vctp("Mj")[nj], expected_Mj[nj]) ||
