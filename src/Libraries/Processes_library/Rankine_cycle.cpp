@@ -32,7 +32,7 @@ void steam_turbine(flow &in, flow &out, steam_turbine_parameters &ST) {
 
   ST.Ti = in.F.T;
   ST.Pi = in.F.P;
-  in.calculate_flow_properties();
+  // in.calculate_flow_properties();
 
   const double eff_el = 0.9;
 
